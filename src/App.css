@@ -45,8 +45,27 @@ input {
 	outline: none;
 	border: none;
 }
+/* input::placeholder {
+  color: white;
+} */
 input:focus::placeholder {
   color: transparent;
+}
+input[type=time]::-webkit-datetime-edit-fields-wrapper {
+  display: flex;
+}
+input[type=time]::-webkit-datetime-edit-ampm-field {
+  background-color: white;
+  border-radius: 15%;
+  color: #0F292F;
+  padding: 0px 10px;
+  margin-left: 10px;
+}
+input[type=time]::-webkit-clear-button {
+  display: none;
+}
+input[type=time]::-webkit-inner-spin-button {
+  display: none;
 }
 button {
 	outline: none !important;
@@ -234,6 +253,9 @@ select {
 }
 .signup_form {
   width: 100%;
+  /* background-color: tomato; */
+  justify-content: center;
+  align-items: center;
 }
 .signup_form_title{
   line-height: 0.5;
@@ -359,6 +381,7 @@ p.pattern {
   height: 200px;
   border-radius: 500px;
   margin-bottom: 20px;
+  /* margin-right: 150px; */
 }
 .image_preview {
   width: 100%;
@@ -375,6 +398,7 @@ p.pattern {
 .wrap_profile_signup {
   width: 48%;
   /* background-color: #61dafb; */
+  /* display: block; */
 
 }
 .wrap_password_signup {
@@ -414,4 +438,136 @@ p.pattern {
   background: -o-linear-gradient( #14A098, #0F292F);
   background: -moz-linear-gradient( #14A098, #0F292F);
   background: linear-gradient( #14A098, #0F292F);
+}
+/*----------shop information----------*/
+.bigcontainer_info {
+  /* background-color: aqua; */
+  width: 90%;
+  margin-left: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  width: 100%;
+  /* background-color: violet; */
+  border-style: none none solid;
+  border-color: white;
+  border-width: 2px;
+  margin-bottom: 40px;
+}
+.wrap_info {
+  width: 100%;
+  overflow: hidden;
+  padding: 30px 60px 40px 60px;
+  /* background: white; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: center;
+}
+.wrap_input_info {
+  width: 100%;
+  position: relative;
+  border-radius: 50px;
+  margin-bottom: 40px;
+  /* margin-top: 0px; */
+  background-color: rgba(20, 160, 153, 0.5);
+  display: flex;
+}
+.input_info{
+  /* font-family: Poppins-Regular; */
+  font-size: 16px;
+  color:white;
+  display: flex;
+  /* justify-content: space-around; */
+  align-items: center;
+  width: 100%;
+  background: transparent;
+  padding: 0 5px 0 10px;
+}
+.wrap_input_time {
+  width: 210px;
+  position: relative;
+  border-radius: 50px;
+  margin-bottom: 40px;
+  /* margin-top: 0px; */
+  background-color: rgba(20, 160, 153, 0.5);
+  display: inline-flex;
+}
+.line_info {
+  width: 100%;
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+/*----------multiple image upload----------*/
+.container_mutiplefile {
+  width: 100%;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  /* background-color: #cb2d6f; */
+}
+.multiple_file_input {
+  width: 100%;
+  color: transparent;
+  /* background-color: aqua; */
+}
+.multiple_file_input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.multiple_file_input::before {
+  width: 120px;
+  height: 120px;
+  content: "Add image";
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* min-width: 200px; */
+  background-color: rgba(20, 160, 153, 0.5);
+  position: relative;
+  margin-top: 5px;
+}
+.multiple_file_input:hover::before {
+  filter: brightness(0.8);
+}
+.wrap_multipreview {
+  /* width: 50%; */
+  display: inline-flex;
+  justify-content: flex-start;
+  align-self: flex-start;
+  background-color: rgba(20, 160, 153, 0.5);
+  margin-right: 10px;
+  border-radius: 10px;
+}
+.multiple_image_preview {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  margin: 10px;
+}
+.input_image_box {
+  width: 120px;
+}
+.container_right_bt {
+  width: 100%;
+  display: inline-flex;
+  justify-content: flex-end;
+}
+.box_profile_phone {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+}
+.bigcontainer_info_profile {
+  width: 100%;
+  /* display: flex; */
+  margin-top: 30px;
+  margin-right: 60px;
 }

@@ -10,11 +10,11 @@ class SignUpForShopOne extends React.Component {
     {
         super();
         this.state = { 
-            username: "",
             shopname: "",
+            adminname: "",
             email: "",
             phone : "",
-            usernameError: "",
+            adminnameError: "",
             shopnameError: "",
             emailError: "",
             phoneError: ""
@@ -22,30 +22,30 @@ class SignUpForShopOne extends React.Component {
     }
     
     validate = () => {
-        var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-        let usernameError=""
+        var emailpattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+        let adminnameError=""
         let shopnameError=""
         let emailError=""
         let phoneError=""
         
-        if(!this.state.username){
-            usernameError = "invalid username !"
+        if(!this.state.adminname){
+            adminnameError = "invalid name !"
         }
-        else if(!this.state.username.match(/[0-9]+/g) && !this.state.username.match(/^[A-Za-z]+$/) ){
-            usernameError = "Must be letters or numbers only"
+        else if(this.state.adminname.match(/[0-9]+/)){
+            adminnameError = "Must be letters only"
         }
         // if(ซ้ำกับในระบบ) (/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)
         if(!this.state.shopname){
             shopnameError = "invalid name !"
         }
-        if (!pattern.test(this.state.email)) {
+        if (!emailpattern.test(this.state.email)) {
             emailError = "invalid email !";
         }
         if(!this.state.phone.match(/^[0-9]{10}$/) || !this.state.phone){
             phoneError = "invalid phone number !"
         }
-        if(usernameError || shopnameError || emailError || phoneError){
-            this.setState({ usernameError, shopnameError, emailError, phoneError });
+        if(adminnameError || shopnameError || emailError || phoneError){
+            this.setState({ shopnameError, adminnameError, emailError, phoneError });
             return false;
         }
         return true;
@@ -82,29 +82,8 @@ class SignUpForShopOne extends React.Component {
                                     Page 1 of 2
                                 </h5>
                             </span>
-                            <div className = "bigcontainer_input">
-                                
-                                <div className="wrap_input">
-                                    <img className="input_icon"src={userIcon} alt=""/>
-                                    <input  
-                                        className = "input" 
-                                        type = "text"
-                                        id = "username"
-                                        placeholder = "Username *"
-                                        maxLength = "20"
-                                        value = {this.state.username}                                              
-                                        onChange = {this.handleChange} 
-                                    />
-                                    <div className={this.state.usernameError===""? "validate_wrap" :"invalidate_wrap"}>
-                                        <div className="erroricon">
-                                            <img src={errorIcon} alt= "" width="20px" />
-                                        </div>
-                                        <div className="texterror">
-                                            <span>{this.state.usernameError}</span>
-                                        </div>
-                                    </div>
-                                </div>
 
+                            <div className = "bigcontainer_input">
                                 <div className="wrap_input">
                                     <img className="input_icon"src={userIcon} alt=""/>
                                     <input  
@@ -121,6 +100,26 @@ class SignUpForShopOne extends React.Component {
                                         </div>
                                         <div className="texterror">
                                             <span>{this.state.shopnameError}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div className="wrap_input">
+                                    <img className="input_icon"src={userIcon} alt=""/>
+                                    <input  
+                                        className = "input" 
+                                        type = "text"
+                                        id = "adminname"
+                                        placeholder = "Admin's name *"
+                                        value = {this.state.adminname}                                              
+                                        onChange = {this.handleChange} 
+                                    />
+                                    <div className={this.state.adminnameError===""? "validate_wrap" :"invalidate_wrap"}>
+                                        <div className="erroricon">
+                                            <img src={errorIcon} alt= "" width="20px" />
+                                        </div>
+                                        <div className="texterror">
+                                            <span>{this.state.adminnameError}</span>
                                         </div>
                                     </div>
                                 </div>

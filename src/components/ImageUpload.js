@@ -1,6 +1,4 @@
 import React from 'react'
-import userImage from './pic/user_green_icon.png'
-
 class ImageUpload extends React.Component {
     constructor(){
         super();
@@ -51,7 +49,7 @@ class ImageUpload extends React.Component {
                     <img 
                         className = "image_preview"
                         alt = ""
-                        src = {this.state.imagePreview? this.state.imagePreview : userImage }
+                        src = {this.state.imagePreview? this.state.imagePreview : this.props.imagePreview }
                     />
                 </div>
 
