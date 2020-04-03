@@ -9,8 +9,10 @@ import SignUpForCustomerFinished from './components/SignUpForCustomerFinished'
 import SignUpForShopOne from './components/SignUpForShopOne'
 import SignUpForShopTwo from './components/SignUpForShopTwo'
 import ShopInformation from './components/ShopInformation';
-import MultipleImageUpload from './components/MultipleImageUpload';
 import ProfileCustomer from './components/ProfileCustomer';
+import ProfileShop from './components/ProfileShop';
+import EditProfileCustomer from './components/EditProfileCustomer';
+import EditProfileShop from './components/EditProfileShop';
 
 
 class App extends React.Component {
@@ -30,6 +32,9 @@ class App extends React.Component {
               <Route path='/signup_shop' component={SignUpForCustomerFinished} />
               <Route path='/information' component={ShopInformation} />
               <Route path='/profilecustomer' component={ProfileCustomer} />
+              <Route path='/editprofilecustomer' component={EditProfileCustomer} />
+              <Route path='/profileshop' component={ProfileShop} />
+              <Route path='/editprofileshop' component={EditProfileShop} />
             </Switch>
           </div>
         </Router>

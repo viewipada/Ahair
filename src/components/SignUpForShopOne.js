@@ -4,6 +4,7 @@ import emailIcon from './pic/email_icon.png';
 import userIcon from './pic/user_icon.png';
 import phoneIcon from './pic/phone_icon.png';
 import errorIcon from './pic/error_icon.png';
+import shopIcon from './pic/shop_icon.png';
 
 class SignUpForShopOne extends React.Component {
     constructor()
@@ -85,7 +86,7 @@ class SignUpForShopOne extends React.Component {
 
                             <div className = "bigcontainer_input">
                                 <div className="wrap_input">
-                                    <img className="input_icon"src={userIcon} alt=""/>
+                                    <img className="input_icon"src={shopIcon} alt=""/>
                                     <input  
                                         className = "input" 
                                         type = "text"
