@@ -5,6 +5,7 @@ import passwordIcon from './pic/password_icon.png';
 import errorIcon from './pic/error_icon.png';
 import visibleIcon from './pic/visible_icon.png'
 import invisibleIcon from './pic/invisible_icon.png'
+import userImage from './pic/user_green_icon.png'
 
 class SignUpForShopTwo extends React.Component {
     constructor()
@@ -96,7 +97,7 @@ class SignUpForShopTwo extends React.Component {
                                     
                                     <div className="wrap_profile_signup">
                                         <div className="image_upload">
-                                            <ImageUpload getFile={this.getFile} />
+                                            <ImageUpload getFile={this.getFile} imagePreview={userImage} />
                                         </div>
                                     </div>    
 

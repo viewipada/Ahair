@@ -5,6 +5,7 @@ import userIcon from './pic/user_icon.png';
 import phoneIcon from './pic/phone_icon.png';
 import genderIcon from './pic/gender_icon.png';
 import errorIcon from './pic/error_icon.png';
+// import java.util.regex.*;
 
 class SignUpForCustomerOne extends React.Component {
     constructor()
@@ -13,53 +14,45 @@ class SignUpForCustomerOne extends React.Component {
         this.state = { 
             username: "",
             name: "",
-            surname: "",
             email: "",
             phone : "",
             gender : "agender",
             usernameError: "",
             nameError: "",
-            surnameError: "",
             emailError: "",
             phoneError: ""
         }
     }
     
     validate = () => {
-        var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+        var emailpattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+        var namepattern = new RegExp(/\W/)
         let usernameError=""
         let nameError=""
-        let surnameError=""
         let emailError=""
         let phoneError=""
         
         if(!this.state.username){
             usernameError = "invalid username !"
         }
-        else if(!this.state.username.match(/[0-9]+/g) && !this.state.username.match(/^[A-Za-z]+$/) ){
+        else if(namepattern.test(this.state.username)){
             usernameError = "Must be letters or numbers only"
         }
         // if(ซ้ำกับในระบบ) (/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)
         if(!this.state.name){
             nameError = "invalid name !"
         }
-        else if(!this.state.name.match(/^[A-Za-z]+$/) ){
+        else if(this.state.name.match(/[0-9]+/)){
             nameError = "Must be letters only"
         }
-        if(!this.state.surname){
-            surnameError = "invalid surname !"
-        }
-        else if(!this.state.surname.match(/^[A-Za-z]+$/) ){
-            surnameError = "Must be letters only"
-        }
-        if (!pattern.test(this.state.email)) {
+        if (!emailpattern.test(this.state.email)) {
             emailError = "invalid email !";
         }
         if(!this.state.phone.match(/^[0-9]{10}$/) || !this.state.phone){
             phoneError = "invalid phone number !"
         }
-        if(usernameError || nameError || surnameError || emailError || phoneError){
-            this.setState({ usernameError, nameError, surnameError, emailError, phoneError });
+        if(usernameError || nameError || emailError || phoneError){
+            this.setState({ usernameError, nameError, emailError, phoneError });
             return false;
         }
         return true;
@@ -101,89 +94,70 @@ class SignUpForCustomerOne extends React.Component {
                                 </h5>
                             </span>
                             <div className = "bigcontainer_input">
-                                <div className = "container_iput">
-                                    <div className="wrap_input">
-                                        <img className="input_icon"src={userIcon} alt=""/>
-                                        <input  
-                                            className = "input" 
-                                            type = "text"
-                                            id = "username"
-                                            placeholder = "Username *"
-                                            maxLength = "20"
-                                            value = {this.state.username}  
-                                            onChange = {this.handleChange} 
-                                        />
-                                        <div className={this.state.usernameError===""? "validate_wrap" :"invalidate_wrap"}>
-                                            <div className="erroricon">
-                                                <img src={errorIcon} alt= "" width="20px" />
-                                            </div>
-                                            <div className="texterror">
-                                                <span>{this.state.usernameError}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="wrap_input">
-                                        <img className="input_icon"src={userIcon} alt=""/>
-                                        <input  
-                                            className = "input" 
-                                            type = "text"
-                                            id = "name"
-                                            placeholder = "Name *"
-                                            value = {this.state.name}  
-                                            onChange = {this.handleChange} 
-                                        />
-                                        <div className={this.state.nameError===""? "validate_wrap" :"invalidate_wrap"}>
-                                            <div className="erroricon">
-                                                <img src={errorIcon} alt= "" width="20px" />
-                                            </div>
-                                            <div className="texterror">
-                                                <span>{this.state.nameError}</span>
-                                            </div>
-                                        </div>
-                                    </div>
                                 
-                                    <div className="wrap_input">
-                                        <img className="input_icon"src={userIcon} alt=""/>
-                                        <input  
-                                            className = "input" 
-                                            type = "text"
-                                            id = "surname"
-                                            placeholder = "Surname *"
-                                            value = {this.state.surname}  
-                                            onChange = {this.handleChange} 
-                                        />
-                                        <div className={this.state.surnameError===""? "validate_wrap" :"invalidate_wrap"}>
-                                            <div className="erroricon">
-                                                <img src={errorIcon} alt= "" width="20px" />
-                                            </div>
-                                            <div className="texterror">
-                                                <span>{this.state.surnameError}</span>
-                                            </div>
+                                <div className="wrap_input">
+                                    <img className="input_icon"src={userIcon} alt=""/>
+                                    <input  
+                                        className = "input" 
+                                        type = "text"
+                                        id = "username"
+                                        placeholder = "Username *"
+                                        maxLength = "20"
+                                        value = {this.state.username}  
+                                        onChange = {this.handleChange} 
+                                    />
+                                    <div className={this.state.usernameError===""? "validate_wrap" :"invalidate_wrap"}>
+                                        <div className="erroricon">
+                                            <img src={errorIcon} alt= "" width="20px" />
+                                        </div>
+                                        <div className="texterror">
+                                            <span>{this.state.usernameError}</span>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className = "container_iput">
-                                    <div className="wrap_input">
-                                        <img className="input_icon"src={emailIcon} alt=""/>
-                                        <input  
-                                            className = "input" 
-                                            type = "email"
-                                            id = "email"
-                                            placeholder = "Email *"
-                                            value = {this.state.email}  
-                                            onChange = {this.handleChange} 
-                                        />
-                                        <div className={this.state.emailError===""? "validate_wrap" :"invalidate_wrap"}>
-                                            <div className="erroricon">
-                                                <img src={errorIcon} alt= "" width="20px" />
-                                            </div>
-                                            <div className="texterror">
-                                                <span>{this.state.emailError}</span>
-                                            </div>
+                                <div className="wrap_input">
+                                    <img className="input_icon"src={userIcon} alt=""/>
+                                    <input  
+                                        className = "input" 
+                                        type = "text"
+                                        id = "name"
+                                        placeholder = "Name *"
+                                        value = {this.state.name}  
+                                        onChange = {this.handleChange} 
+                                    />
+                                    <div className={this.state.nameError===""? "validate_wrap" :"invalidate_wrap"}>
+                                        <div className="erroricon">
+                                            <img src={errorIcon} alt= "" width="20px" />
+                                        </div>
+                                        <div className="texterror">
+                                            <span>{this.state.nameError}</span>
                                         </div>
                                     </div>
+                                </div>
+                            
+                                <div className="wrap_input">
+                                    <img className="input_icon"src={emailIcon} alt=""/>
+                                    <input  
+                                        className = "input" 
+                                        type = "email"
+                                        id = "email"
+                                        placeholder = "Email *"
+                                        value = {this.state.email}  
+                                        onChange = {this.handleChange} 
+                                    />
+                                    <div className={this.state.emailError===""? "validate_wrap" :"invalidate_wrap"}>
+                                        <div className="erroricon">
+                                            <img src={errorIcon} alt= "" width="20px" />
+                                        </div>
+                                        <div className="texterror">
+                                            <span>{this.state.emailError}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                                <div className = "container_iput" >
 
                                     <div className="wrap_input">
                                         <img className="input_icon"src={phoneIcon} alt=""/>
@@ -206,7 +180,9 @@ class SignUpForCustomerOne extends React.Component {
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
+                                <div className = "container_iput">
                                     <div className="wrap_input">
                                         <img className="input_icon" src={genderIcon} alt=""/>
                                         <select className="select_input" id="gender" onChange={this.selectGender}>
