@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import shopIcon from './pic/shop_icon.png';
-import timeIcon from './pic/clock_icon.png'
+import timeIcon from './pic/clock_icon.png';
+import errorIcon from './pic/error_icon.png'
 import MultipleImageUpload from './MultipleImageUpload';
 
 //ที่อยู่ เวลา รูปบรรยากาศ
@@ -11,6 +12,7 @@ class ShopInformation extends React.Component {
         super();
         this.state = { 
             address: "",
+            addressError: "",
             openhours: "09:00",
             closehours: "18:00",
             imageFile: [],
@@ -26,6 +28,14 @@ class ShopInformation extends React.Component {
         });
     }
 
+    validate = () => {
+        if(!this.state.address){
+            this.setState({ addressError :"invalid address !"});
+            return false;
+        }
+        return true;
+    }
+
     handleChange = event => {
         // event.preventDefault();
         this.setState({[event.target.id]: event.target.value});
@@ -34,11 +44,12 @@ class ShopInformation extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         // console.log(this.state);
-        // if (isValid) {
+        let isValid = this.validate();
+        if (isValid) {
           console.log(this.state);
           this.setState(this.state);
         //   this.props.history.push('/signup_shop_2')
-        // }
+        }
     };
 
     render(){
@@ -70,6 +81,14 @@ class ShopInformation extends React.Component {
                                             value = {this.state.address}                                              
                                             onChange = {this.handleChange} 
                                         />
+                                        <div className={this.state.addressError===""? "validate_wrap" :"invalidate_wrap"}>
+                                            <div className="erroricon">
+                                                <img src={errorIcon} alt= "" width="20px" />
+                                            </div>
+                                            <div className="texterror">
+                                                <span>{this.state.addressError}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 
