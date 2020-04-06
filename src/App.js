@@ -13,6 +13,7 @@ import ProfileCustomer from './components/ProfileCustomer';
 import ProfileShop from './components/ProfileShop';
 import EditProfileCustomer from './components/EditProfileCustomer';
 import EditProfileShop from './components/EditProfileShop';
+import HairStyles from './components/Hairstyles';
 
 
 class App extends React.Component {
@@ -35,6 +36,7 @@ class App extends React.Component {
               <Route path='/editprofilecustomer' component={EditProfileCustomer} />
               <Route path='/profileshop' component={ProfileShop} />
               <Route path='/editprofileshop' component={EditProfileShop} />
+              <Route path='/hairstyles' component={HairStyles} />
             </Switch>
           </div>
         </Router>
