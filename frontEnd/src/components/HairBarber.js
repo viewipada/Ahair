@@ -3,25 +3,30 @@ import { Link } from 'react-router-dom';
 import ImageUpload from './ImageUpload';
 import timeIcon from './pic/clock_icon.png';
 import userImage from './pic/user_green_icon.png'
-import { getElementError } from '@testing-library/react';
 
 export const HairCheckbox = props => {
     return (
-        <div className = "checkbox_info">
-            <input 
-                key = {props.hair}  
-                onClick = {props.womenShortChecked} 
-                type = "checkbox" 
-                checked = {props.isChecked} 
-                value = {props.hair} 
-                onChange={()=>{}}
-            /> {props.hair}
-            <input 
-                type="text" 
-                id= {props.hair}
-                style={{display: props.isChecked? "flex": "none" }} 
-                onChange={()=>{}}
-            />
+        <div className = "checkbox_line" >
+            <div style={{margin:"5px"}}>
+                <input 
+                    // className = "name_barber"
+                    key = {props.hair}  
+                    onClick = {props.womenShortChecked} 
+                    type = "checkbox" 
+                    checked = {props.isChecked} 
+                    value = {props.hair} 
+                    onChange={()=>{}}
+                    // style = {{display:"inline-flex"}}
+                /> {props.hair}
+            </div>
+                <input 
+                    className = "time_barber"
+                    type="text" 
+                    id= {props.hair}
+                    placeholder="Minutes"
+                    style={{display: props.isChecked? "flex": "none" }} 
+                    onChange={()=>{}}
+                />
         </div>
     )
 }
@@ -80,13 +85,14 @@ class InputBarber extends React.Component {
     render() { 
       return (
         <div className = "line_price">
-                <div className = "wrap_checkbox" >
-                    <div style={{width:"30%"}}>
+                <div className = "wrap_checkbox" style={{justifyContent:"center"}}>
+                    <div style={{width:"40%", marginRight:"40px"}}>
                         <ImageUpload getFile={this.getFile} imagePreview={userImage}/>
                     </div>
-                    <div>
-                        <div>
+                    <div style={{width:"55%", display:"block", flexWrap:"wrap"}}>
+                        <div style={{width:"75%", marginBottom:"20px"}}>
                             <input 
+                                className = "name_barber"
                                 type="text"
                                 id="barber_name"
                                 value={this.props.name}
@@ -94,7 +100,7 @@ class InputBarber extends React.Component {
                                 onChange={this.handleChange}
                             />
                         </div>
-                        <div>
+                        <div >
                         { 
                             this.state.list_womenShort.map((list_womenShort) => {
                                 return (<HairCheckbox 
@@ -152,21 +158,7 @@ class HairBarBer extends React.Component {
     }
 
     setHairAndTime(hair, time) {
-        let img_barber
         this.setState({hair: hair, time: time});
-        if(this.state.name) {
-            if(this.state.imageUrl) {
-                img_barber = this.state.imageUrl.pop()
-            }
-            else {
-                img_barber = {userImage}
-            }
-            while(this.state.hair){
-                this.state.barber.push(
-                    {name:this.state.name, img_barber:img_barber, hair:this.state.hair.pop(), time:this.state.time.pop()}
-                )
-            }
-        }
     }
 
     handleSubmit = event => {
