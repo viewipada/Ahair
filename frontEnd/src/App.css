@@ -45,9 +45,10 @@ input {
 	outline: none;
 	border: none;
 }
-/* input::placeholder {
-  color: white;
-} */
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 input:focus::placeholder {
   color: transparent;
 }
@@ -558,6 +559,7 @@ p.pattern {
   width: 100%;
   display: inline-flex;
   flex-wrap: wrap;
+  /* justify-content: center; */
 }
 /*----------multiple image upload----------*/
 .container_mutiplefile {
@@ -689,4 +691,79 @@ p.pattern {
   margin-right: 20px;
   padding-left: 30px;
   font-size: 16px;
+}
+/*----------price list----------*/
+.line_price {
+  width: 90%;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-bottom: 20px; */
+  /* background-color: yellow; */
+}
+.name_hair {
+  width: 40%;
+  color: white;
+  font-size: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  /* background-color: yellow; */
+}
+.price {
+  color: white;
+  width: 15%;
+  border-radius: 50px;
+  background-color: rgba(20, 160, 153, 0.3);
+  display: flex;
+}
+.input_price{
+  /* font-family: Poppins-Regular; */
+  font-size: 16px;
+  color:white;
+  display: flex;
+  /* justify-content: space-around; */
+  align-items: center;
+  width: 100%;
+  background: transparent;
+  padding: 15px;
+  text-align: center;
+}
+.baht {
+  color: white;
+  font-size: 16px;
+  margin-right: 50px;
+}
+.hairstype_img {
+  width:20%;
+  display: flex;
+  flex-wrap: wrap;
+  color: rgba(255, 255, 255, 0.562);
+}
+.hairstype_img_input::-webkit-file-upload-button {
+  /* content: "S"; */
+  color: white;
+  border-radius: 25px;
+  padding: 5px 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  min-width: 120px;
+  height: 40px;
+  border-radius: 100px;
+  border-color: #14A098;
+  background: #14A098;
+  position: relative;
+  border: none;
+}
+.hairstype_img_input:hover::-webkit-file-upload-button {
+  background: -webkit-linear-gradient( #0F292F, #14A098);
+  background: -o-linear-gradient( #0F292F, #14A098);
+  background: -moz-linear-gradient( #0F292F, #14A098);
+  background: linear-gradient( #0F292F, #14A098);
 }

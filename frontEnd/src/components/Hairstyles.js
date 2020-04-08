@@ -5,7 +5,7 @@ export const AddWomenShortCheckBox = props => {
     return (
         <div className = "checkbox_info">
             <input 
-                key = {props.id} 
+                key = {props.id}  
                 onClick = {props.addwomenShortChecked} 
                 type = "checkbox" 
                 checked = {props.isChecked} 
@@ -156,7 +156,8 @@ class Hairstyles extends React.Component {
     constructor() {
         super()
         this.state = {
-            womenShort: [],
+            //เก็บ data 5 ตัวแปรแรกได้เลยจ้า รวมไว้หมดแล้ว
+            womenShort: [], 
             womenMedium: [],
             womenLong: [],
             menShort: [],
@@ -274,52 +275,52 @@ class Hairstyles extends React.Component {
         event.preventDefault();
         this.state.list_womenShort.forEach(list_womenShort => {
             if(list_womenShort.isChecked){
-                this.state.womenShort.push(list_womenShort.value)
+                this.state.womenShort.push({hair: list_womenShort.value, price:0, img:""})
             }
         })
         this.state.addwomenShort.forEach(addwomenShort => {
             if(addwomenShort.isChecked){
-                this.state.womenShort.push(addwomenShort.value)
+                this.state.womenShort.push({hair: addwomenShort.value, price:0, img:""})
             }
         })
         this.state.list_womenMedium.forEach(list_womenMedium => {
             if(list_womenMedium.isChecked){
-                this.state.womenMedium.push(list_womenMedium.value)
+                this.state.womenMedium.push({hair: list_womenMedium.value, price:0, img:""})
             }
         })
         this.state.addwomenMedium.forEach(addwomenMedium => {
             if(addwomenMedium.isChecked){
-                this.state.womenMedium.push(addwomenMedium.value)
+                this.state.womenMedium.push({hair: addwomenMedium.value, price:0, img:""})
             }
         })
         this.state.list_womenLong.forEach(list_womenLong => {
             if(list_womenLong.isChecked){
-                this.state.womenLong.push(list_womenLong.value)
+                this.state.womenLong.push({hair: list_womenLong.value, price:0, img:""})
             }
         })
         this.state.addwomenLong.forEach(addwomenLong => {
             if(addwomenLong.isChecked){
-                this.state.womenLong.push(addwomenLong.value)
+                this.state.womenLong.push({hair: addwomenLong.value, price:0, img:""})
             }
         })
         this.state.list_menShort.forEach(list_menShort => {
             if(list_menShort.isChecked){
-                this.state.menShort.push(list_menShort.value)
+                this.state.menShort.push({hair: list_menShort.value, price:0, img:""})
             }
         })
         this.state.addmenShort.forEach(addmenShort => {
             if(addmenShort.isChecked){
-                this.state.menShort.push(addmenShort.value)
+                this.state.menShort.push({hair: addmenShort.value, price:0, img:""})
             }
         })
         this.state.list_menLong.forEach(list_menLong => {
             if(list_menLong.isChecked){
-                this.state.menLong.push(list_menLong.value)
+                this.state.menLong.push({hair: list_menLong.value, price:0, img:""})
             }
         })
         this.state.addmenLong.forEach(addmenLong => {
             if(addmenLong.isChecked){
-                this.state.menLong.push(addmenLong.value)
+                this.state.menLong.push({hair: addmenLong.value, price:0, img:""})
             }
         })
         
