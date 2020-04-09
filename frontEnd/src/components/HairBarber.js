@@ -1,8 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ImageUpload from './ImageUpload';
-import timeIcon from './pic/clock_icon.png';
+import addIcon from './pic/add_icon.png';
 import userImage from './pic/user_green_icon.png'
+import ProfileShop from './ProfileShop';
+
+export const AddBarber = props => {
+    return(
+        // <div style={{marginBottom:"30px"}} >
+            <InputBarber 
+                getBarber={props.getBarber} 
+            /> 
+        // </div>
+    )
+}
 
 export const HairCheckbox = props => {
     return (
@@ -15,7 +26,7 @@ export const HairCheckbox = props => {
                     type = "checkbox" 
                     checked = {props.isChecked} 
                     value = {props.hair} 
-                    onChange={()=>{}}
+                    onChange={props.checkboxChange}
                     // style = {{display:"inline-flex"}}
                 /> {props.hair}
             </div>
@@ -23,9 +34,9 @@ export const HairCheckbox = props => {
                     className = "time_barber"
                     type="text" 
                     id= {props.hair}
-                    placeholder="Minutes"
+                    placeholder="60"
                     style={{display: props.isChecked? "flex": "none" }} 
-                    onChange={()=>{}}
+                    onChange={props.checkboxChange}
                 />
         </div>
     )
@@ -36,40 +47,74 @@ class InputBarber extends React.Component {
     {
         super();
         this.state = { 
+            barber:"",
             list_womenShort:[
                 {hair:"hair1",price:0,img:"",isChecked:false,key:1},
                 {hair:"hair2",price:0,img:"",isChecked:false,key:2},
                 {hair:"hair3",price:0,img:"",isChecked:false,key:3},
                 {hair:"hair4",price:0,img:"",isChecked:false,key:4}
             ],
-            imageFile: [],
-            imagePreview: [],
-            imageUrl: [],
+            imageUrl: "",
+            imageFile:"",
+            imagePreview:"",
+            name:"",
             hair:[],
-            time:[]
+            time: [],
+            isSaved:false
         }
         this.getFile = this.getFile.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
     getFile(img_file, img_preview, img_url) {
-        this.props.getFile(img_file, img_preview, img_url)
+        this.setState({isSaved:true})
+        this.setState({imageFile:img_file, imagePreview:img_preview, imageUrl:img_url})
     }
 
-    handleChange = event => {
-        this.props.changeName(event.target.value)
+    checkboxChange = () => {
+        this.setState({isSaved:true})
+    }
+    handleChange = event => { //name
+        this.setState({isSaved:true})
+        this.setState({name:event.target.value})
     }
    
     handleSubmit = event => {
         event.preventDefault();
+        let check = true;
+        this.setState({hair:[], time:[]})
         this.state.list_womenShort.forEach(list_womenShort => {
-            if(list_womenShort.isChecked){
-                this.state.hair.push(list_womenShort.hair)  
-                let timeForEach = document.getElementById(list_womenShort.hair)
-                this.state.time.push(timeForEach.value)
+            let timeForEach = document.getElementById(list_womenShort.hair)
+            if(list_womenShort.isChecked && !timeForEach.value){
+                check = false;
             }
         })
-        this.props.setHairAndTime(this.state.hair,this.state.time);
+        // console.log(check)
+        if(check && this.state.name && this.state.imageUrl){
+            this.state.list_womenShort.forEach(list_womenShort => {
+                let timeForEach = document.getElementById(list_womenShort.hair)
+                if(list_womenShort.isChecked) {
+                    this.state.hair.push(list_womenShort.hair)  
+                    this.state.time.push(timeForEach.value)
+                }
+            });
+            console.log("saved")
+            this.setState({isSaved:false})
+            // this.props.setHairAndTime(this.state.hair,this.state.time);    
+            // this.props.changeName(this.state.name);
+            // this.props.getFile(this.state.imageFile, this.state.imagePreview, this.state.imageUrl);
+            this.props.getBarber(this.state.name, this.state.imageUrl, this.state.hair, this.state.time)
+        }
+        else if(!this.state.name){
+            alert("Please enter a valid barber's name")
+        }
+        else if (!check){
+            alert("invalid time")
+        }
+        else if (!this.state.imageUrl){
+            alert("Please select barber's profile")
+        }
+        
     }
 
     womenShortChecked = event => {
@@ -85,12 +130,12 @@ class InputBarber extends React.Component {
     render() { 
       return (
         <div className = "line_price">
-                <div className = "wrap_checkbox" style={{justifyContent:"center"}}>
-                    <div style={{width:"40%", marginRight:"40px"}}>
+                <div className = "wrap_barber" style={{alignItems:"center"}}>
+                    <div style={{width:"35%", marginRight:"40px"}}>
                         <ImageUpload getFile={this.getFile} imagePreview={userImage}/>
                     </div>
-                    <div style={{width:"55%", display:"block", flexWrap:"wrap"}}>
-                        <div style={{width:"75%", marginBottom:"20px"}}>
+                    <div style={{width:"60%", display:"block", flexWrap:"wrap"}}>
+                        <div style={{width:"75%", marginBottom:"20px", marginTop:"20px"}}>
                             <input 
                                 className = "name_barber"
                                 type="text"
@@ -100,18 +145,25 @@ class InputBarber extends React.Component {
                                 onChange={this.handleChange}
                             />
                         </div>
-                        <div >
+                        <div style={{color:"#14A098", padding:"10px",width:"fit-content", fontSize:"16px"}}>
+                            Select hairstyles that barber can do and enter the time spent in minutes.
+                        </div>
+                        
                         { 
                             this.state.list_womenShort.map((list_womenShort) => {
                                 return (<HairCheckbox 
                                             womenShortChecked={this.womenShortChecked}
                                             handleChange={this.handleChange} 
+                                            checkboxChange={this.checkboxChange}
                                             {...list_womenShort} 
                                         />)
                             })
                         }
+                        <div className="container_right_bt">
+                            <button className={this.state.isSaved ? "login_button" : "saved_bt"} type="submit" onClick={this.state.isSaved ? this.handleSubmit : ()=>{}}>
+                                Save
+                            </button>
                         </div>
-                        <button type="submit" onClick={this.handleSubmit}>save</button>
                     </div>
                 </div>
         </div>
@@ -123,52 +175,49 @@ class HairBarBer extends React.Component {
     constructor()
     {
         super();
-        this.state = { 
-            barber: [
-                // {id:0, name:"", img_barber:"", hair:"", time:0, isChecked:false}
-            ],
+        this.state = {    
             name:"",
+            imageUrl: "",
             hair:[],
             time:[],
-            imageFile: [],
-            imagePreview: [],
-            imageUrl: []
+            numOfbarber:[{id:0}],
+            barber: []
         }
-        this.getFile = this.getFile.bind(this);
-        this.changeName = this.changeName.bind(this);
-        this.setHairAndTime = this.setHairAndTime.bind(this);
+        this.getBarber = this.getBarber.bind(this);
     }
 
-    getFile(img_file, img_preview, img_url) {
+    getBarber(name, img, hair, time) {
         this.setState({
-            imageFile: img_file, imagePreview: img_preview, imageUrl: img_url
-        });
+            name:name, imageUrl:img, hair:hair, time:time
+        })
     }
 
-    validate = () => {
-        if(!this.state.address){
-            this.setState({ addressError :"invalid address !"});
-            return false;
+    newBarber = event => {
+        event.preventDefault()
+        if(this.state.name) {
+            this.state.numOfbarber.push({id: this.state.numOfbarber.length})
+            this.setState({numOfbarber: this.state.numOfbarber})
+            this.state.barber.push({name: this.state.name, img_barber: this.state.imageUrl, hair: this.state.hair, time: this.state.time})    
         }
-        return true;
-    }
-
-    changeName(value) {
-        this.setState({name: value});
-    }
-
-    setHairAndTime(hair, time) {
-        this.setState({hair: hair, time: time});
+        this.setState({
+            name:"", imageUrl:"", hair:[], time:[]
+        })
+        console.log(this.state)
     }
 
     handleSubmit = event => {
         event.preventDefault();
-        // console.log(this.state);
+        if(this.state.name) {
+            this.state.barber.push({name: this.state.name, img_barber: this.state.imageUrl, hair: this.state.hair, time: this.state.time})
+        }// console.log(this.state);
         // let isValid = this.validate();
-        // if (isValid) {
+        // if (this.state.name && this.state.imageUrl) {
           console.log(this.state);
           this.setState(this.state);
         //   this.props.history.push('/signup_shop_2')
+        // }
+        // if(!this.state.name || !this.state.imageUrl){
+        //     alert("please save")
         // }
     };
 
@@ -180,7 +229,7 @@ class HairBarBer extends React.Component {
 
                         <div className = "title">
                             <h1 style={{color:"#CB2D6F",fontSize:"30px"}}>
-                                BarBer
+                                Barber
                             </h1>
                         </div>
                         
@@ -188,12 +237,19 @@ class HairBarBer extends React.Component {
 
                             <div className = "bigcontainer_info">
                                 <div className = "line_info">
-                                    <InputBarber 
-                                        // barber={this.state.barber} 
-                                        changeName={this.changeName} 
-                                        getFile={this.getFile}
-                                        setHairAndTime={this.setHairAndTime}
-                                    /> 
+                                    <div  >
+                                    { 
+                                        this.state.numOfbarber.map((numOfbarber) => {
+                                            return (<AddBarber getBarber={this.getBarber} {...numOfbarber} key={numOfbarber.id}/>)
+                                        })
+                                    }
+                                    </div>
+                                    <div className="container_right_bt"  style={{marginBottom:"40px"}}>
+                                        <button className="login_button" type="submit" onClick={this.newBarber}>
+                                            <img src={addIcon} width="30px" style={{marginRight:"10px"}} />
+                                            New barber
+                                        </button>
+                                    </div>
                                 </div>
                                 
                             </div>
@@ -207,7 +263,7 @@ class HairBarBer extends React.Component {
                                     </div>
                                 </Link>
                                 <form onSubmit={this.handleSubmit} >
-                                    <button className="login_button" type="submit" onSubmit={this.timeForEach} onClick={this.handleSubmit}>
+                                    <button className="login_button" type="submit" onClick={this.handleSubmit}>
                                         Next
                                     </button>
                                 </form>
