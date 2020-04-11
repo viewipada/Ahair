@@ -522,7 +522,7 @@ class PriceList extends React.Component {
                     </div>
 
                     <div className="container_next_bt" style={{marginTop:"40px"}}>
-                        <Link className="link" to="/hairstyles">
+                        <Link className="link" to="/colors">
                             <div>
                                 <button className="login_button" type="reset">
                                     Back

@@ -544,6 +544,7 @@ p.pattern {
 }
 .input_info::placeholder {
   color: rgb(145, 145, 145);
+  color: 
   /* color:white; */
 }
 .wrap_input_time {

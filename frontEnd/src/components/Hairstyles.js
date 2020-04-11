@@ -379,9 +379,9 @@ class Hairstyles extends React.Component {
         })
         
         console.log(this.state)
-        if(!this.state.womenShort || !this.state.womenMedium || !this.state.womenLong || !this.state.menShort || !this.state.menLong) { 
-            this.props.history.push('/pricelist')
-        }
+        // if(this.state.womenShort || this.state.womenMedium || this.state.womenLong || this.state.menShort || this.state.menLong) { 
+            this.props.history.push('/colors')
+        // }
     }
 
     typeAddwomenShort = event => {
