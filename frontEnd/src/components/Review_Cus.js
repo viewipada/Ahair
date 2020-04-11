@@ -15,16 +15,15 @@ class review_Cus extends React.Component {
             ratingValue:''
         }
         this.getFile = this.getFile.bind(this);
+        this.getStar = this.getStar.bind(this);
     }
     getFile(img_file, img_preview, img_url) {
         this.setState({
             imageFile: img_file, imagePreview: img_preview, imageUrl: img_url
         });
     }
-    getStar(rating_Value){
-        this.setState({
-            ratingValue: rating_Value
-        });
+    async getStar(rating){
+        await this.setState({ratingValue: rating});
     }
     handleSubmit=(event)=>{
         event.preventDefault();
@@ -46,7 +45,7 @@ class review_Cus extends React.Component {
                     </h1>
                 </div>
                 <div className="starRate">
-                    <StarRate ratingValue={this.getStar}/>
+                    <StarRate getStar={this.getStar}/>
                 </div>
                 <div className="wrapAddimg">
                     <p style={{color:"white",margin:"0px"}}>Add Image (Maximum 5 Image)</p>

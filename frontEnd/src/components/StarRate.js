@@ -1,26 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { FaStar } from 'react-icons/fa'
 
 
-const Home = () => {
+const Home = (props) => {
 
     const [rating, setRating] = useState(null);
     const [hover, setHover] = useState(null);
 
-    const handleChange=(props)=>{
+    useEffect(() => {
         props.getStar(rating);
-    }
+     }, [rating]);
+    
     return (
         <div className="starRate">
             {[...Array(5)].map((star, i) => {
                 const ratingValue = i + 1;
                 return (
-                    <label>
+                    <label >
                         <input
                             type="radio"
                             name="rating"
                             value={ratingValue}
-                            onClick={() => {setRating(ratingValue); handleChange(props);}}
+                            onClick={() => {setRating(ratingValue);}}
                         />
                         <FaStar
                             className="star"
