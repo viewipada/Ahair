@@ -667,11 +667,13 @@ p.pattern {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  margin-left: 50px;
 }
 .checkbox_info {
   width: 170px;
   font-size: 16px;
   margin: 10px;
+  margin-left: 50px;
   /* background-color: yellow; */
 }
 .title_hairstyles{
@@ -700,6 +702,10 @@ p.pattern {
   margin-right: 20px;
   padding-left: 30px;
   font-size: 16px;
+  color: black;
+}
+.input_add::placeholder {
+  color: gray;
 }
 
 /*Review Customer Part*/
@@ -1021,7 +1027,7 @@ li:hover {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  /* margin-bottom: 20px; */
+  margin-bottom: 20px;
   /* background-color: yellow; */
 }
 .name_hair {
@@ -1106,6 +1112,9 @@ li:hover {
   margin: 10px;
   display: flex;
 }
+.name_barber::placeholder {
+  color: grey;
+}
 .time_barber {
   color: black;
   width: 20%;
@@ -1117,6 +1126,9 @@ li:hover {
   /* margin: 10px; */
   /* display: flex; */
 }
+.time_barber::placeholder {
+  color: grey;
+}
 .checkbox_line {
   width: 80%;
   font-size: 16px;
@@ -1125,7 +1137,7 @@ li:hover {
   justify-content: space-between;
   /* background-color: chartreuse; */
   padding: 10px;
-  /* margin: 10px; */
+  /* margin-left: 10px; */
 }
 .wrap_barber {
   width: 100%;
@@ -1175,3 +1187,4 @@ li:hover {
   border-color: #14A098;
   margin-bottom: 10px;
 }
+

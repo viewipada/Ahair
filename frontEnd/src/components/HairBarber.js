@@ -74,13 +74,13 @@ class HairBarBer extends React.Component {
 
                             <div className = "bigcontainer_info">
                                 <div className = "line_info">
-                                    <div  >
+                                    {/* <div  > */}
                                     { 
                                         this.state.numOfbarber.map((numOfbarber) => {
                                             return (<AddBarber getBarber={this.getBarber} {...numOfbarber} key={numOfbarber.id}/>)
                                         })
                                     }
-                                    </div>
+                                    {/* </div> */}
                                     <div className="container_right_bt"  style={{marginBottom:"40px"}}>
                                         <button className="login_button" type="submit" onClick={this.newBarber}>
                                             <img src={addIcon} width="30px" style={{marginRight:"10px"}} />

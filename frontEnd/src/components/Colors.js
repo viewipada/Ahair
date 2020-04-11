@@ -166,7 +166,7 @@ class Colors extends React.Component {
                     <div className="signup_form">
 
                         <div className = "bigcontainer_info">
-                            <ul className="line_info">
+                            <div className="line_info">
                                 <div className = "wrap_checkbox">
                                     
                                     <div className = "wrap_input_add">
@@ -193,7 +193,7 @@ class Colors extends React.Component {
                                     }
 
                                 </div>
-                            </ul>
+                            </div>
       
                         </div>
                         <div className="container_next_bt">

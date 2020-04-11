@@ -21,7 +21,6 @@ import PriceList from './components/PriceList';
 import HairBarBer from './components/HairBarber';
 import Colors from './components/Colors';
 
-
 class App extends React.Component {
   render() {
     return (

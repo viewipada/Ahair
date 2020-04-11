@@ -10,7 +10,7 @@ class InputListServicesWomen extends React.Component {
       return (
         <div className = "line_price">
             {this.props.servicesWomen.map((servicesWomen,index) => 
-                <ul className = "line_price" key = {servicesWomen.hair}>
+                <div className = "line_price" key = {servicesWomen.hair} style={{marginLeft:"50px"}}>
                     <div className="name_hair">
                         {servicesWomen.hair}
                     </div>
@@ -24,7 +24,7 @@ class InputListServicesWomen extends React.Component {
                         />
                     </div>
                     <div className = "baht">Baht</div>
-                </ul>
+                </div>
             )}
         </div>
       )
@@ -40,7 +40,7 @@ class InputListServicesMen extends React.Component {
       return (
         <div className = "line_price">
             {this.props.servicesMen.map((servicesMen,index) => 
-                <ul className = "line_price" key = {servicesMen.hair}>
+                <div className = "line_price" key = {servicesMen.hair} style={{marginLeft:"50px"}}>
                     <div className="name_hair">
                         {servicesMen.hair}
                     </div>
@@ -54,7 +54,7 @@ class InputListServicesMen extends React.Component {
                         />
                     </div>
                     <div className = "baht">Baht</div>
-                </ul>
+                </div>
             )}
         </div>
       )
@@ -74,7 +74,7 @@ class InputListHairstyleWomenShort extends React.Component {
       return (
         <div className = "line_price">
             {this.props.hairstyleWomenShort.map((hairstyleWomenShort,index) => 
-                <ul className = "line_price" key = {hairstyleWomenShort.hair}>
+                <div className = "line_price" key = {hairstyleWomenShort.hair} style={{marginLeft:"50px"}}>
                     <div className="name_hair">
                         {hairstyleWomenShort.hair}
                     </div>
@@ -96,7 +96,7 @@ class InputListHairstyleWomenShort extends React.Component {
                             onChange = {this.imghairstyleWomenShortChange.bind(this, index)}
                         />
                     </div>
-                </ul>
+                </div>
             )}
         </div>
       )
@@ -116,7 +116,7 @@ class InputListHairstyleWomenMedium extends React.Component {
       return (
         <div className = "line_price">
             {this.props.hairstyleWomenMedium.map((hairstyleWomenMedium,index) => 
-                <ul className = "line_price" key = {hairstyleWomenMedium.hair}>
+                <div className = "line_price" key = {hairstyleWomenMedium.hair} style={{marginLeft:"50px"}}>
                     <div className="name_hair">
                         {hairstyleWomenMedium.hair}
                     </div>
@@ -138,7 +138,7 @@ class InputListHairstyleWomenMedium extends React.Component {
                             onChange = {this.imghairstyleWomenMediumChange.bind(this, index)}
                         />
                     </div>
-                </ul>
+                </div>
             )}
         </div>
       )
@@ -158,7 +158,7 @@ class InputListHairstyleWomenLong extends React.Component {
       return (
         <div className = "line_price">
             {this.props.hairstyleWomenLong.map((hairstyleWomenLong,index) => 
-                <ul className = "line_price" key = {hairstyleWomenLong.hair}>
+                <div className = "line_price" key = {hairstyleWomenLong.hair} style={{marginLeft:"50px"}}>
                     <div className="name_hair">
                         {hairstyleWomenLong.hair}
                     </div>
@@ -180,7 +180,7 @@ class InputListHairstyleWomenLong extends React.Component {
                             onChange = {this.imghairstyleWomenLongChange.bind(this, index)}
                         />
                     </div>
-                </ul>
+                </div>
             )}
         </div>
       )
@@ -200,7 +200,7 @@ class InputListHairstyleMenShort extends React.Component {
       return (
         <div className = "line_price">
             {this.props.hairstyleMenShort.map((hairstyleMenShort,index) => 
-                <ul className = "line_price" key = {hairstyleMenShort.hair}>
+                <div className = "line_price" key = {hairstyleMenShort.hair} style={{marginLeft:"50px"}}>
                     <div className="name_hair">
                         {hairstyleMenShort.hair}
                     </div>
@@ -222,7 +222,7 @@ class InputListHairstyleMenShort extends React.Component {
                             onChange = {this.imghairstyleMenShortChange.bind(this, index)}
                         />
                     </div>
-                </ul>
+                </div>
             )}
         </div>
       )
@@ -242,7 +242,7 @@ class InputListHairstyleMenLong extends React.Component {
       return (
         <div className = "line_price">
             {this.props.hairstyleMenLong.map((hairstyleMenLong,index) => 
-                <ul className = "line_price" key = {hairstyleMenLong.hair}>
+                <div className = "line_price" key = {hairstyleMenLong.hair} style={{marginLeft:"50px"}}>
                     <div className="name_hair">
                         {hairstyleMenLong.hair}
                     </div>
@@ -264,7 +264,7 @@ class InputListHairstyleMenLong extends React.Component {
                             onChange = {this.imghairstyleMenLongChange.bind(this, index)}
                         />
                     </div>
-                </ul>
+                </div>
             )}
         </div>
       )

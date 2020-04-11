@@ -481,7 +481,7 @@ class Hairstyles extends React.Component {
                                     <p style={{color:"white", marginRight:"20px"}}>Women Hairstyles</p>
                                 </div>
                             </div>
-                            <ul className="line_info">
+                            <div className="line_info">
                                 <div className = "wrap_checkbox">
                                     <div className="title_hairstyles"><p>Short length</p></div>
                                     <div className = "checkbox_info">
@@ -517,9 +517,9 @@ class Hairstyles extends React.Component {
                                         </button>
                                     </div>
                                 </div>
-                            </ul>
+                            </div>
 
-                            <ul className="line_info">
+                            <div className="line_info">
                                 <div className = "wrap_checkbox">
                                     <div className="title_hairstyles"><p>Medium length</p></div>
                                     <div className = "checkbox_info">
@@ -555,9 +555,9 @@ class Hairstyles extends React.Component {
                                         </button>
                                     </div>
                                 </div>
-                            </ul>
+                            </div>
 
-                            <ul className="line_info">
+                            <div className="line_info">
                                 <div className = "wrap_checkbox">
                                     <div className="title_hairstyles"><p>Long length</p></div>
                                     <div className = "checkbox_info">
@@ -593,14 +593,14 @@ class Hairstyles extends React.Component {
                                         </button>
                                     </div>
                                 </div>
-                            </ul>
+                            </div>
 
                             <div className = "line_info">
                                 <div style={{width:"200px"}}>
                                     <p style={{color:"white", marginRight:"20px"}}>Men Hairstyles</p>
                                 </div>
                             </div>
-                            <ul className="line_info">
+                            <div className="line_info">
                                 <div className = "wrap_checkbox">
                                     <div className="title_hairstyles"><p>Short length</p></div>
                                     <div className = "checkbox_info">
@@ -636,9 +636,9 @@ class Hairstyles extends React.Component {
                                         </button>
                                     </div>
                                 </div>
-                            </ul>
+                            </div>
 
-                            <ul className="line_info">
+                            <div className="line_info">
                                 <div className = "wrap_checkbox">
                                     <div className="title_hairstyles"><p>Long length</p></div>
                                     <div className = "checkbox_info">
@@ -674,7 +674,7 @@ class Hairstyles extends React.Component {
                                         </button>
                                     </div>
                                 </div>
-                            </ul>
+                            </div>
                             
                         </div>
                         <div className="container_next_bt">

@@ -456,7 +456,7 @@ class InputBarber extends React.Component {
     
     render() { 
       return (
-        <div className = "line_price">
+        <div className = "line_info">
                 <div className = "wrap_barber" >
                     <div style={{width:"35%", marginRight:"40px"}}>
                         <ImageUpload getFile={this.getFile} imagePreview={userImage}/>
@@ -479,7 +479,7 @@ class InputBarber extends React.Component {
                             <img src={this.state.isHideServices ? downIcon : upIcon} width="15px" style={{marginRight:"10px"}}/>
                             Services menu
                         </div>
-                        <ul style ={{display: this.state.isHideServices ? "none" : "block"}}>
+                        <div style ={{display: this.state.isHideServices ? "none" : "block"}}>
                             <div className="title_menu">Women</div>
                             { 
                                 this.state.list_womenServices.map((list_womenServices) => {
@@ -502,12 +502,12 @@ class InputBarber extends React.Component {
                                             />)
                                 })
                             }
-                        </ul>
+                        </div>
                         <div className="services_menu" onClick={this.hideWomenhairstyle}>
                             <img src={this.state.isHideWomenHairstyle ? downIcon : upIcon} width="15px" style={{marginRight:"10px"}}/>
                             Women hairstyles
                         </div>
-                        <ul style={{display: this.state.isHideWomenHairstyle ? "none": "block"}}>
+                        <div style={{display: this.state.isHideWomenHairstyle ? "none": "block"}}>
                         <   div className="title_menu">Short lenght</div>
                             { 
                                 this.state.list_womenShort.map((list_womenShort) => {
@@ -541,12 +541,12 @@ class InputBarber extends React.Component {
                                             />)
                                 })
                             }
-                        </ul>
+                        </div>
                         <div className="services_menu" onClick={this.hideMenhairstyle}>
                             <img src={this.state.isHideMenHairstyle ? downIcon : upIcon} width="15px" style={{marginRight:"10px"}} />
                             Men short hairstyles
                         </div>
-                        <ul style={{display: this.state.isHideMenHairstyle? "none": "block"}}>
+                        <div style={{display: this.state.isHideMenHairstyle? "none": "block"}}>
                             <div className="title_menu">Short lenght</div>
                             { 
                                 this.state.list_menShort.map((list_menShort) => {
@@ -569,7 +569,7 @@ class InputBarber extends React.Component {
                                             />)
                                 })
                             }
-                        </ul>
+                        </div>
                         <div className="container_right_bt">
                             <button className={this.state.isSaved ? "login_button" : "saved_bt"} type="submit" onClick={this.state.isSaved ? this.handleSubmit : ()=>{}}>
                                 Save
