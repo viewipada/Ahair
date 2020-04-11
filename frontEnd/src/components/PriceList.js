@@ -452,7 +452,7 @@ class PriceList extends React.Component {
         // if (isValid) {
           console.log(this.state);
           this.setState(this.state);
-        //   this.props.history.push('/signup_shop_2')
+          this.props.history.push('/hairbarber')
         // }
     };
 
@@ -522,7 +522,7 @@ class PriceList extends React.Component {
                     </div>
 
                     <div className="container_next_bt" style={{marginTop:"40px"}}>
-                        <Link className="link" to="">
+                        <Link className="link" to="/hairstyles">
                             <div>
                                 <button className="login_button" type="reset">
                                     Back

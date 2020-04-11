@@ -48,7 +48,7 @@ class ShopInformation extends React.Component {
         if (isValid) {
           console.log(this.state);
           this.setState(this.state);
-        //   this.props.history.push('/signup_shop_2')
+          this.props.history.push('/hairstyles')
         }
     };
 

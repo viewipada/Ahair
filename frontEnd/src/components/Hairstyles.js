@@ -379,6 +379,9 @@ class Hairstyles extends React.Component {
         })
         
         console.log(this.state)
+        if(!this.state.womenShort || !this.state.womenMedium || !this.state.womenLong || !this.state.menShort || !this.state.menLong) { 
+            this.props.history.push('/pricelist')
+        }
     }
 
     typeAddwomenShort = event => {
@@ -675,7 +678,7 @@ class Hairstyles extends React.Component {
                             
                         </div>
                         <div className="container_next_bt">
-                            <Link className="link" to="">
+                            <Link className="link" to="/information">
                                 <div>
                                     <button className="login_button" type="reset">
                                         Back
