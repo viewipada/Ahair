@@ -119,7 +119,7 @@ class EditProfileShop extends React.Component {
         if ((isValid && this.state.passwordBox && isValidPassword) || (isValid && !this.state.passwordBox)){
           console.log(this.state);
           this.setState(this.state);
-          this.props.history.push('/signup_shop_2')
+          this.props.history.push('/profileshop')
         }
     };
 

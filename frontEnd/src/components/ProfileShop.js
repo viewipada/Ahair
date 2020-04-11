@@ -89,7 +89,7 @@ class ProfileShop extends React.Component {
                                 </div>
                             </div>
 
-                            <Link className="link">
+                            <Link className="link" to='/editprofileshop'>
                                 <div className="container_right_bt">
                                     <form onSubmit={this.handleSubmit}>
                                         <button className="login_button" type="submit" onClick={this.handleSubmit}>

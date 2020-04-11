@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ImageUpload from './ImageUpload';
 import addIcon from './pic/add_icon.png';
-import userImage from './pic/user_green_icon.png'
-import ProfileShop from './ProfileShop';
+import InputBarber from './InputBarber';
 
 export const AddBarber = props => {
     return(
@@ -15,19 +13,18 @@ export const AddBarber = props => {
     )
 }
 
-export const HairCheckbox = props => {
+export const WomenServicesCheckbox = props => {
     return (
         <div className = "checkbox_line" >
             <div style={{margin:"5px"}}>
                 <input 
                     // className = "name_barber"
                     key = {props.hair}  
-                    onClick = {props.womenShortChecked} 
+                    onClick = {props.womenServicesChecked} 
                     type = "checkbox" 
                     checked = {props.isChecked} 
                     value = {props.hair} 
                     onChange={props.checkboxChange}
-                    // style = {{display:"inline-flex"}}
                 /> {props.hair}
             </div>
                 <input 
@@ -42,133 +39,160 @@ export const HairCheckbox = props => {
     )
 }
 
-class InputBarber extends React.Component {
-    constructor()
-    {
-        super();
-        this.state = { 
-            barber:"",
-            list_womenShort:[
-                {hair:"hair1",price:0,img:"",isChecked:false,key:1},
-                {hair:"hair2",price:0,img:"",isChecked:false,key:2},
-                {hair:"hair3",price:0,img:"",isChecked:false,key:3},
-                {hair:"hair4",price:0,img:"",isChecked:false,key:4}
-            ],
-            imageUrl: "",
-            imageFile:"",
-            imagePreview:"",
-            name:"",
-            hair:[],
-            time: [],
-            isSaved:false
-        }
-        this.getFile = this.getFile.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    getFile(img_file, img_preview, img_url) {
-        this.setState({isSaved:true})
-        this.setState({imageFile:img_file, imagePreview:img_preview, imageUrl:img_url})
-    }
-
-    checkboxChange = () => {
-        this.setState({isSaved:true})
-    }
-    handleChange = event => { //name
-        this.setState({isSaved:true})
-        this.setState({name:event.target.value})
-    }
-   
-    handleSubmit = event => {
-        event.preventDefault();
-        let check = true;
-        this.setState({hair:[], time:[]})
-        this.state.list_womenShort.forEach(list_womenShort => {
-            let timeForEach = document.getElementById(list_womenShort.hair)
-            if(list_womenShort.isChecked && !timeForEach.value){
-                check = false;
-            }
-        })
-        // console.log(check)
-        if(check && this.state.name && this.state.imageUrl){
-            this.state.list_womenShort.forEach(list_womenShort => {
-                let timeForEach = document.getElementById(list_womenShort.hair)
-                if(list_womenShort.isChecked) {
-                    this.state.hair.push(list_womenShort.hair)  
-                    this.state.time.push(timeForEach.value)
-                }
-            });
-            console.log("saved")
-            this.setState({isSaved:false})
-            // this.props.setHairAndTime(this.state.hair,this.state.time);    
-            // this.props.changeName(this.state.name);
-            // this.props.getFile(this.state.imageFile, this.state.imagePreview, this.state.imageUrl);
-            this.props.getBarber(this.state.name, this.state.imageUrl, this.state.hair, this.state.time)
-        }
-        else if(!this.state.name){
-            alert("Please enter a valid barber's name")
-        }
-        else if (!check){
-            alert("invalid time")
-        }
-        else if (!this.state.imageUrl){
-            alert("Please select barber's profile")
-        }
-        
-    }
-
-    womenShortChecked = event => {
-        this.state.list_womenShort.forEach(list_womenShort => {
-            if (list_womenShort.hair === event.target.value) {
-                list_womenShort.isChecked =  event.target.checked
-            }
-        })
-
-        this.setState({list_womenShort: this.state.list_womenShort})
-    }
-    
-    render() { 
-      return (
-        <div className = "line_price">
-                <div className = "wrap_barber" style={{alignItems:"center"}}>
-                    <div style={{width:"35%", marginRight:"40px"}}>
-                        <ImageUpload getFile={this.getFile} imagePreview={userImage}/>
-                    </div>
-                    <div style={{width:"60%", display:"block", flexWrap:"wrap"}}>
-                        <div style={{width:"75%", marginBottom:"20px", marginTop:"20px"}}>
-                            <input 
-                                className = "name_barber"
-                                type="text"
-                                id="barber_name"
-                                value={this.props.name}
-                                placeholder="Barber's name"
-                                onChange={this.handleChange}
-                            />
-                        </div>
-                        <div style={{color:"#14A098", padding:"10px",width:"fit-content", fontSize:"16px"}}>
-                            Select hairstyles that barber can do and enter the time spent in minutes.
-                        </div>
-                        
-                        { 
-                            this.state.list_womenShort.map((list_womenShort) => {
-                                return (<HairCheckbox 
-                                            womenShortChecked={this.womenShortChecked}
-                                            handleChange={this.handleChange} 
-                                            checkboxChange={this.checkboxChange}
-                                            {...list_womenShort} 
-                                        />)
-                            })
-                        }
-                        <div className="container_right_bt">
-                            <button className={this.state.isSaved ? "login_button" : "saved_bt"} type="submit" onClick={this.state.isSaved ? this.handleSubmit : ()=>{}}>
-                                Save
-                            </button>
-                        </div>
-                    </div>
-                </div>
+export const MenServicesCheckbox = props => {
+    return (
+        <div className = "checkbox_line" >
+            <div style={{margin:"5px"}}>
+                <input 
+                    // className = "name_barber"
+                    key = {props.hair}  
+                    onClick = {props.menServicesChecked} 
+                    type = "checkbox" 
+                    checked = {props.isChecked} 
+                    value = {props.hair} 
+                    onChange={props.checkboxChange}
+                /> {props.hair}
+            </div>
+                <input 
+                    className = "time_barber"
+                    type="text" 
+                    id= {props.hair}
+                    placeholder="60"
+                    style={{display: props.isChecked? "flex": "none" }} 
+                    onChange={props.checkboxChange}
+                />
         </div>
-      )
-    }
+    )
+}
+
+export const HairstyleWomenShortCheckbox = props => {
+    return (
+        <div className = "checkbox_line" >
+            <div style={{margin:"5px"}}>
+                <input 
+                    // className = "name_barber"
+                    key = {props.hair}  
+                    onClick = {props.womenShortChecked} 
+                    type = "checkbox" 
+                    checked = {props.isChecked} 
+                    value = {props.hair} 
+                    onChange={props.checkboxChange}
+                /> {props.hair}
+            </div>
+                <input 
+                    className = "time_barber"
+                    type="text" 
+                    id= {props.hair}
+                    placeholder="60"
+                    style={{display: props.isChecked? "flex": "none" }} 
+                    onChange={props.checkboxChange}
+                />
+        </div>
+    )
+}
+
+export const HairstyleWomenMediumCheckbox = props => {
+    return (
+        <div className = "checkbox_line" >
+            <div style={{margin:"5px"}}>
+                <input 
+                    // className = "name_barber"
+                    key = {props.hair}  
+                    onClick = {props.womenMediumChecked} 
+                    type = "checkbox" 
+                    checked = {props.isChecked} 
+                    value = {props.hair} 
+                    onChange={props.checkboxChange}
+                /> {props.hair}
+            </div>
+                <input 
+                    className = "time_barber"
+                    type="text" 
+                    id= {props.hair}
+                    placeholder="60"
+                    style={{display: props.isChecked? "flex": "none" }} 
+                    onChange={props.checkboxChange}
+                />
+        </div>
+    )
+}
+
+export const HairstyleWomenLongCheckbox = props => {
+    return (
+        <div className = "checkbox_line" >
+            <div style={{margin:"5px"}}>
+                <input 
+                    // className = "name_barber"
+                    key = {props.hair}  
+                    onClick = {props.womenLongChecked} 
+                    type = "checkbox" 
+                    checked = {props.isChecked} 
+                    value = {props.hair} 
+                    onChange={props.checkboxChange}
+                /> {props.hair}
+            </div>
+                <input 
+                    className = "time_barber"
+                    type="text" 
+                    id= {props.hair}
+                    placeholder="60"
+                    style={{display: props.isChecked? "flex": "none" }} 
+                    onChange={props.checkboxChange}
+                />
+        </div>
+    )
+}
+
+export const HairstyleMenShortCheckbox = props => {
+    return (
+        <div className = "checkbox_line" >
+            <div style={{margin:"5px"}}>
+                <input 
+                    // className = "name_barber"
+                    key = {props.hair}  
+                    onClick = {props.menShortChecked} 
+                    type = "checkbox" 
+                    checked = {props.isChecked} 
+                    value = {props.hair} 
+                    onChange={props.checkboxChange}
+                /> {props.hair}
+            </div>
+                <input 
+                    className = "time_barber"
+                    type="text" 
+                    id= {props.hair}
+                    placeholder="60"
+                    style={{display: props.isChecked? "flex": "none" }} 
+                    onChange={props.checkboxChange}
+                />
+        </div>
+    )
+}
+
+export const HairstyleMenLongCheckbox = props => {
+    return (
+        <div className = "checkbox_line" >
+            <div style={{margin:"5px"}}>
+                <input 
+                    // className = "name_barber"
+                    key = {props.hair}  
+                    onClick = {props.menLongChecked} 
+                    type = "checkbox" 
+                    checked = {props.isChecked} 
+                    value = {props.hair} 
+                    onChange={props.checkboxChange}
+                /> {props.hair}
+            </div>
+                <input 
+                    className = "time_barber"
+                    type="text" 
+                    id= {props.hair}
+                    placeholder="60"
+                    style={{display: props.isChecked? "flex": "none" }} 
+                    onChange={props.checkboxChange}
+                />
+        </div>
+    )
 }
 
 class HairBarBer extends React.Component {
@@ -209,16 +233,11 @@ class HairBarBer extends React.Component {
         event.preventDefault();
         if(this.state.name) {
             this.state.barber.push({name: this.state.name, img_barber: this.state.imageUrl, hair: this.state.hair, time: this.state.time})
-        }// console.log(this.state);
-        // let isValid = this.validate();
-        // if (this.state.name && this.state.imageUrl) {
-          console.log(this.state);
-          this.setState(this.state);
-        //   this.props.history.push('/signup_shop_2')
-        // }
-        // if(!this.state.name || !this.state.imageUrl){
-        //     alert("please save")
-        // }
+            console.log(this.state);
+            this.setState(this.state);
+            this.props.history.push('/signup_shop_2') //home barber
+        }
+        // console.log(this.state);
     };
 
     render(){
@@ -255,7 +274,7 @@ class HairBarBer extends React.Component {
                             </div>
                             
                             <div className="container_next_bt">
-                                <Link className="link" to="">
+                                <Link className="link" to="/pricelist">
                                     <div>
                                         <button className="login_button" type="reset">
                                             Back
@@ -264,7 +283,7 @@ class HairBarBer extends React.Component {
                                 </Link>
                                 <form onSubmit={this.handleSubmit} >
                                     <button className="login_button" type="submit" onClick={this.handleSubmit}>
-                                        Next
+                                        Submit
                                     </button>
                                 </form>
                             </div>
