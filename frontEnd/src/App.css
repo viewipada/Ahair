@@ -45,9 +45,10 @@ input {
 	outline: none;
 	border: none;
 }
-/* input::placeholder {
-  color: white;
-} */
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 input:focus::placeholder {
   color: transparent;
 }
@@ -558,6 +559,7 @@ p.pattern {
   width: 100%;
   display: inline-flex;
   flex-wrap: wrap;
+  /* justify-content: center; */
 }
 /*----------multiple image upload----------*/
 .container_mutiplefile {
@@ -618,6 +620,14 @@ p.pattern {
   display: inline-flex;
   justify-content: flex-end;
   align-items: flex-end;
+  /* background-color: #61dafb; */
+  /* cursor: initial; */
+}
+.container_left_bt {
+  width: 100%;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-start;
   /* background-color: #61dafb; */
   cursor: initial;
 }
@@ -810,7 +820,7 @@ body{
     display: inline-block;
     position: relative;
 }
-input[type="text"]{
+.searchInput{
     position: relative;
     background: #14a098;
     font-family: cloud;
@@ -832,7 +842,7 @@ input[type="text"]{
     left: 15px;
     top: 54px;
 }
-input[type="text"]:focus{
+.searchInput:focus{
     border-color: rgb(255, 255, 255);
     box-shadow:0 0 8px 0 rgb(255, 255, 255);
 }
@@ -1003,3 +1013,146 @@ li:hover {
 
 
 
+/*----------price list----------*/
+.line_price {
+  width: 100%;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-bottom: 20px; */
+  /* background-color: yellow; */
+}
+.name_hair {
+  width: 40%;
+  color: white;
+  font-size: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  /* background-color: yellow; */
+}
+.price {
+  color: white;
+  width: 15%;
+  border-radius: 50px;
+  background-color: rgba(20, 160, 153, 0.3);
+  display: flex;
+}
+.input_price{
+  /* font-family: Poppins-Regular; */
+  font-size: 16px;
+  color:white;
+  display: flex;
+  /* justify-content: space-around; */
+  align-items: center;
+  width: 100%;
+  background: transparent;
+  padding: 15px;
+  text-align: center;
+}
+.baht {
+  color: white;
+  font-size: 16px;
+  margin-right: 50px;
+}
+.hairstype_img {
+  width:20%;
+  display: flex;
+  flex-wrap: wrap;
+  color: rgba(255, 255, 255, 0.562);
+}
+.hairstype_img_input::-webkit-file-upload-button {
+  /* content: "S"; */
+  color: white;
+  border-radius: 25px;
+  padding: 5px 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  min-width: 120px;
+  height: 40px;
+  border-radius: 100px;
+  border-color: #14A098;
+  background: #14A098;
+  position: relative;
+  border: none;
+}
+.hairstype_img_input:hover::-webkit-file-upload-button {
+  background: -webkit-linear-gradient( #0F292F, #14A098);
+  background: -o-linear-gradient( #0F292F, #14A098);
+  background: -moz-linear-gradient( #0F292F, #14A098);
+  background: linear-gradient( #0F292F, #14A098);
+}
+/*----------barber----------*/
+.wrap_name_barber {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.name_barber {
+  color: black;
+  width: 100%;
+  border-radius: 50px;
+  font-size: 16px;
+  background-color: white;
+  padding: 10px 25px 10px 25px;
+  margin: 10px;
+  display: flex;
+}
+.time_barber {
+  color: black;
+  width: 20%;
+  border-radius: 50px;
+  font-size: 14px;
+  background-color: white;
+  padding: 0px 25px 0px 25px;
+  text-align: center;
+  /* margin: 10px; */
+  /* display: flex; */
+}
+.checkbox_line {
+  width: 80%;
+  font-size: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* background-color: chartreuse; */
+  padding: 10px;
+  /* margin: 10px; */
+}
+.wrap_barber {
+  width: 100%;
+  position: relative;
+  border-radius: 25px;
+  margin-bottom: 40px;
+  background-color: rgba(18, 94, 90, 0.3);
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.saved_bt {
+  /* font-family: Poppins-Medium; */
+  font-size: 16px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  min-width: 120px;
+  height: 40px;
+  border-radius: 100px;
+  border-color: rgba(20, 160, 153, 0.3);
+  background: rgba(20, 160, 153, 0.3);
+  position: relative;
+}
+.saved_bt:hover {
+  cursor: initial;
+}
