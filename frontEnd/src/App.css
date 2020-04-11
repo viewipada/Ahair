@@ -843,3 +843,21 @@ p.pattern {
 .saved_bt:hover {
   cursor: initial;
 }
+.services_menu {
+  color: #14A098;
+  padding: 10px;
+  font-size: 16px;
+  /* margin: 10px; */
+}
+.services_menu:hover {
+  cursor: pointer;
+}
+.title_menu {
+  width: 70%;
+  color: #14A098;
+  padding: 20px;
+  border-width: 1px;
+  border-style: none none solid none;
+  border-color: #14A098;
+  margin-bottom: 10px;
+}

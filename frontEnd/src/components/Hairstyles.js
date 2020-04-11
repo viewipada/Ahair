@@ -174,34 +174,88 @@ class Hairstyles extends React.Component {
             addmenLong: [],
 
             list_womenShort: [
-                {id: "ws1", value: "ws1", key: 1-1, isChecked: false},
-                {id: "ws2", value: "ws2", key: 1-2, isChecked: false},
-                {id: "ws3", value: "ws3", key: 1-3, isChecked: false},
-                {id: "ws4", value: "ws4", key: 1-4, isChecked: false}
+                {id: "ws1", value: "Beehive", key: 1-1, isChecked: false},
+                {id: "ws2", value: "Bob", key: 1-2, isChecked: false},
+                {id: "ws3", value: "Braided", key: 1-3, isChecked: false},
+                {id: "ws4", value: "Bun", key: 1-4, isChecked: false},
+                {id: "ws5", value: "Cornrows", key: 1-5, isChecked: false},
+                {id: "ws6", value: "Crew cut", key: 1-6, isChecked: false},
+                {id: "ws7", value: "Goth", key: 1-7, isChecked: false},
+                {id: "ws8", value: "Half up / Half down", key: 1-8, isChecked: false},
+                {id: "ws9", value: "Layers", key: 1-9, isChecked: false},
+                {id: "ws10", value: "Loose", key: 1-10, isChecked: false},
+                {id: "ws11", value: "Low bun", key: 1-11, isChecked: false},
+                {id: "ws12", value: "Mohawk", key: 1-12, isChecked: false},
+                {id: "ws14", value: "Pixie", key: 1-14, isChecked: false},
+                {id: "ws15", value: "Shaved", key: 1-15, isChecked: false},
+                {id: "ws16", value: "Short sides", key: 1-16, isChecked: false},
+                {id: "ws17", value: "Short slicked", key: 1-17, isChecked: false},
+                {id: "ws18", value: "Side swept", key: 1-18, isChecked: false},
+                {id: "ws19", value: "Tousled", key: 1-19, isChecked: false}
             ],
             list_womenMedium: [
-                {id: "wm1", value: "wm1", key: 2-1, isChecked: false},
-                {id: "wm2", value: "wm2", key: 2-2, isChecked: false},
-                {id: "wm3", value: "wm3", key: 2-3, isChecked: false},
-                {id: "wm4", value: "wm4", key: 2-4, isChecked: false}
+                {id: "wm1", value: "Beehive", key: 2-1, isChecked: false},
+                {id: "wm2", value: "Braided", key: 2-2, isChecked: false},
+                {id: "wm3", value: "Bun", key: 2-3, isChecked: false},
+                {id: "wm4", value: "Cornrows", key: 2-4, isChecked: false},
+                {id: "wm5", value: "Goth", key: 2-5, isChecked: false},
+                {id: "wm6", value: "Half up / Half down", key: 2-6, isChecked: false},
+                {id: "wm7", value: "Layers", key: 2-7, isChecked: false},
+                {id: "wm8", value: "Loose", key: 2-8, isChecked: false},
+                {id: "wm9", value: "Low bun", key: 2-9, isChecked: false},
+                {id: "wm11", value: "Ponytail", key: 2-11, isChecked: false},
+                {id: "wm12", value: "Tousled", key: 2-12, isChecked: false}
+            
             ],
             list_womenLong: [
-                {id: "wl1", value: "wl1", key: 3-1, isChecked: false},
-                {id: "wl2", value: "wl2", key: 3-2, isChecked: false},
-                {id: "wl3", value: "wl3", key: 3-3, isChecked: false},
-                {id: "wl4", value: "wl4", key: 3-4, isChecked: false}
+                {id: "wl1", value: "Beehive", key: 3-1, isChecked: false},
+                {id: "wl2", value: "Braided", key: 3-2, isChecked: false},
+                {id: "wl3", value: "Bun", key: 3-3, isChecked: false},
+                {id: "wl4", value: "Cornrows", key: 3-4, isChecked: false},
+                {id: "wl5", value: "Goth", key: 3-5, isChecked: false},
+                {id: "wl6", value: "Half up / Half down", key: 3-6, isChecked: false},
+                {id: "wl7", value: "Layers", key: 3-7, isChecked: false},
+                {id: "wl8", value: "Loose", key: 3-8, isChecked: false},
+                {id: "wl9", value: "Low bun", key: 3-9, isChecked: false},
+                {id: "wl11", value: "Ponytail", key: 3-11, isChecked: false},
+                {id: "wl12", value: "Tousled", key: 3-12, isChecked: false}
+
             ],
             list_menShort: [
-                {id: "ms1", value: "ms1", key: 4-1, isChecked: false},
-                {id: "ms2", value: "ms2", key: 4-2, isChecked: false},
-                {id: "ms3", value: "ms3", key: 4-3, isChecked: false},
-                {id: "ms4", value: "ms4", key: 4-4, isChecked: false}
+                {id: "ms7", value: "Afro fade", key: 4-7, isChecked: false},
+                {id: "ms13", value: "Buzz cut", key: 4-13, isChecked: false},
+                {id: "ms11", value: "Comb Over", key: 4-11, isChecked: false},
+                {id: "ms14", value: "Crew cut", key: 4-14, isChecked: false},
+                {id: "ms15", value: "Faux Hawk", key: 4-15, isChecked: false},
+                {id: "ms16", value: "Fringe", key: 4-16, isChecked: false},
+                {id: "ms3", value: "Hight fade", key: 4-3, isChecked: false},
+                {id: "ms2", value: "Low fade", key: 4-2, isChecked: false},
+                {id: "ms4", value: "Mid fade", key: 4-4, isChecked: false},
+                {id: "ms9", value: "Pompadour", key: 4-9, isChecked: false},
+                {id: "ms10", value: "Quiff", key: 4-10, isChecked: false},
+                {id: "ms17", value: "Side part", key: 4-17, isChecked: false},
+                {id: "ms20", value: "Skinhead", key: 4-20, isChecked: false},
+                {id: "ms6", value: "Skin Fade", key: 4-6, isChecked: false},
+                {id: "ms12", value: "Slicked back", key: 4-12, isChecked: false},
+                {id: "ms18", value: "Spiky", key: 4-18, isChecked: false},
+                {id: "ms1", value: "Taper fade", key: 4-1, isChecked: false},
+                {id: "ms5", value: "Temple fade", key: 4-5, isChecked: false},
+                {id: "ms19", value: "Top kont", key: 4-19, isChecked: false},
+                {id: "ms8", value: "Undercut", key: 4-8, isChecked: false},
+                
             ],
             list_menLong: [
-                {id: "ml1", value: "ml1", key: 5-1, isChecked: false},
-                {id: "ml2", value: "ml2", key: 5-2, isChecked: false},
-                {id: "ml3", value: "ml3", key: 5-3, isChecked: false},
-                {id: "ml4", value: "ml4", key: 5-4, isChecked: false}
+                
+                {id: "ml8", value: "Braids", key: 5-8, isChecked: false},
+                {id: "ml1", value: "Deadlocks", key: 5-1, isChecked: false},
+                {id: "ml7", value: "Half up", key: 5-7, isChecked: false},
+                {id: "ml9", value: "Long curls", key: 5-9, isChecked: false},
+                {id: "ml10", value: "Long undercut", key: 5-10, isChecked: false},
+                {id: "ml5", value: "Man bun", key: 5-5, isChecked: false},
+                {id: "ml3", value: "Ponytail", key: 5-3, isChecked: false},
+                {id: "ml6", value: "Side part", key: 5-6, isChecked: false},
+                {id: "ml2", value: "Slick back", key: 5-2, isChecked: false},
+                {id: "ml4", value: "Textured waves", key: 5-4, isChecked: false}    
             ],
         }
     }
