@@ -1,5 +1,4 @@
 import React ,{useState}from 'react'
-import MultipleImageUpload from './MultipleImageUpload';
 import { Link } from 'react-router-dom';
 import StarRate from './StarRate';
 
@@ -8,16 +7,17 @@ class review_Cus extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            imageFile: [],
-            imagePreview: [],
-            imageUrl: []
+            starRate_shop:''
         }
-        this.getFile = this.getFile.bind(this);
+        this.getStar = this.getStar.bind(this);
     }
-    getFile(img_file, img_preview, img_url) {
-        this.setState({
-            imageFile: img_file, imagePreview: img_preview, imageUrl: img_url
-        });
+    getStar(rating){
+        this.setState({starRate_shop: rating});
+    }
+    handleSubmit=(event)=>{
+        event.preventDefault();
+        const data = this.state;
+        console.log(data);
     }
     render() {
         return (
@@ -28,10 +28,10 @@ class review_Cus extends React.Component {
                     </h1>
                 </div>
                 <div className="starRate" style={{margin:"15%"}}>
-                    <StarRate/>
+                    <StarRate getStar={this.getStar}/>
                 </div>
                 <div className="container_right_bt" >
-                    <button type="submit" className="submit_button">
+                    <button type="submit" className="submit_button" onSubmit={this.handleSubmit}>
                         Submit
                     </button>
                 </div>

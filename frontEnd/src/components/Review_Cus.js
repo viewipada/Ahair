@@ -22,8 +22,8 @@ class review_Cus extends React.Component {
             imageFile: img_file, imagePreview: img_preview, imageUrl: img_url
         });
     }
-    async getStar(rating){
-        await this.setState({ratingValue: rating});
+    getStar(rating){
+        this.setState({ratingValue: rating});
     }
     handleSubmit=(event)=>{
         event.preventDefault();
