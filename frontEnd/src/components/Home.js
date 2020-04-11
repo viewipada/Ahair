@@ -50,7 +50,7 @@ class Home extends Component {
         <div class="wrapnavbar">
           <img src={logo} class="homelogo" alt="Home" height="8%" width="8%" />
           <div class="searchBox">
-            <input type="text" placeholder="Search" />
+            <input type="text" placeholder="Search" className="searchInput" />
             <div>
               <FaSistrix class="searchicon" size='1.5rem' color="white" />
             </div>

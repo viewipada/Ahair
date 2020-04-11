@@ -10,7 +10,9 @@ class review_Cus extends React.Component {
         this.state = {
             imageFile: [],
             imagePreview: [],
-            imageUrl: []
+            imageUrl: [],
+            reviewdata:'',
+            ratingValue:''
         }
         this.getFile = this.getFile.bind(this);
     }
@@ -18,6 +20,22 @@ class review_Cus extends React.Component {
         this.setState({
             imageFile: img_file, imagePreview: img_preview, imageUrl: img_url
         });
+    }
+    getStar(rating_Value){
+        this.setState({
+            ratingValue: rating_Value
+        });
+    }
+    handleSubmit=(event)=>{
+        event.preventDefault();
+        const data = this.state;
+        console.log(data);
+    }
+    handleInputChange=(event)=>{
+        event.preventDefault();
+        this.setState({
+            [event.target.name]:event.target.value
+        })
     }
     render() {
         return (
@@ -28,7 +46,7 @@ class review_Cus extends React.Component {
                     </h1>
                 </div>
                 <div className="starRate">
-                    <StarRate/>
+                    <StarRate ratingValue={this.getStar}/>
                 </div>
                 <div className="wrapAddimg">
                     <p style={{color:"white",margin:"0px"}}>Add Image (Maximum 5 Image)</p>
@@ -39,12 +57,23 @@ class review_Cus extends React.Component {
                 <div className="ReviewtxtBox">
                     <h2 style={{color:"white",fontSize:"20px"}}>Description</h2>
                     <div className="descriptionBox">
-                        <textarea type="text" placeholder="Write some Review..." rows="5"></textarea>
+                        <textarea 
+                            type="text" 
+                            placeholder="Write some Review..." 
+                            rows="5"
+                            name="reviewdata"
+                            onChange={this.handleInputChange}    
+                        >
+                        </textarea>
                     </div>
                 </div>
                 <div className="container_right_bt" >
-                    <button type="submit" className="submit_button">
-                        Submit
+                    <button 
+                        type="submit" 
+                        className="submit_button"
+                        onClick={this.handleSubmit}    
+                    >
+                            Submit
                     </button>
                 </div>
             </div>

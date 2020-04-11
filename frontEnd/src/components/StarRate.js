@@ -6,6 +6,10 @@ const Home = () => {
 
     const [rating, setRating] = useState(null);
     const [hover, setHover] = useState(null);
+
+    const handleChange=(props)=>{
+        props.getStar(rating);
+    }
     return (
         <div className="starRate">
             {[...Array(5)].map((star, i) => {
@@ -16,7 +20,7 @@ const Home = () => {
                             type="radio"
                             name="rating"
                             value={ratingValue}
-                            onClick={() => setRating(ratingValue)}
+                            onClick={() => {setRating(ratingValue); handleChange(props);}}
                         />
                         <FaStar
                             className="star"
