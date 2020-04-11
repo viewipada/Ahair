@@ -14,6 +14,9 @@ import ProfileShop from './components/ProfileShop';
 import EditProfileCustomer from './components/EditProfileCustomer';
 import EditProfileShop from './components/EditProfileShop';
 import HairStyles from './components/Hairstyles';
+import Review_Cus from './components/Review_Cus';
+import Review_Shop from './components/Review_Shop';
+import Home from './components/Home';
 
 
 class App extends React.Component {
@@ -37,6 +40,9 @@ class App extends React.Component {
               <Route path='/profileshop' component={ProfileShop} />
               <Route path='/editprofileshop' component={EditProfileShop} />
               <Route path='/hairstyles' component={HairStyles} />
+              <Route path='/ReviewforCustomer' component={Review_Cus}/>
+              <Route path='/ReviewforShop' component={Review_Shop}/>
+              <Route path='/Home' component={Home}/>
             </Switch>
           </div>
         </Router>

@@ -690,3 +690,316 @@ p.pattern {
   padding-left: 30px;
   font-size: 16px;
 }
+
+/*Review Customer Part*/
+
+.Review_Container{
+    padding: 30px 60px 40px 60px;
+    align-content: center;
+
+}
+input[type="radio"]{
+  display: none;
+}
+/*StarRate*/
+.starRate{
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+.star{
+  cursor: pointer;
+  transition: color 200ms;
+  margin: 5px;
+}
+/***************/
+.wrapAddimg{
+  text-align: center;
+}
+.AddImgReview{
+  display: inline-flex;
+  justify-content: flex-start;
+  align-self: flex-start;
+  margin-right: 10px;
+  margin-top: 30px;
+  border-radius: 30px;
+}
+.ReviewtxtBox{
+  display: block;
+  text-align: center;
+}
+.descriptionBox{
+  text-align: center;
+}
+textarea{
+  position: relative;
+  background: rgba(20, 160, 153, 0.3);
+  font-family: cloud;
+  font-size: 20px;
+  color: floralwhite;
+  padding: 20px 30px 20px 30px;
+  margin-bottom: 20px;
+  width: 80%;
+  border: none;
+  outline: none;
+  border-radius: 25px;
+}
+::placeholder{
+  color: #ffffff;
+}
+/* submitPattern Here */
+.submit_button {
+    /* font-family: Poppins-Medium; */
+    font-size: 16px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    min-width: 120px;
+    height: 40px;
+    border-radius: 100px;
+    border-color: #cb2d6f;
+    background: #cb2d6f;
+    /* width: fit-content; */
+    position: relative;
+  }
+  .submit_button:hover {
+    background: -webkit-linear-gradient( #cb2d6f, #511F3A);
+    background: -o-linear-gradient( #cb2d6f, #511F3A);
+    background: -moz-linear-gradient( #cb2d6f, #511F3A);
+    background: linear-gradient( #cb2d6f, #511F3A);
+  }
+
+  /*Home Style*/
+
+  @font-face{
+    src: url(/fonts/Nature.ttf);
+    font-family: nature;
+    src: url(/fonts/Cloud-Bold.ttf);
+    font-family: Cloud;
+}
+.wrap{
+    display: block;
+    text-align: center;
+}
+.wrapcontainer{
+    width: 960px; 
+    display: block; 
+    margin: 0 auto;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+    background-color: #0f292f;
+}
+.wrapnavbar{
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    
+}
+.homelogo{
+    position: relative;
+    display: inline-block;
+    width: 150px;
+    margin: 20px 30px 0px 0px;
+}
+.searchBox{
+    display: inline-block;
+    position: relative;
+}
+input[type="text"]{
+    position: relative;
+    background: #14a098;
+    font-family: cloud;
+    color: floralwhite;
+    margin: 0px 680px 20px 0px;
+    top: 45px;
+    padding: 0px 50px;
+    width: 400px;
+    height: 40px;
+    border: none;
+    outline: none;
+    border-radius: 25px;
+}
+::placeholder{
+    color: floralwhite;
+}
+.searchicon{
+    position: absolute;
+    left: 15px;
+    top: 54px;
+}
+input[type="text"]:focus{
+    border-color: rgb(255, 255, 255);
+    box-shadow:0 0 8px 0 rgb(255, 255, 255);
+}
+.Signin{
+    position: relative;
+    display: inline-block;
+    background-color: #cb2c6f;
+    font-family: cloud;
+    color: #fff;
+    top: 45px;
+    width: 100px;
+    height: 40px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.Signin:hover{
+    background: -webkit-linear-gradient( #cb2d6f, #511F3A);
+    background: -o-linear-gradient( #cb2d6f, #511F3A);
+    background: -moz-linear-gradient( #cb2d6f, #511F3A);
+    background: linear-gradient( #cb2d6f, #511F3A);
+}
+/*dropdown part*/
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    top:90px;
+    right:0px;
+    width: 200px;
+    background-color: white;
+    font-weight:bold;
+    position: absolute;
+
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+li a {
+    color: #000;
+    text-decoration: none;
+}
+li {
+    padding: 8px 16px;
+    border-bottom: 1px solid #e5e5e5;
+}
+li:hover {
+    background-color: #e5e5e5;
+    color: white;
+}
+.slideContainer{
+    position: relative;
+    top: 20px;
+    width: 720px;
+    height: 300px;
+    border-radius: 10px;
+    margin: auto;
+    overflow: hidden;
+    text-align: center;
+}
+.imgContainer{
+    width: 2160px;
+    height: 300px;
+    position: relative;
+    transition: left 2s;
+    -webkit-transition: left 2s;
+    -moz-transition: left 2s;
+    -o-transition: left 2s;
+}
+.sliderImg{
+    float: left;
+    margin: 0%;
+    padding: 0%;
+}
+.buttonContainer{
+    position: relative;
+    top: -10%;
+}
+.sliderButton{
+    display: inline-block;
+    cursor: pointer;
+    height: 10px;
+    width: 10px;
+    border-radius: 5px;
+    margin: 2px;
+    background-color: rgb(202, 196, 196);
+}
+.sliderButton:hover{
+    background-color: #cb2c6f;
+}
+#sliderImg1:target ~ .imgContainer{
+    left: 0px;
+}
+#sliderImg2:target ~ .imgContainer{
+    left: -720px;
+}
+#sliderImg3:target ~ .imgContainer{
+    left: -1440px;
+}
+.Topictext{
+    position: relative;
+    display: block;
+    font-size: 25px;
+    font-family: Cloud;
+    font-weight: bold;
+    color: #14a098;
+    text-align: left;
+    padding: 50px 0px 0px 50px;
+}
+.btcatContainer{
+    position: relative;
+    text-align: center;
+    display: block;
+    margin: 20px;
+}
+.catbt{
+    position: relative;
+    font-family: Cloud;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #cb2c6f ;
+    display: inline-block;
+    border-radius: 10px;
+    border: none;
+    margin: 10px;
+    outline: none;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+}
+.catbt:hover{
+    opacity: 0.8;
+}
+
+.shopRec{
+    position: relative;
+    display: flex;
+    margin: 30px;
+}
+.Recshop{
+    position: relative;
+    margin: 0px 80px;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: #ffffff;
+    opacity: 0.8;
+}
+.shopname{
+    position: relative;
+    top: -50px;
+    font-size: 20px;
+    font-family: Cloud;
+    font-weight: bold;
+    color: #ffffff;
+}
+.rec1:hover,.rec2:hover{
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+
+
