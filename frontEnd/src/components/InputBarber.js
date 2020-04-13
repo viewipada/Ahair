@@ -4,187 +4,34 @@ import userImage from './pic/user_green_icon.png'
 import downIcon from './pic/arrowdown_icon.png'
 import upIcon from './pic/arrowup_icon.png'
 
-export const WomenServicesCheckbox = props => {
+export const Checkbox = props => {
     return (
-        <div className = "checkbox_line" >
+        <div className = "checkbox_line"  >
             <div style={{margin:"5px"}}>
                 <input 
                     // className = "name_barber"
                     key = {props.hair}  
-                    onClick = {props.womenServicesChecked} 
+                    onClick = {props.onChecked} 
                     type = "checkbox" 
                     checked = {props.isChecked} 
                     value = {props.hair} 
                     onChange={props.checkboxChange}
+                    // style={{pointerEvents: props.nonEditable ? "none" : "visible"}}
                 /> {props.hair}
             </div>
                 <input 
                     className = "time_barber"
-                    type="text" 
+                    type="number" 
+                    min="0"
                     id= {props.hair}
                     placeholder="60"
-                    style={{display: props.isChecked? "flex": "none" }} 
+                    style={{display: props.isChecked? "flex": "none"}} 
                     onChange={props.checkboxChange}
                 />
         </div>
     )
 }
 
-export const MenServicesCheckbox = props => {
-    return (
-        <div className = "checkbox_line" >
-            <div style={{margin:"5px"}}>
-                <input 
-                    // className = "name_barber"
-                    key = {props.hair}  
-                    onClick = {props.menServicesChecked} 
-                    type = "checkbox" 
-                    checked = {props.isChecked} 
-                    value = {props.hair} 
-                    onChange={props.checkboxChange}
-                /> {props.hair}
-            </div>
-                <input 
-                    className = "time_barber"
-                    type="text" 
-                    id= {props.hair}
-                    placeholder="60"
-                    style={{display: props.isChecked? "flex": "none" }} 
-                    onChange={props.checkboxChange}
-                />
-        </div>
-    )
-}
-
-export const HairstyleWomenShortCheckbox = props => {
-    return (
-        <div className = "checkbox_line" >
-            <div style={{margin:"5px"}}>
-                <input 
-                    // className = "name_barber"
-                    key = {props.hair}  
-                    onClick = {props.womenShortChecked} 
-                    type = "checkbox" 
-                    checked = {props.isChecked} 
-                    value = {props.hair} 
-                    onChange={props.checkboxChange}
-                /> {props.hair}
-            </div>
-                <input 
-                    className = "time_barber"
-                    type="text" 
-                    id= {props.hair}
-                    placeholder="60"
-                    style={{display: props.isChecked? "flex": "none" }} 
-                    onChange={props.checkboxChange}
-                />
-        </div>
-    )
-}
-
-export const HairstyleWomenMediumCheckbox = props => {
-    return (
-        <div className = "checkbox_line" >
-            <div style={{margin:"5px"}}>
-                <input 
-                    // className = "name_barber"
-                    key = {props.hair}  
-                    onClick = {props.womenMediumChecked} 
-                    type = "checkbox" 
-                    checked = {props.isChecked} 
-                    value = {props.hair} 
-                    onChange={props.checkboxChange}
-                /> {props.hair}
-            </div>
-                <input 
-                    className = "time_barber"
-                    type="text" 
-                    id= {props.hair}
-                    placeholder="60"
-                    style={{display: props.isChecked? "flex": "none" }} 
-                    onChange={props.checkboxChange}
-                />
-        </div>
-    )
-}
-
-export const HairstyleWomenLongCheckbox = props => {
-    return (
-        <div className = "checkbox_line" >
-            <div style={{margin:"5px"}}>
-                <input 
-                    // className = "name_barber"
-                    key = {props.hair}  
-                    onClick = {props.womenLongChecked} 
-                    type = "checkbox" 
-                    checked = {props.isChecked} 
-                    value = {props.hair} 
-                    onChange={props.checkboxChange}
-                /> {props.hair}
-            </div>
-                <input 
-                    className = "time_barber"
-                    type="text" 
-                    id= {props.hair}
-                    placeholder="60"
-                    style={{display: props.isChecked? "flex": "none" }} 
-                    onChange={props.checkboxChange}
-                />
-        </div>
-    )
-}
-
-export const HairstyleMenShortCheckbox = props => {
-    return (
-        <div className = "checkbox_line" >
-            <div style={{margin:"5px"}}>
-                <input 
-                    // className = "name_barber"
-                    key = {props.hair}  
-                    onClick = {props.menShortChecked} 
-                    type = "checkbox" 
-                    checked = {props.isChecked} 
-                    value = {props.hair} 
-                    onChange={props.checkboxChange}
-                /> {props.hair}
-            </div>
-                <input 
-                    className = "time_barber"
-                    type="text" 
-                    id= {props.hair}
-                    placeholder="60"
-                    style={{display: props.isChecked? "flex": "none" }} 
-                    onChange={props.checkboxChange}
-                />
-        </div>
-    )
-}
-
-export const HairstyleMenLongCheckbox = props => {
-    return (
-        <div className = "checkbox_line" >
-            <div style={{margin:"5px"}}>
-                <input 
-                    // className = "name_barber"
-                    key = {props.hair}  
-                    onClick = {props.menLongChecked} 
-                    type = "checkbox" 
-                    checked = {props.isChecked} 
-                    value = {props.hair} 
-                    onChange={props.checkboxChange}
-                /> {props.hair}
-            </div>
-                <input 
-                    className = "time_barber"
-                    type="text" 
-                    id= {props.hair}
-                    placeholder="60"
-                    style={{display: props.isChecked? "flex": "none" }} 
-                    onChange={props.checkboxChange}
-                />
-        </div>
-    )
-}
 class InputBarber extends React.Component {
     constructor()
     {
@@ -198,48 +45,52 @@ class InputBarber extends React.Component {
                 {hair:"hair4",price:0,img:"",isChecked:false,key:4}
             ],
             list_menServices:[
-                {hair:"hair1",price:0,img:"",isChecked:false,key:1},
-                {hair:"hair2",price:0,img:"",isChecked:false,key:2},
-                {hair:"hair3",price:0,img:"",isChecked:false,key:3},
-                {hair:"hair4",price:0,img:"",isChecked:false,key:4}
+                {hair:"hair5",price:0,img:"",isChecked:false,key:5},
+                {hair:"hair6",price:0,img:"",isChecked:false,key:6},
+                {hair:"hair7",price:0,img:"",isChecked:false,key:7},
+                {hair:"hair8",price:0,img:"",isChecked:false,key:8}
             ],
             list_womenShort:[
-                {hair:"hair1",price:0,img:"",isChecked:false,key:1},
-                {hair:"hair2",price:0,img:"",isChecked:false,key:2},
-                {hair:"hair3",price:0,img:"",isChecked:false,key:3},
-                {hair:"hair4",price:0,img:"",isChecked:false,key:4}
+                {hair:"hair9",price:0,img:"",isChecked:false,key:9},
+                {hair:"hair10",price:0,img:"",isChecked:false,key:10},
+                {hair:"hair11",price:0,img:"",isChecked:false,key:11},
+                {hair:"hair12",price:0,img:"",isChecked:false,key:12}
             ],
             list_womenMedium:[
-                {hair:"hair1",price:0,img:"",isChecked:false,key:1},
-                {hair:"hair2",price:0,img:"",isChecked:false,key:2},
-                {hair:"hair3",price:0,img:"",isChecked:false,key:3},
-                {hair:"hair4",price:0,img:"",isChecked:false,key:4}
+                {hair:"hair13",price:0,img:"",isChecked:false,key:13},
+                {hair:"hair14",price:0,img:"",isChecked:false,key:14},
+                {hair:"hair15",price:0,img:"",isChecked:false,key:15},
+                {hair:"hair16",price:0,img:"",isChecked:false,key:16}
             ],
             list_womenLong:[
-                {hair:"hair1",price:0,img:"",isChecked:false,key:1},
-                {hair:"hair2",price:0,img:"",isChecked:false,key:2},
-                {hair:"hair3",price:0,img:"",isChecked:false,key:3},
-                {hair:"hair4",price:0,img:"",isChecked:false,key:4}
+                {hair:"hair17",price:0,img:"",isChecked:false,key:17},
+                {hair:"hair18",price:0,img:"",isChecked:false,key:18},
+                {hair:"hair19",price:0,img:"",isChecked:false,key:19},
+                {hair:"hair20",price:0,img:"",isChecked:false,key:20}
             ],
             list_menShort:[
-                {hair:"hair1",price:0,img:"",isChecked:false,key:1},
-                {hair:"hair2",price:0,img:"",isChecked:false,key:2},
-                {hair:"hair3",price:0,img:"",isChecked:false,key:3},
-                {hair:"hair4",price:0,img:"",isChecked:false,key:4}
+                {hair:"hair21",price:0,img:"",isChecked:false,key:21},
+                {hair:"hair22",price:0,img:"",isChecked:false,key:22},
+                {hair:"hair23",price:0,img:"",isChecked:false,key:23},
+                {hair:"hair24",price:0,img:"",isChecked:false,key:24}
             ],
             list_menLong:[
-                {hair:"hair1",price:0,img:"",isChecked:false,key:1},
-                {hair:"hair2",price:0,img:"",isChecked:false,key:2},
-                {hair:"hair3",price:0,img:"",isChecked:false,key:3},
-                {hair:"hair4",price:0,img:"",isChecked:false,key:4}
+                {hair:"hair25",price:0,img:"",isChecked:false,key:25},
+                {hair:"hair26",price:0,img:"",isChecked:false,key:26},
+                {hair:"hair27",price:0,img:"",isChecked:false,key:27},
+                {hair:"hair28",price:0,img:"",isChecked:false,key:28}
             ],
             imageUrl: "",
             imageFile:"",
             imagePreview:"",
+            imgError:"",
             name:"",
+            nameError:"",
             hair:[],
             time: [],
+            timeError:"",
             isSaved:false,
+            // nonEditable:false,
             isHideServices:true,
             isHideWomenHairstyle:true,
             isHideMenHairstyle:true
@@ -247,6 +98,26 @@ class InputBarber extends React.Component {
         this.getFile = this.getFile.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
+
+    validate = () => {
+        let nameError=""
+        let imgError=""
+        
+        if(!this.state.name){
+            nameError = "Invalid name !"
+        }
+        else if(this.state.name.match(/[0-9]+/)){
+            nameError = "Must be letters only"
+        }
+        if(!this.state.imageUrl){
+            nameError = "Please select an image"
+        }
+        if(nameError || imgError){
+            this.setState({ nameError : nameError, imgError : imgError });
+            return false;
+        }
+        return true;
+    };
 
     hideServicesMenu = () => {
         this.setState({isHideServices: !this.state.isHideServices})
@@ -273,6 +144,8 @@ class InputBarber extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         let check = true;
+        const isValid = this.validate()
+        
         this.setState({hair:[], time:[]})
         this.state.list_womenServices.forEach(list_womenServices => {
             let timeForEach = document.getElementById(list_womenServices.hair)
@@ -317,7 +190,7 @@ class InputBarber extends React.Component {
             }
         })
 
-        if(check && this.state.name && this.state.imageUrl){
+        if(check && isValid){
             this.state.list_womenServices.forEach(list_womenServices => {
                 let timeForEach = document.getElementById(list_womenServices.hair)
                 if(list_womenServices.isChecked) {
@@ -373,17 +246,12 @@ class InputBarber extends React.Component {
             // this.props.changeName(this.state.name);
             // this.props.getFile(this.state.imageFile, this.state.imagePreview, this.state.imageUrl);
             this.props.getBarber(this.state.name, this.state.imageUrl, this.state.hair, this.state.time)
-        }
-        else if(!this.state.name){
-            alert("Please enter a valid barber's name")
+            this.setState({nameError:"", imgError:"", timeError:"",isHideServices:true, isHideWomenHairstyle:true, isHideMenHairstyle:true})
         }
         else if (!check){
-            alert("invalid time")
+            this.setState({timeError:"Invalid time !"})
+            // console.log(check)
         }
-        else if (!this.state.imageUrl){
-            alert("Please select barber's profile")
-        }
-        
     }
 
     womenServicesChecked = event => {
@@ -469,6 +337,7 @@ class InputBarber extends React.Component {
                                 id="barber_name"
                                 value={this.props.name}
                                 placeholder="Barber's name"
+                                // style={{pointerEvents: this.state.nonEditable? "none": "visible"}}
                                 onChange={this.handleChange}
                             />
                         </div>
@@ -476,15 +345,15 @@ class InputBarber extends React.Component {
                             Select hairstyles that barber can do and enter the time spent in minutes.
                         </div>
                         <div className="services_menu" onClick={this.hideServicesMenu}>
-                            <img src={this.state.isHideServices ? downIcon : upIcon} width="15px" style={{marginRight:"10px"}}/>
+                            <img src={this.state.isHideServices ? downIcon : upIcon} alt="" width="15px" style={{marginRight:"10px"}}/>
                             Services menu
                         </div>
                         <div style ={{display: this.state.isHideServices ? "none" : "block"}}>
                             <div className="title_menu">Women</div>
                             { 
                                 this.state.list_womenServices.map((list_womenServices) => {
-                                    return (<WomenServicesCheckbox 
-                                                womenServicesChecked={this.womenServicesChecked}
+                                    return (<Checkbox 
+                                                onChecked={this.womenServicesChecked}
                                                 handleChange={this.handleChange} 
                                                 checkboxChange={this.checkboxChange}
                                                 {...list_womenServices} 
@@ -494,8 +363,8 @@ class InputBarber extends React.Component {
                            <div className="title_menu">Men</div>
                             { 
                                 this.state.list_menServices.map((list_menServices) => {
-                                    return (<MenServicesCheckbox 
-                                                menServicesChecked={this.menServicesChecked}
+                                    return (<Checkbox 
+                                                onChecked={this.menServicesChecked}
                                                 handleChange={this.handleChange} 
                                                 checkboxChange={this.checkboxChange}
                                                 {...list_menServices} 
@@ -504,15 +373,15 @@ class InputBarber extends React.Component {
                             }
                         </div>
                         <div className="services_menu" onClick={this.hideWomenhairstyle}>
-                            <img src={this.state.isHideWomenHairstyle ? downIcon : upIcon} width="15px" style={{marginRight:"10px"}}/>
+                            <img src={this.state.isHideWomenHairstyle ? downIcon : upIcon} alt="" width="15px" style={{marginRight:"10px"}}/>
                             Women hairstyles
                         </div>
                         <div style={{display: this.state.isHideWomenHairstyle ? "none": "block"}}>
                         <   div className="title_menu">Short lenght</div>
                             { 
                                 this.state.list_womenShort.map((list_womenShort) => {
-                                    return (<HairstyleWomenShortCheckbox 
-                                                womenShortChecked={this.womenShortChecked}
+                                    return (<Checkbox 
+                                                onChecked={this.womenShortChecked}
                                                 handleChange={this.handleChange} 
                                                 checkboxChange={this.checkboxChange}
                                                 {...list_womenShort} 
@@ -522,8 +391,8 @@ class InputBarber extends React.Component {
                             <div className="title_menu">Medium lengh</div>
                             { 
                                 this.state.list_womenMedium.map((list_womenMedium) => {
-                                    return (<HairstyleWomenMediumCheckbox
-                                                womenMediumChecked={this.womenMediumChecked}
+                                    return (<Checkbox
+                                                onChecked={this.womenMediumChecked}
                                                 handleChange={this.handleChange} 
                                                 checkboxChange={this.checkboxChange}
                                                 {...list_womenMedium} 
@@ -533,8 +402,8 @@ class InputBarber extends React.Component {
                             <div className="title_menu">Long lenght</div>
                             { 
                                 this.state.list_womenLong.map((list_womenLong) => {
-                                    return (<HairstyleWomenLongCheckbox
-                                                womenLongChecked={this.womenLongChecked}
+                                    return (<Checkbox
+                                                onChecked={this.womenLongChecked}
                                                 handleChange={this.handleChange} 
                                                 checkboxChange={this.checkboxChange}
                                                 {...list_womenLong} 
@@ -543,15 +412,15 @@ class InputBarber extends React.Component {
                             }
                         </div>
                         <div className="services_menu" onClick={this.hideMenhairstyle}>
-                            <img src={this.state.isHideMenHairstyle ? downIcon : upIcon} width="15px" style={{marginRight:"10px"}} />
+                            <img src={this.state.isHideMenHairstyle ? downIcon : upIcon} alt="" width="15px" style={{marginRight:"10px"}} />
                             Men short hairstyles
                         </div>
                         <div style={{display: this.state.isHideMenHairstyle? "none": "block"}}>
                             <div className="title_menu">Short lenght</div>
                             { 
                                 this.state.list_menShort.map((list_menShort) => {
-                                    return (<HairstyleMenShortCheckbox
-                                                menShortChecked={this.menShortChecked}
+                                    return (<Checkbox
+                                                onChecked={this.menShortChecked}
                                                 handleChange={this.handleChange} 
                                                 checkboxChange={this.checkboxChange}
                                                 {...list_menShort} 
@@ -561,8 +430,8 @@ class InputBarber extends React.Component {
                             <div className="title_menu">Long lenght</div>
                             { 
                                 this.state.list_menLong.map((list_menLong) => {
-                                    return (<HairstyleMenLongCheckbox
-                                                menLongChecked={this.menLongChecked}
+                                    return (<Checkbox
+                                                onChecked={this.menLongChecked}
                                                 handleChange={this.handleChange} 
                                                 checkboxChange={this.checkboxChange}
                                                 {...list_menLong} 
@@ -571,6 +440,9 @@ class InputBarber extends React.Component {
                             }
                         </div>
                         <div className="container_right_bt">
+                            <p style={{fontSize:"16px",color:"#cb2c6f",marginRight:"20px"}}>
+                                {this.state.nameError} {this.state.imgError} {this.state.timeError}
+                            </p>
                             <button className={this.state.isSaved ? "login_button" : "saved_bt"} type="submit" onClick={this.state.isSaved ? this.handleSubmit : ()=>{}}>
                                 Save
                             </button>

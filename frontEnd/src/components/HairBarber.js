@@ -5,11 +5,11 @@ import InputBarber from './InputBarber';
 
 export const AddBarber = props => {
     return(
-        // <div style={{marginBottom:"30px"}} >
+        <div style={{pointerEvents: props.edit}} >
             <InputBarber 
                 getBarber={props.getBarber} 
             /> 
-        // </div>
+        </div>
     )
 }
 
@@ -22,7 +22,7 @@ class HairBarBer extends React.Component {
             imageUrl: "",
             hair:[],
             time:[],
-            numOfbarber:[{id:0}],
+            numOfbarber:[{id:0,edit:"visible"}],
             barber: []
         }
         this.getBarber = this.getBarber.bind(this);
@@ -37,7 +37,8 @@ class HairBarBer extends React.Component {
     newBarber = event => {
         event.preventDefault()
         if(this.state.name) {
-            this.state.numOfbarber.push({id: this.state.numOfbarber.length})
+            this.state.numOfbarber[this.state.numOfbarber.length -1].edit = "none"
+            this.state.numOfbarber.push({id: this.state.numOfbarber.length, edit: "visible"})
             this.setState({numOfbarber: this.state.numOfbarber})
             this.state.barber.push({name: this.state.name, img_barber: this.state.imageUrl, hair: this.state.hair, time: this.state.time})    
         }
@@ -77,7 +78,8 @@ class HairBarBer extends React.Component {
                                     {/* <div  > */}
                                     { 
                                         this.state.numOfbarber.map((numOfbarber) => {
-                                            return (<AddBarber getBarber={this.getBarber} {...numOfbarber} key={numOfbarber.id}/>)
+                                            return (<AddBarber getBarber={this.getBarber} {...numOfbarber} key={numOfbarber.id} /> )
+                                            // console.log(numOfbarber.length)
                                         })
                                     }
                                     {/* </div> */}
@@ -92,7 +94,7 @@ class HairBarBer extends React.Component {
                             </div>
                             
                             <div className="container_next_bt">
-                                <Link className="link" to="/colors">
+                                <Link className="link" to="/pricelist">
                                     <div>
                                         <button className="login_button" type="reset">
                                             Back
