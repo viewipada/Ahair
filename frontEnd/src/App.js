@@ -20,6 +20,8 @@ import Home from './components/Home';
 import PriceList from './components/PriceList';
 import HairBarBer from './components/HairBarber';
 import Colors from './components/Colors';
+import ShopReview from './components/ShopReview';
+import SearchPage from './components/SearchPage';
 
 class App extends React.Component {
   render() {
@@ -48,6 +50,8 @@ class App extends React.Component {
               <Route path='/pricelist' component={PriceList} />
               <Route path='/hairbarber' component={HairBarBer} />
               <Route path='/colors' component={Colors} />
+              <Route path='/shopreview' component={ShopReview} />
+              <Route path='/searchpage' component={SearchPage} />
             </Switch>
           </div>
         </Router>
