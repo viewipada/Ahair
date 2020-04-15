@@ -1,6 +1,7 @@
 import React ,{useState}from 'react'
 import { Link } from 'react-router-dom';
 import StarRate from './StarRate';
+import Navbar from './navbar'
 
 class review_Cus extends React.Component {
 
@@ -21,20 +22,23 @@ class review_Cus extends React.Component {
     }
     render() {
         return (
-            <div className="Review_Container">
+            <div>
+                <Navbar/>
+            <div className="Format_Container">
                 <div className="title">
                     <h1  style={{color:"#cb2d6f",fontSize:"30px"}}>
                         Review Customer
                     </h1>
                 </div>
-                <div className="starRate" style={{margin:"15%"}}>
+                <div className="starRate" style={{margin:"13%"}}>
                     <StarRate getStar={this.getStar}/>
                 </div>
                 <div className="container_right_bt" >
-                    <button type="submit" className="submit_button" onSubmit={this.handleSubmit}>
+                    <button type="submit" className="submit_button" onClick={this.handleSubmit}>
                         Submit
                     </button>
                 </div>
+            </div>
             </div>
     );
 }

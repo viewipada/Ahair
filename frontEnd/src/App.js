@@ -20,6 +20,8 @@ import Home from './components/Home';
 import PriceList from './components/PriceList';
 import HairBarBer from './components/HairBarber';
 import Colors from './components/Colors';
+import Notification_Cus from './components/Notification_Cus'
+import navbar from './components/navbar';
 
 
 class App extends React.Component {
@@ -49,6 +51,8 @@ class App extends React.Component {
               <Route path='/pricelist' component={PriceList} />
               <Route path='/hairbarber' component={HairBarBer} />
               <Route path='/colors' component={Colors} />
+              <Route path='/noticeforcustomer' component={Notification_Cus}/>
+              <Route path='/navbar' component={navbar}/>
             </Switch>
           </div>
         </Router>

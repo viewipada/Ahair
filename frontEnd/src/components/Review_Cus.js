@@ -1,7 +1,8 @@
-import React ,{useState}from 'react'
+import React, { useState } from 'react'
 import MultipleImageUpload from './MultipleImageUpload';
 import { Link } from 'react-router-dom';
 import StarRate from './StarRate';
+import Navbar from './navbar'
 
 class review_Cus extends React.Component {
 
@@ -11,8 +12,8 @@ class review_Cus extends React.Component {
             imageFile: [],
             imagePreview: [],
             imageUrl: [],
-            reviewdata:'',
-            ratingValue:''
+            reviewdata: '',
+            ratingValue: ''
         }
         this.getFile = this.getFile.bind(this);
         this.getStar = this.getStar.bind(this);
@@ -22,62 +23,64 @@ class review_Cus extends React.Component {
             imageFile: img_file, imagePreview: img_preview, imageUrl: img_url
         });
     }
-    getStar(rating){
-        this.setState({ratingValue: rating});
+    getStar(rating) {
+        this.setState({ ratingValue: rating });
     }
-    handleSubmit=(event)=>{
+    handleSubmit = (event) => {
         event.preventDefault();
         const data = this.state;
         console.log(data);
     }
-    handleInputChange=(event)=>{
+    handleInputChange = (event) => {
         event.preventDefault();
         this.setState({
-            [event.target.name]:event.target.value
+            [event.target.name]: event.target.value
         })
     }
     render() {
         return (
-            <div className="Review_Container">
-                <div className="title">
-                    <h1  style={{color:"#cb2d6f",fontSize:"30px"}}>
-                        Review
+            <div><Navbar />
+                <div className="Format_Container">
+                    <div className="title">
+                        <h1 style={{ color: "#cb2d6f", fontSize: "30px" }}>
+                            Review
                     </h1>
-                </div>
-                <div className="starRate">
-                    <StarRate getStar={this.getStar}/>
-                </div>
-                <div className="wrapAddimg">
-                    <p style={{color:"white",margin:"0px"}}>Add Image (Maximum 5 Image)</p>
-                    <div className="AddImgReview">
-                        <MultipleImageUpload getFile={this.getFile} />
                     </div>
-                </div>
-                <div className="ReviewtxtBox">
-                    <h2 style={{color:"white",fontSize:"20px"}}>Description</h2>
-                    <div className="descriptionBox">
-                        <textarea 
-                            type="text" 
-                            placeholder="Write some Review..." 
-                            rows="5"
-                            name="reviewdata"
-                            onChange={this.handleInputChange}    
+                    <div className="starRate">
+                        <StarRate getStar={this.getStar} />
+                    </div>
+                    <div className="wrapAddimg">
+                        <p style={{ color: "white", margin: "0px" }}>Add Image (Maximum 5 Image)</p>
+                        <div className="AddImgReview">
+                            <MultipleImageUpload getFile={this.getFile} />
+                        </div>
+                    </div>
+                    <div className="ReviewtxtBox">
+                        <h2 style={{ color: "white", fontSize: "20px" }}>Description</h2>
+                        <div className="descriptionBox">
+                            <textarea
+                                type="text"
+                                placeholder="Write some Review..."
+                                rows="5"
+                                name="reviewdata"
+                                onChange={this.handleInputChange}
+                            >
+                            </textarea>
+                        </div>
+                    </div>
+                    <div className="container_right_bt" >
+                        <button
+                            type="submit"
+                            className="submit_button"
+                            onClick={this.handleSubmit}
                         >
-                        </textarea>
-                    </div>
-                </div>
-                <div className="container_right_bt" >
-                    <button 
-                        type="submit" 
-                        className="submit_button"
-                        onClick={this.handleSubmit}    
-                    >
                             Submit
                     </button>
+                    </div>
                 </div>
             </div>
-    );
-}
+        );
+    }
 }
 
 export default review_Cus;

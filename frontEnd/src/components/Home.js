@@ -4,6 +4,7 @@ import img1 from './pic/1.jpg'
 import { FaSistrix } from "react-icons/fa"
 import { FaUserFriends } from "react-icons/fa"
 import { GiShop } from "react-icons/gi"
+import Navbar from './navbar'
 
 class Home extends Component {
 
@@ -12,65 +13,16 @@ class Home extends Component {
     this.state={
         statename:'Sign in',
         displayMenu: false,
-        checkLogin: false
+        checkLogin: ''
     };
-    this.showDropdownMenu = this.showDropdownMenu.bind(this);
-    this.hideDropdownMenu = this.hideDropdownMenu.bind(this);
-    this.logoutevent=this.logoutevent.bind(this)
-  }
-
-  showDropdownMenu=()=> {
-    const checkLogin =this.state.checkLogin;
-    if (!checkLogin) {
-      this.setState({ statename: 'Pixy' });
-      this.setState({checkLogin:true});
-      console.log("hereee!!");
-    }
-    else {
-      this.setState({ displayMenu: true }, () => {
-        document.addEventListener('click', this.hideDropdownMenu);
-      });
-    }
-  }
-
-  hideDropdownMenu=()=> {
-    this.setState({ displayMenu: false }, () => {
-      document.removeEventListener('click', this.hideDropdownMenu);
-    });
 
   }
 
-  logoutevent=()=>{
-    this.setState({checkLogin:false});
-    this.setState({statename:'Sign-in'});
-  }
+  
   render() {
     return (
       <div class="wrap">
-        <div class="wrapnavbar">
-          <img src={logo} class="homelogo" alt="Home" height="8%" width="8%" />
-          <div class="searchBox">
-            <input type="text" placeholder="Search" className="searchInput" />
-            <div>
-              <FaSistrix class="searchicon" size='1.5rem' color="white" />
-            </div>
-          </div>
-          <div class="dropdown" >
-    <button class="Signin" onClick={this.showDropdownMenu}><FaUserFriends class="usericon" />  {this.state.statename}</button>
-
-            {this.state.displayMenu ? (
-              <ul>
-                <li><a href="#Profile">Profile</a></li>
-                <li><a href="#LogOut" onClick={this.logoutevent}>Log Out</a></li>
-              </ul>
-            ) :
-              (
-                null
-              )
-            }
-
-          </div>
-        </div>
+        <Navbar/>
         <div class="wrapcontainer">
           <div class="slideContainer">
             <span id="sliderImg1"></span>
