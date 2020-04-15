@@ -707,7 +707,7 @@ p.pattern {
 .Format_Container{
     padding: 30px 60px 40px 60px;
     align-content: center;
-
+    
 }
 .starInput{
   display: none;
@@ -877,9 +877,6 @@ textarea{
 .iconBt{
   position: relative;
   top: 10%;
-}
-.iconBt:hover{
-  color: #797777;
 }
 ul {
     list-style-type: none;

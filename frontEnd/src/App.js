@@ -23,6 +23,8 @@ import Colors from './components/Colors';
 import Notification_Cus from './components/Notification_Cus'
 import navbar from './components/navbar';
 
+import ShopReview from './components/ShopReview';
+import SearchPage from './components/SearchPage';
 
 class App extends React.Component {
   render() {
@@ -53,6 +55,8 @@ class App extends React.Component {
               <Route path='/colors' component={Colors} />
               <Route path='/noticeforcustomer' component={Notification_Cus}/>
               <Route path='/navbar' component={navbar}/>
+              <Route path='/shopreview' component={ShopReview} />
+              <Route path='/searchpage' component={SearchPage} />
             </Switch>
           </div>
         </Router>

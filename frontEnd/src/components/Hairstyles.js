@@ -1,148 +1,12 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-export const AddWomenShortCheckBox = props => {
+export const CheckBox = props => {
     return (
         <div className = "checkbox_info">
             <input 
                 key = {props.id}  
-                onClick = {props.addwomenShortChecked} 
-                type = "checkbox" 
-                checked = {props.isChecked} 
-                value = {props.value} 
-                onChange={()=>{}}
-            /> {props.value}
-        </div>
-    )
-}
-
-export const AddWomenMediumCheckBox = props => {
-    return (
-        <div className = "checkbox_info">
-            <input 
-                key = {props.id} 
-                onClick = {props.addwomenMediumChecked} 
-                type = "checkbox" 
-                checked = {props.isChecked} 
-                value = {props.value} 
-                onChange={()=>{}}
-            /> {props.value}
-        </div>
-    )
-}
-
-export const AddWomenLongCheckBox = props => {
-    return (
-        <div className = "checkbox_info">
-            <input 
-                key = {props.id} 
-                onClick = {props.addwomenLongChecked} 
-                type = "checkbox" 
-                checked = {props.isChecked} 
-                value = {props.value} 
-                onChange={()=>{}}
-            /> {props.value}
-        </div>
-    )
-}
-
-export const AddMenShortCheckBox = props => {
-    return (
-        <div className = "checkbox_info">
-            <input 
-                key = {props.id} 
-                onClick = {props.addmenShortChecked} 
-                type = "checkbox" 
-                checked = {props.isChecked} 
-                value = {props.value} 
-                onChange={()=>{}}
-            /> {props.value}
-        </div>
-    )
-}
-
-export const AddMenLongCheckBox = props => {
-    return (
-        <div className = "checkbox_info">
-            <input 
-                key = {props.id} 
-                onClick = {props.addmenLongChecked} 
-                type = "checkbox" 
-                checked = {props.isChecked} 
-                value = {props.value} 
-                onChange={()=>{}}
-            /> {props.value}
-        </div>
-    )
-}
-
-export const WomenShortCheckBox = props => {
-    return (
-        <div className = "checkbox_info">
-            <input 
-                key = {props.id} 
-                onClick = {props.womenShortChecked} 
-                type = "checkbox" 
-                checked = {props.isChecked} 
-                value = {props.value} 
-                onChange={()=>{}}
-            /> {props.value}
-        </div>
-    )
-}
-
-
-export const WomenMediumCheckBox = props => {
-    return (
-        <div className = "checkbox_info">
-            <input 
-                key = {props.id} 
-                onClick = {props.womenMediumChecked} 
-                type = "checkbox" 
-                checked = {props.isChecked} 
-                value = {props.value} 
-                onChange={()=>{}}
-            /> {props.value}
-        </div>
-    )
-}
-
-export const WomenLongCheckBox = props => {
-    return (
-        <div className = "checkbox_info">
-            <input 
-                key = {props.id} 
-                onClick = {props.womenLongChecked} 
-                type = "checkbox" 
-                checked = {props.isChecked} 
-                value = {props.value} 
-                onChange={()=>{}}
-            /> {props.value}
-        </div>
-    )
-}
-
-export const MenShortCheckBox = props => {
-    return (
-        <div className = "checkbox_info">
-            <input 
-                key = {props.id} 
-                onClick = {props.menShortChecked} 
-                type = "checkbox" 
-                checked = {props.isChecked} 
-                value = {props.value} 
-                onChange={()=>{}}
-            /> {props.value}
-        </div>
-    )
-}
-
-export const MenLongCheckBox = props => {
-    return (
-        <div className = "checkbox_info">
-            <input 
-                key = {props.id} 
-                onClick = {props.menLongChecked} 
+                onClick = {props.onClick} 
                 type = "checkbox" 
                 checked = {props.isChecked} 
                 value = {props.value} 
@@ -481,7 +345,7 @@ class Hairstyles extends React.Component {
                                     <p style={{color:"white", marginRight:"20px"}}>Women Hairstyles</p>
                                 </div>
                             </div>
-                            <ul className="line_info">
+                            <div className="line_info">
                                 <div className = "wrap_checkbox">
                                     <div className="title_hairstyles"><p>Short length</p></div>
                                     <div className = "checkbox_info">
@@ -495,12 +359,12 @@ class Hairstyles extends React.Component {
                         
                                     { 
                                         this.state.list_womenShort.map((list_womenShort) => {
-                                            return (<WomenShortCheckBox womenShortChecked={this.womenShortChecked}  {...list_womenShort} />)
+                                            return (<CheckBox onClick={this.womenShortChecked}  {...list_womenShort} />)
                                         })
                                     }
                                     { 
                                         this.state.addwomenShort.map((addwomenShort) => {
-                                            return (<AddWomenShortCheckBox addwomenShortChecked={this.addwomenShortChecked}  {...addwomenShort} />)
+                                            return (<CheckBox onClick={this.addwomenShortChecked}  {...addwomenShort} />)
                                         })
                                     }
 
@@ -517,9 +381,9 @@ class Hairstyles extends React.Component {
                                         </button>
                                     </div>
                                 </div>
-                            </ul>
+                            </div>
 
-                            <ul className="line_info">
+                            <div className="line_info">
                                 <div className = "wrap_checkbox">
                                     <div className="title_hairstyles"><p>Medium length</p></div>
                                     <div className = "checkbox_info">
@@ -533,12 +397,12 @@ class Hairstyles extends React.Component {
                         
                                     { 
                                         this.state.list_womenMedium.map((list_womenMedium) => {
-                                            return (<WomenMediumCheckBox womenMediumChecked={this.womenMediumChecked}  {...list_womenMedium} />)
+                                            return (<CheckBox onClick={this.womenMediumChecked}  {...list_womenMedium} />)
                                         })
                                     }
                                     { 
                                         this.state.addwomenMedium.map((addwomenMedium) => {
-                                            return (<AddWomenMediumCheckBox addwomenMediumChecked={this.addwomenMediumChecked}  {...addwomenMedium} />)
+                                            return (<CheckBox onClick={this.addwomenMediumChecked}  {...addwomenMedium} />)
                                         })
                                     }
 
@@ -555,9 +419,9 @@ class Hairstyles extends React.Component {
                                         </button>
                                     </div>
                                 </div>
-                            </ul>
+                            </div>
 
-                            <ul className="line_info">
+                            <div className="line_info">
                                 <div className = "wrap_checkbox">
                                     <div className="title_hairstyles"><p>Long length</p></div>
                                     <div className = "checkbox_info">
@@ -571,12 +435,12 @@ class Hairstyles extends React.Component {
                         
                                     { 
                                         this.state.list_womenLong.map((list_womenLong) => {
-                                            return (<WomenLongCheckBox womenLongChecked={this.womenLongChecked}  {...list_womenLong} />)
+                                            return (<CheckBox onClick={this.womenLongChecked}  {...list_womenLong} />)
                                         })
                                     }
                                     { 
                                         this.state.addwomenLong.map((addwomenLong) => {
-                                            return (<AddWomenLongCheckBox addwomenLongChecked={this.addwomenLongChecked}  {...addwomenLong} />)
+                                            return (<CheckBox onClick={this.addwomenLongChecked}  {...addwomenLong} />)
                                         })
                                     }
 
@@ -593,14 +457,14 @@ class Hairstyles extends React.Component {
                                         </button>
                                     </div>
                                 </div>
-                            </ul>
+                            </div>
 
                             <div className = "line_info">
                                 <div style={{width:"200px"}}>
                                     <p style={{color:"white", marginRight:"20px"}}>Men Hairstyles</p>
                                 </div>
                             </div>
-                            <ul className="line_info">
+                            <div className="line_info">
                                 <div className = "wrap_checkbox">
                                     <div className="title_hairstyles"><p>Short length</p></div>
                                     <div className = "checkbox_info">
@@ -614,12 +478,12 @@ class Hairstyles extends React.Component {
                         
                                     { 
                                         this.state.list_menShort.map((list_menShort) => {
-                                            return (<MenShortCheckBox menShortChecked={this.menShortChecked}  {...list_menShort} />)
+                                            return (<CheckBox onClick={this.menShortChecked}  {...list_menShort} />)
                                         })
                                     }
                                     { 
                                         this.state.addmenShort.map((addmenShort) => {
-                                            return (<AddMenShortCheckBox addmenShortChecked={this.addmenShortChecked}  {...addmenShort} />)
+                                            return (<CheckBox onClick={this.addmenShortChecked}  {...addmenShort} />)
                                         })
                                     }
 
@@ -636,9 +500,9 @@ class Hairstyles extends React.Component {
                                         </button>
                                     </div>
                                 </div>
-                            </ul>
+                            </div>
 
-                            <ul className="line_info">
+                            <div className="line_info">
                                 <div className = "wrap_checkbox">
                                     <div className="title_hairstyles"><p>Long length</p></div>
                                     <div className = "checkbox_info">
@@ -652,12 +516,12 @@ class Hairstyles extends React.Component {
                         
                                     { 
                                         this.state.list_menLong.map((list_menLong) => {
-                                            return (<MenLongCheckBox menLongChecked={this.menLongChecked}  {...list_menLong} />)
+                                            return (<CheckBox onClick={this.menLongChecked}  {...list_menLong} />)
                                         })
                                     }
                                     { 
                                         this.state.addmenLong.map((addmenLong) => {
-                                            return (<AddMenLongCheckBox addmenLongChecked={this.addmenLongChecked}  {...addmenLong} />)
+                                            return (<CheckBox onClick={this.addmenLongChecked}  {...addmenLong} />)
                                         })
                                     }
 
@@ -674,7 +538,7 @@ class Hairstyles extends React.Component {
                                         </button>
                                     </div>
                                 </div>
-                            </ul>
+                            </div>
                             
                         </div>
                         <div className="container_next_bt">

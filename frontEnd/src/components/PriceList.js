@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-class InputListServicesWomen extends React.Component {
-    servicesWomenChange(index, event) {
-      this.props.onChange(index, {...this.props.servicesWomen[index], price: event.target.value})
+class InputListServices extends React.Component {
+    servicesChange(index, event) {
+      this.props.onChange(index, {...this.props.services[index], price: event.target.value})
     }
 
     render() { 
       return (
         <div className = "line_price">
-            {this.props.servicesWomen.map((servicesWomen,index) => 
-                <ul className = "line_price" key = {servicesWomen.hair}>
+            {this.props.services.map((services,index) => 
+                <div className = "line_price" key = {services.hair} style={{marginLeft:"50px"}}>
                     <div className="name_hair">
-                        {servicesWomen.hair}
+                        {services.hair}
                     </div>
                     <div className = "price">
                         <input  
@@ -20,63 +20,33 @@ class InputListServicesWomen extends React.Component {
                             className= "input_price" 
                             min="0"
                             placeholder = "0"
-                            onChange={this.servicesWomenChange.bind(this, index)} 
+                            onChange={this.servicesChange.bind(this, index)} 
                         />
                     </div>
                     <div className = "baht">Baht</div>
-                </ul>
+                </div>
             )}
         </div>
       )
     }
 }
 
-class InputListServicesMen extends React.Component {
-    servicesMenChange(index, event) {
-      this.props.onChange(index, {...this.props.servicesMen[index], price: event.target.value})
+class InputListHairstyle extends React.Component {
+    hairstyleChange(index, event) {
+      this.props.onChange(index, {...this.props.hairstyle[index], price: event.target.value})
     }
 
-    render() { 
-      return (
-        <div className = "line_price">
-            {this.props.servicesMen.map((servicesMen,index) => 
-                <ul className = "line_price" key = {servicesMen.hair}>
-                    <div className="name_hair">
-                        {servicesMen.hair}
-                    </div>
-                    <div className = "price">
-                        <input  
-                            type ="number" 
-                            className= "input_price" 
-                            min="0"
-                            placeholder = "0"
-                            onChange={this.servicesMenChange.bind(this, index)} 
-                        />
-                    </div>
-                    <div className = "baht">Baht</div>
-                </ul>
-            )}
-        </div>
-      )
-    }
-}
-
-class InputListHairstyleWomenShort extends React.Component {
-    hairstyleWomenShortChange(index, event) {
-      this.props.onChange(index, {...this.props.hairstyleWomenShort[index], price: event.target.value})
-    }
-
-    imghairstyleWomenShortChange(index, event) {
-        this.props.imghairstyleWomenShortChange(index, {...this.props.hairstyleWomenShort[index], img: URL.createObjectURL(event.target.files[0])})
+    imghairstyleChange(index, event) {
+        this.props.imghairstyleWomenShortChange(index, {...this.props.hairstyle[index], img: URL.createObjectURL(event.target.files[0])})
       }
     
     render() { 
       return (
         <div className = "line_price">
-            {this.props.hairstyleWomenShort.map((hairstyleWomenShort,index) => 
-                <ul className = "line_price" key = {hairstyleWomenShort.hair}>
+            {this.props.hairstyle.map((hairstyle,index) => 
+                <div className = "line_price" key = {hairstyle.hair} style={{marginLeft:"50px"}}>
                     <div className="name_hair">
-                        {hairstyleWomenShort.hair}
+                        {hairstyle.hair}
                     </div>
                     <div className = "price">
                         <input  
@@ -84,7 +54,7 @@ class InputListHairstyleWomenShort extends React.Component {
                             className= "input_price" 
                             min="0"
                             placeholder = "0"
-                            onChange={this.hairstyleWomenShortChange.bind(this, index)} 
+                            onChange={this.hairstyleChange.bind(this, index)} 
                         />
                     </div>
                     <div className = "baht">Baht</div>
@@ -93,178 +63,10 @@ class InputListHairstyleWomenShort extends React.Component {
                             className = "hairstype_img_input"
                             type = "file"
                             id = "image_file"
-                            onChange = {this.imghairstyleWomenShortChange.bind(this, index)}
+                            onChange = {this.imghairstyleChange.bind(this, index)}
                         />
                     </div>
-                </ul>
-            )}
-        </div>
-      )
-    }
-}
-
-class InputListHairstyleWomenMedium extends React.Component {
-    hairstyleWomenMediumChange(index, event) {
-      this.props.onChange(index, {...this.props.hairstyleWomenMedium[index], price: event.target.value})
-    }
-
-    imghairstyleWomenMediumChange(index, event) {
-        this.props.imghairstyleWomenMediumChange(index, {...this.props.hairstyleWomenMedium[index], img: URL.createObjectURL(event.target.files[0])})
-      }
-    
-    render() { 
-      return (
-        <div className = "line_price">
-            {this.props.hairstyleWomenMedium.map((hairstyleWomenMedium,index) => 
-                <ul className = "line_price" key = {hairstyleWomenMedium.hair}>
-                    <div className="name_hair">
-                        {hairstyleWomenMedium.hair}
-                    </div>
-                    <div className = "price">
-                        <input  
-                            type ="number" 
-                            className= "input_price" 
-                            min="0"
-                            placeholder = "0"
-                            onChange={this.hairstyleWomenMediumChange.bind(this, index)} 
-                        />
-                    </div>
-                    <div className = "baht">Baht</div>
-                    <div className = "hairstype_img">
-                        <input 
-                            className = "hairstype_img_input"
-                            type = "file"
-                            id = "image_file"
-                            onChange = {this.imghairstyleWomenMediumChange.bind(this, index)}
-                        />
-                    </div>
-                </ul>
-            )}
-        </div>
-      )
-    }
-}
-
-class InputListHairstyleWomenLong extends React.Component {
-    hairstyleWomenLongChange(index, event) {
-      this.props.onChange(index, {...this.props.hairstyleWomenLong[index], price: event.target.value})
-    }
-
-    imghairstyleWomenLongChange(index, event) {
-        this.props.imghairstyleWomenLongChange(index, {...this.props.hairstyleWomenLong[index], img: URL.createObjectURL(event.target.files[0])})
-      }
-    
-    render() { 
-      return (
-        <div className = "line_price">
-            {this.props.hairstyleWomenLong.map((hairstyleWomenLong,index) => 
-                <ul className = "line_price" key = {hairstyleWomenLong.hair}>
-                    <div className="name_hair">
-                        {hairstyleWomenLong.hair}
-                    </div>
-                    <div className = "price">
-                        <input  
-                            type ="number" 
-                            className= "input_price" 
-                            min="0"
-                            placeholder = "0"
-                            onChange={this.hairstyleWomenLongChange.bind(this, index)} 
-                        />
-                    </div>
-                    <div className = "baht">Baht</div>
-                    <div className = "hairstype_img">
-                        <input 
-                            className = "hairstype_img_input"
-                            type = "file"
-                            id = "image_file"
-                            onChange = {this.imghairstyleWomenLongChange.bind(this, index)}
-                        />
-                    </div>
-                </ul>
-            )}
-        </div>
-      )
-    }
-}
-
-class InputListHairstyleMenShort extends React.Component {
-    hairstyleMenShortChange(index, event) {
-      this.props.onChange(index, {...this.props.hairstyleMenShort[index], price: event.target.value})
-    }
-
-    imghairstyleMenShortChange(index, event) {
-        this.props.imghairstyleMenShortChange(index, {...this.props.hairstyleMenShort[index], img: URL.createObjectURL(event.target.files[0])})
-      }
-    
-    render() { 
-      return (
-        <div className = "line_price">
-            {this.props.hairstyleMenShort.map((hairstyleMenShort,index) => 
-                <ul className = "line_price" key = {hairstyleMenShort.hair}>
-                    <div className="name_hair">
-                        {hairstyleMenShort.hair}
-                    </div>
-                    <div className = "price">
-                        <input  
-                            type ="number" 
-                            className= "input_price" 
-                            min="0"
-                            placeholder = "0"
-                            onChange={this.hairstyleMenShortChange.bind(this, index)} 
-                        />
-                    </div>
-                    <div className = "baht">Baht</div>
-                    <div className = "hairstype_img">
-                        <input 
-                            className = "hairstype_img_input"
-                            type = "file"
-                            id = "image_file"
-                            onChange = {this.imghairstyleMenShortChange.bind(this, index)}
-                        />
-                    </div>
-                </ul>
-            )}
-        </div>
-      )
-    }
-}
-
-class InputListHairstyleMenLong extends React.Component {
-    hairstyleMenLongChange(index, event) {
-      this.props.onChange(index, {...this.props.hairstyleMenLong[index], price: event.target.value})
-    }
-
-    imghairstyleMenLongChange(index, event) {
-        this.props.imghairstyleMenLongChange(index, {...this.props.hairstyleMenLong[index], img: URL.createObjectURL(event.target.files[0])})
-      }
-    
-    render() { 
-      return (
-        <div className = "line_price">
-            {this.props.hairstyleMenLong.map((hairstyleMenLong,index) => 
-                <ul className = "line_price" key = {hairstyleMenLong.hair}>
-                    <div className="name_hair">
-                        {hairstyleMenLong.hair}
-                    </div>
-                    <div className = "price">
-                        <input  
-                            type ="number" 
-                            className= "input_price" 
-                            min="0"
-                            placeholder = "0"
-                            onChange={this.hairstyleMenLongChange.bind(this, index)} 
-                        />
-                    </div>
-                    <div className = "baht">Baht</div>
-                    <div className = "hairstype_img">
-                        <input 
-                            className = "hairstype_img_input"
-                            type = "file"
-                            id = "image_file"
-                            onChange = {this.imghairstyleMenLongChange.bind(this, index)}
-                        />
-                    </div>
-                </ul>
+                </div>
             )}
         </div>
       )
@@ -475,49 +277,49 @@ class PriceList extends React.Component {
                                 <p style={{color:"#14A098", marginRight:"20px"}}>Services for women</p>
                             </div>
                         </div>
-                        <InputListServicesWomen servicesWomen={this.state.servicesWomen} onChange={this.servicesWomenChange} />
+                        <InputListServices services={this.state.servicesWomen} onChange={this.servicesWomenChange} />
                     
                         <div className = "line_info">
                             <div style={{width:"200px"}}>
                                 <p style={{color:"#14A098", marginRight:"20px"}}>Services for men</p>
                             </div>
                         </div>
-                        <InputListServicesMen servicesMen={this.state.servicesMen} onChange={this.servicesMenChange} />
+                        <InputListServices services={this.state.servicesMen} onChange={this.servicesMenChange} />
                     
                         <div className = "line_info">
                             <div style={{width:"200px"}}>
                                 <p style={{color:"#14A098", marginRight:"20px"}}>Women hairstyles</p>
                             </div>
                         </div>
-                        <InputListHairstyleWomenShort hairstyleWomenShort={this.state.hairstyleWomenShort} onChange={this.hairstyleWomenShortChange} imgChange={this.imghairstyleWomenShortChange}/>
+                        <InputListHairstyle hairstyle={this.state.hairstyleWomenShort} onChange={this.hairstyleWomenShortChange} imgChange={this.imghairstyleWomenShortChange}/>
                     
                         <div className = "line_info">
                             <div style={{width:"200px"}}>
                                 <p style={{color:"#14A098", marginRight:"20px"}}>Women hairstyles</p>
                             </div>
                         </div>
-                        <InputListHairstyleWomenMedium hairstyleWomenMedium={this.state.hairstyleWomenMedium} onChange={this.hairstyleWomenMediumChange} imgChange={this.imghairstyleWomenMediumChange}/>
+                        <InputListHairstyle hairstyle={this.state.hairstyleWomenMedium} onChange={this.hairstyleWomenMediumChange} imgChange={this.imghairstyleWomenMediumChange}/>
                     
                         <div className = "line_info">
                             <div style={{width:"200px"}}>
                                 <p style={{color:"#14A098", marginRight:"20px"}}>Women hairstyles</p>
                             </div>
                         </div>
-                        <InputListHairstyleWomenLong hairstyleWomenLong={this.state.hairstyleWomenLong} onChange={this.hairstyleWomenLongChange} imgChange={this.imghairstyleWomenLongChange}/>
+                        <InputListHairstyle hairstyle={this.state.hairstyleWomenLong} onChange={this.hairstyleWomenLongChange} imgChange={this.imghairstyleWomenLongChange}/>
                     
                         <div className = "line_info">
                             <div style={{width:"200px"}}>
                                 <p style={{color:"#14A098", marginRight:"20px"}}>Men hairstyle</p>
                             </div>
                         </div>
-                        <InputListHairstyleMenShort hairstyleMenShort={this.state.hairstyleMenShort} onChange={this.hairstyleMenShortChange} imgChange={this.imghairstyleMenShortChange}/>
+                        <InputListHairstyle hairstyle={this.state.hairstyleMenShort} onChange={this.hairstyleMenShortChange} imgChange={this.imghairstyleMenShortChange}/>
                     
                         <div className = "line_info">
                             <div style={{width:"200px"}}>
                                 <p style={{color:"#14A098", marginRight:"20px"}}>Men hairstyle</p>
                             </div>
                         </div>
-                        <InputListHairstyleMenLong hairstyleMenLong={this.state.hairstyleMenLong} onChange={this.hairstyleMenLongChange} imgChange={this.imghairstyleMenLongChange}/>
+                        <InputListHairstyle hairstyle={this.state.hairstyleMenLong} onChange={this.hairstyleMenLongChange} imgChange={this.imghairstyleMenLongChange}/>
                     
                     </div>
 
