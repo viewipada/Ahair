@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import logo from './pic/logo_V2.1.png'
 import { FaSistrix, FaUser } from "react-icons/fa"
 import { IoIosNotifications } from "react-icons/io"
@@ -67,7 +68,9 @@ class NavBar extends Component {
     render() {
         return (
             <div class="wrapnavbar">
-                <img src={logo} class="homelogo" alt="Home" />
+                <Link className="link" to="/home">
+                    <img src={logo} class="homelogo" alt="Home" />
+                </Link>
                 <div class="searchBox">
                     <input
                         type="text"
