@@ -70,7 +70,7 @@ class SearchPage extends Component {
                             <section>
 
                                 {/* Topic */}
-                                <div class="topic" style={{marginTop:'1.9em'}} >Search Result</div>
+                                <div class="topic" style={{marginTop:'2.4em'}} >Search Result</div>
                                 <hr class="major"/>
 
                                 {/* Body */}
