@@ -21,7 +21,7 @@ import PriceList from './components/PriceList';
 import HairBarBer from './components/HairBarber';
 import Colors from './components/Colors';
 import notice_Cus from './components/notice_Cus'
-import NavBar from './components/navbar';
+import Navbar from './components/navbar';
 import ShopReview from './components/ShopReview';
 import SearchPage from './components/SearchPage';
 import NavBarShop from './components/NavBarShop';
@@ -56,7 +56,7 @@ class App extends React.Component {
               <Route path='/hairbarber' component={HairBarBer} />
               <Route path='/colors' component={Colors} />
               <Route path='/noticeforcustomer' component={notice_Cus}/>
-              <Route path='/navbar' component={NavBar}/>
+              <Route path='/navbar' component={Navbar}/>
               <Route path='/navbarshop' component={NavBarShop} />
               <Route path='/shopreview' component={ShopReview} />
               <Route path='/searchpage' component={SearchPage} />
