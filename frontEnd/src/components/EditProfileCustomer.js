@@ -9,7 +9,7 @@ import passwordIcon from './pic/password_icon.png';
 import visibleIcon from './pic/visible_icon.png'
 import invisibleIcon from './pic/invisible_icon.png'
 import ImageUpload from './ImageUpload';
-import NavBar from './NavBar';
+import NavBar from './navbar';
 
 class ProfileCustomer extends React.Component {
     constructor()

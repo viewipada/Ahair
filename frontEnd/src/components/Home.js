@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import logo from './pic/logo_V2.1.png'
 import img1 from './pic/1.jpg'
-import { FaSistrix } from "react-icons/fa"
-import { FaUserFriends } from "react-icons/fa"
 import { GiShop } from "react-icons/gi"
-import Navbar from './NavBar'
+import Navbar from './navbar'
 
 class Home extends Component {
 
