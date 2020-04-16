@@ -20,11 +20,13 @@ import Home from './components/Home';
 import PriceList from './components/PriceList';
 import HairBarBer from './components/HairBarber';
 import Colors from './components/Colors';
-import Notification_Cus from './components/Notification_Cus'
-import navbar from './components/navbar';
-
+import notice_Cus from './components/notice_Cus'
+import NavBar from './components/navbar';
 import ShopReview from './components/ShopReview';
 import SearchPage from './components/SearchPage';
+import NavBarShop from './components/NavBarShop';
+import Shop from './components/Shop';
+import SelectHairStyle from './components/SelectHairStyle';
 
 class App extends React.Component {
   render() {
@@ -53,10 +55,13 @@ class App extends React.Component {
               <Route path='/pricelist' component={PriceList} />
               <Route path='/hairbarber' component={HairBarBer} />
               <Route path='/colors' component={Colors} />
-              <Route path='/noticeforcustomer' component={Notification_Cus}/>
-              <Route path='/navbar' component={navbar}/>
+              <Route path='/noticeforcustomer' component={notice_Cus}/>
+              <Route path='/navbar' component={NavBar}/>
+              <Route path='/navbarshop' component={NavBarShop} />
               <Route path='/shopreview' component={ShopReview} />
               <Route path='/searchpage' component={SearchPage} />
+              <Route path='/shop' component={Shop} />
+              <Route path='/SelectHairStyle' component={SelectHairStyle} />
             </Switch>
           </div>
         </Router>

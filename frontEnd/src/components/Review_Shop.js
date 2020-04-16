@@ -1,7 +1,7 @@
 import React ,{useState}from 'react'
 import { Link } from 'react-router-dom';
 import StarRate from './StarRate';
-import Navbar from './navbar'
+import Navbar from './NavBar'
 
 class review_Cus extends React.Component {
 

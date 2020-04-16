@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import NavBarShop from "./NavBarShop";
 
 export const AddColorCheckBox = props => {
     return (
@@ -155,6 +156,7 @@ class Colors extends React.Component {
     render() {
         return (
             <div className="big_container">
+                <NavBarShop />
                 <div className="wrap_info">
 
                     <div className = "title">

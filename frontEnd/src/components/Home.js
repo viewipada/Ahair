@@ -4,7 +4,7 @@ import img1 from './pic/1.jpg'
 import { FaSistrix } from "react-icons/fa"
 import { FaUserFriends } from "react-icons/fa"
 import { GiShop } from "react-icons/gi"
-import Navbar from './navbar'
+import Navbar from './NavBar'
 
 class Home extends Component {
 

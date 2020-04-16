@@ -3,13 +3,11 @@ import { Link } from 'react-router-dom'
 import { FaSistrix } from "react-icons/fa"
 import { FaUserFriends } from "react-icons/fa"
 import Axios from 'axios'
-import ShopReviewItem from './ShopReviewItem'
-import Sidebar from './Sidebar'
 import shopIcon from './pic/1.jpg';
+import Sidebar from './Sidebar';
+import HairStyleItem from './HairStyleItem';
 
-
-class ShopReview extends Component {
-
+export default class Shop extends Component {
     constructor(props) {
         super(props)
 
@@ -37,7 +35,6 @@ class ShopReview extends Component {
     }
 
     render() {
-
         return (
             <body class="is-preload">
                 {/* <!-- Wrapper --> */}
@@ -52,14 +49,12 @@ class ShopReview extends Component {
                         {/* Search and Signin */}
                         <div class="wrap_search_signin">
 
-                            {/* Search */}
                             <div class="wrap_search_icon">
                                 <input className="search" fontSize="30" placeholder="Search"
                                     onChange={(event) => { this.search(event.target.value) }} />
                                 <div><FaSistrix class="searchIcon" size='1.5rem' color="white" /></div>
                             </div>
 
-                            {/* Signin button */}
                             <Link className="link" to="/signin">
                                 <button type="signIn_2" name="Signin"><FaUserFriends class="usericon" />   Sign-in</button>
                             </Link>
@@ -72,20 +67,48 @@ class ShopReview extends Component {
 
                                 {/* Topic */}
                                 <div class="topic" style={{ marginTop: '1em', marginLeft: '-1em' }}>
-                                    <a href="/shop"><img class="shop_logo" src={shopIcon}/></a>
-                                    Review
+                                    <a href="/shop"><img class="shop_logo" src={shopIcon} /></a>
+                                    Barber Shop
                                 </div>
                                 <hr class="major" />
 
+                                {/* Edit Button for admin */}
+                                {/* <Link className="link" to="/shop">
+                                    <button type="back" name="Signin">Edit</button>
+                                </Link> */}
+
+                               
+                                <div class="box_item" style={{ border: '0' }}>
+                                     
+                                     {/* Hair cut */}
+                                    <div class="sub_box_item2">
+                                        <h2 style={{ color: '#cb2c6f', marginLeft: '0.8em' }}>Hair Cut</h2>
+                                        <HairStyleItem/>
+                                        <HairStyleItem/>
+                                        <HairStyleItem/>
+                                        <HairStyleItem/>
+                                        <HairStyleItem/>
+                                    </div>
+
+                                     {/* Hair Style */}
+                                    <div class="sub_box_item2">
+                                        <h2 style={{ color: '#cb2c6f', marginLeft: '0.8em' }}>Hair Style</h2>
+                                        <HairStyleItem/>
+                                        <HairStyleItem/>
+                                        <HairStyleItem/>
+                                        <HairStyleItem/>
+                                        <HairStyleItem/>
+                                        <HairStyleItem/>
+                                    </div>
+                                </div>
+
                                 {/* Body */}
-                                {this.state.rows.map(item => (
+                                {/* {this.state.rows.map(item => (
                                     <ShopReviewItem review={item} />
-                                ))}
+                                ))} */}
+
 
                             </section>
-                        </div>
-                        <div>
-
                         </div>
                     </div>
                 </div>
@@ -93,5 +116,3 @@ class ShopReview extends Component {
         );
     }
 }
-
-export default ShopReview;

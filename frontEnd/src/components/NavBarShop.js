@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 import logo from './pic/logo_V2.1.png'
 import { FaSistrix, FaUser } from "react-icons/fa"
 import { IoIosNotifications } from "react-icons/io"
 import { FaGrin } from 'react-icons/fa'
 
-class NavBar extends Component {
+class NavBarShop extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -46,44 +45,10 @@ class NavBar extends Component {
         this.setState({ statename: 'Sign-in' });
     }
 
-    handleInputChange = (event) => {
-        event.preventDefault();
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-        const data = this.state.searchValue;
-        console.log(data);
-    }
-    keyPress = (event) => {
-        if (event.key === "Enter") {
-            const data = this.state.searchValue;
-            console.log(data);
-        }
-    }
-
     render() {
         return (
             <div class="wrapnavbar">
-                <Link className="link" to="/home">
-                    <img src={logo} class="homelogo" alt="Home" />
-                </Link>
-                <div class="searchBox">
-                    <input
-                        type="text"
-                        placeholder="Search"
-                        className="searchInput"
-                        name="searchValue"
-                        onChange={this.handleInputChange}
-                        onKeyPress={this.keyPress}
-                    />
-                    <button className="searchBt" onClick={this.handleSubmit}>
-                        <FaSistrix size='1.5em' color="white" />
-                    </button>
-                </div>
+                <img src={logo} class="homelogo" alt="Home" />
                 <div className="leftGroup">
                     {
                         this.state.checkLogin ?
@@ -125,4 +90,4 @@ class NavBar extends Component {
     }
 }
 
-export default NavBar;
+export default NavBarShop;

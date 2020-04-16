@@ -4,6 +4,7 @@ import shopIcon from './pic/shop_icon.png';
 import timeIcon from './pic/clock_icon.png';
 import errorIcon from './pic/error_icon.png'
 import MultipleImageUpload from './MultipleImageUpload';
+import NavBarShop from './NavBarShop';
 
 //ที่อยู่ เวลา รูปบรรยากาศ
 class ShopInformation extends React.Component {
@@ -55,6 +56,7 @@ class ShopInformation extends React.Component {
     render(){
         return(
             <div className="big_container">
+                <NavBarShop />
                 {/* <div className="container_signup"> */}
                     <div className="wrap_info">
 

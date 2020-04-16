@@ -9,6 +9,7 @@ import passwordIcon from './pic/password_icon.png';
 import visibleIcon from './pic/visible_icon.png'
 import invisibleIcon from './pic/invisible_icon.png'
 import ImageUpload from './ImageUpload';
+import NavBar from './NavBar';
 
 class ProfileCustomer extends React.Component {
     constructor()
@@ -134,6 +135,7 @@ class ProfileCustomer extends React.Component {
     render(){
         return(
             <div className="big_container">
+                <NavBar />
                 <div className="wrap_info">
                         
                         <div className = "title">

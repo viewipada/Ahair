@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom'
 import { FaSistrix } from "react-icons/fa"
 import { FaUserFriends } from "react-icons/fa"
 import Axios from 'axios'
-import ShopReviewItem from './ShopReviewItem'
-import Sidebar from './Sidebar'
 import shopIcon from './pic/1.jpg';
+import ShopImgItem from './ShopImgItem'
+import Sidebar from './Sidebar';
+import Hairdresser from './HairdresserItem';
 
-
-class ShopReview extends Component {
-
+export default class Shop extends Component {
     constructor(props) {
         super(props)
 
@@ -37,7 +36,6 @@ class ShopReview extends Component {
     }
 
     render() {
-
         return (
             <body class="is-preload">
                 {/* <!-- Wrapper --> */}
@@ -52,40 +50,66 @@ class ShopReview extends Component {
                         {/* Search and Signin */}
                         <div class="wrap_search_signin">
 
-                            {/* Search */}
                             <div class="wrap_search_icon">
                                 <input className="search" fontSize="30" placeholder="Search"
                                     onChange={(event) => { this.search(event.target.value) }} />
                                 <div><FaSistrix class="searchIcon" size='1.5rem' color="white" /></div>
                             </div>
 
-                            {/* Signin button */}
                             <Link className="link" to="/signin">
                                 <button type="signIn_2" name="Signin"><FaUserFriends class="usericon" />   Sign-in</button>
                             </Link>
 
                         </div>
 
-                        {/* <!-- Content --> */}
+                         {/* <!-- Content --> */}
                         <div class="inner">
                             <section>
 
                                 {/* Topic */}
                                 <div class="topic" style={{ marginTop: '1em', marginLeft: '-1em' }}>
-                                    <a href="/shop"><img class="shop_logo" src={shopIcon}/></a>
-                                    Review
+                                    <img class="shop_logo" src={shopIcon}/>
+                                    Barber Shop
                                 </div>
                                 <hr class="major" />
 
+                                {/* Edit Button for admin */}
+                                {/* <Link className="link" to="/shop">
+                                    <button type="back" name="Signin">Edit</button>
+                                </Link> */}
+                                
+                                {/* image */}
+                                <ShopImgItem />
+
+                                {/* information */}
+                                <div class="box_item" style={{border:'0'}}>
+                                    <div class="sub_box_item">
+                                        <h2 style={{ color: '#cb2c6f' }}>Description</h2>
+                                        <p style={{ color: '#14a098'  }}>Something</p>
+                                    </div>
+                                    <div class="sub_box_item">
+                                        <a href="/shopreview"><h2 style={{ color: '#cb2c6f' }}>Rate</h2></a>
+                                        <p style={{ color: 'goldenrod' }}>Something</p>
+                                    </div>
+                                    <div class="sub_box_item">
+                                        <h2 style={{ color: '#cb2c6f' }}>Location</h2>
+                                        <p style={{ color: '#14a098'  }}>Something</p>
+                                    </div>
+                                </div>
+
+                                <h2 style={{ color: '#cb2c6f',marginLeft:'0.8em' }}>Hairdresser</h2>
+
+                                <Hairdresser/>
+                                <Hairdresser/>
+                                <Hairdresser/>
+
                                 {/* Body */}
-                                {this.state.rows.map(item => (
+                                {/* {this.state.rows.map(item => (
                                     <ShopReviewItem review={item} />
-                                ))}
+                                ))} */}
 
+                                
                             </section>
-                        </div>
-                        <div>
-
                         </div>
                     </div>
                 </div>
@@ -93,5 +117,3 @@ class ShopReview extends Component {
         );
     }
 }
-
-export default ShopReview;

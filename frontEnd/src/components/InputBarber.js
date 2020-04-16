@@ -107,7 +107,7 @@ class InputBarber extends React.Component {
             nameError = "Invalid name !"
         }
         else if(this.state.name.match(/[0-9]+/)){
-            nameError = "Must be letters only"
+            nameError = "Name must be letters only"
         }
         if(!this.state.imageUrl){
             nameError = "Please select an image"
@@ -246,12 +246,19 @@ class InputBarber extends React.Component {
             // this.props.changeName(this.state.name);
             // this.props.getFile(this.state.imageFile, this.state.imagePreview, this.state.imageUrl);
             this.props.getBarber(this.state.name, this.state.imageUrl, this.state.hair, this.state.time)
-            this.setState({nameError:"", imgError:"", timeError:"",isHideServices:true, isHideWomenHairstyle:true, isHideMenHairstyle:true})
+            this.setState({isHideServices:true, isHideWomenHairstyle:true, isHideMenHairstyle:true})
+        }
+        if(isValid){
+            this.setState({nameError:"", imgError:""})
+        }
+        if(check) {
+            this.setState({timeError:""})
         }
         else if (!check){
             this.setState({timeError:"Invalid time !"})
             // console.log(check)
         }
+
     }
 
     womenServicesChecked = event => {
@@ -440,9 +447,17 @@ class InputBarber extends React.Component {
                             }
                         </div>
                         <div className="container_right_bt">
-                            <p style={{fontSize:"16px",color:"#cb2c6f",marginRight:"20px"}}>
-                                {this.state.nameError} {this.state.imgError} {this.state.timeError}
-                            </p>
+                            <div style={{display:"block"}}>
+                                <p style={{fontSize:"16px",color:"#cb2c6f",marginRight:"20px"}}>
+                                    {this.state.nameError}
+                                </p>
+                                <p style={{fontSize:"16px",color:"#cb2c6f",marginRight:"20px"}}>
+                                    {this.state.imgError}
+                                </p>
+                                <p style={{fontSize:"16px",color:"#cb2c6f",marginRight:"20px"}}>
+                                    {this.state.timeError}
+                                </p>
+                            </div>
                             <button className={this.state.isSaved ? "login_button" : "saved_bt"} type="submit" onClick={this.state.isSaved ? this.handleSubmit : ()=>{}}>
                                 Save
                             </button>

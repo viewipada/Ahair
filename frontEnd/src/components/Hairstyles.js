@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import NavBarShop from "./NavBarShop";
 
 export const CheckBox = props => {
     return (
@@ -329,6 +330,7 @@ class Hairstyles extends React.Component {
     render() {
         return (
             <div className="big_container">
+                <NavBarShop />
                 <div className="wrap_info">
 
                     <div className = "title">
@@ -342,7 +344,7 @@ class Hairstyles extends React.Component {
                         <div className = "bigcontainer_info">
                             <div className = "line_info">
                                 <div style={{width:"200px"}}>
-                                    <p style={{color:"white", marginRight:"20px"}}>Women Hairstyles</p>
+                                    <p style={{color:"white", marginRight:"20px", marginBottom:"30px"}}>Women Hairstyles</p>
                                 </div>
                             </div>
                             <div className="line_info">
@@ -461,7 +463,7 @@ class Hairstyles extends React.Component {
 
                             <div className = "line_info">
                                 <div style={{width:"200px"}}>
-                                    <p style={{color:"white", marginRight:"20px"}}>Men Hairstyles</p>
+                                    <p style={{color:"white", marginRight:"20px", marginBottom:"30px"}}>Men Hairstyles</p>
                                 </div>
                             </div>
                             <div className="line_info">
