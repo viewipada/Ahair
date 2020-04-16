@@ -5,6 +5,7 @@ import passwordIcon from './pic/password_icon.png';
 import visibleIcon from './pic/visible_icon.png';
 import invisibleIcon from './pic/invisible_icon.png';
 import errorIcon from './pic/error_icon.png';
+import NavBarShop from './NavBarShop';
 
 class SignIn extends React.Component {
     constructor()

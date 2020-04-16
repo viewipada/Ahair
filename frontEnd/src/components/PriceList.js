@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import NavBarShop from './NavBarShop';
 
 class InputListServices extends React.Component {
     servicesChange(index, event) {
@@ -37,7 +38,7 @@ class InputListHairstyle extends React.Component {
     }
 
     imghairstyleChange(index, event) {
-        this.props.imghairstyleWomenShortChange(index, {...this.props.hairstyle[index], img: URL.createObjectURL(event.target.files[0])})
+        this.props.imgChange(index, {...this.props.hairstyle[index], img: URL.createObjectURL(event.target.files[0])})
       }
     
     render() { 
@@ -261,6 +262,7 @@ class PriceList extends React.Component {
     render() {
       return (
         <div className="big_container">
+            <NavBarShop />
             <div className="wrap_info">
 
                 <div className = "title">
@@ -273,49 +275,49 @@ class PriceList extends React.Component {
 
                     <div className = "bigcontainer_info">
                         <div className = "line_info">
-                            <div style={{width:"200px"}}>
+                            <div style={{width:"200px", marginBottom:"20px"}}>
                                 <p style={{color:"#14A098", marginRight:"20px"}}>Services for women</p>
                             </div>
                         </div>
                         <InputListServices services={this.state.servicesWomen} onChange={this.servicesWomenChange} />
                     
                         <div className = "line_info">
-                            <div style={{width:"200px"}}>
+                            <div style={{width:"200px", marginBottom:"20px"}}>
                                 <p style={{color:"#14A098", marginRight:"20px"}}>Services for men</p>
                             </div>
                         </div>
                         <InputListServices services={this.state.servicesMen} onChange={this.servicesMenChange} />
                     
                         <div className = "line_info">
-                            <div style={{width:"200px"}}>
+                            <div style={{width:"200px", marginBottom:"20px"}}>
                                 <p style={{color:"#14A098", marginRight:"20px"}}>Women hairstyles</p>
                             </div>
                         </div>
                         <InputListHairstyle hairstyle={this.state.hairstyleWomenShort} onChange={this.hairstyleWomenShortChange} imgChange={this.imghairstyleWomenShortChange}/>
                     
                         <div className = "line_info">
-                            <div style={{width:"200px"}}>
+                            <div style={{width:"200px",  marginBottom:"20px"}}>
                                 <p style={{color:"#14A098", marginRight:"20px"}}>Women hairstyles</p>
                             </div>
                         </div>
                         <InputListHairstyle hairstyle={this.state.hairstyleWomenMedium} onChange={this.hairstyleWomenMediumChange} imgChange={this.imghairstyleWomenMediumChange}/>
                     
                         <div className = "line_info">
-                            <div style={{width:"200px"}}>
+                            <div style={{width:"200px", marginBottom:"20px"}}>
                                 <p style={{color:"#14A098", marginRight:"20px"}}>Women hairstyles</p>
                             </div>
                         </div>
                         <InputListHairstyle hairstyle={this.state.hairstyleWomenLong} onChange={this.hairstyleWomenLongChange} imgChange={this.imghairstyleWomenLongChange}/>
                     
                         <div className = "line_info">
-                            <div style={{width:"200px"}}>
+                            <div style={{width:"200px", marginBottom:"20px"}}>
                                 <p style={{color:"#14A098", marginRight:"20px"}}>Men hairstyle</p>
                             </div>
                         </div>
                         <InputListHairstyle hairstyle={this.state.hairstyleMenShort} onChange={this.hairstyleMenShortChange} imgChange={this.imghairstyleMenShortChange}/>
                     
                         <div className = "line_info">
-                            <div style={{width:"200px"}}>
+                            <div style={{width:"200px", marginBottom:"20px"}}>
                                 <p style={{color:"#14A098", marginRight:"20px"}}>Men hairstyle</p>
                             </div>
                         </div>

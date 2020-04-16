@@ -5,6 +5,7 @@ import userIcon from './pic/user_icon.png';
 import phoneIcon from './pic/phone_icon.png';
 import genderIcon from './pic/gender_icon.png';
 import errorIcon from './pic/error_icon.png';
+import NavBar from './NavBar';
 // import ImageUpload from './ImageUpload';
 
 class ProfileCustomer extends React.Component {
@@ -27,6 +28,7 @@ class ProfileCustomer extends React.Component {
     render(){
         return(
             <div className="big_container">
+                <NavBar />
                 <div className="wrap_info">
                         
                         <div className = "title">

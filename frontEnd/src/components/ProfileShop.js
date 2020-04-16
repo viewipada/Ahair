@@ -5,6 +5,7 @@ import userIcon from './pic/user_icon.png';
 import phoneIcon from './pic/phone_icon.png';
 import errorIcon from './pic/error_icon.png';
 import shopIcon from './pic/shop_icon.png';
+import NavBarShop from './NavBarShop';
 // import ImageUpload from './ImageUpload';
 
 class ProfileShop extends React.Component {
@@ -27,6 +28,7 @@ class ProfileShop extends React.Component {
     render(){
         return(
             <div className="big_container">
+                <NavBarShop />
                 <div className="wrap_info">
                         
                         <div className = "title">

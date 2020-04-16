@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import addIcon from './pic/add_icon.png';
 import InputBarber from './InputBarber';
+import NavBarShop from './NavBarShop';
 
 export const AddBarber = props => {
     return(
@@ -63,6 +64,7 @@ class HairBarBer extends React.Component {
         return(
             <div className="big_container">
                 {/* <div className="container_signup"> */}
+                <NavBarShop />
                     <div className="wrap_info">
 
                         <div className = "title">
@@ -74,7 +76,7 @@ class HairBarBer extends React.Component {
                         <div className="signup_form">
 
                             <div className = "bigcontainer_info">
-                                <div className = "line_info">
+                                {/* <div className = "line_info"> */}
                                     {/* <div  > */}
                                     { 
                                         this.state.numOfbarber.map((numOfbarber) => {
@@ -89,7 +91,7 @@ class HairBarBer extends React.Component {
                                             New barber
                                         </button>
                                     </div>
-                                </div>
+                                {/* </div> */}
                                 
                             </div>
                             

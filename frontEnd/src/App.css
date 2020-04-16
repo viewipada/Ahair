@@ -83,6 +83,8 @@ input[type="checkbox"] {
 
 input[type="checkbox"]:checked {
   background: #14A098;
+  justify-content: center;
+  align-items: center;
 }
 
 input[type="checkbox"]:hover {
@@ -98,10 +100,13 @@ input[type="checkbox"]:disabled {
 input[type="checkbox"]:after {
   content: '';
   position: relative;
-  left: 40%;
+  /* text-align: center; */
+  left: 45%;
   top: 20%;
   width: 15%;
-  height: 40%;
+  height: 60%;
+  /* justify-content: center; */
+  /* align-items: center; */
   border: solid #fff;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
@@ -511,6 +516,7 @@ p.pattern {
   border-color: white;
   border-width: 2px;
   margin-bottom: 40px;
+  padding-bottom: 20px;
 }
 .wrap_info {
   width: 100%;
@@ -560,6 +566,7 @@ p.pattern {
   width: 100%;
   display: inline-flex;
   flex-wrap: wrap;
+  /* margin-bottom: 20px; */
   /* justify-content: center; */
 }
 /*----------multiple image upload----------*/
@@ -677,7 +684,7 @@ p.pattern {
 .title_hairstyles{
   width: 100%;
   text-align: center;
-  /* padding-left: 30px; */
+  padding-bottom: 20px;
   color: #14A098;
   border-style: none none solid;
   border-width: 1px;
@@ -700,6 +707,9 @@ p.pattern {
   margin-right: 20px;
   padding-left: 30px;
   font-size: 16px;
+}
+.input_add::placeholder {
+  color: gray;
 }
 
 /*Review Customer Part*/
@@ -790,13 +800,19 @@ textarea{
     src: url("/fonts/cloud-Bold.ttf");
   }
 .wrap{
+    width: 100%;
     display: block;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     text-align: center;
+
 }
 .wrapcontainer{
     width: 960px; 
     display: block; 
     margin: 0 auto;
+    flex-wrap: wrap;
 }
 
 .wrapnavbar{
@@ -804,11 +820,11 @@ textarea{
     display: inline-flex;
     justify-content: space-between;
     width: 100%;
-    padding: 30px 30px 30px 30px;
+    padding: 0px 30px 30px 30px;
 }
 .homelogo{
     display: inline-flex;
-    width: 100%;
+    /* width: 100%; */
     max-width: 150px;
     height: auto;
 }
@@ -1028,7 +1044,7 @@ ul a:hover {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  /* margin-bottom: 20px; */
+  margin-bottom: 20px;
   /* background-color: yellow; */
 }
 .name_hair {
@@ -1113,6 +1129,9 @@ ul a:hover {
   margin: 10px;
   display: flex;
 }
+.name_barber::placeholder {
+  color: gray;
+}
 .time_barber {
   color: black;
   width: 20%;
@@ -1123,6 +1142,9 @@ ul a:hover {
   text-align: center;
   /* margin: 10px; */
   /* display: flex; */
+}
+.time_barber::placeholder {
+  color: gray;
 }
 .checkbox_line {
   width: 80%;
