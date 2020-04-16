@@ -22,10 +22,11 @@ import HairBarBer from './components/HairBarber';
 import Colors from './components/Colors';
 import Notification_Cus from './components/Notification_Cus'
 import NavBar from './components/NavBar';
-
 import ShopReview from './components/ShopReview';
 import SearchPage from './components/SearchPage';
 import NavBarShop from './components/NavBarShop';
+import Shop from './components/Shop';
+import SelectHairStyle from './components/SelectHairStyle';
 
 class App extends React.Component {
   render() {
@@ -59,6 +60,8 @@ class App extends React.Component {
               <Route path='/navbarshop' component={NavBarShop} />
               <Route path='/shopreview' component={ShopReview} />
               <Route path='/searchpage' component={SearchPage} />
+              <Route path='/shop' component={Shop} />
+              <Route path='/SelectHairStyle' component={SelectHairStyle} />
             </Switch>
           </div>
         </Router>
