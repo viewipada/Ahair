@@ -4,7 +4,6 @@ import { FaSistrix } from "react-icons/fa"
 import { FaUserFriends } from "react-icons/fa"
 import Axios from 'axios'
 import shopIcon from './pic/1.jpg';
-import ShopImgItem from './ShopImgItem'
 import Sidebar from './Sidebar';
 import HairStyleItem from './HairStyleItem';
 

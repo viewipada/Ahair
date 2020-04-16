@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import img1 from './pic/test1.png';
+import img1 from './pic/1.jpg';
 
 export default class HairdresserItem extends Component {
 

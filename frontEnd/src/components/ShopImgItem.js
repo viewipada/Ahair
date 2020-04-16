@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import shopIcon1 from './pic/test1.png';
-import shopIcon2 from './pic/test2.png';
-import shopIcon3 from './pic/test3.png';
+import shopIcon1 from './pic/1.jpg';
 
 export default class ShopImageItem extends Component {
     constructor(props) {
@@ -16,10 +14,10 @@ export default class ShopImageItem extends Component {
             // ShopReviewItem
                 <div class="box_img_shop">
                     <div class="row_box"><img className="image_shop" src={shopIcon1} alt="" /></div>
-                    <div class="row_box"><img className="image_shop" src={shopIcon2} alt="" /></div>
-                    <div class="row_box"><img className="image_shop" src={shopIcon3} alt="" /></div>
-                    <div class="row_box"><img className="image_shop" src={shopIcon2} alt="" /></div>
-                    <div class="row_box"><img className="image_shop" src={shopIcon3} alt="" /></div>
+                    <div class="row_box"><img className="image_shop" src={shopIcon1} alt="" /></div>
+                    <div class="row_box"><img className="image_shop" src={shopIcon1} alt="" /></div>
+                    <div class="row_box"><img className="image_shop" src={shopIcon1} alt="" /></div>
+                    <div class="row_box"><img className="image_shop" src={shopIcon1} alt="" /></div>
                 </div>
 
             // Lightbox
