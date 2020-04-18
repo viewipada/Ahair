@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { db, auth, str } from '../services/firebase'
-import Navbar from './navbar'
+import Navbar from './NavBarShop'
 
 class BookingInfo_Cus extends Component {
     constructor(props) {

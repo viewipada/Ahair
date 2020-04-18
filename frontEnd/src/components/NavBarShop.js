@@ -22,7 +22,7 @@ class NavBarShop extends Component {
     showDropdownMenu = () => {
         const checkLogin = this.state.checkLogin;
         if (!checkLogin) {
-            this.setState({ statename: 'Pixy' });
+            this.setState({ statename: 'Barber' });
             this.setState({ checkLogin: true });
             console.log("hereee!!");
         }
@@ -50,14 +50,6 @@ class NavBarShop extends Component {
             <div class="wrapnavbar">
                 <img src={logo} class="homelogo" alt="Home" />
                 <div className="leftGroup">
-                    {
-                        this.state.checkLogin ?
-                            (
-                                <button className="iconBt"><FaGrin color='white' size='1.8em' /></button>
-
-                            )
-                            : null
-                    }
                     {
                         this.state.checkLogin ?
                             (

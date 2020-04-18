@@ -824,7 +824,6 @@ textarea{
 }
 .homelogo{
     display: inline-flex;
-    /* width: 100%; */
     max-width: 150px;
     height: auto;
 }
@@ -837,7 +836,7 @@ textarea{
   position: relative;
   background: #cb2c6f;
   height: 42%;
-  top: 40px;
+  top: 39.5%;
   padding: 0% 3%;
   border: none;
   outline: none;
@@ -849,7 +848,7 @@ textarea{
     font-family: cloud;
     color: floralwhite;
     /* margin: 0px 760px 30px 50px; */
-    top: 40px;
+    top: 39%;
     padding: 0% 3%;
     width: 100%;
     height: 42%;
@@ -876,7 +875,7 @@ textarea{
     height: 42%;
     border-radius: 25px;
     cursor: pointer;
-    padding: 0em 2em 0em 2em;
+    padding: 0em 2.5em 0em 2.5em;
 }
 .Signin:hover{
     background: -webkit-linear-gradient( #cb2d6f, #511F3A);
@@ -1928,4 +1927,21 @@ button[type='back']:hover {
   background: -o-linear-gradient( #cb2c6f, #0F292F);
   background: -moz-linear-gradient( #cb2c6f, #0F292F);
   background: linear-gradient( #cb2c6f, #0F292F);
+}
+
+/*Booking Infomation*/
+
+.BookInfo p{
+  font-size: 20px;
+  font-weight: bold;
+  color: #cb2c6f;
+}
+.BookInfo p .subdetail{
+  font-size: 20px;
+  font-weight: normal;
+  color: #ffffff;
+  margin: 1% 5%;
+  background-color: #14A098;
+  padding: 0.5% 2%;
+  border-radius: 25px;
 }
