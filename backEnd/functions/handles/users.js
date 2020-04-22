@@ -12,7 +12,11 @@ exports.signup = (req , res) => {
          email : req.body.email,
          password : req.body.password,
          confirmPassword : req.body.confirmPassword,
-         handle : req.body.handle
+         handle : req.body.handle,
+         name: req.body.name,
+         phoneNum: req.body.phoneNum,
+         userGender: req.body.userGender
+
      };
     
      const { valid, errors } = validateSignupData(newUser);
@@ -38,6 +42,9 @@ exports.signup = (req , res) => {
          const userCridentials = {
             handle: newUser.handle,
             email: newUser.email,
+            name: newUser.name,
+            phoneNum: newUser.phoneNum,
+            userGender: newUser.userGender,
             createAt: new Date().toISOString(),
             //imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
             userId
@@ -45,15 +52,12 @@ exports.signup = (req , res) => {
          return db.doc(`/users/${newUser.handle}`).set(userCridentials);
      }).then(() => {
          return res.status(201).json({ token });
-     }
-
-     )
+     })
      .catch(err => {
          console.error(err);
          if(err.code === 'auth/email-already-in-use'){
              return res.status(400).json({ email : 'Email is already is use'});
-         }else { return res.status(500).json({error : err.code}); }
-         
+         }else { return res.status(500).json({error : err.code}); }       
      });
  }
 
@@ -135,3 +139,24 @@ exports.login = (req , res) => {
     });
     busboy.end(req.rawBody);
   };*/
+
+exports.profile = (req,res) => {
+  db
+      .collection('users')
+      .get()
+      .then(data => {
+          let users = [];
+          data.forEach(doc => {
+              users.push({
+                  email : doc.id,
+                  handle : doc.data().handle,
+                  name : doc.data().name,
+                  phoneNum : doc.data().phoneNum,
+                  userGender : doc.data().userGender,
+                  createAt : doc.data().createAt
+              });
+          });
+          return res.json(users);
+      })
+      .catch((err) => console.error(err));
+};

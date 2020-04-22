@@ -7,6 +7,8 @@ import genderIcon from './pic/gender_icon.png';
 import errorIcon from './pic/error_icon.png';
 // import ImageUpload from './ImageUpload';
 
+//import axios from 'axios';
+
 class ProfileCustomer extends React.Component {
     constructor()
     {
@@ -20,11 +22,27 @@ class ProfileCustomer extends React.Component {
             usernameError: "",
             nameError: "",
             emailError: "",
-            phoneError: ""
+            phoneError: "",
+            //users: null
         }
     }
+    //state = { users: null }
+
+    /*componentDidMount(){
+        axios.get('/users')
+        .then(res => {
+            console.log(res.data)
+            this.setState({
+                users: res.data
+            })
+        })
+        .catch(err => console.log(err));
+    }*/
 
     render(){
+        /*let username2 = this.state.users ? (
+        this.state.users.map(user => <p>{user.handle}</p>)
+        ) : <p>loading..............</p>*/
         return(
             <div className="big_container">
                 <div className="wrap_info">
