@@ -9,6 +9,7 @@ import passwordIcon from './pic/password_icon.png';
 import visibleIcon from './pic/visible_icon.png'
 import invisibleIcon from './pic/invisible_icon.png'
 import ImageUpload from './ImageUpload';
+import NavBar from './navbar';
 
 class ProfileCustomer extends React.Component {
     constructor()
@@ -127,13 +128,14 @@ class ProfileCustomer extends React.Component {
         if (isValid) {
           console.log(this.state);
           this.setState(this.state);
-          this.props.history.push('/signup_customer_2')
+          this.props.history.push('/profilecustomer')
         }
     };
 
     render(){
         return(
             <div className="big_container">
+                <NavBar />
                 <div className="wrap_info">
                         
                         <div className = "title">

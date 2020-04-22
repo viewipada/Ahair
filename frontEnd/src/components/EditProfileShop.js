@@ -9,6 +9,7 @@ import passwordIcon from './pic/password_icon.png';
 import visibleIcon from './pic/visible_icon.png'
 import invisibleIcon from './pic/invisible_icon.png'
 import ImageUpload from './ImageUpload';
+import NavBarShop from './NavBarShop';
 
 class EditProfileShop extends React.Component {
     constructor()
@@ -119,13 +120,14 @@ class EditProfileShop extends React.Component {
         if ((isValid && this.state.passwordBox && isValidPassword) || (isValid && !this.state.passwordBox)){
           console.log(this.state);
           this.setState(this.state);
-          this.props.history.push('/signup_shop_2')
+          this.props.history.push('/profileshop')
         }
     };
 
     render(){
         return(
             <div className="big_container">
+                <NavBarShop />
                 <div className="wrap_info">
                         
                         <div className = "title">

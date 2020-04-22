@@ -5,6 +5,7 @@ import userIcon from './pic/user_icon.png';
 import phoneIcon from './pic/phone_icon.png';
 import genderIcon from './pic/gender_icon.png';
 import errorIcon from './pic/error_icon.png';
+import NavBar from './navbar';
 // import ImageUpload from './ImageUpload';
 
 //import axios from 'axios';
@@ -45,6 +46,7 @@ class ProfileCustomer extends React.Component {
         ) : <p>loading..............</p>*/
         return(
             <div className="big_container">
+                <NavBar />
                 <div className="wrap_info">
                         
                         <div className = "title">
@@ -119,7 +121,7 @@ class ProfileCustomer extends React.Component {
                                 </div>
                             </div>
 
-                            <Link className="link">
+                            <Link className="link" to='editprofilecustomer'>
                                 <div className="container_right_bt">
                                     <form onSubmit={this.handleSubmit} >
                                         <button className="login_button" type="submit" onClick={this.handleSubmit}>

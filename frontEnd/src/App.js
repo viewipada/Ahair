@@ -14,7 +14,22 @@ import ProfileShop from './components/ProfileShop';
 import EditProfileCustomer from './components/EditProfileCustomer';
 import EditProfileShop from './components/EditProfileShop';
 import HairStyles from './components/Hairstyles';
-
+import Review_Cus from './components/Review_Cus';
+import Review_Shop from './components/Review_Shop';
+import Home from './components/Home';
+import PriceList from './components/PriceList';
+import HairBarBer from './components/HairBarber';
+import Colors from './components/Colors';
+import notice_Cus from './components/notice_Cus'
+import notice_Shop from './components/notice_shop'
+import Navbar from './components/navbar';
+import ShopReview from './components/ShopReview';
+import SearchPage from './components/SearchPage';
+import NavBarShop from './components/NavBarShop';
+import Shop from './components/Shop';
+import SelectHairStyle from './components/SelectHairStyle';
+import BookingInfo_Cus from './components/BookingInfo_Cus';
+import BookingInfo_Shop from './components/BookingInfo_Shop';
 
 class App extends React.Component {
   render() {
@@ -37,6 +52,22 @@ class App extends React.Component {
               <Route path='/profileshop' component={ProfileShop} />
               <Route path='/editprofileshop' component={EditProfileShop} />
               <Route path='/hairstyles' component={HairStyles} />
+              <Route path='/ReviewforCustomer' component={Review_Cus}/>
+              <Route path='/ReviewforShop' component={Review_Shop}/>
+              <Route path='/Home' component={Home}/>
+              <Route path='/pricelist' component={PriceList} />
+              <Route path='/hairbarber' component={HairBarBer} />
+              <Route path='/colors' component={Colors} />
+              <Route path='/noticeforcustomer' component={notice_Cus}/>
+              <Route path='/noticeforshop' component={notice_Shop}/>
+              <Route path='/navbar' component={Navbar}/>
+              <Route path='/navbarshop' component={NavBarShop} />
+              <Route path='/shopreview' component={ShopReview} />
+              <Route path='/searchpage' component={SearchPage} />
+              <Route path='/shop' component={Shop} />
+              <Route path='/SelectHairStyle' component={SelectHairStyle} />
+              <Route path='/BookInfo_Cus' component={BookingInfo_Cus}/>
+              <Route path='/BookInfo_Shop' component={BookingInfo_Shop}/>
             </Switch>
           </div>
         </Router>
