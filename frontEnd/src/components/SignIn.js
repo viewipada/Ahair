@@ -5,7 +5,12 @@ import passwordIcon from './pic/password_icon.png';
 import visibleIcon from './pic/visible_icon.png';
 import invisibleIcon from './pic/invisible_icon.png';
 import errorIcon from './pic/error_icon.png';
+<<<<<<< HEAD
+import axios from 'axios';
+//import Proptypes from 'prop-types';
+=======
 import NavBarShop from './NavBarShop';
+>>>>>>> 9309370d5a036eefceb3284d4018451b1ac433e1
 
 class SignIn extends React.Component {
     constructor()
@@ -53,6 +58,8 @@ class SignIn extends React.Component {
         this.setState({[event.target.id]: event.target.value});
     };
 
+    
+
     handleSubmit = event => {
         event.preventDefault();
         const isValid = this.validate();
@@ -60,7 +67,20 @@ class SignIn extends React.Component {
           console.log(this.state);
           this.setState(this.state);
         //   alert("Welcome to AHair");
+        };
+
+        const userData = {
+            email: this.state.email,
+            password: this.state.password
         }
+
+        axios.post('/login', userData)
+        .then(res => {
+            console.log(res.data);
+        })
+        .catch(err => {
+            console.log(err.response.data);
+        })
     };
 
     render(){

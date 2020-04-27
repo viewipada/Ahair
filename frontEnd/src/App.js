@@ -21,12 +21,15 @@ import PriceList from './components/PriceList';
 import HairBarBer from './components/HairBarber';
 import Colors from './components/Colors';
 import notice_Cus from './components/notice_Cus'
+import notice_Shop from './components/notice_shop'
 import Navbar from './components/navbar';
 import ShopReview from './components/ShopReview';
 import SearchPage from './components/SearchPage';
 import NavBarShop from './components/NavBarShop';
 import Shop from './components/Shop';
 import SelectHairStyle from './components/SelectHairStyle';
+import BookingInfo_Cus from './components/BookingInfo_Cus';
+import BookingInfo_Shop from './components/BookingInfo_Shop';
 
 class App extends React.Component {
   render() {
@@ -56,12 +59,15 @@ class App extends React.Component {
               <Route path='/hairbarber' component={HairBarBer} />
               <Route path='/colors' component={Colors} />
               <Route path='/noticeforcustomer' component={notice_Cus}/>
+              <Route path='/noticeforshop' component={notice_Shop}/>
               <Route path='/navbar' component={Navbar}/>
               <Route path='/navbarshop' component={NavBarShop} />
               <Route path='/shopreview' component={ShopReview} />
               <Route path='/searchpage' component={SearchPage} />
               <Route path='/shop' component={Shop} />
               <Route path='/SelectHairStyle' component={SelectHairStyle} />
+              <Route path='/BookInfo_Cus' component={BookingInfo_Cus}/>
+              <Route path='/BookInfo_Shop' component={BookingInfo_Shop}/>
             </Switch>
           </div>
         </Router>

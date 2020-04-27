@@ -9,7 +9,7 @@ class NavBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            statename: 'Sign in',
+            statename: 'SignIn',
             displayMenu: false,
             checkLogin: false,
             iconchange: "users icon",
@@ -43,7 +43,7 @@ class NavBar extends Component {
 
     logoutevent = () => {
         this.setState({ checkLogin: false });
-        this.setState({ statename: 'Sign-in' });
+        this.setState({ statename: 'SignIn' });
     }
 
     handleInputChange = (event) => {
