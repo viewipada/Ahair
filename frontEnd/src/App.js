@@ -31,6 +31,7 @@ import SelectHairStyle from './components/SelectHairStyle';
 import BookingInfo_Cus from './components/BookingInfo_Cus';
 import BookingInfo_Shop from './components/BookingInfo_Shop';
 import Thx4Review_Cus from './components/FinishedReview_Cus';
+import SelectTime from './components/SelectTime';
 
 class App extends React.Component {
   render() {
@@ -70,6 +71,7 @@ class App extends React.Component {
               <Route path='/BookInfo_Cus' component={BookingInfo_Cus}/>
               <Route path='/BookInfo_Shop' component={BookingInfo_Shop}/>
               <Route path='/Thank4Review_Cus' component={Thx4Review_Cus}/>
+              <Route path='/selecttime' component={SelectTime} />
             </Switch>
           </div>
         </Router>

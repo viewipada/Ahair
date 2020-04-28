@@ -28,7 +28,7 @@ class SearchPage extends Component {
         if(this.state.keyword != name){
             // alert(name);
             this.setState({keyword:name});
-            alert(this.state.keyword);
+            // alert(this.state.keyword);
         }
     }
 
@@ -84,9 +84,9 @@ class SearchPage extends Component {
                                         <ShopItem_S shop_item={item} />
                                     ))}
 
-                                    {this.state.rows.map(item => (
+                                    {/* {this.state.rows.map(item => (
                                         <HairStyleItem_S hairstyle_item={item} />
-                                    ))}
+                                    ))} */}
                                 {/* </div> */}
                             </section>
                         </div>
