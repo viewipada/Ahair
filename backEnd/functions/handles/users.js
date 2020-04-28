@@ -19,9 +19,6 @@ exports.signup = (req , res) => {
 
      };
     
-     const { valid, errors } = validateSignupData(newUser);
-     if(!valid) return res.status(400).json(errors);
-
      //const noImg = 'no-Img.png';
 
      let token,userId;
@@ -66,10 +63,6 @@ exports.login = (req , res) => {
         email : req.body.email,
         password : req.body.password
     };
-
-    const { valid, errors } = validateLoginData(user);
-
-    if(!valid) return res.status(400).json(errors);
 
     firebase
     .auth()
@@ -139,6 +132,7 @@ exports.login = (req , res) => {
     });
     busboy.end(req.rawBody);
   };*/
+/////////////////////////////////////////////
 
 exports.profile = (req,res) => {
   db
@@ -159,4 +153,94 @@ exports.profile = (req,res) => {
           return res.json(users);
       })
       .catch((err) => console.error(err));
+};
+
+//////////////////////////////////////////////////
+exports.getAuthenticatedUser = (req, res) => {
+    let userData = {};
+    db.doc(`/users/${req.user.handle}`)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          userData.credentials = doc.data();
+          
+        }
+        return res.json(userData);
+      })        
+      .catch((err) => {
+        console.error(err);
+        return res.status(500).json({ error: err.code });
+      });
+  };
+
+
+  /////////////// shop signup ////////////////////////
+exports.signupShop = (req , res) => {
+    const newShop = {
+         email : req.body.email,
+         password : req.body.password,
+         confirmPassword : req.body.confirmPassword,
+         shopName : req.body.shopName,
+         adminName : req.body.adminName,
+         phoneNum: req.body.phoneNum
+     };
+   
+     //const noImg = 'no-Img.png';
+
+     let token,shopId;
+     db
+     .doc(`/shops/${newShop.shopName}`)
+     .get()
+     .then(doc => {
+         if(doc.exists){
+             return res.status(400).json({ shopName : 'this shopName is already taken'});
+         }else {
+             return firebase.auth().createUserWithEmailAndPassword( newShop.email , newShop.password );
+         }
+     }).then(data => {
+         shopId = data.user.uid;
+         return data.user.getIdToken();
+     }).then((idToken) => {
+         token = idToken;
+         const shopCridentials = {
+            shopName: newShop.shopName,
+            adminName: newShop.adminName,
+            email: newShop.email,
+            phoneNum: newShop.phoneNum,
+            createAt: new Date().toISOString(),
+            //imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
+            shopId
+         };
+         return db.doc(`/shops/${newShop.shopName}`).set(shopCridentials);
+     }).then(() => {
+         return res.status(201).json({ token });
+     })
+     .catch(err => {
+         console.error(err);
+         if(err.code === 'auth/email-already-in-use'){
+             return res.status(400).json({ email : 'Email is already is use'});
+         }else { return res.status(500).json({error : err.code}); }       
+     });
+ };
+
+
+//////////// login shop
+
+////////////add Shop Details
+exports.addShopDetails = (req, res) => {
+  const shopDetails = {
+    address : req.body.address,
+    openTime : req.body.openTime,
+    closeTime : req.body.closeTime,
+  }
+
+  db.doc(`/shops/${req.shop.shopName}`)
+    .update(shopDetails)
+    .then(() => {
+      return res.json({ message: "Details added successfully" });
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
 };

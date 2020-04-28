@@ -13,17 +13,17 @@ module.exports = (req, res, next) => {
     .auth()
     .verifyIdToken(idToken)
     .then( decodedToken => {
-        req.user = decodedToken;
+        req.shop = decodedToken;
         console.log(decodedToken);
         return db
-         .collection('users')
-         .where('userId','==', req.user.uid)
+         .collection('shops')
+         .where('shopId','==', req.shop.uid)
          .limit(1)
          .get();
     })
     .then( data => {
-        req.user.handle = data.docs[0].data().handle;
-        req.user.userId = data.docs[0].data().userId;
+        req.shop.shopName = data.docs[0].data().shopName;
+        req.shop.shopId = data.docs[0].data().shopId;
         //req.user.imageUrl = data.docs[0].data().imageUrl;
         return next();
     })

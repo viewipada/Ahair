@@ -8,7 +8,7 @@ import errorIcon from './pic/error_icon.png';
 import NavBar from './navbar';
 // import ImageUpload from './ImageUpload';
 
-//import axios from 'axios';
+import axios from 'axios';
 
 class ProfileCustomer extends React.Component {
     constructor()
@@ -23,14 +23,14 @@ class ProfileCustomer extends React.Component {
             usernameError: "",
             nameError: "",
             emailError: "",
-            phoneError: "",
-            //users: null
+            phoneError: ""
+            
         }
     }
-    //state = { users: null }
+    
 
-    /*componentDidMount(){
-        axios.get('/users')
+    componentDidMount(){
+        axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/user')
         .then(res => {
             console.log(res.data)
             this.setState({
@@ -38,12 +38,10 @@ class ProfileCustomer extends React.Component {
             })
         })
         .catch(err => console.log(err));
-    }*/
+    }
 
     render(){
-        /*let username2 = this.state.users ? (
-        this.state.users.map(user => <p>{user.handle}</p>)
-        ) : <p>loading..............</p>*/
+        
         return(
             <div className="big_container">
                 <NavBar />
