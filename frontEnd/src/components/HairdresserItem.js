@@ -13,7 +13,7 @@ export default class HairdresserItem extends Component {
         return (
 
             // ShopItem
-            <div class="box_item" style={{ textAlign: 'left',border:'0' }}>
+            <div class="box_item" style={{ textAlign: 'left',border:'0',borderRadius:'20px'}}>
 
                 {/* hairdresser image */}
                 <div class="row_box"><img className="image_shop" src={img1} alt="" /></div>
