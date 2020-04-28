@@ -717,21 +717,56 @@ p.pattern {
 .Format_Container{
     padding: 30px 60px 40px 60px;
     align-content: center;
-    
+    display: flex;
+    flex-direction: column;
 }
 .starInput{
   display: none;
 }
 /*StarRate*/
+
 .starRate{
   text-align: center;
-  margin-top: 50px;
-  margin-bottom: 30px;
+  margin-top: 2%;
 }
 .star{
   cursor: pointer;
   transition: color 200ms;
   margin: 5px;
+}
+.validate_review_wrap {
+  position: relative;
+  visibility: hidden;
+  opacity: 0;
+
+}
+.invalidate_review_wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin:2% 0%;
+}
+.texterror_review {
+  order:1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-width: 1px ;
+  border-radius: 25px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.erroricon_review {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.erroricon_review + .texterror_review {
+  width:200px
 }
 /***************/
 .wrapAddimg{
@@ -766,8 +801,19 @@ textarea{
   border-radius: 25px;
 }
 /* submitPattern Here */
+.container_right_bt_Review {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  top: 110px
+  /* background-color: #61dafb; */
+  /* cursor: initial; */
+}
 .submit_button {
     /* font-family: Poppins-Medium; */
+    position: relative;
     font-size: 16px;
     color: white;
     display: flex;
@@ -780,13 +826,25 @@ textarea{
     border-color: #cb2d6f;
     background: #cb2d6f;
     /* width: fit-content; */
-    position: relative;
   }
   .submit_button:hover {
     background: -webkit-linear-gradient( #cb2d6f, #511F3A);
     background: -o-linear-gradient( #cb2d6f, #511F3A);
     background: -moz-linear-gradient( #cb2d6f, #511F3A);
     background: linear-gradient( #cb2d6f, #511F3A);
+  }
+
+  /*Thx4Review*/
+  .TextContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin: 10%;
+    margin-bottom: 10%;
+  }
+  .IconContainer{
+    
   }
 
   /*Home Style*/
