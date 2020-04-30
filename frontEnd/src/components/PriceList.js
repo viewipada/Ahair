@@ -22,6 +22,7 @@ class InputListServices extends React.Component {
                             min="0"
                             placeholder = "0"
                             onChange={this.servicesChange.bind(this, index)} 
+                            style={{placeholder:"gray"}}
                         />
                     </div>
                     <div className = "baht">Baht</div>
