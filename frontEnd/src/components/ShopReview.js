@@ -6,6 +6,7 @@ import Axios from 'axios'
 import ShopReviewItem from './ShopReviewItem'
 import Sidebar from './Sidebar'
 import shopIcon from './pic/1.jpg';
+import NavBar from './navbar'
 
 
 class ShopReview extends Component {
@@ -41,6 +42,9 @@ class ShopReview extends Component {
         return (
             <body class="is-preload">
                 {/* <!-- Wrapper --> */}
+                
+                <NavBar/>
+                
                 <div id="wrapper">
 
                     {/* Sidebar */}
@@ -49,29 +53,12 @@ class ShopReview extends Component {
                     {/* <!-- Main --> */}
                     <div id="main">
 
-                        {/* Search and Signin */}
-                        <div class="wrap_search_signin">
-
-                            {/* Search */}
-                            <div class="wrap_search_icon">
-                                <input className="search" fontSize="30" placeholder="Search"
-                                    onChange={(event) => { this.search(event.target.value) }} />
-                                <div><FaSistrix class="searchIcon" size='1.5rem' color="white" /></div>
-                            </div>
-
-                            {/* Signin button */}
-                            <Link className="link" to="/signin">
-                                <button type="signIn_2" name="Signin"><FaUserFriends class="usericon" />   Sign-in</button>
-                            </Link>
-
-                        </div>
-
                         {/* <!-- Content --> */}
                         <div class="inner">
                             <section>
 
                                 {/* Topic */}
-                                <div class="topic" style={{ marginTop: '1em', marginLeft: '-1em' }}>
+                                <div class="topic" style={{ marginTop: '0.4em', marginLeft: '-1em' }}>
                                     <a href="/shop"><img class="shop_logo" src={shopIcon}/></a>
                                     Review
                                 </div>
