@@ -57,11 +57,19 @@ class NavBar extends Component {
         event.preventDefault();
         const data = this.state.searchValue;
         console.log(data);
+        if (this.props._keySearch) {
+            this.props._keySearch(data)
+        }
+        this.setState({ statesubmit: true })
     }
     keyPress = (event) => {
         if (event.key === "Enter") {
             const data = this.state.searchValue;
             console.log(data);
+            if (this.props._keySearch) {
+                this.props._keySearch(data)
+            }
+            this.setState({ statesubmit: true })
         }
     }
 
@@ -83,6 +91,13 @@ class NavBar extends Component {
                     <button className="searchBt" onClick={this.handleSubmit}>
                         <FaSistrix size='1.5em' color="white" />
                     </button>
+                    {
+                        this.state.statesubmit ?
+                            (
+                                <div href='/searchpage'/>
+                            )
+                            : null
+                    }
                 </div>
                 <div className="leftGroup">
                     {

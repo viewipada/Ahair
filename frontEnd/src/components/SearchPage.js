@@ -6,6 +6,7 @@ import Axios from 'axios'
 import ShopItem_S from './ShopItem_S'
 import HairStyleItem_S from './HairStyleItem_S'
 import Sidebar from './Sidebar'
+import NavBar from './navbar'
 
 
 class SearchPage extends Component {
@@ -13,15 +14,31 @@ class SearchPage extends Component {
     constructor(props) {
         super(props)
 
-        this.state = { rows: [] }
+        this.state = {
+            keyword: "a", 
+            rows: []
+        }
+    }
+
+    keySearch = (name) => {
+        // alert(name)
+        // this.search(name)
+        // alert(typeof(name)+ typeof(this.state.keyword));
+        // alert(name+ this.state.keyword);
+        if(this.state.keyword != name){
+            // alert(name);
+            this.setState({keyword:name});
+            // alert(this.state.keyword);
+        }
     }
 
     componentDidMount() {
-        this.search('A')
+        this.search(this.state.keyword)
     }
 
     search = (keyword) => {
         console.log(keyword)
+        // alert(keyword)
         var dataArray = []
         var url = "http://api.themoviedb.org/3/search/movie?api_key=0696a5d8f4f751e4493e133825a494f4&query=" + keyword;
         Axios.get(url).then(result => {
@@ -35,53 +52,41 @@ class SearchPage extends Component {
         })
     }
 
+
+
     render() {
 
         return (
             <body class="is-preload">
                 {/* <!-- Wrapper --> */}
+
+                <NavBar  _keySearch={this.keySearch.bind(this)}/>
+
                 <div id="wrapper">
 
                     {/* Sidebar */}
-                    <Sidebar />
+                    <Sidebar _keySearch={this.keySearch.bind(this)}/>
 
                     {/* <!-- Main --> */}
                     <div id="main">
-
-                        {/* Search and Signin */}
-                        <div class="wrap_search_signin">
-
-                            {/* Search */}
-                            <div class="wrap_search_icon">
-                                <input className="search" fontSize="30" placeholder="Search"
-                                    onChange={(event) => { this.search(event.target.value) }} />
-                                <div><FaSistrix class="searchIcon" size='1.5rem' color="white" /></div>
-                            </div>
-
-                            {/* Signin button */}
-                            <Link className="link" to="/signin">
-                                <button type="signIn_2" name="Signin"><FaUserFriends class="usericon" />   Sign-in</button>
-                            </Link>
-
-                        </div>
 
                         <div class="inner">
                             {/* <!-- Content --> */}
                             <section>
 
                                 {/* Topic */}
-                                <div class="topic" style={{marginTop:'2.4em'}} >Search Result</div>
+                                <div class="topic" style={{marginTop:'1.7em'}} >Search Result</div>
                                 <hr class="major"/>
 
                                 {/* Body */}
                                 {/* <div style={{marginLeft:'2.5em'}}> */}
                                     {this.state.rows.map(item => (
-                                        <ShopItem_S movie={item} />
+                                        <ShopItem_S shop_item={item} />
                                     ))}
 
-                                    {this.state.rows.map(item => (
-                                        <HairStyleItem_S movie={item} />
-                                    ))}
+                                    {/* {this.state.rows.map(item => (
+                                        <HairStyleItem_S hairstyle_item={item} />
+                                    ))} */}
                                 {/* </div> */}
                             </section>
                         </div>
