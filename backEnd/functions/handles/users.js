@@ -18,7 +18,6 @@ exports.signup = (req , res) => {
          userGender: req.body.userGender
 
      };
-    
      //const noImg = 'no-Img.png';
 
      let token,userId;
@@ -227,20 +226,3 @@ exports.signupShop = (req , res) => {
 //////////// login shop
 
 ////////////add Shop Details
-exports.addShopDetails = (req, res) => {
-  const shopDetails = {
-    address : req.body.address,
-    openTime : req.body.openTime,
-    closeTime : req.body.closeTime,
-  }
-
-  db.doc(`/shops/${req.shop.shopName}`)
-    .update(shopDetails)
-    .then(() => {
-      return res.json({ message: "Details added successfully" });
-    })
-    .catch((err) => {
-      console.error(err);
-      return res.status(500).json({ error: err.code });
-    });
-};

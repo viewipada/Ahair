@@ -21,13 +21,14 @@ const { postReviewFromUser, getReviewFromUser } = require('./handles/reviewFromU
 
 const { postReviewFromShop, getReviewFromShop } = require('./handles/reviewFromShop');
 
+const { addShopDetails, getAllShops } = require('./handles/shops');
+
 const { 
     signup,
     login,
     profile,
     getAuthenticatedUser,
-    signupShop,
-    addShopDetails } = require('./handles/users');
+    signupShop } = require('./handles/users');
  
 //, uploadImage
 
@@ -45,6 +46,7 @@ app.get('/user', FBAuth, getAuthenticatedUser);
 //Shops routes
 app.post('/signupShop' , signupShop);
 app.post('/shop', FBAuthforShop ,addShopDetails);
+app.get('/shop',getAllShops);
 
 //reviewfromUser routes
 app.post('/reviewfromuser' , FBAuth , postReviewFromUser);
@@ -52,7 +54,7 @@ app.get('/reviewfromuser/:shopName', getReviewFromUser );
 
 //reviewfromShop routes
 app.post('/reviewfromshop' , FBAuthforShop , postReviewFromShop);
-app.get('/reviewfromuser/:handle', getReviewFromShop );
+app.get('/reviewfromshop/:handle', getReviewFromShop );
 
 
 exports.api = functions.https.onRequest(app);
