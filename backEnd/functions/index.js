@@ -21,13 +21,17 @@ const { postReviewFromUser, getReviewFromUser } = require('./handles/reviewFromU
 
 const { postReviewFromShop, getReviewFromShop } = require('./handles/reviewFromShop');
 
+const { addHairStyle } = require('./handles/hairStyle');
+
+const { addBarber } = require('./handles/barbers');
+
 const { 
     signup,
     login,
     profile,
     getAuthenticatedUser,
     signupShop,
-    addShopDetails } = require('./handles/users');
+    addShopDetails} = require('./handles/users');
  
 //, uploadImage
 
@@ -45,6 +49,8 @@ app.get('/user', FBAuth, getAuthenticatedUser);
 //Shops routes
 app.post('/signupShop' , signupShop);
 app.post('/shop', FBAuthforShop ,addShopDetails);
+app.post('/addHairStyle',FBAuthforShop,addHairStyle);
+app.post('/addBarber',FBAuthforShop,addBarber);
 
 //reviewfromUser routes
 app.post('/reviewfromuser' , FBAuth , postReviewFromUser);
