@@ -56,13 +56,14 @@ class review_Cus extends React.Component {
             message: this.state.reviewdata,
             shopId: "ulT9ZVyeo1ZvgRHgjDzMEjSVc932"
         }
-        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/reviewfromuser', reviewData,{headers: {'Authorization':'Bearer ' + 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjVlOWVlOTdjODQwZjk3ZTAyNTM2ODhhM2I3ZTk0NDczZTUyOGE3YjUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODA5NTYyOCwidXNlcl9pZCI6ImxZaDJ6djJ0M1dYQUdiWVVkN2syeXRreDllWTIiLCJzdWIiOiJsWWgyenYydDNXWEFHYllVZDdrMnl0a3g5ZVkyIiwiaWF0IjoxNTg4MDk1NjI4LCJleHAiOjE1ODgwOTkyMjgsImVtYWlsIjoibmV3MkBlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3MkBlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.HmF4xbkd8X8LczNbVfKJgWOFYpvJGmvmkmQ2-79Mm-a5bTKOmHqWzg2Ofo4ChIV5gsY7IKKsTRtRtePjC5Z-fJOoXkdc7iLEXELGuNn0LTs1-hLdMUYeqyavNsKOCZ_w-6M3KXY0VeYIusDMlXUDZAhGMZstmJgE7_bAo9e7C7eeCZRQzba0C-BShzcoNhT627PXC0C-MYl3fsU05NJ0djHuV7mPiZfTi0zh_7VzHa8bT4AGavgDJfPcRn6cd__KT65EVQ4nvYXsl-lqDGeaFKaUnGUOHcQQe17ExYHGZ5-lPOqVkRxPosK8KatLXCOkv7yCvE5gMcEtbyrxjK6wCA'}})
+        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/reviewfromuser', reviewData,{headers: {'Authorization':'Bearer ' + "eyJhbGciOiJSUzI1NiIsImtpZCI6IjVlOWVlOTdjODQwZjk3ZTAyNTM2ODhhM2I3ZTk0NDczZTUyOGE3YjUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODI2MjMwNCwidXNlcl9pZCI6IlpWZ3QzZFRKVWdkMWFFVzB0R1RWeG9HT3VxUzIiLCJzdWIiOiJaVmd0M2RUSlVnZDFhRVcwdEdUVnhvR091cVMyIiwiaWF0IjoxNTg4MjYyMzA0LCJleHAiOjE1ODgyNjU5MDQsImVtYWlsIjoibmV3M0BlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3M0BlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.IWpGlkLGwWzDnjDoaK9l8Xqn_xWXZImyu-yNtaIAYqYGlhJChfjrkSHmnIDxdngPEX5iJs5DMx_BaQbbR5CHkITZjFzclhavp6b0cQV6CHHtq4RQJzXZ62mIUj_HF19xMsuMI_hNbMSSOZAVsT7SP2A-lHtLtxQjGidvbymBwfDJXsdB8MgwJy8KpB-jrxv2JzC161zcfditcwvH7nNwt7Msd_4eGDtch4lg3g2EMEkcbkYgPuWtf7AmSzzuqiLtfIcE0jYEBvbx1YaOfov-pCYPRlmAKYQkm_ee1VK6ftyCrSXowUIuk7_5Kg5zARP31__WYvFtXRb5eDAi-r0XhQ"}})
         .then(res => {
-            console.log(res);
+            console.log(res); 
         })
         .catch(err => {
             console.log(err.response);
         })
+
     }
     
     render() {
