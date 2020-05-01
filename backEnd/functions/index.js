@@ -21,13 +21,25 @@ const { postReviewFromUser, getReviewFromUser } = require('./handles/reviewFromU
 
 const { postReviewFromShop, getReviewFromShop } = require('./handles/reviewFromShop');
 
+<<<<<<< HEAD
+const { addHairStyle } = require('./handles/hairStyle');
+
+const { addBarber } = require('./handles/barbers');
+=======
+const { addShopDetails, getAllShops } = require('./handles/shops');
+>>>>>>> c14d0e0852c2ecd9c220b61145294395df09b82d
+
 const { 
     signup,
     login,
     profile,
     getAuthenticatedUser,
+<<<<<<< HEAD
     signupShop,
-    addShopDetails } = require('./handles/users');
+    addShopDetails} = require('./handles/users');
+=======
+    signupShop } = require('./handles/users');
+>>>>>>> c14d0e0852c2ecd9c220b61145294395df09b82d
  
 //, uploadImage
 
@@ -45,6 +57,12 @@ app.get('/user', FBAuth, getAuthenticatedUser);
 //Shops routes
 app.post('/signupShop' , signupShop);
 app.post('/shop', FBAuthforShop ,addShopDetails);
+<<<<<<< HEAD
+app.post('/addHairStyle',FBAuthforShop,addHairStyle);
+app.post('/addBarber',FBAuthforShop,addBarber);
+=======
+app.get('/shop',getAllShops);
+>>>>>>> c14d0e0852c2ecd9c220b61145294395df09b82d
 
 //reviewfromUser routes
 app.post('/reviewfromuser' , FBAuth , postReviewFromUser);
@@ -52,7 +70,7 @@ app.get('/reviewfromuser/:shopName', getReviewFromUser );
 
 //reviewfromShop routes
 app.post('/reviewfromshop' , FBAuthforShop , postReviewFromShop);
-app.get('/reviewfromuser/:handle', getReviewFromShop );
+app.get('/reviewfromshop/:handle', getReviewFromShop );
 
 
 exports.api = functions.https.onRequest(app);

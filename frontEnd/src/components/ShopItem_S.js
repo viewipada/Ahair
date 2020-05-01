@@ -8,7 +8,7 @@ export default class ShopItem_S extends Component {
 
     render() {
 
-        const { id, title, overview, poster_src, vote_average, release_date } = this.props.movie
+        const { id, title, overview, poster_src, vote_average, release_date } = this.props.shop_item
         return (
 
             // ShopItem

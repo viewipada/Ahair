@@ -1,16 +1,32 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import logo from './pic/logo_V2.1.png'
 
 export default class Sidebar extends Component {
-    render() {
 
+    constructor(props) {
+        super(props)
+
+        this.dropdownSidebar = this.dropdownSidebar.bind(this);
+    }
+
+    componentDidMount(){
+        this.dropdownSidebar()
+    }
+
+    onSidebarClick = (key) => {
+        if (this.props._keySearch) {
+            this.props._keySearch(key)
+        }
+    }
+
+    dropdownSidebar = () => {
+        // alert(id)
         var dropdown = document.getElementsByClassName("dropdown-btn");
         var i;
 
         for (i = 0; i < dropdown.length; i++) {
             dropdown[i].addEventListener("click", function () {
-                // this.classList.toggle("active");
+                this.classList.toggle("active");
                 var dropdownContent = this.nextElementSibling;
                 if (dropdownContent.style.display === "block") {
                     dropdownContent.style.display = "none";
@@ -19,53 +35,67 @@ export default class Sidebar extends Component {
                 }
             });
         }
+    }
+
+    render() {
 
         return (
             <div id="sidebar">
                 <div class="inner">
 
-                    {/* Logo */}
-                    <Link className="link" to="/home">
-                        <img src={logo} class="homelogo_n" alt="Home" height="8%" width="8%" />
-                    </Link>
-
                     <p class="topicCatalog">Catagory</p>
 
                     {/* Dropdown Sidebar */}
                     <div class="sidenav">
-                        <button class="dropdown-btn">Women
-                                        <i class="fa fa-caret-down"></i>
+
+                        <button
+                            class="dropdown-btn"
+                            id={() => { this.dropdownSidebar() }}>
+                            Women
                         </button>
+
                         <div class="dropdown-container">
-                            <a href='/searchpage' onClick={(event) => { this.search('Long hair') }}>Long hair</a>
-                            <a href='/searchpage' onClick={(event) => { this.search('Medium length') }}>Medium length</a>
-                            <a href='/searchpage' onClick={(event) => { this.search('Short hair') }}>Short hair</a>
-                            <a href='/searchpage' onClick={(event) => { this.search('Perm') }}>Perm</a>
-                            <a href='/searchpage' onClick={(event) => { this.search('Corn') }}>Corn</a>
-                            <button class="dropdown-btn">Colored
-                                            <i class="fa fa-caret-down"></i>
+                            <a onClick={() => { this.onSidebarClick("Long hair") }} href='/searchpage' >Long hair</a>
+                            <a onClick={() => { this.onSidebarClick("Medium length") }} href='/searchpage' >Medium length</a>
+                            <a onClick={() => { this.onSidebarClick("Short hair") }} href='/searchpage' >Short hair</a>
+                            <a onClick={() => { this.onSidebarClick("Perm") }} href='/searchpage' >Perm</a>
+                            <a onClick={() => { this.onSidebarClick("Perm") }} href='/searchpage' >Corn</a>
+
+                            <button
+                                class="dropdown-btn"
+                                id={() => { this.dropdownSidebar() }}>
+                                Colored
                             </button>
+
                             <div class="dropdown-container">
-                                <a href='/searchpage' onClick={(event) => { this.search('Something') }}>Something</a>
-                                <a href='/searchpage' onClick={(event) => { this.search('Something') }}>Something</a>
-                                <a href='/searchpage' onClick={(event) => { this.search('Something') }}>Something</a>
+                                <a onClick={() => { this.onSidebarClick("Something") }} href='/searchpage' >Something</a>
+                                <a onClick={() => { this.onSidebarClick("Something") }} href='/searchpage' >Something</a>
+                                <a onClick={() => { this.onSidebarClick("Something") }} href='/searchpage' >Something</a>
                             </div>
                         </div>
-                        <button class="dropdown-btn">Men
-                                        <i class="fa fa-caret-down"></i>
+
+                        <button
+                            class="dropdown-btn"
+                            id={() => { this.dropdownSidebar() }}>
+                            Men
                         </button>
+
                         <div class="dropdown-container">
-                            <button class="dropdown-btn">Long hair
-                                            <i class="fa fa-caret-down"></i>
+
+                            <button
+                                class="dropdown-btn"
+                                id={() => { this.dropdownSidebar() }}>
+                                Long hair
                             </button>
+
                             <div class="dropdown-container">
-                                <a href='/searchpage' onClick={(event) => { this.search('Something') }}>Something</a>
-                                <a href='/searchpage' onClick={(event) => { this.search('Something') }}>Something</a>
-                                <a href='/searchpage' onClick={(event) => { this.search('Something') }}>Something</a>
+                                <a onClick={() => { this.onSidebarClick("Something") }} href='/searchpage' >Something</a>
+                                <a onClick={() => { this.onSidebarClick("Something") }} href='/searchpage' >Something</a>
+                                <a onClick={() => { this.onSidebarClick("Something") }} href='/searchpage' >Something</a>
                             </div>
-                            <a href='/searchpage' onClick={(event) => { this.search('Short hair') }}>Short hair</a>
-                            <a href='/searchpage' onClick={(event) => { this.search('Perm') }}>Perm</a>
-                            <a href='/searchpage' onClick={(event) => { this.search('Corn') }}>Corn</a>
+                            <a onClick={() => { this.onSidebarClick("Short hair") }} href='/searchpage' >Short hair</a>
+                            <a onClick={() => { this.onSidebarClick("Perm") }} href='/searchpage' >Perm</a>
+                            <a onClick={() => { this.onSidebarClick("Corn") }} href='/searchpage' >Corn</a>
                         </div>
                     </div>
                 </div>
