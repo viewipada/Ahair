@@ -51,19 +51,20 @@ class review_Cus extends React.Component {
             });
 
         }
+        const isEmpty = this.state.isEmpty;
+        console.log(isEmpty);
         const reviewData = {
             rate: this.state.ratingValue,
             message: this.state.reviewdata,
             shopId: "ulT9ZVyeo1ZvgRHgjDzMEjSVc932"
         }
-        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/reviewfromuser', reviewData,{headers: {'Authorization':'Bearer ' + "eyJhbGciOiJSUzI1NiIsImtpZCI6IjVlOWVlOTdjODQwZjk3ZTAyNTM2ODhhM2I3ZTk0NDczZTUyOGE3YjUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODI2MjMwNCwidXNlcl9pZCI6IlpWZ3QzZFRKVWdkMWFFVzB0R1RWeG9HT3VxUzIiLCJzdWIiOiJaVmd0M2RUSlVnZDFhRVcwdEdUVnhvR091cVMyIiwiaWF0IjoxNTg4MjYyMzA0LCJleHAiOjE1ODgyNjU5MDQsImVtYWlsIjoibmV3M0BlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3M0BlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.IWpGlkLGwWzDnjDoaK9l8Xqn_xWXZImyu-yNtaIAYqYGlhJChfjrkSHmnIDxdngPEX5iJs5DMx_BaQbbR5CHkITZjFzclhavp6b0cQV6CHHtq4RQJzXZ62mIUj_HF19xMsuMI_hNbMSSOZAVsT7SP2A-lHtLtxQjGidvbymBwfDJXsdB8MgwJy8KpB-jrxv2JzC161zcfditcwvH7nNwt7Msd_4eGDtch4lg3g2EMEkcbkYgPuWtf7AmSzzuqiLtfIcE0jYEBvbx1YaOfov-pCYPRlmAKYQkm_ee1VK6ftyCrSXowUIuk7_5Kg5zARP31__WYvFtXRb5eDAi-r0XhQ"}})
+        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/reviewfromuser', reviewData,{headers: {'Authorization':'Bearer ' + "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4ODQ4YjVhZmYyZDUyMDEzMzFhNTQ3ZDE5MDZlNWFhZGY2NTEzYzgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODMyNjU4MiwidXNlcl9pZCI6IlpWZ3QzZFRKVWdkMWFFVzB0R1RWeG9HT3VxUzIiLCJzdWIiOiJaVmd0M2RUSlVnZDFhRVcwdEdUVnhvR091cVMyIiwiaWF0IjoxNTg4MzI2NTgyLCJleHAiOjE1ODgzMzAxODIsImVtYWlsIjoibmV3M0BlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3M0BlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.lit-CZ9TvaiDTeRoubh2nSsD8PYTVqumyDVf1ZlUjqNE-2M5ui9eGhN6ft1z3CUhbZPa3UbblunZ0QVMc-DKd32Hhl2amgvGU2ZlEtSkxtKniWzT1FuCHscN1uIASA0wQPHlakdlcWhcrIue36OzWiAg_PS-21xSKz4EGXmqYrkm4L6Fr3hNhQZqX_Ou8ehhkzwtY3PlXQj7o_nlMV6zltR0lhUhiyDhUNd1XHgPd5G4S_XOFMngVBcc9PqgG_1Ik3D5ezC7mNvtIt4DbNRa-tviKKsxAdtsHDu3diV3SEA7IUlNTFvm7NEoEBdHXnVDHX07JfzF0tZfOF16rymj6g"}})
         .then(res => {
-            console.log(res); 
+            console.log(res);
         })
         .catch(err => {
             console.log(err.response);
         })
-
     }
     
     render() {
