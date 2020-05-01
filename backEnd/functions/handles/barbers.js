@@ -31,3 +31,32 @@ const { db } = require('../util/admin');
          return res.status(500).json({ error: err.code });
      });
  };
+
+ exports.getBarber = (req,res) => {
+    let barberData = {};
+    db.doc(`/shops/${req.params.shopName}`)
+      .get()
+      .then((doc) => {
+        if (!doc.exists) {
+          return res.status(404).json({ error: 'Barber not found' });
+        }
+        barberData = doc.data();
+        barberData.shopId = doc.data().shopId;
+
+        db.collection('barbers')
+          .where('shopId', '==', barberData.shopId)
+          .orderBy('createAt','desc')
+          .get()
+          .then((data) => {
+              barberData.barbers = [];
+              data.forEach((docdoc) => {
+                barberData.barbers.push(docdoc.data());
+              });
+              return res.json(barberData);
+          }).catch((err) => {console.error(err); res.status(500).json({ error : err.code })})
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).json({ error: err.code });
+      });
+};
