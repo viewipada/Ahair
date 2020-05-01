@@ -5,6 +5,7 @@ exports.addShopDetails = (req, res) => {
       address : req.body.address,
       openTime : req.body.openTime,
       closeTime : req.body.closeTime,
+      colors : req.body.colors
     }
   
     db.doc(`/shops/${req.shop.shopName}`)

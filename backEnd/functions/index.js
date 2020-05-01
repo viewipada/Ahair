@@ -21,6 +21,10 @@ const { postReviewFromUser, getReviewFromUser } = require('./handles/reviewFromU
 
 const { postReviewFromShop, getReviewFromShop } = require('./handles/reviewFromShop');
 
+const { addBooking , getBooking } = require('./handles/bookings');
+
+const { addShopDetails } = require('./handles/shops');
+
 const { addHairStyle } = require('./handles/hairStyle');
 
 const { addBarber } = require('./handles/barbers');
@@ -30,8 +34,7 @@ const {
     login,
     profile,
     getAuthenticatedUser,
-    signupShop,
-    addShopDetails} = require('./handles/users');
+    signupShop } = require('./handles/users');
  
 //, uploadImage
 
@@ -60,5 +63,8 @@ app.get('/reviewfromuser/:shopName', getReviewFromUser );
 app.post('/reviewfromshop' , FBAuthforShop , postReviewFromShop);
 app.get('/reviewfromshop/:handle', getReviewFromShop );
 
+//bookings routes
+app.post('/booking', FBAuth , addBooking);
+app.get('/booking', getBooking);
 
 exports.api = functions.https.onRequest(app);

@@ -1,4 +1,4 @@
-const { admin , db } = require('../util/admin')
+const { db } = require('../util/admin')
 
 const config = require('../util/config');
 
@@ -9,10 +9,10 @@ const { validateSignupData , validateLoginData } = require('../util/validators')
 
 exports.signup = (req , res) => {
     const newUser = {
-         email : req.body.email,
-         password : req.body.password,
-         confirmPassword : req.body.confirmPassword,
-         handle : req.body.handle,
+         email: req.body.email,
+         password: req.body.password,
+         confirmPassword: req.body.confirmPassword,
+         handle: req.body.handle,
          name: req.body.name,
          phoneNum: req.body.phoneNum,
          userGender: req.body.userGender
