@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import NavBarShop from "./NavBarShop";
+import {HairStyleswomenShort,HairStyleswomenMedium,HairStyleswomenLong, HairStylesmenShort, HairStylesmenLong } from "../redux/action/ShopInformationAction";
 
 export const CheckBox = props => {
     return (
@@ -18,10 +20,10 @@ export const CheckBox = props => {
 }
 
 class Hairstyles extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
+        console.log(this.props.shopcolor)
         this.state = {
-            //เก็บ data 5 ตัวแปรแรกได้เลยจ้า รวมไว้หมดแล้ว
             womenShort: [], 
             womenMedium: [],
             womenLong: [],
@@ -37,216 +39,140 @@ class Hairstyles extends React.Component {
             addwomenLong: [],
             addmenShort: [],
             addmenLong: [],
-
-            list_womenShort: [
-                {id: "ws1", value: "Beehive", key: 1-1, isChecked: false},
-                {id: "ws2", value: "Bob", key: 1-2, isChecked: false},
-                {id: "ws3", value: "Braided", key: 1-3, isChecked: false},
-                {id: "ws4", value: "Bun", key: 1-4, isChecked: false},
-                {id: "ws5", value: "Cornrows", key: 1-5, isChecked: false},
-                {id: "ws6", value: "Crew cut", key: 1-6, isChecked: false},
-                {id: "ws7", value: "Goth", key: 1-7, isChecked: false},
-                {id: "ws8", value: "Half up / Half down", key: 1-8, isChecked: false},
-                {id: "ws9", value: "Layers", key: 1-9, isChecked: false},
-                {id: "ws10", value: "Loose", key: 1-10, isChecked: false},
-                {id: "ws11", value: "Low bun", key: 1-11, isChecked: false},
-                {id: "ws12", value: "Mohawk", key: 1-12, isChecked: false},
-                {id: "ws14", value: "Pixie", key: 1-14, isChecked: false},
-                {id: "ws15", value: "Shaved", key: 1-15, isChecked: false},
-                {id: "ws16", value: "Short sides", key: 1-16, isChecked: false},
-                {id: "ws17", value: "Short slicked", key: 1-17, isChecked: false},
-                {id: "ws18", value: "Side swept", key: 1-18, isChecked: false},
-                {id: "ws19", value: "Tousled", key: 1-19, isChecked: false}
-            ],
-            list_womenMedium: [
-                {id: "wm1", value: "Beehive", key: 2-1, isChecked: false},
-                {id: "wm2", value: "Braided", key: 2-2, isChecked: false},
-                {id: "wm3", value: "Bun", key: 2-3, isChecked: false},
-                {id: "wm4", value: "Cornrows", key: 2-4, isChecked: false},
-                {id: "wm5", value: "Goth", key: 2-5, isChecked: false},
-                {id: "wm6", value: "Half up / Half down", key: 2-6, isChecked: false},
-                {id: "wm7", value: "Layers", key: 2-7, isChecked: false},
-                {id: "wm8", value: "Loose", key: 2-8, isChecked: false},
-                {id: "wm9", value: "Low bun", key: 2-9, isChecked: false},
-                {id: "wm11", value: "Ponytail", key: 2-11, isChecked: false},
-                {id: "wm12", value: "Tousled", key: 2-12, isChecked: false}
-            
-            ],
-            list_womenLong: [
-                {id: "wl1", value: "Beehive", key: 3-1, isChecked: false},
-                {id: "wl2", value: "Braided", key: 3-2, isChecked: false},
-                {id: "wl3", value: "Bun", key: 3-3, isChecked: false},
-                {id: "wl4", value: "Cornrows", key: 3-4, isChecked: false},
-                {id: "wl5", value: "Goth", key: 3-5, isChecked: false},
-                {id: "wl6", value: "Half up / Half down", key: 3-6, isChecked: false},
-                {id: "wl7", value: "Layers", key: 3-7, isChecked: false},
-                {id: "wl8", value: "Loose", key: 3-8, isChecked: false},
-                {id: "wl9", value: "Low bun", key: 3-9, isChecked: false},
-                {id: "wl11", value: "Ponytail", key: 3-11, isChecked: false},
-                {id: "wl12", value: "Tousled", key: 3-12, isChecked: false}
-
-            ],
-            list_menShort: [
-                {id: "ms7", value: "Afro fade", key: 4-7, isChecked: false},
-                {id: "ms13", value: "Buzz cut", key: 4-13, isChecked: false},
-                {id: "ms11", value: "Comb Over", key: 4-11, isChecked: false},
-                {id: "ms14", value: "Crew cut", key: 4-14, isChecked: false},
-                {id: "ms15", value: "Faux Hawk", key: 4-15, isChecked: false},
-                {id: "ms16", value: "Fringe", key: 4-16, isChecked: false},
-                {id: "ms3", value: "Hight fade", key: 4-3, isChecked: false},
-                {id: "ms2", value: "Low fade", key: 4-2, isChecked: false},
-                {id: "ms4", value: "Mid fade", key: 4-4, isChecked: false},
-                {id: "ms9", value: "Pompadour", key: 4-9, isChecked: false},
-                {id: "ms10", value: "Quiff", key: 4-10, isChecked: false},
-                {id: "ms17", value: "Side part", key: 4-17, isChecked: false},
-                {id: "ms20", value: "Skinhead", key: 4-20, isChecked: false},
-                {id: "ms6", value: "Skin Fade", key: 4-6, isChecked: false},
-                {id: "ms12", value: "Slicked back", key: 4-12, isChecked: false},
-                {id: "ms18", value: "Spiky", key: 4-18, isChecked: false},
-                {id: "ms1", value: "Taper fade", key: 4-1, isChecked: false},
-                {id: "ms5", value: "Temple fade", key: 4-5, isChecked: false},
-                {id: "ms19", value: "Top kont", key: 4-19, isChecked: false},
-                {id: "ms8", value: "Undercut", key: 4-8, isChecked: false},
-                
-            ],
-            list_menLong: [
-                
-                {id: "ml8", value: "Braids", key: 5-8, isChecked: false},
-                {id: "ml1", value: "Deadlocks", key: 5-1, isChecked: false},
-                {id: "ml7", value: "Half up", key: 5-7, isChecked: false},
-                {id: "ml9", value: "Long curls", key: 5-9, isChecked: false},
-                {id: "ml10", value: "Long undercut", key: 5-10, isChecked: false},
-                {id: "ml5", value: "Man bun", key: 5-5, isChecked: false},
-                {id: "ml3", value: "Ponytail", key: 5-3, isChecked: false},
-                {id: "ml6", value: "Side part", key: 5-6, isChecked: false},
-                {id: "ml2", value: "Slick back", key: 5-2, isChecked: false},
-                {id: "ml4", value: "Textured waves", key: 5-4, isChecked: false}    
-            ],
+            list_womenShort: this.props.womenShortStore || [],
+            list_womenMedium: this.props.womenMediumStore ||[],
+            list_womenLong: this.props.womenLongStore ||[],
+            list_menShort: this.props.menShortStore ||[],
+            list_menLong: this.props.menLongStore ||[]
         }
     }
     
     womenShortAllChecked = event => {
-        this.state.list_womenShort.forEach(list_womenShort => list_womenShort.isChecked = event.target.checked) 
-        this.setState({list_womenShort: this.state.list_womenShort})
+        this.props.womenShortStore.forEach(list_womenShort => list_womenShort.isChecked = event.target.checked) 
+        this.setState({list_womenShort: this.props.womenShortStore})
     }
 
     womenMediumAllChecked = event => {
-        this.state.list_womenMedium.forEach(list_womenMedium => list_womenMedium.isChecked = event.target.checked) 
-        this.setState({list_womenMedium: this.state.list_womenMedium})
+        this.props.womenMediumStore.forEach(list_womenMedium => list_womenMedium.isChecked = event.target.checked) 
+        this.setState({list_womenMedium: this.props.womenMediumStore})
     }
 
     womenLongAllChecked = event => {
-        this.state.list_womenLong.forEach(list_womenLong => list_womenLong.isChecked = event.target.checked) 
-        this.setState({list_womenLong: this.state.list_womenLong})
+        this.props.womenLongStore.forEach(list_womenLong => list_womenLong.isChecked = event.target.checked) 
+        this.setState({list_womenLong: this.props.womenLongStore})
     }
 
     menShortAllChecked = event => {
-        this.state.list_menShort.forEach(list_menShort => list_menShort.isChecked = event.target.checked) 
-        this.setState({list_menShort: this.state.list_menShort})
+        this.props.menShortStore.forEach(list_menShort => list_menShort.isChecked = event.target.checked) 
+        this.setState({list_menShort: this.props.menShortStore})
     }
 
     menLongAllChecked = event => {
-        this.state.list_menLong.forEach(list_menLong => list_menLong.isChecked = event.target.checked) 
-        this.setState({list_menLong: this.state.list_menLong})
+        this.props.menLongStore.forEach(list_menLong => list_menLong.isChecked = event.target.checked) 
+        this.setState({list_menLong: this.props.menLongStore})
     }
 
     womenShortChecked = event => {
-        this.state.list_womenShort.forEach(list_womenShort => {
+        this.props.womenShortStore.forEach(list_womenShort => {
         if (list_womenShort.value === event.target.value)
             list_womenShort.isChecked =  event.target.checked
         })
-        this.setState({list_womenShort: this.state.list_womenShort})
+        this.setState({list_womenShort: this.prosp.womenShortStore})
     }
 
     womenMediumChecked = event => {
-        this.state.list_womenMedium.forEach(list_womenMedium => {
+        this.props.womenMediumStore.forEach(list_womenMedium => {
         if (list_womenMedium.value === event.target.value)
             list_womenMedium.isChecked =  event.target.checked
         })
-        this.setState({list_womenMedium: this.state.list_womenMedium})
+        this.setState({list_womenMedium: this.props.womenMediumStore})
     }
 
     womenLongChecked = event => {
-        this.state.list_womenLong.forEach(list_womenLong => {
+        this.prosp.womenLongStore.forEach(list_womenLong => {
         if (list_womenLong.value === event.target.value)
             list_womenLong.isChecked =  event.target.checked
         })
-        this.setState({list_womenLong: this.state.list_womenLong})
+        this.setState({list_womenLong: this.props.womenLongStore})
     }
 
     menShortChecked = event => {
-        this.state.list_menShort.forEach(list_menShort => {
+        this.props.menShortStore.forEach(list_menShort => {
         if (list_menShort.value === event.target.value)
             list_menShort.isChecked =  event.target.checked
         })
-        this.setState({list_menShort: this.state.list_menShort})
+        this.setState({list_menShort: this.props.menShortStore})
     }
 
     menLongChecked = event => {
-        this.state.list_menLong.forEach(list_menLong => {
+        this.props.menLongStore.forEach(list_menLong => {
         if (list_menLong.value === event.target.value)
             list_menLong.isChecked =  event.target.checked
         })
-        this.setState({list_menLong: this.state.list_menLong})
+        this.setState({list_menLong: this.props.menLongStore})
     }
 
     handleSubmit = event => {
         event.preventDefault();
-        this.state.list_womenShort.forEach(list_womenShort => {
-            if(list_womenShort.isChecked){
-                this.state.womenShort.push({hair: list_womenShort.value, price:0, img:"", isChecked:false, key: this.state.womenShort.length})
-            }
-        })
+        this.setState({addwomenShort:[],addwomenMedium:[],addwomenLong:[],addmenShort:[],addmenLong:[]})
+        // this.props.womenShortStore.forEach(list_womenShort => {
+        //     if(list_womenShort.isChecked){
+        //         this.state.womenShort.push({hair: list_womenShort.value, price:0, img:"", isChecked:false, key: this.state.womenShort.length})
+        //     }
+        // })
         this.state.addwomenShort.forEach(addwomenShort => {
-            if(addwomenShort.isChecked){
-                this.state.womenShort.push({hair: addwomenShort.value, price:0, img:"", isChecked:false, key: this.state.womenShort.length})
+            if(addwomenShort.isChecked){ 
+                this.props.womenShortStore.push({id: "ws"+this.props.womenShortStore.length, value: addwomenShort.value,key: 1-this.props.womenShortStore.length, isChecked:this.props.womenShortStore.isChecked})
             }
         })
-        this.state.list_womenMedium.forEach(list_womenMedium => {
-            if(list_womenMedium.isChecked){
-                this.state.womenMedium.push({hair: list_womenMedium.value, price:0, img:"", isChecked:false, key: this.state.womenMedium.length})
-            }
-        })
+        // this.props.womenMediumStore.forEach(list_womenMedium => {
+        //     if(list_womenMedium.isChecked){
+        //         this.state.womenMedium.push({hair: list_womenMedium.value, price:0, img:"", isChecked:false, key: this.state.womenMedium.length})
+        //     }
+        // })
         this.state.addwomenMedium.forEach(addwomenMedium => {
             if(addwomenMedium.isChecked){
-                this.state.womenMedium.push({hair: addwomenMedium.value, price:0, img:"", isChecked:false, key: this.state.womenMedium.length})
+                this.props.womenMediumStore.push({id: "wm"+this.props.womenMediumStore.length, value: addwomenMedium.value,key: 2-this.props.womenMediumStore.length, isChecked:this.props.womenMediumStore.isChecked})
             }
         })
-        this.state.list_womenLong.forEach(list_womenLong => {
-            if(list_womenLong.isChecked){
-                this.state.womenLong.push({hair: list_womenLong.value, price:0, img:"", isChecked:false, key: this.state.womenLong.length})
-            }
-        })
+        // this.props.womenLongStore.forEach(list_womenLong => {
+        //     if(list_womenLong.isChecked){
+        //         this.state.womenLong.push({hair: list_womenLong.value, price:0, img:"", isChecked:false, key: this.state.womenLong.length})
+        //     }
+        // })
         this.state.addwomenLong.forEach(addwomenLong => {
             if(addwomenLong.isChecked){
-                this.state.womenLong.push({hair: addwomenLong.value, price:0, img:"", isChecked:false, key: this.state.womenLong.length})
+                this.props.womenLongStore.push({id: "wl"+this.props.womenLongStore.length, value: addwomenLong.value,key: 3-this.props.womenLongStore.length, isChecked:this.props.womenLongStore.isChecked})
             }
         })
-        this.state.list_menShort.forEach(list_menShort => {
-            if(list_menShort.isChecked){
-                this.state.menShort.push({hair: list_menShort.value, price:0, img:"", isChecked:false, key: this.state.menShort.length})
-            }
-        })
+        // this.props.menShortStore.forEach(list_menShort => {
+        //     if(list_menShort.isChecked){
+        //         this.state.menShort.push({hair: list_menShort.value, price:0, img:"", isChecked:false, key: this.state.menShort.length})
+        //     }
+        // })
         this.state.addmenShort.forEach(addmenShort => {
             if(addmenShort.isChecked){
-                this.state.menShort.push({hair: addmenShort.value, price:0, img:"", isChecked:false, key: this.state.menShort.length})
+                this.props.menShortStore.push({id: "ms"+this.props.menShortStore.length, value: addmenShort.value,key: 4-this.props.menShortStore.length, isChecked:this.props.menShortStore.isChecked})
             }
         })
-        this.state.list_menLong.forEach(list_menLong => {
-            if(list_menLong.isChecked){
-                this.state.menLong.push({hair: list_menLong.value, price:0, img:"", isChecked:false, key: this.state.menLong.length})
-            }
-        })
+        // this.props.menLongStore.forEach(list_menLong => {
+        //     if(list_menLong.isChecked){
+        //         this.state.menLong.push({hair: list_menLong.value, price:0, img:"", isChecked:false, key: this.state.menLong.length})
+        //     }
+        // })
         this.state.addmenLong.forEach(addmenLong => {
             if(addmenLong.isChecked){
-                this.state.menLong.push({hair: addmenLong.value, price:0, img:"", isChecked:false, key: this.state.menLong.length})
+                this.props.menLongStore.push({id: "ml"+this.props.menLongStore.length, value: addmenLong.value,key: 5-this.props.menLongStore.length, isChecked:this.props.menLongStore.isChecked})
             }
         })
         
         console.log(this.state)
-        // if(this.state.womenShort || this.state.womenMedium || this.state.womenLong || this.state.menShort || this.state.menLong) { 
-            this.props.history.push('/colors')
-        // }
+        this.props.hsWomenShort(this.state.list_womenShort)
+        this.props.hsWomenMedium(this.state.list_womenMedium)
+        this.props.hsWomenLong(this.state.list_womenLong)
+        this.props.hsMenShort(this.state.list_menShort)
+        this.props.hsMenLong(this.state.list_menLong)
+        this.props.history.push('/pricelist')
     }
 
     typeAddwomenShort = event => {
@@ -360,7 +286,7 @@ class Hairstyles extends React.Component {
                                     </div>
                         
                                     { 
-                                        this.state.list_womenShort.map((list_womenShort) => {
+                                        this.props.womenShortStore.map((list_womenShort) => {
                                             return (<CheckBox onClick={this.womenShortChecked}  {...list_womenShort} />)
                                         })
                                     }
@@ -398,7 +324,7 @@ class Hairstyles extends React.Component {
                                     </div>
                         
                                     { 
-                                        this.state.list_womenMedium.map((list_womenMedium) => {
+                                        this.props.womenMediumStore.map((list_womenMedium) => {
                                             return (<CheckBox onClick={this.womenMediumChecked}  {...list_womenMedium} />)
                                         })
                                     }
@@ -436,7 +362,7 @@ class Hairstyles extends React.Component {
                                     </div>
                         
                                     { 
-                                        this.state.list_womenLong.map((list_womenLong) => {
+                                        this.props.womenLongStore.map((list_womenLong) => {
                                             return (<CheckBox onClick={this.womenLongChecked}  {...list_womenLong} />)
                                         })
                                     }
@@ -479,7 +405,7 @@ class Hairstyles extends React.Component {
                                     </div>
                         
                                     { 
-                                        this.state.list_menShort.map((list_menShort) => {
+                                        this.props.menShortStore.map((list_menShort) => {
                                             return (<CheckBox onClick={this.menShortChecked}  {...list_menShort} />)
                                         })
                                     }
@@ -517,7 +443,7 @@ class Hairstyles extends React.Component {
                                     </div>
                         
                                     { 
-                                        this.state.list_menLong.map((list_menLong) => {
+                                        this.props.menLongStore.map((list_menLong) => {
                                             return (<CheckBox onClick={this.menLongChecked}  {...list_menLong} />)
                                         })
                                     }
@@ -544,7 +470,7 @@ class Hairstyles extends React.Component {
                             
                         </div>
                         <div className="container_next_bt">
-                            <Link className="link" to="/information">
+                            <Link className="link" to="/colors">
                                 <div>
                                     <button className="login_button" type="reset">
                                         Back
@@ -562,5 +488,23 @@ class Hairstyles extends React.Component {
             </div>
         );
     }
+}const mapStateToProps = (state) => { //subscribe
+    return {
+        womenShortStore: state.ShopInformationReducer.list_womenShort,
+        womenMediumStore: state.ShopInformationReducer.list_womenMedium,
+        womenLongStore: state.ShopInformationReducer.list_womenLong,
+        menShortStore: state.ShopInformationReducer.list_menShort,
+        menLongStore: state.ShopInformationReducer.list_menLong
+    }       
 }
-export default Hairstyles;
+const mapDispatchToProps =(dispatch) => {
+    return {
+        hsWomenShort: (data) => dispatch(HairStyleswomenShort(data)),
+        hsWomenMedium: (data) => dispatch(HairStyleswomenMedium(data)),
+        hsWomenLong: (data) => dispatch(HairStyleswomenLong(data)),
+        hsMenShort: (data) => dispatch(HairStylesmenShort(data)),
+        hsMenLong: (data) => dispatch(HairStylesmenLong(data)),
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Hairstyles);

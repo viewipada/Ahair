@@ -379,7 +379,7 @@ select {
 .pattern {
   color : #cb2d6f;
   position: relative;
-  /* margin-bottom: 30px; */
+  margin-bottom: 30px;
   font-size: 14px;
   display: flex;
   flex-wrap: wrap;
@@ -549,11 +549,9 @@ p.pattern {
   padding: 0 5px 0 10px;
 }
 .input_info::placeholder {
-  color: rgb(145, 145, 145);
-  color: 
-  /* color:white; */
+  color: gray;
 }
-.wrap_input_time {
+.wrap_time {
   width: 210px;
   position: relative;
   border-radius: 50px;

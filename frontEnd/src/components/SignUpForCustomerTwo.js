@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import {SignUpForCustomer_two} from '../redux/index'
 import { Link } from 'react-router-dom';
 import ImageUpload from './ImageUpload';
 import passwordIcon from './pic/password_icon.png';
@@ -6,18 +8,19 @@ import errorIcon from './pic/error_icon.png';
 import visibleIcon from './pic/visible_icon.png'
 import invisibleIcon from './pic/invisible_icon.png'
 import userImage from './pic/user_green_icon.png'
+import axios from 'axios';
 
 class SignUpForCustomerTwo extends React.Component {
-    constructor()
+    constructor(props)
     {
-        super();
+        super(props);
         this.state = { 
             hidePassword: true ,
             imageFile: "",
             imagePreview: "",
-            imageUrl: "",
-            password: "",
-            confirmPassword: "",
+            imageUrl: this.props.customersignupStore.imageUrl || "",
+            password: this.props.customersignupStore.password,
+            confirmPassword: this.props.customersignupStore.confirmPassword,
             passwordError: "",
             confirmPasswordError: ""
         }
@@ -73,6 +76,28 @@ class SignUpForCustomerTwo extends React.Component {
         if (isValid) {
             console.log(this.state);
             this.setState(this.state);
+            this.props.signupcustomer(this.state);
+            
+            const newUser = {
+                email : this.props.customersignupStore.email,
+                password: this.state.password,
+                confirmPassword : this.state.confirmPassword,
+                handle: this.props.customersignupStore.username,
+                name: this.props.customersignupStore.name,
+                phoneNum: this.props.customersignupStore.phone,
+                userGender: this.props.customersignupStore.gender,
+                // userImg: this.state.imageUrl
+            }
+    
+            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/signup',newUser)
+                .then(response => {
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.log(error)
+                }
+            )
+            
             this.props.history.push('/signup_customer')
         }
     };
@@ -114,7 +139,7 @@ class SignUpForCustomerTwo extends React.Component {
                                                 id = "password"
                                                 placeholder = "Password"
                                                 maxLength = "16"
-                                                value = {this.state.password}  
+                                                value = {this.state.password || ""}  
                                                 onChange = {this.handleChange} 
                                             />
                                             <div className={this.state.passwordError===""? "validate_wrap" :"invalidate_wrap"}>
@@ -141,7 +166,7 @@ class SignUpForCustomerTwo extends React.Component {
                                                 id = "confirmPassword"
                                                 placeholder = "Confirm password"
                                                 maxLength="16"
-                                                value = {this.state.confirmPassword}  
+                                                value = {this.state.confirmPassword || ""}  
                                                 onChange = {this.handleChange} 
                                             />
                                             <div className={this.state.confirmPasswordError===""? "validate_wrap" :"invalidate_wrap"}>
@@ -178,4 +203,16 @@ class SignUpForCustomerTwo extends React.Component {
         );
     }
 }
-export default SignUpForCustomerTwo;
+
+const mapStateToProps = (state) => { //subscribe
+    return {
+        customersignupStore: state.SignUpForCustomerReducer.customersignup
+    }       
+}
+const mapDispatchToProps =(dispatch) => {
+    return {
+        signupcustomer: (data) => dispatch(SignUpForCustomer_two(data))
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(SignUpForCustomerTwo);
