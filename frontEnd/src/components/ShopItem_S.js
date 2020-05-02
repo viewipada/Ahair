@@ -8,18 +8,17 @@ export default class ShopItem_S extends Component {
 
     render() {
 
-        const { id, title, overview, poster_src, vote_average, release_date } = this.props.shop_item
+        const { shopId, shopName, overview, poster_src, vote_average, release_date } = this.props.shop_item
         return (
-
             // ShopItem
-            <div key={id} class="box_item" style={{ textAlign: 'left', paddingTop: '1em' }}>
+            <div key={shopId} class="box_item" style={{ textAlign: 'left', paddingTop: '1em' }}>
 
                 {/* shop image */}
                 <div class="row_box"><img className="image_shop" src={poster_src} alt="" /></div>
 
                 {/* shopName and shopRate */}
                 <div class="sub_box_item" style={{ width: '20%' }}>
-                    <a href="/shop"><h4 style={{ color: '#cb2c6f' }}>{title}</h4></a>
+                    <a href="/shop"><h4 style={{ color: '#cb2c6f' }}>{shopName}</h4></a>
                     <p style={{ color: 'goldenrod' }}>shopRate : {vote_average}</p>
                 </div>
 

@@ -34,7 +34,7 @@ import BookingInfo_Cus from './components/BookingInfo_Cus';
 import BookingInfo_Shop from './components/BookingInfo_Shop';
 import Thx4Review_Cus from './components/FinishedReview_Cus';
 import SelectTime from './components/SelectTime';
-
+import sliderimg from './components/sliderimg'
 class App extends React.Component {
   render() {
     return (
@@ -74,6 +74,7 @@ class App extends React.Component {
               <Route path='/BookInfo_Shop' component={BookingInfo_Shop}/>
               <Route path='/Thank4Review_Cus' component={Thx4Review_Cus}/>
               <Route path='/selecttime' component={SelectTime} />
+              <Route path='/slider' component={sliderimg}/>
             </Switch>
           </div>
         </Router>

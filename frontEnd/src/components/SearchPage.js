@@ -4,7 +4,6 @@ import { FaSistrix } from "react-icons/fa"
 import { FaUserFriends } from "react-icons/fa"
 import Axios from 'axios'
 import ShopItem_S from './ShopItem_S'
-import HairStyleItem_S from './HairStyleItem_S'
 import Sidebar from './Sidebar'
 import NavBar from './navbar'
 
@@ -15,36 +14,57 @@ class SearchPage extends Component {
         super(props)
 
         this.state = {
-            keyword: "a", 
+            searchValue: 'null',
             rows: []
         }
+        this.keySearch = this.keySearch.bind(this)
     }
 
     keySearch = (name) => {
-        // alert(name)
-        // this.search(name)
-        // alert(typeof(name)+ typeof(this.state.keyword));
-        // alert(name+ this.state.keyword);
-        if(this.state.keyword != name){
-            // alert(name);
-            this.setState({keyword:name});
-            // alert(this.state.keyword);
+        console.log(name)
+        alert(name)
+        // if(this.state.keyword != name){
+        console.log(name + this.state.keyword)
+        const n = name
+        this.setState({ keyword: n });
+        alert(this.state.keyword)
+        console.log(name + this.state.keyword)
+        // }
+    }
+    handleInputChange = (event) => {
+        event.preventDefault();
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+    handleSubmit = (event) => {
+        event.preventDefault();
+        const data = this.state.searchValue;
+        console.log("Submit: " + data);
+        this.search(data)
+    }
+    keyPress = (event) => {
+        if (event.key === "Enter") {
+            const data = this.state.searchValue;
+            console.log("KeyPress: " + data);
+            this.search(data)
         }
     }
 
+
     componentDidMount() {
-        this.search(this.state.keyword)
+        this.search('')
     }
 
     search = (keyword) => {
-        console.log(keyword)
-        // alert(keyword)
+        console.log("Search: " + keyword)
         var dataArray = []
-        var url = "http://api.themoviedb.org/3/search/movie?api_key=0696a5d8f4f751e4493e133825a494f4&query=" + keyword;
+        // test api: http://api.themoviedb.org/3/search/movie?api_key=0696a5d8f4f751e4493e133825a494f4&query=
+        var url = "https://us-central1-g10ahair.cloudfunctions.net/api/shop" + keyword;
         Axios.get(url).then(result => {
-            console.log(JSON.stringify(result.data.results))
-            result.data.results.forEach(item => {
-                item.poster_src = "https://image.tmdb.org/t/p/w185" + item.poster_path
+            // console.log(JSON.stringify(result.data.results))
+            result.data.forEach(item => {
+                // item.poster_src = "https://image.tmdb.org/t/p/w185" + item.poster_path
                 dataArray.push(item)
             })
 
@@ -60,33 +80,48 @@ class SearchPage extends Component {
             <body class="is-preload">
                 {/* <!-- Wrapper --> */}
 
-                <NavBar  _keySearch={this.keySearch.bind(this)}/>
+                <NavBar />
 
                 <div id="wrapper">
 
                     {/* Sidebar */}
-                    <Sidebar _keySearch={this.keySearch.bind(this)}/>
+                    {/* <Sidebar keySearch={this.keySearch}/> */}
 
                     {/* <!-- Main --> */}
                     <div id="main">
 
                         <div class="inner">
+
                             {/* <!-- Content --> */}
                             <section>
+                                <div class="searchBox" style={{marginTop:'1em'}}>
+                                    <input
+                                        type="text"
+                                        placeholder="Search"
+                                        className="searchInput"
+                                        name="searchValue"
+                                        onChange={this.handleInputChange}
+                                        onKeyPress={this.keyPress}
+                                        style={{height:'40px'}}
+                                    />
+                                    <button 
+                                        className="searchBt" 
+                                        onClick={this.handleSubmit}
+                                        style={{height:'40px'}}>
+                                        <FaSistrix size='1.5em' color="white" />
+                                    </button>
+                                </div>
 
                                 {/* Topic */}
-                                <div class="topic" style={{marginTop:'1.7em'}} >Search Result</div>
-                                <hr class="major"/>
+                                <div class="topic" style={{ marginTop: '1.7em' }} >Search Result</div>
+                                <hr class="major" />
 
                                 {/* Body */}
                                 {/* <div style={{marginLeft:'2.5em'}}> */}
-                                    {this.state.rows.map(item => (
-                                        <ShopItem_S shop_item={item} />
-                                    ))}
+                                {this.state.rows.map(item => (
+                                    <ShopItem_S shop_item={item} />
+                                ))}
 
-                                    {/* {this.state.rows.map(item => (
-                                        <HairStyleItem_S hairstyle_item={item} />
-                                    ))} */}
                                 {/* </div> */}
                             </section>
                         </div>
