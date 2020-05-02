@@ -171,8 +171,6 @@ exports.getAuthenticatedUser = (req, res) => {
         return res.status(500).json({ error: err.code });
       });
   };
-
-
   /////////////// shop signup ////////////////////////
 exports.signupShop = (req , res) => {
     const newShop = {
@@ -240,3 +238,4 @@ exports.editUser = (req,res) => {
           return res.status(500).json({ error: err.code });
         });
   };
+

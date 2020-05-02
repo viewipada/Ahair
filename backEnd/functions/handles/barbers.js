@@ -1,85 +1,49 @@
 const { db } = require('../util/admin');
 
  exports.addBarber = (req,res) => {
-     const newBarber = {
-         barberName: req.body.barberName,
-         phoneNum: req.body.phoneNum
-     };
-
-     db.collection('barbers')
-     .where('barberName','==', newBarber.barberName)
-     .get()
-     .then((doc) => {
-       let barberData = {};
-       if(!doc.exists){ 
-          
-
-          db.collection('barbers')
-          .doc()
-          .get()
-          .then(doc => {
-            barberId = doc.id;
-          })
-          .then(() => {
-            const barberCridentials = {
-              barberId: barberId,
-              barberName: newBarber.barberName,
-              createAt: new Date().toISOString(),
-              shopId: req.shop.shopId,
-              //  imgUrl: "wait",
-              phoneNum: newBarber.phoneNum
-            };
-            db.doc(`/barbers/${barberId}`).set(barberCridentials);
-
-            return db.doc(`/barbers/${barberId}`).get()
-          })
-          .then(async (doc) => {
-            let barberD ={};
-            barberD.barberId = doc.data().barberId;
-            
-            try {
-              const doc_1 = await db
-                .collection('hairBarbers')
-                .add({
-                  barberId: barberData.id,
-                  hairStyleId: req.body.hairStyleId,
-                  time: req.body.time
-                });
-              res.json({ message: `create ${doc_1.id} succesfully` });
-              return res.json({ message: `create ${doc_1.id} succesfully` });
-            }
-            catch (err) {
-              res.status(500).json({ error: 'something went wrong' });
-              console.error(err);
-            }
-          }).catch((err) => {
-            console.error(err);
-            return res.json({ error : err.code});
-          });
-      }
-      else {
-        barberData = doc.data();
-          
-        db
-        .collection('hairBarbers')
+    db.collection('barbers')
+    .where('barberName','==',req.body.barberName)
+    .get()
+    .then((doc) => {
+      let bbData = {};
+      bbData = doc.data();
+      
+      if(!doc.exists){
+        db.collection('barber')
         .add({
-              barberId : barberData.id,
-              hairStyleId : req.body.hairStyleId,
-              time : req.body.time
+          barberName: req.body.barberName,
+          createAt: new Date().toISOString(),
+          shopId: req.shop.shopId,
+          phoneNum: newBarber.phoneNum
         })
-        .then(doc => {res.json({message :`create ${doc.id} succesfully`}); 
-          return res.json({message :`create ${doc.id} succesfully`}); 
+        .then(data => {
+          return db
+          .collection('hairBarbers')
+          .add({
+            barberId: data.id,
+            hairStyleId: req.body.hairStyleId,
+            time: req.body.time
+          })
         })
-        .catch(err => {
-          res.status(500).json({ error : 'something went wrong'});
-          console.error(err);
-        });
-    }
-  })
-  .catch(err => {
-    res.status(500).json({ error : 'something went wrong'});
-    console.error(err);
-  });
+        .then(() => {
+          return res.json({ message : 'Create Barbber and HairBarber Succesfully'})
+        })
+        .catch((err) => {console.error(err); res.json({ error : err.code}) ; })
+      }
+      else{
+         db
+          .collection('hairBarbers')
+          .add({
+            barberId: bbData.id,
+            hairStyleId: req.body.hairStyleId,
+            time: req.body.time
+          })
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.json({ error : err.code });
+    })
 };
 
  exports.getBarber = (req,res) => {

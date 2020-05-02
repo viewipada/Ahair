@@ -54,3 +54,18 @@ exports.getAllShops = (req,res) => {
         .catch((err) => console.error(err));
 };
 
+exports.getAshop = (req,res) => {
+  let shopData = {};
+    db.doc(`/shops/${req.shop.shopName}`)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          shopData.credentials = doc.data();
+        }
+        return res.json(shopData);
+      })        
+      .catch((err) => {
+        console.error(err);
+        return res.status(500).json({ error: err.code });
+      });
+};

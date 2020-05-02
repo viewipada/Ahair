@@ -23,7 +23,7 @@ const { postReviewFromShop, getReviewFromShop } = require('./handles/reviewFromS
 
 const { addBooking, getBooking } = require('./handles/bookings');
 
-const { addShopDetails , getAllShops ,editShop} = require('./handles/shops');
+const { addShopDetails , getAllShops ,editShop,getAshop} = require('./handles/shops');
 
 const { addHairStyle, getHairStyle } = require('./handles/hairStyle');
 
@@ -56,6 +56,7 @@ app.post('/signupShop' , signupShop);
 app.post('/shop', FBAuthforShop ,addShopDetails);
 app.post('/editShop',FBAuthforShop,editShop);
 app.get('/shop', getAllShops);
+app.get('/Ashop',FBAuthforShop,getAshop);
 app.post('/hairStyle', FBAuthforShop ,addHairStyle);
 app.get('/hairStyle/:shopName', getHairStyle);
 app.post('/barber',FBAuthforShop,addBarber);
