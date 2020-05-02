@@ -13,7 +13,7 @@ class NavBar extends Component {
             displayMenu: false,
             checkLogin: false,
             iconchange: "users icon",
-            searchValue: 'null',
+            searchValue: 'null'
         };
         this.showDropdownMenu = this.showDropdownMenu.bind(this);
         this.hideDropdownMenu = this.hideDropdownMenu.bind(this);
