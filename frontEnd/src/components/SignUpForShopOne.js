@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import {SignUpForShop_one} from '../redux/index'
 import { Link } from 'react-router-dom';
 import emailIcon from './pic/email_icon.png';
 import userIcon from './pic/user_icon.png';
@@ -7,14 +9,14 @@ import errorIcon from './pic/error_icon.png';
 import shopIcon from './pic/shop_icon.png';
 
 class SignUpForShopOne extends React.Component {
-    constructor()
+    constructor(props)
     {
-        super();
+        super(props);
         this.state = { 
-            shopname: "",
-            adminname: "",
-            email: "",
-            phone : "",
+            shopname: this.props.shopsignupStore.shopname,
+            adminname: this.props.shopsignupStore.adminname,
+            email: this.props.shopsignupStore.email,
+            phone : this.props.shopsignupStore.phone,
             adminnameError: "",
             shopnameError: "",
             emailError: "",
@@ -24,6 +26,7 @@ class SignUpForShopOne extends React.Component {
     
     validate = () => {
         var emailpattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+        var phonepattern = new RegExp(/^[0-9]{10}$/)
         let adminnameError=""
         let shopnameError=""
         let emailError=""
@@ -42,7 +45,7 @@ class SignUpForShopOne extends React.Component {
         if (!emailpattern.test(this.state.email)) {
             emailError = "invalid email !";
         }
-        if(!this.state.phone.match(/^[0-9]{10}$/) || !this.state.phone){
+        if(!phonepattern.test(this.state.phone) || !this.state.phone){
             phoneError = "invalid phone number !"
         }
         if(adminnameError || shopnameError || emailError || phoneError){
@@ -64,6 +67,7 @@ class SignUpForShopOne extends React.Component {
         if (isValid) {
           console.log(this.state);
           this.setState(this.state);
+          this.props.signupshop(this.state);
           this.props.history.push('/signup_shop_2')
         }
     };
@@ -92,8 +96,9 @@ class SignUpForShopOne extends React.Component {
                                         type = "text"
                                         id = "shopname"
                                         placeholder = "Shop's Name *"
-                                        value = {this.state.shopname}                                              
+                                        value = {this.state.shopname || ""}                                              
                                         onChange = {this.handleChange} 
+                                        
                                     />
                                     <div className={this.state.shopnameError===""? "validate_wrap" :"invalidate_wrap"}>
                                         <div className="erroricon">
@@ -112,7 +117,7 @@ class SignUpForShopOne extends React.Component {
                                         type = "text"
                                         id = "adminname"
                                         placeholder = "Admin's name *"
-                                        value = {this.state.adminname}                                              
+                                        value = {this.state.adminname || ""}                                              
                                         onChange = {this.handleChange} 
                                     />
                                     <div className={this.state.adminnameError===""? "validate_wrap" :"invalidate_wrap"}>
@@ -132,7 +137,7 @@ class SignUpForShopOne extends React.Component {
                                         type = "email"
                                         id = "email"
                                         placeholder = "Email *"
-                                        value = {this.state.email}                                              
+                                        value = {this.state.email || ""}                                              
                                         onChange = {this.handleChange} 
                                     />
                                     <div className={this.state.emailError===""? "validate_wrap" :"invalidate_wrap"}>
@@ -154,7 +159,7 @@ class SignUpForShopOne extends React.Component {
                                         id = "phone"
                                         maxLength = "10"
                                         placeholder = "Phone number *"
-                                        value = {this.state.phone}  
+                                        value = {this.state.phone || ""}  
                                         onChange = {this.handleChange} 
                                     />
                                     <div className={this.state.phoneError===""? "validate_wrap" :"invalidate_wrap"}>
@@ -190,4 +195,15 @@ class SignUpForShopOne extends React.Component {
         );
     }
 }
-export default SignUpForShopOne;
+const mapStateToProps = (state) => { //subscribe
+    return {
+        shopsignupStore: state.SignUpForShopReducer.shopsignup
+    }       
+}
+const mapDispatchToProps =(dispatch) => {
+    return {
+        signupshop: (data) => dispatch(SignUpForShop_one(data))
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(SignUpForShopOne);

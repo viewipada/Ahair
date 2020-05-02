@@ -1,24 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {Information} from '../redux/index'
+// import { Link } from 'react-router-dom';
 import shopIcon from './pic/shop_icon.png';
 import timeIcon from './pic/clock_icon.png';
 import errorIcon from './pic/error_icon.png'
 import MultipleImageUpload from './MultipleImageUpload';
 import NavBarShop from './NavBarShop';
+import axios from 'axios'
 
 //ที่อยู่ เวลา รูปบรรยากาศ
 class ShopInformation extends React.Component {
-    constructor()
+    constructor(props)
     {
-        super();
+        super(props);
         this.state = { 
-            address: "",
+            address: this.props.shopInfoStore.address || "",
             addressError: "",
-            openhours: "09:00",
-            closehours: "18:00",
+            openhours: this.props.shopInfoStore.openhours || "09:00",
+            closehours: this.props.shopInfoStore.closehours || "18:00",
             imageFile: [],
             imagePreview: [],
-            imageUrl: []
+            imageUrl: this.props.shopInfoStore.imageUrl || []
         }
         this.getFile = this.getFile.bind(this);
     }
@@ -47,9 +50,10 @@ class ShopInformation extends React.Component {
         // console.log(this.state);
         let isValid = this.validate();
         if (isValid) {
-          console.log(this.state);
-          this.setState(this.state);
-          this.props.history.push('/hairstyles')
+            console.log(this.state);
+            this.setState(this.state);
+            this.props.shopInfo(this.state)
+            this.props.history.push('/colors')
         }
     };
 
@@ -73,7 +77,7 @@ class ShopInformation extends React.Component {
                                     <div style={{width:"100px"}}>
                                         <p style={{color:"white", marginRight:"20px"}}>Adress</p>
                                     </div>
-                                    <div className="wrap_input_info">
+                                    <div className="wrap_input_info" style={{width:"70%"}}>
                                         <img className="input_icon"src={shopIcon} alt=""/>
                                         <input  
                                             className = "input_info" 
@@ -81,7 +85,8 @@ class ShopInformation extends React.Component {
                                             id = "address"
                                             // placeholder = "Address"
                                             value = {this.state.address}                                              
-                                            onChange = {this.handleChange} 
+                                            onChange = {this.handleChange}
+                                            style = {{placeholder:"gray"}}
                                         />
                                         <div className={this.state.addressError===""? "validate_wrap" :"invalidate_wrap"}>
                                             <div className="erroricon">
@@ -98,7 +103,7 @@ class ShopInformation extends React.Component {
                                     <div style={{width:"100px"}}>
                                         <p style={{color:"white", marginRight:"20px"}}>Open</p>
                                     </div>
-                                    <div className="wrap_input_time">
+                                    <div className="wrap_time">
                                         <img className="input_icon"src={timeIcon} alt=""/>
                                         <input  
                                             className = "input_info" 
@@ -107,21 +112,22 @@ class ShopInformation extends React.Component {
                                             // placeholder = "Open hours"
                                             value = {this.state.openhours}                                              
                                             onChange = {this.handleChange} 
+                                            style = {{placeholder:"gray"}}
                                         />
                                     </div>
 
                                     <div style={{width:"100px"}}>
                                         <p style={{color:"white", marginRight:"20px", marginLeft:"30px"}}>Close</p>
                                     </div>
-                                    <div className="wrap_input_time">
+                                    <div className="wrap_time">
                                         <img className="input_icon"src={timeIcon} alt=""/>
                                         <input  
                                             className = "input_info" 
                                             type = "time"
-                                            id = "closedhours"
-                                            // placeholder = "Open hours"
+                                            id = "closehours"
                                             value = {this.state.closehours}                                              
                                             onChange = {this.handleChange} 
+                                            style = {{placeholder:"gray"}}
                                         />
                                     </div>
                                 </div>
@@ -160,4 +166,15 @@ class ShopInformation extends React.Component {
         );
     }
 }
-export default ShopInformation;
+const mapStateToProps = (state) => { //subscribe
+    return {
+        shopInfoStore: state.ShopInformationReducer.shopinfo
+    }       
+}
+const mapDispatchToProps =(dispatch) => {
+    return {
+        shopInfo: (data) => dispatch(Information(data))
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(ShopInformation);

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {PriceListDetail} from '../redux/index'
 import NavBarShop from './NavBarShop';
 
 class InputListServices extends React.Component {
@@ -76,10 +78,11 @@ class InputListHairstyle extends React.Component {
 }
 
 class PriceList extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
-            servicesWomen: [
+            servicesWomen: 
+            [
                 {hair:"Bang trim", price: 0, img:"", isCheck:false, key:0}, 
                 {hair:"Blow dry", price: 0, img:"", isCheck:false, key:1}, 
                 {hair:"Color", price: 0, img:"", isCheck:false, key:2}, 
@@ -90,7 +93,8 @@ class PriceList extends React.Component {
                 {hair:"Straightening", price: 0, img:"", isCheck:false, key:7}, 
                 {hair:"Treatment", price: 0, img:"", isCheck:false, key:8}
             ],
-            servicesMen: [
+            servicesMen: 
+            [
                 {hair:"Beard trim", price: 0, img:"", isCheck:false, key:0}, 
                 {hair:"Color", price: 0, img:"", isCheck:false, key:8},
                 {hair:"Haircut", price: 0, img:"", isCheck:false, key:1}, 
@@ -101,7 +105,8 @@ class PriceList extends React.Component {
                 {hair:"Shave", price: 0, img:"", isCheck:false, key:4},
                 {hair:"Straightening", price: 0, img:"", isCheck:false, key:7}, 
             ],
-            hairstyleWomenShort : [
+            hairstyleWomenShort : 
+            [
                 {hair:"Bang trim", price: 0, img:"", isCheck:false, key:0}, 
                 {hair:"Blow dry", price: 0, img:"", isCheck:false, key:1}, 
                 {hair:"Color", price: 0, img:"", isCheck:false, key:2}, 
@@ -112,7 +117,8 @@ class PriceList extends React.Component {
                 {hair:"Straightening", price: 0, img:"", isCheck:false, key:7}, 
                 {hair:"Treatment", price: 0, img:"", isCheck:false, key:8}
             ],
-            hairstyleWomenMedium : [
+            hairstyleWomenMedium : 
+            [
                 {hair:"Bang trim", price: 0, img:"", isCheck:false, key:0}, 
                 {hair:"Blow dry", price: 0, img:"", isCheck:false, key:1}, 
                 {hair:"Color", price: 0, img:"", isCheck:false, key:2}, 
@@ -123,7 +129,8 @@ class PriceList extends React.Component {
                 {hair:"Straightening", price: 0, img:"", isCheck:false, key:7}, 
                 {hair:"Treatment", price: 0, img:"", isCheck:false, key:8}
             ],
-            hairstyleWomenLong : [
+            hairstyleWomenLong :
+            [
                 {hair:"Bang trim", price: 0, img:"", isCheck:false, key:0}, 
                 {hair:"Blow dry", price: 0, img:"", isCheck:false, key:1}, 
                 {hair:"Color", price: 0, img:"", isCheck:false, key:2}, 
@@ -134,7 +141,8 @@ class PriceList extends React.Component {
                 {hair:"Straightening", price: 0, img:"", isCheck:false, key:7}, 
                 {hair:"Treatment", price: 0, img:"", isCheck:false, key:8}
             ], 
-            hairstyleMenShort : [
+            hairstyleMenShort : 
+            [
                 {hair:"Bang trim", price: 0, img:"", isCheck:false, key:0}, 
                 {hair:"Blow dry", price: 0, img:"", isCheck:false, key:1}, 
                 {hair:"Color", price: 0, img:"", isCheck:false, key:2}, 
@@ -145,7 +153,8 @@ class PriceList extends React.Component {
                 {hair:"Straightening", price: 0, img:"", isCheck:false, key:7}, 
                 {hair:"Treatment", price: 0, img:"", isCheck:false, key:8}
             ],
-            hairstyleMenLong : [
+            hairstyleMenLong : 
+            [
                 {hair:"Bang trim", price: 0, img:"", isCheck:false, key:0}, 
                 {hair:"Blow dry", price: 0, img:"", isCheck:false, key:1}, 
                 {hair:"Color", price: 0, img:"", isCheck:false, key:2}, 
@@ -256,6 +265,7 @@ class PriceList extends React.Component {
         // if (isValid) {
           console.log(this.state);
           this.setState(this.state);
+          this.props.shopDetail(this.state)
           this.props.history.push('/hairbarber')
         // }
     };
@@ -327,7 +337,7 @@ class PriceList extends React.Component {
                     </div>
 
                     <div className="container_next_bt" style={{marginTop:"40px"}}>
-                        <Link className="link" to="/colors">
+                        <Link className="link" to="/hairstyles">
                             <div>
                                 <button className="login_button" type="reset">
                                     Back
@@ -346,4 +356,15 @@ class PriceList extends React.Component {
         )
     }
 }
-export default PriceList;
+const mapStateToProps = (state) => { //subscribe
+    return {
+        shopDetailStore: state.ShopInformationReducer.shopdetail
+    }       
+}
+const mapDispatchToProps =(dispatch) => {
+    return {
+        shopDetail: (data) => dispatch(PriceListDetail(data))
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(PriceList);
