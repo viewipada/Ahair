@@ -3,6 +3,7 @@ import ImageUpload from './ImageUpload';
 import userImage from './pic/user_green_icon.png'
 import downIcon from './pic/arrowdown_icon.png'
 import upIcon from './pic/arrowup_icon.png'
+import axios from 'axios'
 
 export const Checkbox = props => {
     return (
@@ -38,54 +39,22 @@ class InputBarber extends React.Component {
         super();
         this.state = { 
             barber:"",
-            list_womenServices:[
-                {hair:"hair1",price:0,img:"",isChecked:false,key:1},
-                {hair:"hair2",price:0,img:"",isChecked:false,key:2},
-                {hair:"hair3",price:0,img:"",isChecked:false,key:3},
-                {hair:"hair4",price:0,img:"",isChecked:false,key:4}
-            ],
-            list_menServices:[
-                {hair:"hair5",price:0,img:"",isChecked:false,key:5},
-                {hair:"hair6",price:0,img:"",isChecked:false,key:6},
-                {hair:"hair7",price:0,img:"",isChecked:false,key:7},
-                {hair:"hair8",price:0,img:"",isChecked:false,key:8}
-            ],
-            list_womenShort:[
-                {hair:"hair9",price:0,img:"",isChecked:false,key:9},
-                {hair:"hair10",price:0,img:"",isChecked:false,key:10},
-                {hair:"hair11",price:0,img:"",isChecked:false,key:11},
-                {hair:"hair12",price:0,img:"",isChecked:false,key:12}
-            ],
-            list_womenMedium:[
-                {hair:"hair13",price:0,img:"",isChecked:false,key:13},
-                {hair:"hair14",price:0,img:"",isChecked:false,key:14},
-                {hair:"hair15",price:0,img:"",isChecked:false,key:15},
-                {hair:"hair16",price:0,img:"",isChecked:false,key:16}
-            ],
-            list_womenLong:[
-                {hair:"hair17",price:0,img:"",isChecked:false,key:17},
-                {hair:"hair18",price:0,img:"",isChecked:false,key:18},
-                {hair:"hair19",price:0,img:"",isChecked:false,key:19},
-                {hair:"hair20",price:0,img:"",isChecked:false,key:20}
-            ],
-            list_menShort:[
-                {hair:"hair21",price:0,img:"",isChecked:false,key:21},
-                {hair:"hair22",price:0,img:"",isChecked:false,key:22},
-                {hair:"hair23",price:0,img:"",isChecked:false,key:23},
-                {hair:"hair24",price:0,img:"",isChecked:false,key:24}
-            ],
-            list_menLong:[
-                {hair:"hair25",price:0,img:"",isChecked:false,key:25},
-                {hair:"hair26",price:0,img:"",isChecked:false,key:26},
-                {hair:"hair27",price:0,img:"",isChecked:false,key:27},
-                {hair:"hair28",price:0,img:"",isChecked:false,key:28}
-            ],
+            posts:[],
+            list_womenServices:[],
+            list_menServices:[],
+            list_womenShort:[],
+            list_womenMedium:[],
+            list_womenLong:[],
+            list_menShort:[],
+            list_menLong:[],
             imageUrl: "",
             imageFile:"",
             imagePreview:"",
             imgError:"",
             name:"",
             nameError:"",
+            phone:"",
+            phoneError:"",
             hair:[],
             time: [],
             timeError:"",
@@ -98,9 +67,21 @@ class InputBarber extends React.Component {
         this.getFile = this.getFile.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
+    componentDidMount() {
+        axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/barber')
+        .then(function(response){
+            console.log(response)
+            this.setState({posts: response.data})
+        })
+        .catch(function(error) {
+            console.log(error)
+        })
+    }
 
     validate = () => {
+        var phonepattern = new RegExp(/^[0-9]{10}$/)
         let nameError=""
+        let phoneError=""
         let imgError=""
         
         if(!this.state.name){
@@ -112,8 +93,11 @@ class InputBarber extends React.Component {
         if(!this.state.imageUrl){
             nameError = "Please select an image"
         }
-        if(nameError || imgError){
-            this.setState({ nameError : nameError, imgError : imgError });
+        if(!phonepattern.test(this.state.phone) || !this.state.phone){
+            phoneError = "invalid phone number !"
+        }
+        if(nameError || imgError || phoneError){
+            this.setState({ nameError : nameError, imgError : imgError , phoneError : phoneError});
             return false;
         }
         return true;
@@ -348,6 +332,18 @@ class InputBarber extends React.Component {
                                 onChange={this.handleChange}
                             />
                         </div>
+                        <div style={{width:"75%", marginBottom:"20px", marginTop:"20px"}}>
+                            <input 
+                                className = "name_barber"
+                                type="text"
+                                id="barber_phone"
+                                maxLength = "100"
+                                value={this.props.phone}
+                                placeholder="Phone number"
+                                // style={{pointerEvents: this.state.nonEditable? "none": "visible"}}
+                                onChange={this.handleChange}
+                            />
+                        </div>
                         <div style={{color:"white", padding:"10px",width:"fit-content", fontSize:"16px"}}>
                             Select hairstyles that barber can do and enter the time spent in minutes.
                         </div>
@@ -450,6 +446,9 @@ class InputBarber extends React.Component {
                             <div style={{display:"block"}}>
                                 <p style={{fontSize:"16px",color:"#cb2c6f",marginRight:"20px"}}>
                                     {this.state.nameError}
+                                </p>
+                                <p style={{fontSize:"16px",color:"#cb2c6f",marginRight:"20px"}}>
+                                    {this.state.phoneError}
                                 </p>
                                 <p style={{fontSize:"16px",color:"#cb2c6f",marginRight:"20px"}}>
                                     {this.state.imgError}

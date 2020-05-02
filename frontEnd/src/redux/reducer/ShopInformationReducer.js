@@ -1,5 +1,11 @@
 import {SHOPINFORMATION} from "../action/ShopInformationAction";
-import {SHOPDETAIL} from "../action/ShopInformationAction";
+import {PRICEWOMENSHORT} from "../action/ShopInformationAction";
+import {PRICEWOMENMEDIUM} from "../action/ShopInformationAction";
+import {PRICEWOMENLONG} from "../action/ShopInformationAction";
+import {PRICEMENSHORT} from "../action/ShopInformationAction";
+import {PRICEMENLONG} from "../action/ShopInformationAction";
+import {PRICEMENSERVICE} from "../action/ShopInformationAction";
+import {PRICEWOMENSERVICE} from "../action/ShopInformationAction";
 import {SHOPSTOCK} from "../action/ShopInformationAction"
 import {HAIRSTYLESWOMENSHORT} from "../action/ShopInformationAction"
 import {HAIRSTYLESWOMENMEDIUM} from "../action/ShopInformationAction"
@@ -10,11 +16,6 @@ import {HAIRSTYLESMENLONG} from "../action/ShopInformationAction"
 
 const initialState = {
     shopinfo : "",
-    womenShort: [], 
-    womenMedium: [],
-    womenLong: [],
-    menShort: [],
-    menLong: [],
     colorstock: [
         {id: 1, value: "Black", key: 1, isChecked: false},
         {id: 2, value: "Darkslategray", key: 2, isChecked: false},
@@ -78,90 +79,113 @@ const initialState = {
         {id: 58, value: "Salmon", key: 58, isChecked: false},
     ],
     list_womenShort: [
-        {id: "ws1", value: "Beehive", key: 1-1, isChecked: false},
-        {id: "ws2", value: "Bob", key: 1-2, isChecked: false},
-        {id: "ws3", value: "Braided", key: 1-3, isChecked: false},
-        {id: "ws4", value: "Bun", key: 1-4, isChecked: false},
-        {id: "ws5", value: "Cornrows", key: 1-5, isChecked: false},
-        {id: "ws6", value: "Crew cut", key: 1-6, isChecked: false},
-        {id: "ws7", value: "Goth", key: 1-7, isChecked: false},
-        {id: "ws8", value: "Half up / Half down", key: 1-8, isChecked: false},
-        {id: "ws9", value: "Layers", key: 1-9, isChecked: false},
-        {id: "ws10", value: "Loose", key: 1-10, isChecked: false},
-        {id: "ws11", value: "Low bun", key: 1-11, isChecked: false},
-        {id: "ws12", value: "Mohawk", key: 1-12, isChecked: false},
-        {id: "ws14", value: "Pixie", key: 1-14, isChecked: false},
-        {id: "ws15", value: "Shaved", key: 1-15, isChecked: false},
-        {id: "ws16", value: "Short sides", key: 1-16, isChecked: false},
-        {id: "ws17", value: "Short slicked", key: 1-17, isChecked: false},
-        {id: "ws18", value: "Side swept", key: 1-18, isChecked: false},
-        {id: "ws19", value: "Tousled", key: 1-19, isChecked: false}
+        {id: "ws1", value: "Beehive", key: "1-1", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ws2", value: "Bob", key: "1-2", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ws3", value: "Braided", key: "1-3", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ws4", value: "Bun", key: "1-4", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ws5", value: "Cornrows", key: "1-5", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ws6", value: "Crew cut", key: "1-6", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ws7", value: "Goth", key: "1-7", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ws8", value: "Half up / Half down", key: "1-8", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ws9", value: "Layers", key: "1-9", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ws10", value: "Loose", key: "1-10", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ws11", value: "Low bun", key: "1-11", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ws12", value: "Mohawk", key: "1-12", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ws14", value: "Pixie", key: "1-14", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ws15", value: "Shaved", key: "1-15", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ws16", value: "Short sides", key: "1-16", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ws17", value: "Short slicked", key: "1-17", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ws18", value: "Side swept", key: "1-18", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ws19", value: "Tousled", key: "1-19", isChecked: false, price:"0", hairstyleImg:""}
     ],
     list_womenMedium: [
-        {id: "wm1", value: "Beehive", key: 2-1, isChecked: false},
-        {id: "wm2", value: "Braided", key: 2-2, isChecked: false},
-        {id: "wm3", value: "Bun", key: 2-3, isChecked: false},
-        {id: "wm4", value: "Cornrows", key: 2-4, isChecked: false},
-        {id: "wm5", value: "Goth", key: 2-5, isChecked: false},
-        {id: "wm6", value: "Half up / Half down", key: 2-6, isChecked: false},
-        {id: "wm7", value: "Layers", key: 2-7, isChecked: false},
-        {id: "wm8", value: "Loose", key: 2-8, isChecked: false},
-        {id: "wm9", value: "Low bun", key: 2-9, isChecked: false},
-        {id: "wm11", value: "Ponytail", key: 2-11, isChecked: false},
-        {id: "wm12", value: "Tousled", key: 2-12, isChecked: false}
+        {id: "wm1", value: "Beehive", key: "2-1", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wm2", value: "Braided", key: "2-2", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wm3", value: "Bun", key: "2-3", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wm4", value: "Cornrows", key: "2-4", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wm5", value: "Goth", key: "2-5", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wm6", value: "Half up / Half down", key: "2-6", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wm7", value: "Layers", key: "2-7", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wm8", value: "Loose", key: "2-8", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wm9", value: "Low bun", key: "2-9", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wm11", value: "Ponytail", key: "2-10", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wm12", value: "Tousled", key: "2-11", isChecked: false, price:"0", hairstyleImg:""}
     
     ],
     list_womenLong: [
-        {id: "wl1", value: "Beehive", key: 3-1, isChecked: false},
-        {id: "wl2", value: "Braided", key: 3-2, isChecked: false},
-        {id: "wl3", value: "Bun", key: 3-3, isChecked: false},
-        {id: "wl4", value: "Cornrows", key: 3-4, isChecked: false},
-        {id: "wl5", value: "Goth", key: 3-5, isChecked: false},
-        {id: "wl6", value: "Half up / Half down", key: 3-6, isChecked: false},
-        {id: "wl7", value: "Layers", key: 3-7, isChecked: false},
-        {id: "wl8", value: "Loose", key: 3-8, isChecked: false},
-        {id: "wl9", value: "Low bun", key: 3-9, isChecked: false},
-        {id: "wl11", value: "Ponytail", key: 3-11, isChecked: false},
-        {id: "wl12", value: "Tousled", key: 3-12, isChecked: false}
+        {id: "wl1", value: "Beehive", key: "3-1", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wl2", value: "Braided", key: "3-2", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wl3", value: "Bun", key: "3-3", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wl4", value: "Cornrows", key: "3-4", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wl5", value: "Goth", key: "3-5", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wl6", value: "Half up / Half down", key: "3-6", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wl7", value: "Layers", key: "3-7", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wl8", value: "Loose", key: "3-8", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wl9", value: "Low bun", key: "3-9", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wl11", value: "Ponytail", key: "3-10", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "wl12", value: "Tousled", key: "3-11", isChecked: false, price:"0", hairstyleImg:""}
 
     ],
     list_menShort: [
-        {id: "ms7", value: "Afro fade", key: 4-7, isChecked: false},
-        {id: "ms13", value: "Buzz cut", key: 4-13, isChecked: false},
-        {id: "ms11", value: "Comb Over", key: 4-11, isChecked: false},
-        {id: "ms14", value: "Crew cut", key: 4-14, isChecked: false},
-        {id: "ms15", value: "Faux Hawk", key: 4-15, isChecked: false},
-        {id: "ms16", value: "Fringe", key: 4-16, isChecked: false},
-        {id: "ms3", value: "Hight fade", key: 4-3, isChecked: false},
-        {id: "ms2", value: "Low fade", key: 4-2, isChecked: false},
-        {id: "ms4", value: "Mid fade", key: 4-4, isChecked: false},
-        {id: "ms9", value: "Pompadour", key: 4-9, isChecked: false},
-        {id: "ms10", value: "Quiff", key: 4-10, isChecked: false},
-        {id: "ms17", value: "Side part", key: 4-17, isChecked: false},
-        {id: "ms20", value: "Skinhead", key: 4-20, isChecked: false},
-        {id: "ms6", value: "Skin Fade", key: 4-6, isChecked: false},
-        {id: "ms12", value: "Slicked back", key: 4-12, isChecked: false},
-        {id: "ms18", value: "Spiky", key: 4-18, isChecked: false},
-        {id: "ms1", value: "Taper fade", key: 4-1, isChecked: false},
-        {id: "ms5", value: "Temple fade", key: 4-5, isChecked: false},
-        {id: "ms19", value: "Top kont", key: 4-19, isChecked: false},
-        {id: "ms8", value: "Undercut", key: 4-8, isChecked: false},
+        {id: "ms7", value: "Afro fade", key: "4-7", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms13", value: "Buzz cut", key: "4-13", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms11", value: "Comb Over", key: "4-11", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms14", value: "Crew cut", key: "4-14", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms15", value: "Faux Hawk", key: "4-15", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms16", value: "Fringe", key: "4-16", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms3", value: "Hight fade", key: "4-3", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms2", value: "Low fade", key: "4-2", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms4", value: "Mid fade", key: "4-4", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms9", value: "Pompadour", key: "4-9", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms10", value: "Quiff", key: "4-10", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms17", value: "Side part", key: "4-17", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms20", value: "Skinhead", key: "4-20", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms6", value: "Skin Fade", key: "4-6", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms12", value: "Slicked back", key: "4-12", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms18", value: "Spiky", key: "4-18", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms1", value: "Taper fade", key: "4-1", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms5", value: "Temple fade", key: "4-5", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms19", value: "Top kont", key: "4-19", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ms8", value: "Undercut", key: "4-8", isChecked: false, price:"0", hairstyleImg:""},
         
     ],
     list_menLong: [
         
-        {id: "ml8", value: "Braids", key: 5-8, isChecked: false},
-        {id: "ml1", value: "Deadlocks", key: 5-1, isChecked: false},
-        {id: "ml7", value: "Half up", key: 5-7, isChecked: false},
-        {id: "ml9", value: "Long curls", key: 5-9, isChecked: false},
-        {id: "ml10", value: "Long undercut", key: 5-10, isChecked: false},
-        {id: "ml5", value: "Man bun", key: 5-5, isChecked: false},
-        {id: "ml3", value: "Ponytail", key: 5-3, isChecked: false},
-        {id: "ml6", value: "Side part", key: 5-6, isChecked: false},
-        {id: "ml2", value: "Slick back", key: 5-2, isChecked: false},
-        {id: "ml4", value: "Textured waves", key: 5-4, isChecked: false}    
+        {id: "ml8", value: "Braids", key: "5-8", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ml1", value: "Deadlocks", key: "5-1", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ml7", value: "Half up", key: "5-7", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ml9", value: "Long curls", key: "5-9", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ml10", value: "Long undercut", key: "5-10", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ml5", value: "Man bun", key: "5-5", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ml3", value: "Ponytail", key: "5-3", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ml6", value: "Side part", key: "5-6", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ml2", value: "Slick back", key: "5-2", isChecked: false, price:"0", hairstyleImg:""},
+        {id: "ml4", value: "Textured waves", key: "5-4", isChecked: false, price:"0", hairstyleImg:""}    
     ],
-    shopdetail : ""
+    servicesWomen: 
+    [
+        {value:"Bang trim", price: 0, img:"", isCheck:true, key:0}, 
+        {value:"Blow dry", price: 0, img:"", isCheck:true, key:1}, 
+        {value:"Color", price: 0, img:"", isCheck:true, key:2}, 
+        {value:"Haircut", price: 0, img:"", isCheck:true, key:3},  
+        {value:"Highlights", price: 0, img:"", isCheck:true, key:4},
+        {value:"Perm", price: 0, img:"", isCheck:true, key:5},
+        {value:"Shampoo", price: 0, img:"", isCheck:true, key:6}, 
+        {value:"Straightening", price: 0, img:"", isCheck:true, key:7}, 
+        {value:"Treatment", price: 0, img:"", isCheck:true, key:8}
+    ],
+    servicesMen: 
+    [
+        {value:"Beard trim", price: 0, img:"", isCheck:true, key:0}, 
+        {value:"Color", price: 0, img:"", isCheck:true, key:8},
+        {value:"Haircut", price: 0, img:"", isCheck:true, key:1}, 
+        {value:"Haircut (Children)", price: 0, img:"", isCheck:true, key:2},
+        {value:"Highlights", price: 0, img:"", isCheck:true, key:6},
+        {value:"Perm", price: 0, img:"", isCheck:true, key:5},  
+        {value:"Shampoo", price: 0, img:"", isCheck:true, key:3},  
+        {value:"Shave", price: 0, img:"", isCheck:true, key:4},
+        {value:"Straightening", price: 0, img:"", isCheck:true, key:7}, 
+    ],
 }
 
 export const ShopInformationReducer = (state = initialState, action) => {
@@ -173,7 +197,7 @@ export const ShopInformationReducer = (state = initialState, action) => {
             }
         }
         case SHOPSTOCK : {
-            for(let i =0 ; i<state.colorstock; i++) {
+            for(let i =0 ; i<state.colorstock.length; i++) {
                 if(state.colorstock[i].key === action.payload) 
                 {
                     return{
@@ -188,7 +212,7 @@ export const ShopInformationReducer = (state = initialState, action) => {
             }
         }
         case HAIRSTYLESWOMENSHORT : {
-            for(let i =0 ; i<state.list_womenShort; i++) {
+            for(let i =0 ; i<state.list_womenShort.length; i++) {
                 if(state.list_womenShort[i].key === action.payload) 
                 {
                     return{
@@ -203,7 +227,7 @@ export const ShopInformationReducer = (state = initialState, action) => {
             }
         }
         case HAIRSTYLESWOMENMEDIUM : {
-            for(let i =0 ; i<state.list_womenMedium; i++) {
+            for(let i =0 ; i<state.list_womenMedium.length; i++) {
                 if(state.list_womenMedium[i].key === action.payload) 
                 {
                     return{
@@ -218,7 +242,7 @@ export const ShopInformationReducer = (state = initialState, action) => {
             }
         }
         case HAIRSTYLESWOMENLONG : {
-            for(let i =0 ; i<state.list_womenLong; i++) {
+            for(let i =0 ; i<state.list_womenLong.length; i++) {
                 if(state.list_womenLong[i].key === action.payload) 
                 {
                     return{
@@ -233,7 +257,7 @@ export const ShopInformationReducer = (state = initialState, action) => {
             }
         }
         case HAIRSTYLESMENSHORT : {
-            for(let i =0 ; i<state.list_menShort; i++) {
+            for(let i =0 ; i<state.list_menShort.length; i++) {
                 if(state.list_menShort[i].key === action.payload) 
                 {
                     return{
@@ -248,7 +272,7 @@ export const ShopInformationReducer = (state = initialState, action) => {
             }
         }
         case HAIRSTYLESMENLONG : {
-            for(let i =0 ; i<state.list_womenLong; i++) {
+            for(let i =0 ; i<state.list_womenLong.length; i++) {
                 if(state.list_womenLong[i].key === action.payload) 
                 {
                     return{
@@ -262,18 +286,113 @@ export const ShopInformationReducer = (state = initialState, action) => {
                 }
             }
         }
-        // case ADDSHOPSTOCK : {
-        //     return {
-        //         ...state,
-        //         colorstock:[...state.colorstock,action.payload]
-        //     }
-        // }
-        case SHOPDETAIL : {
-            return{
-                ...state,
-                shopdetail : Object.assign({},state.shopdetail,action.payload)
+        case PRICEWOMENSHORT : {
+            for(let i =0 ; i<state.list_womenShort.length; i++) {
+                if(state.list_womenShort[i].key === action.payload && state.list_womenShort[i].isChecked) 
+                {
+                    return{
+                        ...state,
+                        list_womenShort: [
+                            ...state.list_womenShort.slice(0,i),
+                            Object.assign({},state.list_womenShort[i],{price: state.list_womenShort[i].price+ action.payload.pice}),
+                            ...state.list_womenShort.slice(i+1)
+                        ]
+                    }
+                }
             }
         }
+        case PRICEWOMENMEDIUM : {
+            for(let i =0 ; i<state.list_womenMedium.length; i++) {
+                if(state.list_womenMedium[i].key === action.payload && state.list_womenMedium[i].isChecked) 
+                {
+                    return{
+                        ...state,
+                        list_womenMedium: [
+                            ...state.list_womenMedium.slice(0,i),
+                            Object.assign({},state.list_womenMedium[i],{price: state.list_womenMedium[i].price+ action.payload.pice}),
+                            ...state.list_womenMedium.slice(i+1)
+                        ]
+                    }
+                }
+            }
+        }
+        case PRICEWOMENLONG : {
+            for(let i =0 ; i<state.list_womenLong.length; i++) {
+                if(state.list_womenLong[i].key === action.payload && state.list_womenLong[i].isChecked) 
+                {
+                    return{
+                        ...state,
+                        list_womenLong: [
+                            ...state.list_womenLong.slice(0,i),
+                            Object.assign({},state.list_womenLong[i],{price: state.list_womenLong[i].price+ action.payload.pice}),
+                            ...state.list_womenLong.slice(i+1)
+                        ]
+                    }
+                }
+            }
+        }
+        case PRICEMENSHORT : {
+            for(let i =0 ; i<state.list_menShort.length; i++) {
+                if(state.list_menShort[i].key === action.payload&& state.list_menShort[i].isChecked) 
+                {
+                    return{
+                        ...state,
+                        list_menShort: [
+                            ...state.list_menShort.slice(0,i),
+                            Object.assign({},state.list_menShort[i],{price: state.list_menShort[i].price+ action.payload.pice}),
+                            ...state.list_menShort.slice(i+1)
+                        ]
+                    }
+                }
+            }
+        }
+        case PRICEMENLONG : {
+            for(let i =0 ; i<state.list_menLong.length; i++) {
+                if(state.list_menLong[i].key === action.payload&& state.list_menLong[i].isChecked) 
+                {
+                    return{
+                        ...state,
+                        list_menLong: [
+                            ...state.list_menLong.slice(0,i),
+                            Object.assign({},state.list_menLong[i],{price: state.servicesWomen[i].price+ action.payload.pice}),
+                            ...state.list_menLong.slice(i+1)
+                        ]
+                    }
+                }
+            }
+        }
+        case PRICEWOMENSERVICE : {
+            for(let i =0 ; i<state.servicesWomen.length; i++) {
+                if(state.servicesWomen[i].key === action.payload) 
+                {
+                    return{
+                        ...state,
+                        servicesWomen: [
+                            ...state.servicesWomen.slice(0,i),
+                            Object.assign({},state.servicesWomen[i],{price: state.servicesWomen[i].price+ action.payload.pice}),
+                            ...state.servicesWomen.slice(i+1)
+                        ]
+                    }
+                }
+            }
+        }
+        case PRICEMENSERVICE : {
+            for(let i =0 ; i<state.servicesMen.length; i++) {
+                if(state.servicesMen[i].key === action.payload) 
+                {
+                    return{
+                        ...state,
+                        servicesMen: [
+                            ...state.servicesMen.slice(0,i),
+                            Object.assign({},state.servicesMen[i],{price: state.servicesMen[i].price+ action.payload.pice}),
+                            ...state.servicesMen.slice(i+1)
+                        ]
+                    }
+                }
+            }
+        }
+        
+        
         default :
             return state
     }

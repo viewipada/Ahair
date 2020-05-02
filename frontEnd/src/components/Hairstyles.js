@@ -22,7 +22,7 @@ export const CheckBox = props => {
 class Hairstyles extends React.Component {
     constructor(props) {
         super(props)
-        console.log(this.props.shopcolor)
+        // console.log(this.props.shopcolor)
         this.state = {
             womenShort: [], 
             womenMedium: [],
@@ -77,7 +77,7 @@ class Hairstyles extends React.Component {
         if (list_womenShort.value === event.target.value)
             list_womenShort.isChecked =  event.target.checked
         })
-        this.setState({list_womenShort: this.prosp.womenShortStore})
+        this.setState({list_womenShort: this.props.womenShortStore})
     }
 
     womenMediumChecked = event => {
@@ -89,7 +89,7 @@ class Hairstyles extends React.Component {
     }
 
     womenLongChecked = event => {
-        this.prosp.womenLongStore.forEach(list_womenLong => {
+        this.props.womenLongStore.forEach(list_womenLong => {
         if (list_womenLong.value === event.target.value)
             list_womenLong.isChecked =  event.target.checked
         })
@@ -122,7 +122,7 @@ class Hairstyles extends React.Component {
         // })
         this.state.addwomenShort.forEach(addwomenShort => {
             if(addwomenShort.isChecked){ 
-                this.props.womenShortStore.push({id: "ws"+this.props.womenShortStore.length, value: addwomenShort.value,key: 1-this.props.womenShortStore.length, isChecked:this.props.womenShortStore.isChecked})
+                this.props.womenShortStore.push({id: "ws"+this.props.womenShortStore.length, value: addwomenShort.value,key: "1-"+this.props.womenShortStore.length, isChecked:addwomenShort.isChecked, price:"0", hairstyleImg:""})
             }
         })
         // this.props.womenMediumStore.forEach(list_womenMedium => {
@@ -132,7 +132,7 @@ class Hairstyles extends React.Component {
         // })
         this.state.addwomenMedium.forEach(addwomenMedium => {
             if(addwomenMedium.isChecked){
-                this.props.womenMediumStore.push({id: "wm"+this.props.womenMediumStore.length, value: addwomenMedium.value,key: 2-this.props.womenMediumStore.length, isChecked:this.props.womenMediumStore.isChecked})
+                this.props.womenMediumStore.push({id: "wm"+this.props.womenMediumStore.length, value: addwomenMedium.value,key: "2-"+this.props.womenMediumStore.length, isChecked:addwomenMedium.isChecked, price:"0", hairstyleImg:""})
             }
         })
         // this.props.womenLongStore.forEach(list_womenLong => {
@@ -142,7 +142,7 @@ class Hairstyles extends React.Component {
         // })
         this.state.addwomenLong.forEach(addwomenLong => {
             if(addwomenLong.isChecked){
-                this.props.womenLongStore.push({id: "wl"+this.props.womenLongStore.length, value: addwomenLong.value,key: 3-this.props.womenLongStore.length, isChecked:this.props.womenLongStore.isChecked})
+                this.props.womenLongStore.push({id: "wl"+this.props.womenLongStore.length, value: addwomenLong.value,key: "3-"+this.props.womenLongStore.length, isChecked:addwomenLong.isChecked, price:"0", hairstyleImg:""})
             }
         })
         // this.props.menShortStore.forEach(list_menShort => {
@@ -152,7 +152,7 @@ class Hairstyles extends React.Component {
         // })
         this.state.addmenShort.forEach(addmenShort => {
             if(addmenShort.isChecked){
-                this.props.menShortStore.push({id: "ms"+this.props.menShortStore.length, value: addmenShort.value,key: 4-this.props.menShortStore.length, isChecked:this.props.menShortStore.isChecked})
+                this.props.menShortStore.push({id: "ms"+this.props.menShortStore.length, value: addmenShort.value,key: "4-"+this.props.menShortStore.length, isChecked:addmenShort.isChecked, price:"0", hairstyleImg:""})
             }
         })
         // this.props.menLongStore.forEach(list_menLong => {
@@ -162,7 +162,7 @@ class Hairstyles extends React.Component {
         // })
         this.state.addmenLong.forEach(addmenLong => {
             if(addmenLong.isChecked){
-                this.props.menLongStore.push({id: "ml"+this.props.menLongStore.length, value: addmenLong.value,key: 5-this.props.menLongStore.length, isChecked:this.props.menLongStore.isChecked})
+                this.props.menLongStore.push({id: "ml"+this.props.menLongStore.length, value: addmenLong.value,key: "5-"+this.props.menLongStore.length, isChecked:addmenLong.isChecked, price:"0", hairstyleImg:""})
             }
         })
         

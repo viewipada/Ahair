@@ -64,7 +64,6 @@ class SignIn extends React.Component {
         if (isValid) {
           console.log(this.state);
           this.setState(this.state);
-        //   alert("Welcome to AHair");
         };
 
         const userData = {
@@ -79,6 +78,8 @@ class SignIn extends React.Component {
           .catch(function (error) {
             console.log(error);
           });
+
+        this.props.history.push('/home')
     };
     
     render(){
