@@ -222,7 +222,21 @@ exports.signupShop = (req , res) => {
      });
  };
 
-
-//////////// login shop
-
-////////////add Shop Details
+// edit User
+exports.editUser = (req,res) => {
+    const editUserData = {
+    name: req.body.name,
+      phoneNum: req.body.phoneNum,
+      userGender: req.body.userGender
+    }
+  
+    db.doc(`/users/${req.user.handle}`)
+        .update(editUserData)
+        .then(() => {
+          return res.json({ message: "Edit User successfully" });
+        })
+        .catch((err) => {
+          console.error(err);
+          return res.status(500).json({ error: err.code });
+        });
+  };
