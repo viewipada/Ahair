@@ -21,7 +21,7 @@ const { postReviewFromUser, getReviewFromUser } = require('./handles/reviewFromU
 
 const { postReviewFromShop, getReviewFromShop } = require('./handles/reviewFromShop');
 
-const { addBooking , getBooking } = require('./handles/bookings');
+const { addBooking, getBooking } = require('./handles/bookings');
 
 const { addShopDetails } = require('./handles/shops');
 
@@ -67,6 +67,6 @@ app.get('/reviewfromshop/:handle', getReviewFromShop );
 
 //bookings routes
 app.post('/booking', FBAuth , addBooking);
-app.get('/booking', getBooking);
+app.get('/booking/:bookingId', getBooking);
 
 exports.api = functions.https.onRequest(app);

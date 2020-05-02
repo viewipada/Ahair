@@ -8,7 +8,7 @@ exports.postReviewFromUser = (req , res) => {
     const  newReviewFromUser = {
         message : req.body.message,
         shopId : req.body.shopId,
-        rete : req.body.rate,
+        rate : req.body.rate,
         userHandle: req.user.handle,
         userId :req.user.userId, 
         createAt: new Date().toISOString()
