@@ -1,4 +1,6 @@
 import React from 'react';
+import {Provider} from 'react-redux'
+import store from './redux/Store'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import SignIn from './components/SignIn';
@@ -36,7 +38,7 @@ import SelectTime from './components/SelectTime';
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <Provider store={store}>
         <Router>
           <div>
             <Switch>
@@ -75,7 +77,7 @@ class App extends React.Component {
             </Switch>
           </div>
         </Router>
-      </div>
+      </Provider>
     );
   }
 }
