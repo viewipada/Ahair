@@ -859,18 +859,12 @@ textarea{
   }
 .wrap{
     width: 100%;
-    display: block;
+    display: flexbox;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     text-align: center;
 
-}
-.wrapcontainer{
-    width: 960px; 
-    display: block; 
-    margin: 0 auto;
-    flex-wrap: wrap;
 }
 
 .wrapnavbar{
@@ -1050,13 +1044,14 @@ ul a:hover {
     font-weight: bold;
     color: #ffffff;
     background-color: #cb2c6f ;
-    display: inline-block;
+    display: inline-flex;
+    justify-content: center;
     border-radius: 10px;
     border: none;
     margin: 10px;
     outline: none;
-    width: 100px;
-    height: 100px;
+    width: 10%;
+    height: 80px;
     cursor: pointer;
 }
 .catbt:hover{
@@ -1696,4 +1691,33 @@ button[type='signIn_2']:hover {
   background-color: #14A098;
   padding: 0.5% 2%;
   border-radius: 25px;
+}
+
+/*testtt*/
+
+.slides .slick-prev,
+.slides .slick-next {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+}
+
+
+.slides {
+  position: relative;
+}
+
+.slides .slick-prev,
+.slides .slick-next {
+  position: absolute;
+  top: 50%;
+  z-index:1;
+}
+
+.slides .slick-prev {
+  left: 5%;
+}
+
+.slides .slick-next {
+  right: 5%;
 }

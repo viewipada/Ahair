@@ -16,8 +16,10 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
     "react-simple-timefield": "^3.0.0",
+    "react-slick": "^0.25.2",
     "react-token-auth": "^1.1.5",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "slick-carousel": "^1.8.1"
   },
   "scripts": {
     "start": "react-scripts start",
