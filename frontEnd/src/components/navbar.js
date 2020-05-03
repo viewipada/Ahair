@@ -58,13 +58,6 @@ class NavBar extends Component {
         // localStorage.clear();
     }
 
-    handleInputChange = (event) => {
-        event.preventDefault();
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
-
     render() {
         return (
             <div class="wrapnavbar">
