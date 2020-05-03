@@ -35,12 +35,12 @@ class BookingInfo_Cus extends Component {
                             this.state.info &&
                             this.state.info.map(data => {
                                 return (
-                                    <div className='BookInfo' key={data.userId}>
-                                        <p>Name : <span className="subdetail">{data.userHandle}</span></p>
-                                        <p>Hair Styles : <span className="subdetail">{data.hairName}</span></p>
-                                        <p>Barber : <span className="subdetail">{data.barberName}</span></p>
-                                        <p>Total Price : <span className="subdetail">{data.price} Bath</span></p>
-                                        <p>Time : <span className="subdetail">{data.time} minute</span></p>
+                                    <div className='BookInfo' key={data.id}>
+                                        <p>Name :           <span className="subdetail">{data.userHandle}</span></p>
+                                        <p>Hair Styles :    <span className="subdetail">{data.hairName}</span></p>
+                                        <p>Barber :         <span className="subdetail">{data.barberName}</span></p>
+                                        <p>Total Price :    <span className="subdetail">{data.price} Bath</span></p>
+                                        <p>Time :           <span className="subdetail">{data.time} minute</span></p>
                                     </div>
                                 );
                             })

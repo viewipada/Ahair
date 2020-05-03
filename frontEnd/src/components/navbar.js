@@ -58,13 +58,6 @@ class NavBar extends Component {
         // localStorage.clear();
     }
 
-    handleInputChange = (event) => {
-        event.preventDefault();
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
-
     render() {
         return (
             <div class="wrapnavbar">
@@ -101,7 +94,7 @@ class NavBar extends Component {
                         class="Signin"
                         onClick={this.showDropdownMenu}>
                         {
-                            this.state.checkLogin ? <i className='user circle icon'></i>
+                            this.state.isSignin ? <i className='user circle icon'></i>
                                 : <i className="users icon" size='2em'></i>
                         }
                         <span>{this.state.statename}</span>
