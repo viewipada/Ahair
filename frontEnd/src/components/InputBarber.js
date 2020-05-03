@@ -3,7 +3,6 @@ import ImageUpload from './ImageUpload';
 import userImage from './pic/user_green_icon.png'
 import downIcon from './pic/arrowdown_icon.png'
 import upIcon from './pic/arrowup_icon.png'
-import axios from 'axios'
 
 export const Checkbox = props => {
     return (
@@ -39,14 +38,48 @@ class InputBarber extends React.Component {
         super();
         this.state = { 
             barber:"",
-            posts:[],
-            list_womenServices:[],
-            list_menServices:[],
-            list_womenShort:[],
-            list_womenMedium:[],
-            list_womenLong:[],
-            list_menShort:[],
-            list_menLong:[],
+            list_womenServices:[
+                {hair:"hair1",price:0,img:"",isChecked:false,key:1},
+                {hair:"hair2",price:0,img:"",isChecked:false,key:2},
+                {hair:"hair3",price:0,img:"",isChecked:false,key:3},
+                {hair:"hair4",price:0,img:"",isChecked:false,key:4}
+            ],
+            list_menServices:[
+                {hair:"hair5",price:0,img:"",isChecked:false,key:5},
+                {hair:"hair6",price:0,img:"",isChecked:false,key:6},
+                {hair:"hair7",price:0,img:"",isChecked:false,key:7},
+                {hair:"hair8",price:0,img:"",isChecked:false,key:8}
+            ],
+            list_womenShort:[
+                {hair:"hair9",price:0,img:"",isChecked:false,key:9},
+                {hair:"hair10",price:0,img:"",isChecked:false,key:10},
+                {hair:"hair11",price:0,img:"",isChecked:false,key:11},
+                {hair:"hair12",price:0,img:"",isChecked:false,key:12}
+            ],
+            list_womenMedium:[
+                {hair:"hair13",price:0,img:"",isChecked:false,key:13},
+                {hair:"hair14",price:0,img:"",isChecked:false,key:14},
+                {hair:"hair15",price:0,img:"",isChecked:false,key:15},
+                {hair:"hair16",price:0,img:"",isChecked:false,key:16}
+            ],
+            list_womenLong:[
+                {hair:"hair17",price:0,img:"",isChecked:false,key:17},
+                {hair:"hair18",price:0,img:"",isChecked:false,key:18},
+                {hair:"hair19",price:0,img:"",isChecked:false,key:19},
+                {hair:"hair20",price:0,img:"",isChecked:false,key:20}
+            ],
+            list_menShort:[
+                {hair:"hair21",price:0,img:"",isChecked:false,key:21},
+                {hair:"hair22",price:0,img:"",isChecked:false,key:22},
+                {hair:"hair23",price:0,img:"",isChecked:false,key:23},
+                {hair:"hair24",price:0,img:"",isChecked:false,key:24}
+            ],
+            list_menLong:[
+                {hair:"hair25",price:0,img:"",isChecked:false,key:25},
+                {hair:"hair26",price:0,img:"",isChecked:false,key:26},
+                {hair:"hair27",price:0,img:"",isChecked:false,key:27},
+                {hair:"hair28",price:0,img:"",isChecked:false,key:28}
+            ],
             imageUrl: "",
             imageFile:"",
             imagePreview:"",
@@ -67,22 +100,11 @@ class InputBarber extends React.Component {
         this.getFile = this.getFile.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
-    componentDidMount() {
-        axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/barber')
-        .then(function(response){
-            console.log(response)
-            this.setState({posts: response.data})
-        })
-        .catch(function(error) {
-            console.log(error)
-        })
-    }
 
     validate = () => {
         var phonepattern = new RegExp(/^[0-9]{10}$/)
         let nameError=""
         let phoneError=""
-        let imgError=""
         
         if(!this.state.name){
             nameError = "Invalid name !"
@@ -90,18 +112,25 @@ class InputBarber extends React.Component {
         else if(this.state.name.match(/[0-9]+/)){
             nameError = "Name must be letters only"
         }
-        if(!this.state.imageUrl){
-            nameError = "Please select an image"
-        }
         if(!phonepattern.test(this.state.phone) || !this.state.phone){
-            phoneError = "invalid phone number !"
+            phoneError = "Invalid phone number !"
         }
-        if(nameError || imgError || phoneError){
-            this.setState({ nameError : nameError, imgError : imgError , phoneError : phoneError});
+        if(nameError || phoneError){
+            this.setState({ nameError : nameError, phoneError: phoneError });
             return false;
         }
         return true;
     };
+    componentDidMount() {
+        // axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/barber')
+        // .then(function(response){
+        //     console.log(response.data)
+        //     this.setState({posts: response.data})
+        // })
+        // .catch(function(error) {
+        //     console.log(error)
+        // })
+    }
 
     hideServicesMenu = () => {
         this.setState({isHideServices: !this.state.isHideServices})
@@ -123,6 +152,10 @@ class InputBarber extends React.Component {
     handleChange = event => { //name
         this.setState({isSaved:true})
         this.setState({name:event.target.value})
+    }
+    handleChangePhone = event => { //phone
+        this.setState({isSaved:true})
+        this.setState({phone:event.target.value})
     }
    
     handleSubmit = event => {
@@ -178,50 +211,43 @@ class InputBarber extends React.Component {
             this.state.list_womenServices.forEach(list_womenServices => {
                 let timeForEach = document.getElementById(list_womenServices.hair)
                 if(list_womenServices.isChecked) {
-                    this.state.hair.push(list_womenServices.hair)  
-                    this.state.time.push(timeForEach.value)
+                    this.state.hair.push({hairId : list_womenServices.hair, time:timeForEach.value})  
                 }
             });
             this.state.list_menServices.forEach(list_menServices => {
                 let timeForEach = document.getElementById(list_menServices.hair)
                 if(list_menServices.isChecked) {
-                    this.state.hair.push(list_menServices.hair)  
-                    this.state.time.push(timeForEach.value)
+                    this.state.hair.push({hairId : list_menServices.hair, time:timeForEach.value})  
                 }
             });
             this.state.list_womenShort.forEach(list_womenShort => {
                 let timeForEach = document.getElementById(list_womenShort.hair)
                 if(list_womenShort.isChecked) {
-                    this.state.hair.push(list_womenShort.hair)  
-                    this.state.time.push(timeForEach.value)
+                    this.state.hair.push({hairId : list_womenShort.hair, time:timeForEach.value})  
                 }
             });
             this.state.list_womenMedium.forEach(list_womenMedium => {
                 let timeForEach = document.getElementById(list_womenMedium.hair)
                 if(list_womenMedium.isChecked) {
-                    this.state.hair.push(list_womenMedium.hair)  
-                    this.state.time.push(timeForEach.value)
+                    this.state.hair.push({hairId : list_womenMedium.hair, time:timeForEach.value})  
                 }
             });
             this.state.list_womenLong.forEach(list_womenLong => {
                 let timeForEach = document.getElementById(list_womenLong.hair)
                 if(list_womenLong.isChecked) {
-                    this.state.hair.push(list_womenLong.hair)  
-                    this.state.time.push(timeForEach.value)
+                    this.state.hair.push({hairId : list_womenLong.hair, time:timeForEach.value})  
                 }
             });
             this.state.list_menShort.forEach(list_menShort => {
                 let timeForEach = document.getElementById(list_menShort.hair)
                 if(list_menShort.isChecked) {
-                    this.state.hair.push(list_menShort.hair)  
-                    this.state.time.push(timeForEach.value)
+                    this.state.hair.push({hairId : list_menShort.hair, time:timeForEach.value})  
                 }
             });
             this.state.list_menLong.forEach(list_menLong => {
                 let timeForEach = document.getElementById(list_menLong.hair)
                 if(list_menLong.isChecked) {
-                    this.state.hair.push(list_menLong.hair)  
-                    this.state.time.push(timeForEach.value)
+                    this.state.hair.push({hairId : list_menLong.hair, time:timeForEach.value})  
                 }
             });
             console.log("saved")
@@ -229,11 +255,11 @@ class InputBarber extends React.Component {
             // this.props.setHairAndTime(this.state.hair,this.state.time);    
             // this.props.changeName(this.state.name);
             // this.props.getFile(this.state.imageFile, this.state.imagePreview, this.state.imageUrl);
-            this.props.getBarber(this.state.name, this.state.imageUrl, this.state.hair, this.state.time)
+            this.props.getBarber(this.state.name, this.state.imageUrl, this.state.phone, this.state.hair)
             this.setState({isHideServices:true, isHideWomenHairstyle:true, isHideMenHairstyle:true})
         }
         if(isValid){
-            this.setState({nameError:"", imgError:""})
+            this.setState({nameError:"", phoneError:""})
         }
         if(check) {
             this.setState({timeError:""})
@@ -337,11 +363,11 @@ class InputBarber extends React.Component {
                                 className = "name_barber"
                                 type="text"
                                 id="barber_phone"
-                                maxLength = "100"
+                                maxLength="10"
                                 value={this.props.phone}
-                                placeholder="Phone number"
+                                placeholder="Phone Number"
                                 // style={{pointerEvents: this.state.nonEditable? "none": "visible"}}
-                                onChange={this.handleChange}
+                                onChange={this.handleChangePhone}
                             />
                         </div>
                         <div style={{color:"white", padding:"10px",width:"fit-content", fontSize:"16px"}}>
@@ -449,9 +475,6 @@ class InputBarber extends React.Component {
                                 </p>
                                 <p style={{fontSize:"16px",color:"#cb2c6f",marginRight:"20px"}}>
                                     {this.state.phoneError}
-                                </p>
-                                <p style={{fontSize:"16px",color:"#cb2c6f",marginRight:"20px"}}>
-                                    {this.state.imgError}
                                 </p>
                                 <p style={{fontSize:"16px",color:"#cb2c6f",marginRight:"20px"}}>
                                     {this.state.timeError}

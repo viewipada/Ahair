@@ -96,16 +96,27 @@ class NavBar extends Component {
                             : null
                     }
 
-                    
-                    <button
-                        class="Signin"
-                        onClick={this.showDropdownMenu}>
-                        {
-                            this.state.checkLogin ? <i className='user circle icon'></i>
-                                : <i className="users icon" size='2em'></i>
-                        }
-                        <span>{this.state.statename}</span>
-                    </button>
+                    <Link className="link" to='/signin' style={{display:this.state.isSignin? "none" : "flex"}}>
+                        <button
+                            class="Signin"
+                            onClick={this.showDropdownMenu}>
+                            {
+                                this.state.checkLogin ? <i className='user circle icon'></i>
+                                    : <i className="users icon" size='2em'></i>
+                            }
+                            <span>{this.state.statename}</span>
+                        </button>
+                    </Link>
+                        <button
+                            class="Signin"
+                            style={{display:this.state.isSignin? "flex" : "none"}}
+                            onClick={this.showDropdownMenu}>
+                            {
+                                this.state.checkLogin ? <i className='user circle icon'></i>
+                                    : <i className="users icon" size='2em'></i>
+                            }
+                            <span>{this.state.statename}</span>
+                        </button>
 
                     {this.state.displayMenu ? (
                         <ul>

@@ -214,7 +214,7 @@ class PriceList extends React.Component {
     
     handleSubmit = event => {
         event.preventDefault();
-        // let isValid = this.validate();
+        let allHair = []
         //   console.log(this.state);
           this.setState(this.state);
           this.props.priceWomenShort(this.state.list_womenShort)
@@ -224,104 +224,30 @@ class PriceList extends React.Component {
           this.props.priceMenLong(this.state.list_menLong)
           this.props.priceMenService(this.state.servicesMen)
           this.props.priceWomenService(this.state.servicesWomen)
-
+      
         this.props.womenServiceStore.forEach(element => {
-            const newHairstyle = {
-                hairName : element.value,
-                price : parseInt(element.price, 10)
-                // hairstyleImg: element.hairstyleImg
-            }
-            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
-                .then(function(response){
-                    console.log(response)
-                })
-                .catch(function(error) {
-                    console.log(error)
-                }
-            )
+            allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "service_women"})
         })
         this.props.menServiceStore.forEach(element => {
-            const newHairstyle = {
-                hairName : element.value,
-                price : parseInt(element.price, 10)
-                // hairstyleImg: element.hairstyleImg
-            }
-            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
-                .then(function(response){
-                    console.log(response)
-                })
-                .catch(function(error) {
-                    console.log(error)
-                }
-            )
+            allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "service_men"})
         })
         this.props.womenShortStore.forEach(element => {
-            const newHairstyle = {
-                hairName : element.value,
-                price : parseInt(element.price, 10)
-                // hairstyleImg: element.hairstyleImg
-            }
-            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
-                .then(function(response){
-                    console.log(response)
-                })
-                .catch(function(error) {
-                    console.log(error)
-                }
-            )
+            allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "women_short"})
         })
         this.props.womenMediumStore.forEach(element => {
-            const newHairstyle = {
-                hairName : element.value,
-                price : parseInt(element.price, 10)
-                // hairstyleImg: element.hairstyleImg
-            }
-            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
-                .then(function(response){
-                    console.log(response)
-                })
-                .catch(function(error) {
-                    console.log(error)
-                }
-            )
+            allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "women_medium"})
         })
         this.props.womenLongStore.forEach(element => {
-            const newHairstyle = {
-                hairName : element.value,
-                price : parseInt(element.price, 10)
-                // hairstyleImg: element.hairstyleImg
-            }
-            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
-                .then(function(response){
-                    console.log(response)
-                })
-                .catch(function(error) {
-                    console.log(error)
-                }
-            )
+            allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "women_long"})
         })
         this.props.menShortStore.forEach(element => {
-            const newHairstyle = {
-                hairName : element.value,
-                price : parseInt(element.price, 10)
-                // hairstyleImg: element.hairstyleImg
-            }
-            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
-                .then(function(response){
-                    console.log(response)
-                })
-                .catch(function(error) {
-                    console.log(error)
-                }
-            )
+            allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "men_short"})
         })
         this.props.menLongStore.forEach(element => {
-            const newHairstyle = {
-                hairName : element.value,
-                price : parseInt(element.price, 10)
-                // hairstyleImg: element.hairstyleImg
-            }
-            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
+            allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "men_long"})
+        })
+        const newHairstyle = allHair
+            axios.post('',newHairstyle ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
                 .then(function(response){
                     console.log(response)
                 })
@@ -329,13 +255,11 @@ class PriceList extends React.Component {
                     console.log(error)
                 }
             )
-        })
 
         this.props.history.push('/hairbarber')
     };
 
     render() {
-        if(!this.state.isSignin) return <Redirect to='/home' />
       return (
         <div className="big_container">
             <NavBarShop />

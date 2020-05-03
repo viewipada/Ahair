@@ -57,7 +57,7 @@ class SignIn extends React.Component {
     // }
 
     handleChange = event => {
-        // event.preventDefault();
+        this.setState({messageError:""})
         this.setState({ [event.target.id]: event.target.value });
     };
 
@@ -73,7 +73,7 @@ class SignIn extends React.Component {
                 email : this.state.email,
                 password: this.state.password,
             }
-        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/login', userData)
+          axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/login', userData)
           .then(function (response) {
             console.log(response);
             if(response.data.loginData.token) {
@@ -81,14 +81,14 @@ class SignIn extends React.Component {
                 localStorage.setItem('username', response.data.loginData.username);
                 localStorage.setItem('shopname', response.data.loginData.shopname);
                 currentState.setState({isSignin:true, messageError:""})
-                this.props.history.push('/home')
+                localStorage.getItem('username') ? currentState.props.history.push('/home') : currentState.props.history.push('/shop')
             }
           })
           .catch(function (error) {
                 currentState.setState({messageError : "Incorrect password or email", email:"",emailError:"",password:"",passwordError:""})
                 console.log(error);
           });
-
+          
         };
     };
 
@@ -108,7 +108,7 @@ class SignIn extends React.Component {
                                     to continuous your service
                                 </h5>
                             </span>
-
+                            <div className="wrong">{this.state.messageError}</div>
                             <div className="wrap_input">
                                 <img className="input_icon" src={emailIcon} alt="" />
                                 <input
