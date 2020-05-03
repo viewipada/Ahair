@@ -49,13 +49,13 @@ class NavBar extends Component {
 
     logoutevent = () => {
         this.setState({ isSignin: false });
-        this.props.history.push('/home')
-        // localStorage.removeItem('token')
-        // localStorage.removeItem('username')
-        // localStorage.removeItem('shopname')
+        // this.props.history.push('/home')
+        localStorage.removeItem('token')
+        localStorage.removeItem('username')
+        localStorage.removeItem('shopname')
         // this.setState({ checkLogin: false });
         // this.setState({ statename: 'SignIn' });
-        localStorage.clear();
+        // localStorage.clear();
     }
 
     handleInputChange = (event) => {
