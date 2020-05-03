@@ -7,6 +7,7 @@ import timeIcon from './pic/clock_icon.png';
 import errorIcon from './pic/error_icon.png'
 import MultipleImageUpload from './MultipleImageUpload';
 import NavBarShop from './NavBarShop';
+import { Redirect } from 'react-router';
 // import axios from 'axios'
 
 //ที่อยู่ เวลา รูปบรรยากาศ
@@ -21,9 +22,15 @@ class ShopInformation extends React.Component {
             closehours: this.props.shopInfoStore.closehours || "18:00",
             imageFile: [],
             imagePreview: [],
-            imageUrl: this.props.shopInfoStore.imageUrl || []
+            imageUrl: this.props.shopInfoStore.imageUrl || [],
+            isSignin:null
         }
         this.getFile = this.getFile.bind(this);
+    }
+    componentDidMount() {
+        const token = localStorage.getItem('token')
+        if (!token) this.setState({isSignin:false})
+        else this.setState({isSignin:true})
     }
 
     getFile(img_file, img_preview, img_url) {
@@ -58,6 +65,7 @@ class ShopInformation extends React.Component {
     };
 
     render(){
+        if(!this.state.isSignin) return <Redirect to='/home'/>
         return(
             <div className="big_container">
                 <NavBarShop />

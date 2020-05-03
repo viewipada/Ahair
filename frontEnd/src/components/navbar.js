@@ -12,7 +12,7 @@ class NavBar extends Component {
         super(props);
 
         this.state = {
-            statename: localStorage.getItem('username')+localStorage.getItem('shopname') || "SignIn",
+            statename: localStorage.getItem('username') || "SignIn",
             displayMenu: false,
             // checkLogin: false,
             iconchange: "users icon",
@@ -109,7 +109,7 @@ class NavBar extends Component {
 
                     {this.state.displayMenu ? (
                         <ul>
-                            <a href="/profilecustomer" >Profile</a>
+                            <a href={localStorage.getItem('username') ? "/profilecustomer" :"/profileshop"} >Profile</a>
                             <a href="/home" onClick={this.logoutevent}>Log Out</a>
                         </ul>
                     ) :
