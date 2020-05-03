@@ -24,9 +24,15 @@ class HairBarBer extends React.Component {
             hair:[],
             time:[],
             numOfbarber:[{id:0,edit:"visible"}],
-            barber: []
+            barber: [],
+            isSignin: null
         }
         this.getBarber = this.getBarber.bind(this);
+    }
+    componentDidMount() {
+        const token = localStorage.getItem('token')
+        if (!token) this.setState({isSignin:false})
+        else this.setState({isSignin:true})
     }
 
     getBarber(name, img, hair, time) {
