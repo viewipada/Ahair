@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link,Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import emailIcon from './pic/email_icon.png';
 import passwordIcon from './pic/password_icon.png';
 import visibleIcon from './pic/visible_icon.png';
@@ -13,20 +13,19 @@ import axios from 'axios';
 //>>>>>>> 9309370d5a036eefceb3284d4018451b1ac433e1
 
 class SignIn extends React.Component {
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
         const token = localStorage.getItem('token')
         let isSignin = true
-        if (!token) isSignin =false
-        this.state = { 
-            hidePassword: true ,
+        if (!token) isSignin = false
+        this.state = {
+            hidePassword: true,
             email: "",
             password: "",
             emailError: "",
             passwordError: "",
             isSignin,
-            messageError:""
+            messageError: ""
         }
     }
 
@@ -66,36 +65,36 @@ class SignIn extends React.Component {
         event.preventDefault();
         const isValid = this.validate();
         if (isValid) {
-          console.log(this.state);
-          this.setState(this.state);
-          
-          const userData = {
-            email: this.state.email,
-            password: this.state.password
-        }
+            console.log(this.state);
+            this.setState(this.state);
 
-        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/login', userData)
-          .then(function (response) {
-            console.log(response);
-            if(response.data.loginData.token) {
-                localStorage.setItem('token', response.data.loginData.token);
-                // localStorage.setItem('username', response.data.loginData.username);
-                // localStorage.setItem('type', response.data.loginData.type);
-                this.setState({isSignin:true, messageError:""})
-                this.props.history.push('/home')
+            const userData = {
+                email: this.state.email,
+                password: this.state.password
             }
-          })
-          .catch(function (error) {
-                this.setState({messageError : "Incorrect password or email", email:"",emailError:"",password:"",passwordError:""})
-                console.log(error);
-          });
+
+            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/login', userData)
+                .then(function (response) {
+                    console.log(response);
+                    if (response.data.loginData.token) {
+                        localStorage.setItem('token', response.data.loginData.token);
+                        localStorage.setItem('username', response.data.loginData.username);
+                        // localStorage.setItem('type', response.data.loginData.type);
+                        this.setState({ isSignin: true, messageError: "" })
+                        this.props.history.push('/home')
+                    }
+                })
+                .catch(function (error) {
+                    currentState.setState({ messageError: "Incorrect password or email", email: "", emailError: "", password: "", passwordError: "" })
+                    console.log(error);
+                });
 
         };
     };
-    
-    render(){
-        if(this.state.isSignin) return <Redirect to='/home' />
-        return(
+
+    render() {
+        if (this.state.isSignin) return <Redirect to='/home' />
+        return (
             <div className="big_container">
                 <div className="container_login">
                     <div className="wrap_login">
