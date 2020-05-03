@@ -36,7 +36,7 @@ class Home extends Component {
           <Sliderimg />
         </div>
         <div class="wrapcontainer">
-          <text class="Topictext">Category</text>
+          <h1 class="Topictext">Category</h1>
           <div class="btcatContainer">
             <button class="catbt" type="women">Women</button>
             <button class="catbt" type="longW">Long Hairs</button>
@@ -48,7 +48,7 @@ class Home extends Component {
             <button class="catbt" type="ShortM">Short Hairs</button>
             <button class="catbt" type="LongM">Long Hairs</button>
           </div>
-          <text class="Topictext">Reccomended</text>
+          <h1 class="Topictext">Reccomended</h1>
           <div class="shopRec">
             <div className='ui two link cards'>
               {

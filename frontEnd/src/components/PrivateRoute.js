@@ -5,6 +5,6 @@ import { Route, Redirect } from 'react-router-dom';
     <Route {...rest} render={props => (
         localStorage.getItem('user')
             ? <Component {...props} />
-            : <Redirect to={{ pathname: '', state: { from: props.location } }} />
+            : <Redirect to={{ pathname: '/home', state: { from: props.location } }} />
     )} />
 )

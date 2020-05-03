@@ -4,6 +4,7 @@ import logo from './pic/logo_V2.1.png'
 import { FaSistrix, FaUser } from "react-icons/fa"
 import { IoIosNotifications } from "react-icons/io"
 import { FaGrin } from 'react-icons/fa'
+import axios from 'axios'
 
 class NavBar extends Component {
     constructor(props) {
@@ -20,14 +21,16 @@ class NavBar extends Component {
         this.logoutevent = this.logoutevent.bind(this)
     }
 
+    componentDidMount() {
+        if (localStorage.getItem('user')) {
+            this.setState({ checkLogin: true });
+            this.setState({ statename: localStorage.getItem('username') });
+        }
+    }
+
     showDropdownMenu = () => {
         const checkLogin = this.state.checkLogin;
-        if (!checkLogin) {
-            this.setState({ statename: 'Pixy' });
-            this.setState({ checkLogin: true });
-            console.log("hereee!!");
-        }
-        else {
+        if (checkLogin) {
             this.setState({ displayMenu: true }, () => {
                 document.addEventListener('click', this.hideDropdownMenu);
             });
@@ -44,6 +47,7 @@ class NavBar extends Component {
     logoutevent = () => {
         this.setState({ checkLogin: false });
         this.setState({ statename: 'SignIn' });
+        localStorage.clear();
     }
 
     handleInputChange = (event) => {
@@ -53,80 +57,49 @@ class NavBar extends Component {
         })
     }
 
-    handleSubmit = (event) => {
-        event.preventDefault();
-        const data = this.state.searchValue;
-        console.log(data);
-        if (this.props._keySearch) {
-            this.props._keySearch(data)
-        }
-        this.setState({ statesubmit: true })
-    }
-    keyPress = (event) => {
-        if (event.key === "Enter") {
-            const data = this.state.searchValue;
-            console.log(data);
-            if (this.props._keySearch) {
-                this.props._keySearch(data)
-            }
-            this.setState({ statesubmit: true })
-        }
-    }
-
     render() {
         return (
             <div class="wrapnavbar">
-                <Link className="link" to="">
-                    <img src={logo} class="homelogo" alt="Home" />
+                <Link className="link" to="/home">
+                    <img src={logo} class="ui small image" alt="Home" />
                 </Link>
-                <div class="searchBox">
-                    <input
-                        type="text"
-                        placeholder="Search"
-                        className="searchInput"
-                        name="searchValue"
-                        onChange={this.handleInputChange}
-                        onKeyPress={this.keyPress}
-                    />
-                    <button className="searchBt" onClick={this.handleSubmit}>
-                        <FaSistrix size='1.5em' color="white" />
-                    </button>
-                    {
-                        this.state.statesubmit ?
-                            (
-                                <div href='/searchpage'/>
-                            )
-                            : null
-                    }
-                </div>
                 <div className="leftGroup">
                     {
                         this.state.checkLogin ?
                             (
-                                <button className="iconBt"><FaGrin color='white' size='1.8em' /></button>
-
+                                <div>
+                                    <Link className="link" to='/searchpage'>
+                                        <button className="iconBt"><FaSistrix color='white' size='2em' /></button>
+                                    </Link>
+                                </div>
                             )
                             : null
                     }
                     {
                         this.state.checkLogin ?
                             (
-                                <button className="iconBt"><IoIosNotifications color='white' size='2em' /></button>
+                                <div>
+                                    <Link className="link" to='/noticeforcustomer'>
+                                        <button className="iconBt"><IoIosNotifications color='white' size='2em' /></button>
+                                    </Link>
+                                </div>
                             )
                             : null
                     }
-
                     <button
                         class="Signin"
-                        onClick={() => { this.showDropdownMenu() }}>
-                        <i class={!this.state.checkLogin ? "users icon" : "user circle icon"}></i>
-                        {this.state.statename}
+                        onClick={this.showDropdownMenu}>
+                        {
+                            this.state.checkLogin ? <i className='user circle icon'></i>
+                                : <i className="users icon" size='2em'></i>
+                        }
+                        <span>{this.state.statename}</span>
                     </button>
 
                     {this.state.displayMenu ? (
                         <ul>
-                            <a href="#Profile" >Profile</a>
-                            <a href="#LogOut" onClick={this.logoutevent}>Log Out</a>
+                            <a href="/profilecustomer" >Profile</a>
+                            <a href="/home" onClick={this.logoutevent}>Log Out</a>
                         </ul>
                     ) :
                         (
