@@ -1,4 +1,4 @@
-const { db } = require('../util/admin')
+const { admin, db } = require('../util/admin')
 
 const config = require('../util/config');
 
@@ -62,7 +62,7 @@ exports.login = (req , res) => {
         email : req.body.email,
         password : req.body.password
     };
-
+    let loginData = {}; 
     firebase
     .auth()
     .signInWithEmailAndPassword(user.email,user.password)
@@ -70,7 +70,53 @@ exports.login = (req , res) => {
         return data.user.getIdToken();
     })
     .then( token => {
-        return res.json({ token });
+      loginData.token = token;
+      admin
+      .auth()
+      .verifyIdToken(token)
+      .then( async decodedToken => {
+          tkData = decodedToken;
+          console.log(decodedToken);
+
+          try {
+          const doc = await db.collection('shops')
+            .where('shopId', '==', tkData.uid)
+            .get();
+          if (!doc.exists) {
+            db
+              .collection('users')
+              .where('userId', '==', tkData.uid)
+              .limit(1)
+              .get()
+              .then((document) => {
+                loginData.username = [];
+                document.forEach((docdoc) => {
+                  loginData.username.push({ username: docdoc.data().handle });
+                });
+                let bn = loginData.username[0].username;
+                loginData.username = bn;
+                loginData.shopname = "";
+                return res.json({ loginData });
+              })
+              .catch((err) => {
+                console.error(err);
+                loginData.shopname = [];
+                doc.forEach((docdoc) => {
+                  loginData.shopname.push({ shopname: docdoc.data().shopName });
+                });
+                let bn_1 = loginData.shopname[0].shopname;
+                loginData.shopname = bn_1;
+                loginData.username = "";
+                return res.json({ loginData });
+              });
+          }
+          ;
+        }
+        catch (err_1) {
+          console.error(err_1);
+          return res.json({ message: 'Esus you did wrong' });
+        }
+      })
     })
     .catch(err => {
         console.error(err);
@@ -78,7 +124,7 @@ exports.login = (req , res) => {
             return res.status(403).json({ general : 'Wrong credentials,please try again...'});
         }else return res.status(500).json({ error: err.code});
     });
-}
+};
 
 /*exports.uploadImage = (req, res) => {
     const BusBoy = require('busboy');

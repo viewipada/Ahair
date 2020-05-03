@@ -23,12 +23,12 @@ const { db } = require('../util/admin');
             barberId: data.id,
             hairStyleId: req.body.hairStyleId,
             time: req.body.time
-          })
+          });
         })
         .then(() => {
           return res.json({ message : 'Create Barbber and HairBarber Succesfully'})
         })
-        .catch((err) => {console.error(err); res.json({ error : err.code}) ; })
+        .catch((err) => {console.error(err); res.json({ error : 'you did something wrong'}) ; })
       }
       else{
          db
