@@ -72,6 +72,7 @@ class SignIn extends React.Component {
             password: this.state.password
             }
 
+<<<<<<< HEAD
             axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/login', userData)
             .then(function (response) {
                 console.log(response);
@@ -79,6 +80,16 @@ class SignIn extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
+=======
+        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/login', userData)
+          .then(function (response) {
+            console.log(response);
+            localStorage.setItem('user', response.data.token);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+>>>>>>> 792bd3fa21d7c3d1f5bb34ef8e920a4428fdd8d3
 
             this.props.history.push('/home')
         };

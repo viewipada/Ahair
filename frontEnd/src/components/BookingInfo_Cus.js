@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { db, auth, str } from '../services/firebase'
 import Navbar from './navbar'
+
+
 
 class BookingInfo_Cus extends Component {
     constructor(props) {
@@ -9,20 +10,10 @@ class BookingInfo_Cus extends Component {
             info: ''
         };
     }
+    
+
     componentDidMount() {
-        db.collection('BookingInfo')
-            .get()
-            .then(snapshot => {
-                const data = [];
-                snapshot.forEach(doc => {
-                    const tmp = doc.data()
-                    data.push(tmp)
-                })
-                this.setState({
-                    info: data
-                });
-            })
-            .catch(error => console.log(error))
+        
 
     }
     render() {
