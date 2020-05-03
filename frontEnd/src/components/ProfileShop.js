@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link , Redirect} from 'react-router-dom';
 import emailIcon from './pic/email_icon.png';
 import userIcon from './pic/user_icon.png';
 import phoneIcon from './pic/phone_icon.png';
@@ -8,24 +8,31 @@ import shopIcon from './pic/shop_icon.png';
 import NavBarShop from './NavBarShop';
 import axios from 'axios';
 class ProfileShop extends React.Component {
-    constructor()
+    constructor(props)
     {
-        super();
+        super(props);
+        const token = localStorage.getItem('token')
+        let isSignin = true
+        if (!token) isSignin =false
         this.state = { 
-            posts:[]
+            posts:[],
+            isSignin
         }
+        
     }
     componentDidMount(){
-        axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/Ashop',{headers: {'Authorization':'Bearer ' + 'eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4ODQ4YjVhZmYyZDUyMDEzMzFhNTQ3ZDE5MDZlNWFhZGY2NTEzYzgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODQ0OTMxMCwidXNlcl9pZCI6IjFxNlZOUE9KVEdSQjFBN2xKR1JRdnJ1WXBwMTIiLCJzdWIiOiIxcTZWTlBPSlRHUkIxQTdsSkdSUXZydVlwcDEyIiwiaWF0IjoxNTg4NDQ5MzEwLCJleHAiOjE1ODg0NTI5MTAsImVtYWlsIjoibmV3c2hvcDVAZW1haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbIm5ld3Nob3A1QGVtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Z9lt85tcFo0mti3laAO4lyVLWHmGEPfjPf6efe9OOpiy9Ucr_9HXII_ImBIf-UIWW7nIYA6kWt8tBUyuVowVMugdkYTe3GXJcCnZaKASMTz6Uokn3Y-KelfDVEBZK5y_Il8H2pnm_rtCa2NFcGpI908i0uQoF1_kFb3zA1KLC4-vVKJb7mtlzfVcr4h3E-BOaCF4Ia77zoNzcUZvvwyPLaRLh3V6KN1z_31l2mK1VuKLhxyAGIUFb8S2xKjIJhvRZy5BGOeo5MFuWKHE2CothnDQCe15o4PxMOV_7Pe263ohjNY_sU-rrRMNDRlPXhPplH4iNn9VR1PdsBAKKIaBiA'}})
+        axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/Ashop',{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
         .then(res => {
             this.setState({
-                posts: res.data.credentials
+                posts: res.data.credentials,
+                isSignin : true
             })
         })
         .catch(err => console.log(err));
     }
 
     render(){
+        if(!this.state.isSignin) return <Redirect to='/home' />
         return(
             <div className="big_container">
                 <NavBarShop />

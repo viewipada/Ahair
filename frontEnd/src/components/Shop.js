@@ -5,8 +5,10 @@ import ShopImgItem from './ShopImgItem'
 import Sidebar from './Sidebar';
 import Hairdresser from './HairdresserItem';
 import NavBar from './navbar'
+import { connect } from 'react-redux';
+import { Shop_2 } from '../redux/index'
 
-export default class Shop extends Component {
+class Shop extends Component {
     constructor(props) {
         super(props)
     }
@@ -75,3 +77,16 @@ export default class Shop extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => { //subscribe
+    return {
+        shopStore: state.ShopReducer.shop
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        shop: (data) => dispatch(Shop_2(data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Shop);

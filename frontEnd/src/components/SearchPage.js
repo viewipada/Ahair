@@ -6,6 +6,9 @@ import Axios from 'axios'
 import ShopItem_S from './ShopItem_S'
 import Sidebar from './Sidebar'
 import NavBar from './navbar'
+import { connect } from 'react-redux';
+import { Shop_1 } from '../redux/index'
+import HairdresserItem from './HairdresserItem';
 
 
 class SearchPage extends Component {
@@ -14,23 +17,25 @@ class SearchPage extends Component {
         super(props)
 
         this.state = {
+            shopname: "",
+            shopid: "",
             searchValue: 'null',
             rows: []
         }
-        this.keySearch = this.keySearch.bind(this)
+        // this.keySearch = this.keySearch.bind(this)
     }
 
-    keySearch = (name) => {
-        console.log(name)
-        alert(name)
-        // if(this.state.keyword != name){
-        console.log(name + this.state.keyword)
-        const n = name
-        this.setState({ keyword: n });
-        alert(this.state.keyword)
-        console.log(name + this.state.keyword)
-        // }
-    }
+    // keySearch = (name) => {
+    //     console.log(name)
+    //     alert(name)
+    //     // if(this.state.keyword != name){
+    //     console.log(name + this.state.keyword)
+    //     const n = name
+    //     this.setState({ keyword: n });
+    //     alert(this.state.keyword)
+    //     console.log(name + this.state.keyword)
+    //     // }
+    // }
     handleInputChange = (event) => {
         event.preventDefault();
         this.setState({
@@ -50,7 +55,6 @@ class SearchPage extends Component {
             this.search(data)
         }
     }
-
 
     componentDidMount() {
         this.search('')
@@ -72,7 +76,25 @@ class SearchPage extends Component {
         })
     }
 
-
+    handleOnClick = (item) => {
+        // event.preventDefault();
+        // console.log(this.state);
+        console.log("onclick");
+        // console.log(item);
+        this.setState({
+            shopname: item.shopName,
+            shopid: item.shopId
+        }, function () {
+            console.log(this.state)
+            this.props.shop(this.state)
+            this.props.history.push('/shop')
+        }
+        );
+        // console.log(this.state);
+        // this.setState(this.state);
+        // this.props.shop(this.state);
+        //   this.props.history.push('/shop')
+    };
 
     render() {
 
@@ -94,7 +116,7 @@ class SearchPage extends Component {
 
                             {/* <!-- Content --> */}
                             <section>
-                                <div class="searchBox" style={{marginTop:'1em'}}>
+                                <div class="searchBox" style={{ marginTop: '1em' }}>
                                     <input
                                         type="text"
                                         placeholder="Search"
@@ -102,12 +124,12 @@ class SearchPage extends Component {
                                         name="searchValue"
                                         onChange={this.handleInputChange}
                                         onKeyPress={this.keyPress}
-                                        style={{height:'40px'}}
+                                        style={{ height: '40px' }}
                                     />
-                                    <button 
-                                        className="searchBt" 
+                                    <button
+                                        className="searchBt"
                                         onClick={this.handleSubmit}
-                                        style={{height:'40px'}}>
+                                        style={{ height: '40px' }}>
                                         <FaSistrix size='1.5em' color="white" />
                                     </button>
                                 </div>
@@ -119,7 +141,12 @@ class SearchPage extends Component {
                                 {/* Body */}
                                 {/* <div style={{marginLeft:'2.5em'}}> */}
                                 {this.state.rows.map(item => (
-                                    <ShopItem_S shop_item={item} />
+                                    <a key={item.shopId} onClick={() => this.handleOnClick(item)}>
+                                        <ShopItem_S
+                                            // onClick={() => { this.handleOnClick(item.shopName) }}
+                                            id="shopname"
+                                            shop_item={item} />
+                                    </a>
                                 ))}
 
                                 {/* </div> */}
@@ -127,9 +154,20 @@ class SearchPage extends Component {
                         </div>
                     </div>
                 </div>
-            </body >
+            </body>
         );
     }
 }
 
-export default SearchPage;
+const mapStateToProps = (state) => { //subscribe
+    return {
+        shopStore: state.ShopReducer.shop
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        shop: (data) => dispatch(Shop_1(data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);
