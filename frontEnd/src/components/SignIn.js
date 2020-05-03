@@ -69,7 +69,10 @@ class SignIn extends React.Component {
         if (isValid) {
             console.log(this.state);
             this.setState(this.state);
-
+            const userData = {
+                email : this.state.email,
+                password: this.state.password,
+            }
         axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/login', userData)
           .then(function (response) {
             console.log(response);
