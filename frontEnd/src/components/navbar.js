@@ -24,6 +24,7 @@ class NavBar extends Component {
         this.hideDropdownMenu = this.hideDropdownMenu.bind(this);
         this.logoutevent = this.logoutevent.bind(this)
     }
+
     componentDidMount(){
         const token = localStorage.getItem('token')
         if (!token) this.setState({isSignin:false})
@@ -31,21 +32,8 @@ class NavBar extends Component {
     }
 
     showDropdownMenu = () => {
-        if (!this.state.isSignin) {
-            // <Link className="link" to="/signin"/>
-        }
-    }
-    
-    componentDidMount() {
-        if (localStorage.getItem('user')) {
-            this.setState({ checkLogin: true });
-            this.setState({ statename: localStorage.getItem('username') });
-        }
-    }
-
-    showDropdownMenu = () => {
-        const checkLogin = this.state.checkLogin;
-        if (checkLogin) {
+        // const checkLogin = this.state.checkLogin;
+        if (this.state.isSignin) {
             this.setState({ displayMenu: true }, () => {
                 document.addEventListener('click', this.hideDropdownMenu);
             });
@@ -62,11 +50,11 @@ class NavBar extends Component {
     logoutevent = () => {
         this.setState({ isSignin: false });
         this.props.history.push('/home')
-        localStorage.removeItem('token')
-        localStorage.removeItem('username')
-        localStorage.removeItem('shopname')
-        this.setState({ checkLogin: false });
-        this.setState({ statename: 'SignIn' });
+        // localStorage.removeItem('token')
+        // localStorage.removeItem('username')
+        // localStorage.removeItem('shopname')
+        // this.setState({ checkLogin: false });
+        // this.setState({ statename: 'SignIn' });
         localStorage.clear();
     }
 
