@@ -10,32 +10,38 @@ import visibleIcon from './pic/visible_icon.png'
 import invisibleIcon from './pic/invisible_icon.png'
 import ImageUpload from './ImageUpload';
 import NavBar from './navbar';
+import axios from 'axios'
 
 class ProfileCustomer extends React.Component {
     constructor()
     {
         super();
         this.state = { 
-            username: "",
             name: "",
-            email: "",
             phone : "",
-            gender : "agender",
-            usernameError: "",
+            gender : "",
             nameError: "",
-            emailError: "",
             phoneError: "",
-            hidePassword: true ,
-            passwordBox: false,
-            password: "",
-            confirmPassword: "",
-            passwordError: "",
-            confirmPasswordError: "",
             imageFile: "",
             imagePreview: "",
-            imageUrl: ""
+            imageUrl: "",
+            posts:[]
         }
         this.getFile = this.getFile.bind(this);
+    }
+
+    componentDidMount(){
+        axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/user',{headers: {'Authorization':'Bearer ' + 'eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4ODQ4YjVhZmYyZDUyMDEzMzFhNTQ3ZDE5MDZlNWFhZGY2NTEzYzgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODQ0NDM1NiwidXNlcl9pZCI6IjVuNjBiQlBLQjVNdkNpZ2VjUjNmQW1COTRmSDMiLCJzdWIiOiI1bjYwYkJQS0I1TXZDaWdlY1IzZkFtQjk0ZkgzIiwiaWF0IjoxNTg4NDQ0MzU2LCJleHAiOjE1ODg0NDc5NTYsImVtYWlsIjoibmV3N0BlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3N0BlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.W4BaTtULcVDxb1thACZFnJORW3uRDS1RjcdAiqQGUR2mWMGshcsELXiNw17NOm5-BRR8q4hhEGQrQ16RkCsKY739tKmkSk8DSU20Jz8PxxpSMwbj-tm6T4vjqrofwXbancsNm9w8qR_GjtB5njbSYpX7GZLZ2bIQjwhhfDo-T0qXvDE0gW-4jaEiEpMashaiwIMtvJILf2tWKtHAlQrwJ5hr9b8W089arf-2W_SAUzfiSDwO9KNZsB-l6wi58tpelFTAGM57dB9cEzyZJpCSAAWwTYAUm9S8GaZPqnqiKqhlZZ3EreKl-cXrx77yVWrM9IKL0VJiPDtSJ2Tp_3JBtA'}})
+        .then(res => {
+            console.log(res.data.credentials)
+            this.setState({
+                posts: res.data.credentials,
+                name:res.data.credentials.name,
+                phone: res.data.credentials.phoneNum,
+                gender: res.data.credentials.userGender,
+            })
+        })
+        .catch(err => console.log(err));
     }
     
     getFile(img_file, img_preview, img_url) {
@@ -53,60 +59,21 @@ class ProfileCustomer extends React.Component {
         this.setState({ hidePassword: !this.state.hidePassword });
     }
 
-    validatePassword = () => {
-        var pattern = new RegExp(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/);
-        let passwordError=""
-        let confirmPasswordError=""
-        
-        if(!this.state.password){
-            passwordError = "invalid password !"
-        }
-        else if (!pattern.test(this.state.password)) {
-            passwordError = "Must match pattern";
-        }
-        if(!this.state.confirmPassword){
-            confirmPasswordError = "invalid password !"
-        }
-        else if(this.state.password != this.state.confirmPassword){
-            confirmPasswordError = "Not match , please try again."
-        }
-
-        if(confirmPasswordError || passwordError){
-            this.setState({ passwordError : passwordError, confirmPasswordError : confirmPasswordError });
-            return false;
-        }
-        return true;
-    };
-    
     validate = () => {
-        var emailpattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-        var namepattern = new RegExp(/\W/)
-        let usernameError=""
         let nameError=""
-        let emailError=""
         let phoneError=""
         
-        if(!this.state.username){
-            usernameError = "invalid username !"
-        }
-        else if(namepattern.test(this.state.username)){
-            usernameError = "Must be letters or numbers only"
-        }
-        // if(ซ้ำกับในระบบ) (/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)
         if(!this.state.name){
             nameError = "invalid name !"
         }
         else if(this.state.name.match(/[0-9]+/)){
             nameError = "Must be letters only"
         }
-        if (!emailpattern.test(this.state.email)) {
-            emailError = "invalid email !";
-        }
         if(!this.state.phone.match(/^[0-9]{10}$/) || !this.state.phone){
             phoneError = "invalid phone number !"
         }
-        if(usernameError || nameError || emailError || phoneError){
-            this.setState({ usernameError, nameError, emailError, phoneError });
+        if(nameError || phoneError){
+            this.setState({  nameError, phoneError });
             return false;
         }
         return true;
@@ -124,10 +91,23 @@ class ProfileCustomer extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         const isValid = this.validate()
-        // console.log(this.state);
+        console.log(this.state);
         if (isValid) {
-          console.log(this.state);
+        //   console.log(this.state);
           this.setState(this.state);
+          const editUser = {
+            email : this.state.posts.email,
+            handle: this.state.posts.handle,
+            name: this.state.name,
+            phoneNum: this.state.phone,
+            userGender: this.state.gender,
+            imgUrl: this.state.imageUrl
+        }
+          axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/editUser',editUser, {headers :{'Authorization':'Bearer ' + 'eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4ODQ4YjVhZmYyZDUyMDEzMzFhNTQ3ZDE5MDZlNWFhZGY2NTEzYzgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODQ0NDM1NiwidXNlcl9pZCI6IjVuNjBiQlBLQjVNdkNpZ2VjUjNmQW1COTRmSDMiLCJzdWIiOiI1bjYwYkJQS0I1TXZDaWdlY1IzZkFtQjk0ZkgzIiwiaWF0IjoxNTg4NDQ0MzU2LCJleHAiOjE1ODg0NDc5NTYsImVtYWlsIjoibmV3N0BlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3N0BlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.W4BaTtULcVDxb1thACZFnJORW3uRDS1RjcdAiqQGUR2mWMGshcsELXiNw17NOm5-BRR8q4hhEGQrQ16RkCsKY739tKmkSk8DSU20Jz8PxxpSMwbj-tm6T4vjqrofwXbancsNm9w8qR_GjtB5njbSYpX7GZLZ2bIQjwhhfDo-T0qXvDE0gW-4jaEiEpMashaiwIMtvJILf2tWKtHAlQrwJ5hr9b8W089arf-2W_SAUzfiSDwO9KNZsB-l6wi58tpelFTAGM57dB9cEzyZJpCSAAWwTYAUm9S8GaZPqnqiKqhlZZ3EreKl-cXrx77yVWrM9IKL0VJiPDtSJ2Tp_3JBtA'}})
+            .then(res => {
+                console.log(res.data.credentials)
+            })
+            .catch(err => console.log(err));
           this.props.history.push('/profilecustomer')
         }
     };
@@ -150,7 +130,7 @@ class ProfileCustomer extends React.Component {
                                     <div className="bigcontainer_info_profile">
                                         <div className="image_upload" >
                                             <div className = "wrap_preview">
-                                                <ImageUpload getFile={this.getFile} imagePreview={errorIcon}/>
+                                                <ImageUpload getFile={this.getFile} imagePreview={this.state.posts.imgUrl}/>
                                             </div>
                                         </div>
                                     </div> 
@@ -161,8 +141,8 @@ class ProfileCustomer extends React.Component {
                                     
                                         <div className="wrap_input_info">
                                             <img className="input_icon"src={userIcon} alt=""/>
-                                            <div className = "input_info"> 
-                                            {/*username*/}
+                                            <div className = "input_info" style={{color:"gray"}}> 
+                                            {this.state.posts.handle}
                                             </div>
                                         </div>
 
@@ -172,7 +152,7 @@ class ProfileCustomer extends React.Component {
                                                 className = "input_info" 
                                                 type = "text"
                                                 id = "name"
-                                                placeholder = "Get data name"
+                                                placeholder = {this.state.posts.name}
                                                 value = {this.state.name}  
                                                 onChange = {this.handleChange} 
                                             />
@@ -188,21 +168,8 @@ class ProfileCustomer extends React.Component {
                                     
                                         <div className="wrap_input_info">
                                             <img className="input_icon"src={emailIcon} alt=""/>
-                                            <input  
-                                                className = "input_info" 
-                                                type = "email"
-                                                id = "email"
-                                                placeholder = "Get data email"
-                                                value = {this.state.email}  
-                                                onChange = {this.handleChange} 
-                                            />
-                                            <div className={this.state.emailError===""? "validate_wrap" :"invalidate_wrap"}>
-                                                <div className="erroricon">
-                                                    <img src={errorIcon} alt= "" width="20px" />
-                                                </div>
-                                                <div className="texterror">
-                                                    <span>{this.state.emailError}</span>
-                                                </div>
+                                            <div className = "input_info" style={{color:"gray"}}> 
+                                            {this.state.posts.email}
                                             </div>
                                         </div>
                                         
@@ -216,7 +183,7 @@ class ProfileCustomer extends React.Component {
                                                         // pattern="[0-9]{10}"
                                                         id = "phone"
                                                         maxLength = "10"
-                                                        placeholder = "Phone number *"
+                                                        placeholder = {this.state.posts.phoneNum}
                                                         value = {this.state.phone}  
                                                         onChange = {this.handleChange} 
                                                     />
@@ -234,16 +201,25 @@ class ProfileCustomer extends React.Component {
                                             <div className = "container_iput">
                                                 <div className="wrap_input_info">
                                                     <img className="input_icon" src={genderIcon} alt=""/>
-                                                    <select className="input_info" style={{color:"rgb(145, 145, 145)"}} id="gender" onChange={this.selectGender}>
-                                                        <option value="agender" style={{backgroundColor:"#0F292F"}} >Agender</option>
-                                                        <option value="female" style={{backgroundColor:"#0F292F"}}>Female</option>
-                                                        <option value="male" style={{backgroundColor:"#0F292F"}}>Male</option>
+                                                    <select className="input_info" id="gender" onChange={this.selectGender}>
+                                                        <option value={this.state.posts.userGender} style={{backgroundColor:"#0F292F"}}>
+                                                            {this.state.posts.userGender}
+                                                        </option> 
+                                                        <option value="Agender" style={{backgroundColor:"#0F292F", visibility: this.state.posts.userGender === "Agender" ? "hidden": "visible"}} >
+                                                            Agender
+                                                        </option>
+                                                        <option value="Female" style={{backgroundColor:"#0F292F", visibility: this.state.posts.userGender=== "Female" ? "hidden": "visible"}}>
+                                                            Female
+                                                        </option>
+                                                        <option value="Male" style={{backgroundColor:"#0F292F", visibility: this.state.posts.userGender=== "Male" ? "hidden": "visible"}}>
+                                                            Male
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div className="change_password" onClick={this.toggleChangePassword} style={{display:this.state.passwordBox? "flex" : "none"}}>
+                                        {/* <div className="change_password" onClick={this.toggleChangePassword} style={{display:this.state.passwordBox? "flex" : "none"}}>
                                             Cancle X
                                         </div>
                                         <div className="change_password" onClick={this.toggleChangePassword} style={{display:this.state.passwordBox? "none" : "flex"}}>
@@ -298,7 +274,7 @@ class ProfileCustomer extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>

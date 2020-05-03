@@ -1,7 +1,13 @@
 export const SHOPINFORMATION = "SHOPINFORMATION"
 export const SHOPSTOCK = "SHOPSTOCK"
 // export const ADDSHOPSTOCK = "ADDSHOPSTOCK"
-export const SHOPDETAIL = "SHOPDETAIL"
+export const PRICEWOMENSHORT = "PRICEWOMENSHORT"
+export const PRICEWOMENMEDIUM = "PRICEWOMENMEDIUM"
+export const PRICEWOMENLONG = "PRICEWOMENLONG"
+export const PRICEMENSHORT = "PRICEMENSHORT"
+export const PRICEMENLONG = "PRICEMENLONG"
+export const PRICEWOMENSERVICE ="PRICEWOMENSERVICE"
+export const PRICEMENSERVICE ="PRICEMENSERVICE"
 export const HAIRSTYLESWOMENSHORT = "HAIRSTYLESWOMENSHORT"
 export const HAIRSTYLESWOMENMEDIUM = "HAIRSTYLESWOMENMEDIUM"
 export const HAIRSTYLESWOMENLONG = "HAIRSTYLESWOMENLONG"
@@ -62,15 +68,51 @@ export const HairStylesmenLong = (data) => {
 //         payload: data
 //     }
 // }
-export const PriceListDetail = (data) => {
+export const PriceWomenShort = (data) => {
     return {
-        type: SHOPDETAIL,
+        type: PRICEWOMENSHORT,
         payload: data
     }
 }
-export const BarberDetail = (data) => {
+export const PriceWomenMedium = (data) => {
     return {
-        type: SHOPDETAIL,
+        type: PRICEWOMENMEDIUM,
         payload: data
     }
 }
+export const PriceWomenLong = (data) => {
+    return {
+        type: PRICEWOMENLONG,
+        payload: data
+    }
+}
+export const PriceMenShort = (data) => {
+    return {
+        type: PRICEMENSHORT,
+        payload: data
+    }
+}
+export const PriceMenLong = (data) => {
+    return {
+        type: PRICEMENLONG,
+        payload: data
+    }
+}
+export const PriceMenService = (data) => {
+    return {
+        type: PRICEMENSERVICE,
+        payload: data
+    }
+}
+export const PriceWomenService = (data) => {
+    return {
+        type: PRICEWOMENSERVICE,
+        payload: data
+    }
+}
+// export const BarberDetail = (data) => {
+//     return {
+//         type: SHOPDETAIL,
+//         payload: data
+//     }
+// }

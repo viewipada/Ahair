@@ -21,7 +21,7 @@ export default class Shop extends Component {
                 <div id="wrapper">
 
                     {/* Sidebar */}
-                    <Sidebar />
+                    {/* <Sidebar /> */}
 
                     {/* <!-- Main --> */}
                     <div id="main">

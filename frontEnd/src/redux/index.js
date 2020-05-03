@@ -15,8 +15,14 @@ export { HairStyleswomenMedium } from './action/ShopInformationAction'
 export { HairStyleswomenShort } from './action/ShopInformationAction'
 export { HairStylesmenLong } from './action/ShopInformationAction'
 export { HairStylesmenShort } from './action/ShopInformationAction'
-export { BarberDetail } from './action/ShopInformationAction'
-export { PriceListDetail } from './action/ShopInformationAction'
+// export { BarberDetail } from './action/ShopInformationAction'
+export { PriceMenLong } from './action/ShopInformationAction'
+export { PriceMenShort } from './action/ShopInformationAction'
+export { PriceWomenLong } from './action/ShopInformationAction'
+export { PriceWomenMedium } from './action/ShopInformationAction'
+export { PriceWomenShort } from './action/ShopInformationAction'
+export { PriceWomenService } from './action/ShopInformationAction'
+export { PriceMenService} from './action/ShopInformationAction'
 
 export default combineReducers ({
     SignUpForShopReducer,

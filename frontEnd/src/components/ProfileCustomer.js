@@ -7,7 +7,6 @@ import genderIcon from './pic/gender_icon.png';
 import errorIcon from './pic/error_icon.png';
 import NavBar from './navbar';
 // import ImageUpload from './ImageUpload';
-
 import axios from 'axios';
 
 class ProfileCustomer extends React.Component {
@@ -15,26 +14,16 @@ class ProfileCustomer extends React.Component {
     {
         super();
         this.state = { 
-            username: "",
-            name: "",
-            email: "",
-            phone : "",
-            gender : "agender",
-            usernameError: "",
-            nameError: "",
-            emailError: "",
-            phoneError: ""
-            
+            posts:[]
         }
     }
     
-
     componentDidMount(){
-        axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/user')
+        axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/user',{headers: {'Authorization':'Bearer ' + 'eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4ODQ4YjVhZmYyZDUyMDEzMzFhNTQ3ZDE5MDZlNWFhZGY2NTEzYzgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODQ0NDM1NiwidXNlcl9pZCI6IjVuNjBiQlBLQjVNdkNpZ2VjUjNmQW1COTRmSDMiLCJzdWIiOiI1bjYwYkJQS0I1TXZDaWdlY1IzZkFtQjk0ZkgzIiwiaWF0IjoxNTg4NDQ0MzU2LCJleHAiOjE1ODg0NDc5NTYsImVtYWlsIjoibmV3N0BlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3N0BlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.W4BaTtULcVDxb1thACZFnJORW3uRDS1RjcdAiqQGUR2mWMGshcsELXiNw17NOm5-BRR8q4hhEGQrQ16RkCsKY739tKmkSk8DSU20Jz8PxxpSMwbj-tm6T4vjqrofwXbancsNm9w8qR_GjtB5njbSYpX7GZLZ2bIQjwhhfDo-T0qXvDE0gW-4jaEiEpMashaiwIMtvJILf2tWKtHAlQrwJ5hr9b8W089arf-2W_SAUzfiSDwO9KNZsB-l6wi58tpelFTAGM57dB9cEzyZJpCSAAWwTYAUm9S8GaZPqnqiKqhlZZ3EreKl-cXrx77yVWrM9IKL0VJiPDtSJ2Tp_3JBtA'}})
         .then(res => {
-            console.log(res.data)
+            console.log(res.data.credentials)
             this.setState({
-                users: res.data
+                posts: res.data.credentials
             })
         })
         .catch(err => console.log(err));
@@ -64,7 +53,7 @@ class ProfileCustomer extends React.Component {
                                                     className = "image_preview"
                                                     alt = ""
                                                     id = "profile"
-                                                    src = {errorIcon } //get data form backend
+                                                    src = {this.state.posts.imgUrl} //get data form backend
                                                     
                                                 />
                                             </div>
@@ -78,21 +67,21 @@ class ProfileCustomer extends React.Component {
                                         <div className="wrap_input_info">
                                             <img className="input_icon"src={userIcon} alt=""/>
                                             <div className = "input_info"> 
-                                            {/*username*/}
+                                            {this.state.posts.handle}
                                             </div>
                                         </div>
 
                                         <div className="wrap_input_info">
                                             <img className="input_icon"src={userIcon} alt=""/>
                                             <div className = "input_info">
-                                            {/*name*/}
+                                            {this.state.posts.name}
                                             </div>
                                         </div>
                                     
                                         <div className="wrap_input_info">
                                             <img className="input_icon"src={emailIcon} alt=""/>
-                                            <div className = "inpinput_infout">
-                                            {/*email*/}
+                                            <div className = "input_info">
+                                            {this.state.posts.email}
                                             </div>
                                         </div>
                                         
@@ -101,7 +90,7 @@ class ProfileCustomer extends React.Component {
                                                 <div className="wrap_input_info">
                                                     <img className="input_icon"src={phoneIcon} alt=""/>
                                                     <div className = "input_info">
-                                                    {/*phone*/}
+                                                    {this.state.posts.phoneNum}
                                                     </div>
                                                 </div>
                                             </div>
@@ -110,7 +99,7 @@ class ProfileCustomer extends React.Component {
                                                 <div className="wrap_input_info">
                                                     <img className="input_icon" src={genderIcon} alt=""/>
                                                     <div className = "input_info">
-                                                    {/*gender*/}
+                                                    {this.state.posts.userGender}
                                                     </div>
                                                 </div>
                                             </div>
