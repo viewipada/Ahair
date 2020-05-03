@@ -1,31 +1,37 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link ,Redirect} from 'react-router-dom'
 import logo from './pic/logo_V2.1.png'
 import { FaSistrix, FaUser } from "react-icons/fa"
 import { IoIosNotifications } from "react-icons/io"
 import { FaGrin } from 'react-icons/fa'
+import { storage } from 'firebase';
 
 class NavBar extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            statename: 'SignIn',
+            statename: localStorage.getItem('username')+localStorage.getItem('shopname') || "SignIn",
             displayMenu: false,
-            checkLogin: false,
+            // checkLogin: false,
             iconchange: "users icon",
-            searchValue: 'null'
+            searchValue: 'null',
+            isSignin: null
         };
+        
         this.showDropdownMenu = this.showDropdownMenu.bind(this);
         this.hideDropdownMenu = this.hideDropdownMenu.bind(this);
         this.logoutevent = this.logoutevent.bind(this)
     }
+    componentDidMount(){
+        const token = localStorage.getItem('token')
+        if (!token) this.setState({isSignin:false})
+        else this.setState({isSignin:true})
+    }
 
     showDropdownMenu = () => {
-        const checkLogin = this.state.checkLogin;
-        if (!checkLogin) {
-            this.setState({ statename: 'Pixy' });
-            this.setState({ checkLogin: true });
-            console.log("hereee!!");
+        if (!this.state.isSignin) {
+            // <Link className="link" to="/signin"/>
         }
         else {
             this.setState({ displayMenu: true }, () => {
@@ -42,8 +48,11 @@ class NavBar extends Component {
     }
 
     logoutevent = () => {
-        this.setState({ checkLogin: false });
-        this.setState({ statename: 'SignIn' });
+        this.setState({ isSignin: false });
+        this.props.history.push('/home')
+        localStorage.removeItem('token')
+        localStorage.removeItem('username')
+        localStorage.removeItem('shopname')
     }
 
     handleInputChange = (event) => {
@@ -101,7 +110,7 @@ class NavBar extends Component {
                 </div>
                 <div className="leftGroup">
                     {
-                        this.state.checkLogin ?
+                        this.state.isSignin ?
                             (
                                 <button className="iconBt"><FaGrin color='white' size='1.8em' /></button>
 
@@ -109,24 +118,24 @@ class NavBar extends Component {
                             : null
                     }
                     {
-                        this.state.checkLogin ?
+                        this.state.isSignin ?
                             (
                                 <button className="iconBt"><IoIosNotifications color='white' size='2em' /></button>
                             )
                             : null
                     }
 
-                    <button
+                    <button 
                         class="Signin"
                         onClick={() => { this.showDropdownMenu() }}>
-                        <i class={!this.state.checkLogin ? "users icon" : "user circle icon"}></i>
+                        <i class={!this.state.isSignin ? "users icon" : "user circle icon"}></i>
                         {this.state.statename}
                     </button>
 
                     {this.state.displayMenu ? (
                         <ul>
-                            <a href="#Profile" >Profile</a>
-                            <a href="#LogOut" onClick={this.logoutevent}>Log Out</a>
+                            <a href= {localStorage.getItem('username') ? "/profilecustomer" : "/profileshop"}>Profile</a>
+                            <a onClick={this.logoutevent}>Log Out</a>
                         </ul>
                     ) :
                         (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {PriceWomenShort,PriceWomenMedium,PriceWomenLong,PriceMenShort,PriceMenLong,PriceMenService,PriceWomenService} from '../redux/index'
 import NavBarShop from './NavBarShop';
@@ -95,7 +95,8 @@ class PriceList extends React.Component {
             list_womenMedium: this.props.womenMediumStore,
             list_womenLong: this.props.womenLongStore,
             list_menShort: this.props.menShortStore,
-            list_menLong: this.props.menLongStore 
+            list_menLong: this.props.menLongStore ,
+            isSignin: null
         }
         this.servicesWomenChange = this.servicesWomenChange.bind(this)
         this.servicesMenChange = this.servicesMenChange.bind(this)
@@ -109,6 +110,11 @@ class PriceList extends React.Component {
         this.imghairstyleMenShortChange = this.imghairstyleMenShortChange.bind(this)
         this.hairstyleMenLongChange = this.hairstyleMenLongChange.bind(this)
         this.imghairstyleMenLongChange = this.imghairstyleMenLongChange.bind(this)
+    }
+    componentDidMount() {
+        const token = localStorage.getItem('token')
+        if (!token) this.setState({isSignin:false})
+        else this.setState({isSignin:true})
     }
     servicesWomenChange(value, price) {
         // console.log(value,price)
@@ -225,7 +231,7 @@ class PriceList extends React.Component {
                 price : parseInt(element.price, 10)
                 // hairstyleImg: element.hairstyleImg
             }
-            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjVlOWVlOTdjODQwZjk3ZTAyNTM2ODhhM2I3ZTk0NDczZTUyOGE3YjUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODA5NTYyOCwidXNlcl9pZCI6ImxZaDJ6djJ0M1dYQUdiWVVkN2syeXRreDllWTIiLCJzdWIiOiJsWWgyenYydDNXWEFHYllVZDdrMnl0a3g5ZVkyIiwiaWF0IjoxNTg4MDk1NjI4LCJleHAiOjE1ODgwOTkyMjgsImVtYWlsIjoibmV3MkBlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3MkBlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.HmF4xbkd8X8LczNbVfKJgWOFYpvJGmvmkmQ2-79Mm-a5bTKOmHqWzg2Ofo4ChIV5gsY7IKKsTRtRtePjC5Z-fJOoXkdc7iLEXELGuNn0LTs1-hLdMUYeqyavNsKOCZ_w-6M3KXY0VeYIusDMlXUDZAhGMZstmJgE7_bAo9e7C7eeCZRQzba0C-BShzcoNhT627PXC0C-MYl3fsU05NJ0djHuV7mPiZfTi0zh_7VzHa8bT4AGavgDJfPcRn6cd__KT65EVQ4nvYXsl-lqDGeaFKaUnGUOHcQQe17ExYHGZ5-lPOqVkRxPosK8KatLXCOkv7yCvE5gMcEtbyrxjK6wCA'}})
+            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
                 .then(function(response){
                     console.log(response)
                 })
@@ -240,7 +246,7 @@ class PriceList extends React.Component {
                 price : parseInt(element.price, 10)
                 // hairstyleImg: element.hairstyleImg
             }
-            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjVlOWVlOTdjODQwZjk3ZTAyNTM2ODhhM2I3ZTk0NDczZTUyOGE3YjUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODA5NTYyOCwidXNlcl9pZCI6ImxZaDJ6djJ0M1dYQUdiWVVkN2syeXRreDllWTIiLCJzdWIiOiJsWWgyenYydDNXWEFHYllVZDdrMnl0a3g5ZVkyIiwiaWF0IjoxNTg4MDk1NjI4LCJleHAiOjE1ODgwOTkyMjgsImVtYWlsIjoibmV3MkBlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3MkBlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.HmF4xbkd8X8LczNbVfKJgWOFYpvJGmvmkmQ2-79Mm-a5bTKOmHqWzg2Ofo4ChIV5gsY7IKKsTRtRtePjC5Z-fJOoXkdc7iLEXELGuNn0LTs1-hLdMUYeqyavNsKOCZ_w-6M3KXY0VeYIusDMlXUDZAhGMZstmJgE7_bAo9e7C7eeCZRQzba0C-BShzcoNhT627PXC0C-MYl3fsU05NJ0djHuV7mPiZfTi0zh_7VzHa8bT4AGavgDJfPcRn6cd__KT65EVQ4nvYXsl-lqDGeaFKaUnGUOHcQQe17ExYHGZ5-lPOqVkRxPosK8KatLXCOkv7yCvE5gMcEtbyrxjK6wCA'}})
+            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
                 .then(function(response){
                     console.log(response)
                 })
@@ -255,7 +261,7 @@ class PriceList extends React.Component {
                 price : parseInt(element.price, 10)
                 // hairstyleImg: element.hairstyleImg
             }
-            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjVlOWVlOTdjODQwZjk3ZTAyNTM2ODhhM2I3ZTk0NDczZTUyOGE3YjUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODA5NTYyOCwidXNlcl9pZCI6ImxZaDJ6djJ0M1dYQUdiWVVkN2syeXRreDllWTIiLCJzdWIiOiJsWWgyenYydDNXWEFHYllVZDdrMnl0a3g5ZVkyIiwiaWF0IjoxNTg4MDk1NjI4LCJleHAiOjE1ODgwOTkyMjgsImVtYWlsIjoibmV3MkBlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3MkBlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.HmF4xbkd8X8LczNbVfKJgWOFYpvJGmvmkmQ2-79Mm-a5bTKOmHqWzg2Ofo4ChIV5gsY7IKKsTRtRtePjC5Z-fJOoXkdc7iLEXELGuNn0LTs1-hLdMUYeqyavNsKOCZ_w-6M3KXY0VeYIusDMlXUDZAhGMZstmJgE7_bAo9e7C7eeCZRQzba0C-BShzcoNhT627PXC0C-MYl3fsU05NJ0djHuV7mPiZfTi0zh_7VzHa8bT4AGavgDJfPcRn6cd__KT65EVQ4nvYXsl-lqDGeaFKaUnGUOHcQQe17ExYHGZ5-lPOqVkRxPosK8KatLXCOkv7yCvE5gMcEtbyrxjK6wCA'}})
+            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
                 .then(function(response){
                     console.log(response)
                 })
@@ -270,7 +276,7 @@ class PriceList extends React.Component {
                 price : parseInt(element.price, 10)
                 // hairstyleImg: element.hairstyleImg
             }
-            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjVlOWVlOTdjODQwZjk3ZTAyNTM2ODhhM2I3ZTk0NDczZTUyOGE3YjUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODA5NTYyOCwidXNlcl9pZCI6ImxZaDJ6djJ0M1dYQUdiWVVkN2syeXRreDllWTIiLCJzdWIiOiJsWWgyenYydDNXWEFHYllVZDdrMnl0a3g5ZVkyIiwiaWF0IjoxNTg4MDk1NjI4LCJleHAiOjE1ODgwOTkyMjgsImVtYWlsIjoibmV3MkBlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3MkBlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.HmF4xbkd8X8LczNbVfKJgWOFYpvJGmvmkmQ2-79Mm-a5bTKOmHqWzg2Ofo4ChIV5gsY7IKKsTRtRtePjC5Z-fJOoXkdc7iLEXELGuNn0LTs1-hLdMUYeqyavNsKOCZ_w-6M3KXY0VeYIusDMlXUDZAhGMZstmJgE7_bAo9e7C7eeCZRQzba0C-BShzcoNhT627PXC0C-MYl3fsU05NJ0djHuV7mPiZfTi0zh_7VzHa8bT4AGavgDJfPcRn6cd__KT65EVQ4nvYXsl-lqDGeaFKaUnGUOHcQQe17ExYHGZ5-lPOqVkRxPosK8KatLXCOkv7yCvE5gMcEtbyrxjK6wCA'}})
+            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
                 .then(function(response){
                     console.log(response)
                 })
@@ -285,7 +291,7 @@ class PriceList extends React.Component {
                 price : parseInt(element.price, 10)
                 // hairstyleImg: element.hairstyleImg
             }
-            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjVlOWVlOTdjODQwZjk3ZTAyNTM2ODhhM2I3ZTk0NDczZTUyOGE3YjUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODA5NTYyOCwidXNlcl9pZCI6ImxZaDJ6djJ0M1dYQUdiWVVkN2syeXRreDllWTIiLCJzdWIiOiJsWWgyenYydDNXWEFHYllVZDdrMnl0a3g5ZVkyIiwiaWF0IjoxNTg4MDk1NjI4LCJleHAiOjE1ODgwOTkyMjgsImVtYWlsIjoibmV3MkBlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3MkBlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.HmF4xbkd8X8LczNbVfKJgWOFYpvJGmvmkmQ2-79Mm-a5bTKOmHqWzg2Ofo4ChIV5gsY7IKKsTRtRtePjC5Z-fJOoXkdc7iLEXELGuNn0LTs1-hLdMUYeqyavNsKOCZ_w-6M3KXY0VeYIusDMlXUDZAhGMZstmJgE7_bAo9e7C7eeCZRQzba0C-BShzcoNhT627PXC0C-MYl3fsU05NJ0djHuV7mPiZfTi0zh_7VzHa8bT4AGavgDJfPcRn6cd__KT65EVQ4nvYXsl-lqDGeaFKaUnGUOHcQQe17ExYHGZ5-lPOqVkRxPosK8KatLXCOkv7yCvE5gMcEtbyrxjK6wCA'}})
+            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
                 .then(function(response){
                     console.log(response)
                 })
@@ -300,7 +306,7 @@ class PriceList extends React.Component {
                 price : parseInt(element.price, 10)
                 // hairstyleImg: element.hairstyleImg
             }
-            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjVlOWVlOTdjODQwZjk3ZTAyNTM2ODhhM2I3ZTk0NDczZTUyOGE3YjUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODA5NTYyOCwidXNlcl9pZCI6ImxZaDJ6djJ0M1dYQUdiWVVkN2syeXRreDllWTIiLCJzdWIiOiJsWWgyenYydDNXWEFHYllVZDdrMnl0a3g5ZVkyIiwiaWF0IjoxNTg4MDk1NjI4LCJleHAiOjE1ODgwOTkyMjgsImVtYWlsIjoibmV3MkBlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3MkBlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.HmF4xbkd8X8LczNbVfKJgWOFYpvJGmvmkmQ2-79Mm-a5bTKOmHqWzg2Ofo4ChIV5gsY7IKKsTRtRtePjC5Z-fJOoXkdc7iLEXELGuNn0LTs1-hLdMUYeqyavNsKOCZ_w-6M3KXY0VeYIusDMlXUDZAhGMZstmJgE7_bAo9e7C7eeCZRQzba0C-BShzcoNhT627PXC0C-MYl3fsU05NJ0djHuV7mPiZfTi0zh_7VzHa8bT4AGavgDJfPcRn6cd__KT65EVQ4nvYXsl-lqDGeaFKaUnGUOHcQQe17ExYHGZ5-lPOqVkRxPosK8KatLXCOkv7yCvE5gMcEtbyrxjK6wCA'}})
+            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
                 .then(function(response){
                     console.log(response)
                 })
@@ -315,7 +321,7 @@ class PriceList extends React.Component {
                 price : parseInt(element.price, 10)
                 // hairstyleImg: element.hairstyleImg
             }
-            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjVlOWVlOTdjODQwZjk3ZTAyNTM2ODhhM2I3ZTk0NDczZTUyOGE3YjUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODA5NTYyOCwidXNlcl9pZCI6ImxZaDJ6djJ0M1dYQUdiWVVkN2syeXRreDllWTIiLCJzdWIiOiJsWWgyenYydDNXWEFHYllVZDdrMnl0a3g5ZVkyIiwiaWF0IjoxNTg4MDk1NjI4LCJleHAiOjE1ODgwOTkyMjgsImVtYWlsIjoibmV3MkBlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3MkBlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.HmF4xbkd8X8LczNbVfKJgWOFYpvJGmvmkmQ2-79Mm-a5bTKOmHqWzg2Ofo4ChIV5gsY7IKKsTRtRtePjC5Z-fJOoXkdc7iLEXELGuNn0LTs1-hLdMUYeqyavNsKOCZ_w-6M3KXY0VeYIusDMlXUDZAhGMZstmJgE7_bAo9e7C7eeCZRQzba0C-BShzcoNhT627PXC0C-MYl3fsU05NJ0djHuV7mPiZfTi0zh_7VzHa8bT4AGavgDJfPcRn6cd__KT65EVQ4nvYXsl-lqDGeaFKaUnGUOHcQQe17ExYHGZ5-lPOqVkRxPosK8KatLXCOkv7yCvE5gMcEtbyrxjK6wCA'}})
+            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',newHairstyle ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
                 .then(function(response){
                     console.log(response)
                 })
@@ -329,6 +335,7 @@ class PriceList extends React.Component {
     };
 
     render() {
+        if(!this.state.isSignin) return <Redirect to='/home' />
       return (
         <div className="big_container">
             <NavBarShop />

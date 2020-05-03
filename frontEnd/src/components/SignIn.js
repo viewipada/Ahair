@@ -66,6 +66,8 @@ class SignIn extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         const isValid = this.validate();
+        let currentState = this;
+
         if (isValid) {
           console.log(this.state);
           this.setState(this.state);
@@ -80,14 +82,14 @@ class SignIn extends React.Component {
             console.log(response);
             if(response.data.loginData.token) {
                 localStorage.setItem('token', response.data.loginData.token);
-                // localStorage.setItem('username', response.data.loginData.username);
-                // localStorage.setItem('type', response.data.loginData.type);
-                this.setState({isSignin:true, messageError:""})
+                localStorage.setItem('username', response.data.loginData.username);
+                localStorage.setItem('shopname', response.data.loginData.shopname);
+                currentState.setState({isSignin:true, messageError:""})
                 this.props.history.push('/home')
             }
           })
           .catch(function (error) {
-                this.setState({messageError : "Incorrect password or email", email:"",emailError:"",password:"",passwordError:""})
+                currentState.setState({messageError : "Incorrect password or email", email:"",emailError:"",password:"",passwordError:""})
                 console.log(error);
           });
 
