@@ -30,16 +30,16 @@ class NavBar extends Component {
         else this.setState({isSignin:true})
     }
 
-<<<<<<< HEAD
     showDropdownMenu = () => {
         if (!this.state.isSignin) {
             // <Link className="link" to="/signin"/>
-=======
+        }
+    }
+    
     componentDidMount() {
         if (localStorage.getItem('user')) {
             this.setState({ checkLogin: true });
             this.setState({ statename: localStorage.getItem('username') });
->>>>>>> ecb6b71763f4bb70e12fd46d838fe838b3eb2d7b
         }
     }
 
@@ -60,17 +60,14 @@ class NavBar extends Component {
     }
 
     logoutevent = () => {
-<<<<<<< HEAD
         this.setState({ isSignin: false });
         this.props.history.push('/home')
         localStorage.removeItem('token')
         localStorage.removeItem('username')
         localStorage.removeItem('shopname')
-=======
         this.setState({ checkLogin: false });
         this.setState({ statename: 'SignIn' });
         localStorage.clear();
->>>>>>> ecb6b71763f4bb70e12fd46d838fe838b3eb2d7b
     }
 
     handleInputChange = (event) => {
@@ -86,6 +83,7 @@ class NavBar extends Component {
                 <Link className="link" to="/home">
                     <img src={logo} class="ui small image" alt="Home" />
                 </Link>
+
                 <div className="leftGroup">
                     {
                         this.state.isSignin ?
@@ -109,14 +107,8 @@ class NavBar extends Component {
                             )
                             : null
                     }
-<<<<<<< HEAD
 
-                    <button 
-                        class="Signin"
-                        onClick={() => { this.showDropdownMenu() }}>
-                        <i class={!this.state.isSignin ? "users icon" : "user circle icon"}></i>
-                        {this.state.statename}
-=======
+                    
                     <button
                         class="Signin"
                         onClick={this.showDropdownMenu}>
@@ -125,18 +117,12 @@ class NavBar extends Component {
                                 : <i className="users icon" size='2em'></i>
                         }
                         <span>{this.state.statename}</span>
->>>>>>> ecb6b71763f4bb70e12fd46d838fe838b3eb2d7b
                     </button>
 
                     {this.state.displayMenu ? (
                         <ul>
-<<<<<<< HEAD
-                            <a href= {localStorage.getItem('username') ? "/profilecustomer" : "/profileshop"}>Profile</a>
-                            <a onClick={this.logoutevent}>Log Out</a>
-=======
                             <a href="/profilecustomer" >Profile</a>
                             <a href="/home" onClick={this.logoutevent}>Log Out</a>
->>>>>>> ecb6b71763f4bb70e12fd46d838fe838b3eb2d7b
                         </ul>
                     ) :
                         (
