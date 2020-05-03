@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import {SignUpForCustomer_one} from '../redux/index'
 import { Link } from 'react-router-dom';
 import emailIcon from './pic/email_icon.png';
 import userIcon from './pic/user_icon.png';
@@ -8,15 +10,15 @@ import errorIcon from './pic/error_icon.png';
 // import java.util.regex.*;
 
 class SignUpForCustomerOne extends React.Component {
-    constructor()
+    constructor(props)
     {
-        super();
+        super(props);
         this.state = { 
-            username: "",
-            name: "",
-            email: "",
-            phone : "",
-            gender : "agender",
+            username: this.props.customersignupStore.username,
+            name: this.props.customersignupStore.name,
+            email: this.props.customersignupStore.email,
+            phone : this.props.customersignupStore.phone,
+            gender : this.props.customersignupStore.gender || "Agender",
             usernameError: "",
             nameError: "",
             emailError: "",
@@ -27,6 +29,7 @@ class SignUpForCustomerOne extends React.Component {
     validate = () => {
         var emailpattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
         var namepattern = new RegExp(/\W/)
+        var phonepattern = new RegExp(/^[0-9]{10}$/)
         let usernameError=""
         let nameError=""
         let emailError=""
@@ -48,7 +51,7 @@ class SignUpForCustomerOne extends React.Component {
         if (!emailpattern.test(this.state.email)) {
             emailError = "invalid email !";
         }
-        if(!this.state.phone.match(/^[0-9]{10}$/) || !this.state.phone){
+        if(!phonepattern.test(this.state.phone) || !this.state.phone){
             phoneError = "invalid phone number !"
         }
         if(usernameError || nameError || emailError || phoneError){
@@ -74,6 +77,7 @@ class SignUpForCustomerOne extends React.Component {
         if (isValid) {
           console.log(this.state);
           this.setState(this.state);
+          this.props.signupcustomer(this.state);
           this.props.history.push('/signup_customer_2')
         }
     };
@@ -103,7 +107,7 @@ class SignUpForCustomerOne extends React.Component {
                                         id = "username"
                                         placeholder = "Username *"
                                         maxLength = "20"
-                                        value = {this.state.username}  
+                                        value = {this.state.username || ""}  
                                         onChange = {this.handleChange} 
                                     />
                                     <div className={this.state.usernameError===""? "validate_wrap" :"invalidate_wrap"}>
@@ -123,7 +127,7 @@ class SignUpForCustomerOne extends React.Component {
                                         type = "text"
                                         id = "name"
                                         placeholder = "Name *"
-                                        value = {this.state.name}  
+                                        value = {this.state.name || ""}  
                                         onChange = {this.handleChange} 
                                     />
                                     <div className={this.state.nameError===""? "validate_wrap" :"invalidate_wrap"}>
@@ -143,7 +147,7 @@ class SignUpForCustomerOne extends React.Component {
                                         type = "email"
                                         id = "email"
                                         placeholder = "Email *"
-                                        value = {this.state.email}  
+                                        value = {this.state.email || ""}  
                                         onChange = {this.handleChange} 
                                     />
                                     <div className={this.state.emailError===""? "validate_wrap" :"invalidate_wrap"}>
@@ -168,7 +172,7 @@ class SignUpForCustomerOne extends React.Component {
                                             id = "phone"
                                             maxLength = "10"
                                             placeholder = "Phone number *"
-                                            value = {this.state.phone}  
+                                            value = {this.state.phone || ""}  
                                             onChange = {this.handleChange} 
                                         />
                                         <div className={this.state.phoneError===""? "validate_wrap" :"invalidate_wrap"}>
@@ -186,9 +190,9 @@ class SignUpForCustomerOne extends React.Component {
                                     <div className="wrap_input">
                                         <img className="input_icon" src={genderIcon} alt=""/>
                                         <select className="select_input" id="gender" onChange={this.selectGender}>
-                                            <option value="agender" >Agender</option>
-                                            <option value="female" >Female</option>
-                                            <option value="male" >Male</option>
+                                            <option value="Agender" >Agender</option>
+                                            <option value="Female" >Female</option>
+                                            <option value="Male" >Male</option>
                                         </select>
                                     </div>
                                 </div>
@@ -217,4 +221,15 @@ class SignUpForCustomerOne extends React.Component {
         );
     }
 }
-export default SignUpForCustomerOne;
+const mapStateToProps = (state) => { //subscribe
+    return {
+        customersignupStore: state.SignUpForCustomerReducer.customersignup
+    }       
+}
+const mapDispatchToProps =(dispatch) => {
+    return {
+        signupcustomer: (data) => dispatch(SignUpForCustomer_one(data))
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(SignUpForCustomerOne);

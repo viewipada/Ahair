@@ -1,31 +1,38 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link , Redirect} from 'react-router-dom';
 import emailIcon from './pic/email_icon.png';
 import userIcon from './pic/user_icon.png';
 import phoneIcon from './pic/phone_icon.png';
 import errorIcon from './pic/error_icon.png';
 import shopIcon from './pic/shop_icon.png';
 import NavBarShop from './NavBarShop';
-// import ImageUpload from './ImageUpload';
-
+import axios from 'axios';
 class ProfileShop extends React.Component {
-    constructor()
+    constructor(props)
     {
-        super();
+        super(props);
+        const token = localStorage.getItem('token')
+        let isSignin = true
+        if (!token) isSignin =false
         this.state = { 
-            username: "",
-            name: "",
-            email: "",
-            phone : "",
-            gender : "agender",
-            usernameError: "",
-            nameError: "",
-            emailError: "",
-            phoneError: ""
+            posts:[],
+            isSignin
         }
+        
+    }
+    componentDidMount(){
+        axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/Ashop',{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
+        .then(res => {
+            this.setState({
+                posts: res.data.credentials,
+                isSignin : true
+            })
+        })
+        .catch(err => console.log(err));
     }
 
     render(){
+        if(!this.state.isSignin) return <Redirect to='/home' />
         return(
             <div className="big_container">
                 <NavBarShop />
@@ -48,7 +55,7 @@ class ProfileShop extends React.Component {
                                                     className = "image_preview"
                                                     alt = ""
                                                     id = "profile"
-                                                    src = {errorIcon } //get data form backend
+                                                    src = {this.state.posts.imgUrl } //get data form backend
                                                     
                                                 />
                                             </div>
@@ -62,28 +69,28 @@ class ProfileShop extends React.Component {
                                         <div className="wrap_input_info">
                                             <img className="input_icon"src={shopIcon} alt=""/>
                                             <div className = "input_info">
-                                            {/*shopname*/}
+                                            {this.state.posts.shopName}
                                             </div>
                                         </div>
 
                                         <div className="wrap_input_info">
                                             <img className="input_icon"src={userIcon} alt=""/>
                                             <div className = "input_info">
-                                            {/*adminname*/}
+                                            {this.state.posts.adminName}
                                             </div>
                                         </div>
                                     
                                         <div className="wrap_input_info">
                                             <img className="input_icon"src={emailIcon} alt=""/>
-                                            <div className = "inpinput_infout">
-                                            {/*email*/}
+                                            <div className = "input_info">
+                                            {this.state.posts.email}
                                             </div>
                                         </div>
 
                                         <div className="wrap_input_info">
                                             <img className="input_icon"src={phoneIcon} alt=""/>
-                                            <div className = "inpinput_infout">
-                                            {/*phone*/}
+                                            <div className = "input_info">
+                                            {this.state.posts.phoneNum}
                                             </div>
                                         </div>
 

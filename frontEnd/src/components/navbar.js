@@ -13,7 +13,7 @@ class NavBar extends Component {
             displayMenu: false,
             checkLogin: false,
             iconchange: "users icon",
-            searchValue: 'null',
+            searchValue: 'null'
         };
         this.showDropdownMenu = this.showDropdownMenu.bind(this);
         this.hideDropdownMenu = this.hideDropdownMenu.bind(this);
@@ -76,7 +76,7 @@ class NavBar extends Component {
     render() {
         return (
             <div class="wrapnavbar">
-                <Link className="link" to="/home">
+                <Link className="link" to="">
                     <img src={logo} class="homelogo" alt="Home" />
                 </Link>
                 <div class="searchBox">

@@ -10,33 +10,36 @@ import visibleIcon from './pic/visible_icon.png'
 import invisibleIcon from './pic/invisible_icon.png'
 import ImageUpload from './ImageUpload';
 import NavBarShop from './NavBarShop';
+import axios from 'axios'
 
 class EditProfileShop extends React.Component {
     constructor()
     {
         super();
         this.state = { 
-            shopname: "",
             adminname: "",
-            email: "",
             phone : "",
             adminnameError: "",
-            shopnameError: "",
-            emailError: "",
             phoneError: "",
-            hidePassword: true ,
-            passwordBox: false,
-            password: "",
-            confirmPassword: "",
-            passwordError: "",
-            confirmPasswordError: "",
             imageFile: "",
             imagePreview: "",
-            imageUrl: ""
+            imageUrl: "",
+            posts:[]
         }
         this.getFile = this.getFile.bind(this);
     }
-
+    componentDidMount(){
+        axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/Ashop',{headers: {'Authorization':'Bearer ' + 'eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4ODQ4YjVhZmYyZDUyMDEzMzFhNTQ3ZDE5MDZlNWFhZGY2NTEzYzgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODQ0OTMxMCwidXNlcl9pZCI6IjFxNlZOUE9KVEdSQjFBN2xKR1JRdnJ1WXBwMTIiLCJzdWIiOiIxcTZWTlBPSlRHUkIxQTdsSkdSUXZydVlwcDEyIiwiaWF0IjoxNTg4NDQ5MzEwLCJleHAiOjE1ODg0NTI5MTAsImVtYWlsIjoibmV3c2hvcDVAZW1haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbIm5ld3Nob3A1QGVtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Z9lt85tcFo0mti3laAO4lyVLWHmGEPfjPf6efe9OOpiy9Ucr_9HXII_ImBIf-UIWW7nIYA6kWt8tBUyuVowVMugdkYTe3GXJcCnZaKASMTz6Uokn3Y-KelfDVEBZK5y_Il8H2pnm_rtCa2NFcGpI908i0uQoF1_kFb3zA1KLC4-vVKJb7mtlzfVcr4h3E-BOaCF4Ia77zoNzcUZvvwyPLaRLh3V6KN1z_31l2mK1VuKLhxyAGIUFb8S2xKjIJhvRZy5BGOeo5MFuWKHE2CothnDQCe15o4PxMOV_7Pe263ohjNY_sU-rrRMNDRlPXhPplH4iNn9VR1PdsBAKKIaBiA'}})
+        .then(res => {
+            console.log(res.data[0])
+            this.setState({
+                posts: res.data.credentials,
+                adminname:res.data.credentials.adminName,
+                phone: res.data.credentials.phoneNum,
+            })
+        })
+        .catch(err => console.log(err));
+    }
     getFile(img_file, img_preview, img_url) {
         this.setState({
             imageFile: img_file, imagePreview: img_preview, imageUrl: img_url
@@ -51,37 +54,9 @@ class EditProfileShop extends React.Component {
     {
         this.setState({ hidePassword: !this.state.hidePassword });
     }
-
-    validatePassword = () => {
-        var pattern = new RegExp(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/);
-        let passwordError=""
-        let confirmPasswordError=""
-        
-        if(!this.state.password){
-            passwordError = "invalid password !"
-        }
-        else if (!pattern.test(this.state.password)) {
-            passwordError = "Must match pattern";
-        }
-        if(!this.state.confirmPassword){
-            confirmPasswordError = "invalid password !"
-        }
-        else if(this.state.password != this.state.confirmPassword){
-            confirmPasswordError = "Not match , please try again."
-        }
-
-        if(confirmPasswordError || passwordError){
-            this.setState({ passwordError : passwordError, confirmPasswordError : confirmPasswordError });
-            return false;
-        }
-        return true;
-    };
     
     validate = () => {
-        var emailpattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
         let adminnameError=""
-        let shopnameError=""
-        let emailError=""
         let phoneError=""
         
         if(!this.state.adminname){
@@ -90,18 +65,11 @@ class EditProfileShop extends React.Component {
         else if(this.state.adminname.match(/[0-9]+/)){
             adminnameError = "Must be letters only"
         }
-        // if(ซ้ำกับในระบบ) (/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)
-        if(!this.state.shopname){
-            shopnameError = "invalid name !"
-        }
-        if (!emailpattern.test(this.state.email)) {
-            emailError = "invalid email !";
-        }
         if(!this.state.phone.match(/^[0-9]{10}$/) || !this.state.phone){
             phoneError = "invalid phone number !"
         }
-        if(adminnameError || shopnameError || emailError || phoneError){
-            this.setState({ shopnameError, adminnameError, emailError, phoneError });
+        if(adminnameError || phoneError){
+            this.setState({ adminnameError, phoneError });
             return false;
         }
         return true;
@@ -115,11 +83,24 @@ class EditProfileShop extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         const isValid = this.validate();
-        const isValidPassword = this.validatePassword();
         // console.log(this.state);
-        if ((isValid && this.state.passwordBox && isValidPassword) || (isValid && !this.state.passwordBox)){
+        if (isValid){
           console.log(this.state);
           this.setState(this.state);
+          const editShop = {
+            adminName : this.state.adminname,
+            address: this.state.posts.address,
+            phoneNum: this.state.phone,
+            openTime: this.state.posts.openTime,
+            closeTime: this.state.posts.closeTime,
+            // imgUrl: this.state.imageUrl
+        }
+          axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/editShop',editShop, {headers: {'Authorization':'Bearer ' + 'eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4ODQ4YjVhZmYyZDUyMDEzMzFhNTQ3ZDE5MDZlNWFhZGY2NTEzYzgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODQ0OTMxMCwidXNlcl9pZCI6IjFxNlZOUE9KVEdSQjFBN2xKR1JRdnJ1WXBwMTIiLCJzdWIiOiIxcTZWTlBPSlRHUkIxQTdsSkdSUXZydVlwcDEyIiwiaWF0IjoxNTg4NDQ5MzEwLCJleHAiOjE1ODg0NTI5MTAsImVtYWlsIjoibmV3c2hvcDVAZW1haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbIm5ld3Nob3A1QGVtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Z9lt85tcFo0mti3laAO4lyVLWHmGEPfjPf6efe9OOpiy9Ucr_9HXII_ImBIf-UIWW7nIYA6kWt8tBUyuVowVMugdkYTe3GXJcCnZaKASMTz6Uokn3Y-KelfDVEBZK5y_Il8H2pnm_rtCa2NFcGpI908i0uQoF1_kFb3zA1KLC4-vVKJb7mtlzfVcr4h3E-BOaCF4Ia77zoNzcUZvvwyPLaRLh3V6KN1z_31l2mK1VuKLhxyAGIUFb8S2xKjIJhvRZy5BGOeo5MFuWKHE2CothnDQCe15o4PxMOV_7Pe263ohjNY_sU-rrRMNDRlPXhPplH4iNn9VR1PdsBAKKIaBiA'}})
+          .then(res => {
+              console.log(res.data.credentials)
+          })
+          .catch(err => console.log(err));
+          
           this.props.history.push('/profileshop')
         }
     };
@@ -142,7 +123,7 @@ class EditProfileShop extends React.Component {
                                     <div className="bigcontainer_info_profile">
                                         <div className="image_upload" >
                                             <div className = "wrap_preview">
-                                                <ImageUpload getFile={this.getFile} imagePreview={errorIcon}/> //get image from data
+                                                <ImageUpload getFile={this.getFile} imagePreview={this.state.posts.imgUrl}/>
                                             </div>
                                         </div>
                                     </div> 
@@ -152,22 +133,9 @@ class EditProfileShop extends React.Component {
                                     <div className ="bigcontainer_info_profile">
                                     
                                         <div className="wrap_input_info">
-                                            <img className="input_icon"src={shopIcon} alt=""/>
-                                            <input  
-                                                className = "input_info" 
-                                                type = "text"
-                                                id = "shopname"
-                                                placeholder = "Get shop name"
-                                                value = {this.state.shopname}                                              
-                                                onChange = {this.handleChange} 
-                                            />
-                                            <div className={this.state.shopnameError===""? "validate_wrap" :"invalidate_wrap"}>
-                                                <div className="erroricon">
-                                                    <img src={errorIcon} alt= "" width="20px" />
-                                                </div>
-                                                <div className="texterror">
-                                                    <span>{this.state.shopnameError}</span>
-                                                </div>
+                                            <img className="input_icon"src={userIcon} alt=""/>
+                                            <div className = "input_info" style={{color:"gray"}}> 
+                                            {this.state.posts.shopName}
                                             </div>
                                         </div>
 
@@ -177,8 +145,8 @@ class EditProfileShop extends React.Component {
                                                 className = "input_info" 
                                                 type = "text"
                                                 id = "adminname"
-                                                placeholder = "Get admin name"
-                                                value = {this.state.adminname}                                              
+                                                placeholder = {this.state.posts.adminName}
+                                                value = {this.state.adminname}                                             
                                                 onChange = {this.handleChange} 
                                             />
                                             <div className={this.state.adminnameError===""? "validate_wrap" :"invalidate_wrap"}>
@@ -192,22 +160,9 @@ class EditProfileShop extends React.Component {
                                         </div>
                                     
                                         <div className="wrap_input_info">
-                                            <img className="input_icon"src={emailIcon} alt=""/>
-                                            <input  
-                                                className = "input_info" 
-                                                type = "email"
-                                                id = "email"
-                                                placeholder = "Get email"
-                                                value = {this.state.email}                                              
-                                                onChange = {this.handleChange} 
-                                            />
-                                            <div className={this.state.emailError===""? "validate_wrap" :"invalidate_wrap"}>
-                                                <div className="erroricon">
-                                                    <img src={errorIcon} alt= "" width="20px" />
-                                                </div>
-                                                <div className="texterror">
-                                                    <span>{this.state.emailError}</span>
-                                                </div>
+                                            <img className="input_icon"src={userIcon} alt=""/>
+                                            <div className = "input_info" style={{color:"gray"}}> 
+                                            {this.state.posts.email}
                                             </div>
                                         </div>
 
@@ -219,7 +174,7 @@ class EditProfileShop extends React.Component {
                                                 // pattern="[0-9]{10}"
                                                 id = "phone"
                                                 maxLength = "10"
-                                                placeholder = "GEt phone"
+                                                placeholder = {this.state.posts.phoneNum}  
                                                 value = {this.state.phone}  
                                                 onChange = {this.handleChange} 
                                             />
@@ -233,7 +188,7 @@ class EditProfileShop extends React.Component {
                                             </div>
                                         </div>
 
-                                        <div className="change_password" onClick={this.toggleChangePassword} style={{display:this.state.passwordBox? "flex" : "none"}}>
+                                        {/* <div className="change_password" onClick={this.toggleChangePassword} style={{display:this.state.passwordBox? "flex" : "none"}}>
                                             Cancle X
                                         </div>
                                         <div className="change_password" onClick={this.toggleChangePassword} style={{display:this.state.passwordBox? "none" : "flex"}}>
@@ -288,7 +243,7 @@ class EditProfileShop extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                     </div>
                                 </div>

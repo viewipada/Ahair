@@ -379,7 +379,7 @@ select {
 .pattern {
   color : #cb2d6f;
   position: relative;
-  /* margin-bottom: 30px; */
+  margin-bottom: 30px;
   font-size: 14px;
   display: flex;
   flex-wrap: wrap;
@@ -549,11 +549,9 @@ p.pattern {
   padding: 0 5px 0 10px;
 }
 .input_info::placeholder {
-  color: rgb(145, 145, 145);
-  color: 
-  /* color:white; */
+  color: gray;
 }
-.wrap_input_time {
+.wrap_time {
   width: 210px;
   position: relative;
   border-radius: 50px;
@@ -859,18 +857,12 @@ textarea{
   }
 .wrap{
     width: 100%;
-    display: block;
+    display: flexbox;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     text-align: center;
 
-}
-.wrapcontainer{
-    width: 960px; 
-    display: block; 
-    margin: 0 auto;
-    flex-wrap: wrap;
 }
 
 .wrapnavbar{
@@ -933,7 +925,7 @@ textarea{
     height: 42%;
     border-radius: 25px;
     cursor: pointer;
-    padding: 0em 2.5em 0em 2.5em;
+    padding: 0em 2em 0em 2em;
 }
 .Signin:hover{
     background: -webkit-linear-gradient( #cb2d6f, #511F3A);
@@ -1030,19 +1022,19 @@ ul a:hover {
 }
 .Topictext{
     position: relative;
-    display: block;
+    display: flex;
     font-size: 25px;
     font-family: Cloud;
     font-weight: bold;
     color: #14a098;
-    text-align: left;
+    justify-content: start;
     padding: 50px 0px 0px 50px;
 }
 .btcatContainer{
     position: relative;
     text-align: center;
     display: block;
-    margin: 20px;
+    margin-top: 3%;
 }
 .catbt{
     position: relative;
@@ -1050,12 +1042,13 @@ ul a:hover {
     font-weight: bold;
     color: #ffffff;
     background-color: #cb2c6f ;
-    display: inline-block;
+    display: inline-flex;
+    justify-content: center;
     border-radius: 10px;
     border: none;
-    margin: 10px;
+    margin: 0.5%;
     outline: none;
-    width: 100px;
+    width: 15%;
     height: 100px;
     cursor: pointer;
 }
@@ -1064,9 +1057,11 @@ ul a:hover {
 }
 
 .shopRec{
+    padding: 0% 10%;
     position: relative;
     display: flex;
-    margin: 30px;
+    margin-top: 5%;
+    justify-content: center;
 }
 .Recshop{
     position: relative;
@@ -1079,20 +1074,6 @@ ul a:hover {
     background-color: #ffffff;
     opacity: 0.8;
 }
-.shopname{
-    position: relative;
-    top: -50px;
-    font-size: 20px;
-    font-family: Cloud;
-    font-weight: bold;
-    color: #ffffff;
-}
-.rec1:hover,.rec2:hover{
-    opacity: 0.7;
-    cursor: pointer;
-}
-
-
 
 /*----------price list----------*/
 .line_price {
@@ -1696,4 +1677,33 @@ button[type='signIn_2']:hover {
   background-color: #14A098;
   padding: 0.5% 2%;
   border-radius: 25px;
+}
+
+/*testtt*/
+
+.slides .slick-prev,
+.slides .slick-next {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+}
+
+
+.slides {
+  position: relative;
+}
+
+.slides .slick-prev,
+.slides .slick-next {
+  position: absolute;
+  top: 50%;
+  z-index:1;
+}
+
+.slides .slick-prev {
+  left: 5%;
+}
+
+.slides .slick-next {
+  right: 5%;
 }

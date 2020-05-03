@@ -1,4 +1,6 @@
 import React from 'react';
+import {Provider} from 'react-redux'
+import store from './redux/Store'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import SignIn from './components/SignIn';
@@ -32,15 +34,15 @@ import BookingInfo_Cus from './components/BookingInfo_Cus';
 import BookingInfo_Shop from './components/BookingInfo_Shop';
 import Thx4Review_Cus from './components/FinishedReview_Cus';
 import SelectTime from './components/SelectTime';
-
+import {PrivateRoute} from './components/PrivateRoute'
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <Provider store={store}>
         <Router>
           <div>
             <Switch>
-              <Route path='/signin' component={SignIn} />
+              <Route exact path='/signin' component={SignIn} />
               <Route path='/signup' component={SignUp} />
               <Route path='/signup_customer_1' component={SignUpForCustomerOne} />
               <Route path='/signup_customer_2' component={SignUpForCustomerTwo} />
@@ -56,7 +58,7 @@ class App extends React.Component {
               <Route path='/hairstyles' component={HairStyles} />
               <Route path='/ReviewforCustomer' component={Review_Cus}/>
               <Route path='/ReviewforShop' component={Review_Shop}/>
-              <Route path='/Home' component={Home}/>
+              <Route path='' component={Home}/>
               <Route path='/pricelist' component={PriceList} />
               <Route path='/hairbarber' component={HairBarBer} />
               <Route path='/colors' component={Colors} />
@@ -68,14 +70,14 @@ class App extends React.Component {
               <Route path='/searchpage' component={SearchPage} />
               <Route path='/shop' component={Shop} />
               <Route path='/SelectHairStyle' component={SelectHairStyle} />
-              <Route path='/BookInfo_Cus' component={BookingInfo_Cus}/>
+              <PrivateRoute exact path='/BookInfo_Cus' component={BookingInfo_Cus}/>
               <Route path='/BookInfo_Shop' component={BookingInfo_Shop}/>
               <Route path='/Thank4Review_Cus' component={Thx4Review_Cus}/>
               <Route path='/selecttime' component={SelectTime} />
             </Switch>
           </div>
         </Router>
-      </div>
+      </Provider>
     );
   }
 }

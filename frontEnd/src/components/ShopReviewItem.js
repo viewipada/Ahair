@@ -1,27 +1,39 @@
 import React, { Component } from 'react'
+import moment from 'moment/moment'
+import { Rating } from 'semantic-ui-react'
 
 export default class ShopReviewItem extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            ratingValue: '',
+        }
+        this.getStar = this.getStar.bind(this);
+    }
+
+    getStar(rating) {
+        this.setState({ ratingValue: rating });
     }
 
     render() {
 
-        const { id, title, overview, poster_src, vote_average, backdrop_src } = this.props.review
+        const { userId, userHandle, message, rete, shopId, createAt, imgUrl} = this.props.review
         return (
 
             // ShopReviewItem
-            <div key={id} style={{ textAlign: 'left', paddingLeft: '0', paddingTop: '1em' }}>
-                <strong style={{ color: '#14a098' }}>{title}</strong>
-                <p style={{ color: 'goldenrod', paddingLeft: '2em' }}>shopRate : {vote_average}</p>
-                <p style={{ color: '#cb2c6f', paddingLeft: '4em' }}>{overview}</p>
+            <div key={userId} style={{ textAlign: 'left', paddingLeft: '0', paddingTop: '1em' }}>
+                <h2 style={{ color: '#14a098' }}>{userHandle}</h2>
+                <p style={{ color: '#14a098'}}>{moment(createAt).format('LLL')}</p>
+                {/* <StarRate getStar={this.getStar} /> */}
+                <Rating icon='star' defaultRating={parseInt(rete, 10)} maxRating={5} disabled style={{ paddingLeft: '1.5em' }}/>
+                <p style={{ color: '#cb2c6f', padding: '1em 0 0 4em' }}>{message}</p>
 
                 <section>
                     <div class="box_img_shopreview">
-                        <div class="row_box"><img className="image_shop" src={poster_src} alt="" /></div>
-                        <div class="row_box"><img className="image_shop" src={backdrop_src} alt="" /></div>
-                        <div class="row_box"><img className="image_shop" src={poster_src} alt="" /></div>
+                        <div class="row_box"><img className="image_shop" src={imgUrl[0]} alt="" /></div>
+                        <div class="row_box"><img className="image_shop" src={imgUrl[1]} alt="" /></div>
+                        <div class="row_box"><img className="image_shop" src={imgUrl[2]} alt="" /></div>
                     </div>
                 </section>
             </div>
