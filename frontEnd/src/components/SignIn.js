@@ -13,15 +13,17 @@ import axios from 'axios';
 //>>>>>>> 9309370d5a036eefceb3284d4018451b1ac433e1
 
 class SignIn extends React.Component {
-    constructor()
+    constructor(props)
     {
-        super();
+        super(props);
+        let isSignin = false;
         this.state = { 
             hidePassword: true ,
             email: "",
             password: "",
             emailError: "",
-            passwordError: ""
+            passwordError: "",
+            isSignin
         }
     }
     
@@ -64,22 +66,22 @@ class SignIn extends React.Component {
         if (isValid) {
           console.log(this.state);
           this.setState(this.state);
-        };
-
-        const userData = {
+          
+          const userData = {
             email: this.state.email,
             password: this.state.password
-        }
+            }
 
-        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/login', userData)
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/login', userData)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
-        this.props.history.push('/home')
+            this.props.history.push('/home')
+        };
     };
     
     render(){
