@@ -71,6 +71,7 @@ exports.login = (req , res) => {
     })
     .then( token => {
       loginData.token = token;
+      
       admin
       .auth()
       .verifyIdToken(token)
