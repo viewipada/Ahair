@@ -21,6 +21,7 @@ export { HairStylesmenShort } from './action/ShopInformationAction'
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { BarberDetail } from './action/ShopInformationAction'
 export { PriceListDetail } from './action/ShopInformationAction'
 export { Shop_1 } from './action/ShopAction'
@@ -28,6 +29,8 @@ export { Shop_2 } from './action/ShopAction'
 export { Shop_3 } from './action/ShopAction'
 export { Shop_4 } from './action/ShopAction'
 =======
+=======
+>>>>>>> 19b09662d07e3cee5451f298e0e455ab3b67e8a7
 =======
 >>>>>>> 19b09662d07e3cee5451f298e0e455ab3b67e8a7
 =======
@@ -48,6 +51,9 @@ export { PriceMenService} from './action/ShopInformationAction'
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 19b09662d07e3cee5451f298e0e455ab3b67e8a7
+=======
 >>>>>>> 19b09662d07e3cee5451f298e0e455ab3b67e8a7
 =======
 >>>>>>> 19b09662d07e3cee5451f298e0e455ab3b67e8a7
