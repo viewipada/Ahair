@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 import emailIcon from './pic/email_icon.png';
 import passwordIcon from './pic/password_icon.png';
 import visibleIcon from './pic/visible_icon.png';
@@ -13,15 +13,20 @@ import axios from 'axios';
 //>>>>>>> 9309370d5a036eefceb3284d4018451b1ac433e1
 
 class SignIn extends React.Component {
-    constructor()
+    constructor(props)
     {
-        super();
+        super(props);
+        const token = localStorage.getItem('token')
+        let isSignin = true
+        if (!token) isSignin =false
         this.state = { 
             hidePassword: true ,
             email: "",
             password: "",
             emailError: "",
-            passwordError: ""
+            passwordError: "",
+            isSignin,
+            messageError:""
         }
     }
     
@@ -64,10 +69,8 @@ class SignIn extends React.Component {
         if (isValid) {
           console.log(this.state);
           this.setState(this.state);
-        //   alert("Welcome to AHair");
-        };
-
-        const userData = {
+          
+          const userData = {
             email: this.state.email,
             password: this.state.password
         }
@@ -75,13 +78,24 @@ class SignIn extends React.Component {
         axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/login', userData)
           .then(function (response) {
             console.log(response);
+            if(response.data.loginData.token) {
+                localStorage.setItem('token', response.data.loginData.token);
+                // localStorage.setItem('username', response.data.loginData.username);
+                // localStorage.setItem('type', response.data.loginData.type);
+                this.setState({isSignin:true, messageError:""})
+                this.props.history.push('/home')
+            }
           })
           .catch(function (error) {
-            console.log(error);
+                this.setState({messageError : "Incorrect password or email", email:"",emailError:"",password:"",passwordError:""})
+                console.log(error);
           });
+
+        };
     };
     
     render(){
+        if(this.state.isSignin) return <Redirect to='/home' />
         return(
             <div className="big_container">
                 <div className="container_login">

@@ -7,7 +7,7 @@ import timeIcon from './pic/clock_icon.png';
 import errorIcon from './pic/error_icon.png'
 import MultipleImageUpload from './MultipleImageUpload';
 import NavBarShop from './NavBarShop';
-import axios from 'axios'
+// import axios from 'axios'
 
 //ที่อยู่ เวลา รูปบรรยากาศ
 class ShopInformation extends React.Component {
