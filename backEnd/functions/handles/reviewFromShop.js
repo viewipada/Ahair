@@ -4,7 +4,7 @@ exports.postReviewFromShop = (req , res) => {
       
     const  newReviewFromShop = {
         userId : req.body.userId,
-        rete : req.body.rate,
+        rate : req.body.rate,
         shopName: req.shop.shopName,
         shopId :req.shop.shopId, 
         createAt: new Date().toISOString()

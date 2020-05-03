@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 import emailIcon from './pic/email_icon.png';
 import userIcon from './pic/user_icon.png';
 import phoneIcon from './pic/phone_icon.png';
@@ -16,6 +16,9 @@ class ProfileCustomer extends React.Component {
     constructor()
     {
         super();
+        const token = localStorage.getItem('token')
+        let isSignin = true
+        if (!token) isSignin =false
         this.state = { 
             name: "",
             phone : "",
@@ -25,13 +28,14 @@ class ProfileCustomer extends React.Component {
             imageFile: "",
             imagePreview: "",
             imageUrl: "",
-            posts:[]
+            posts:[],
+            isSignin
         }
         this.getFile = this.getFile.bind(this);
     }
 
     componentDidMount(){
-        axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/user',{headers: {'Authorization':'Bearer ' + 'eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4ODQ4YjVhZmYyZDUyMDEzMzFhNTQ3ZDE5MDZlNWFhZGY2NTEzYzgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODQ0NDM1NiwidXNlcl9pZCI6IjVuNjBiQlBLQjVNdkNpZ2VjUjNmQW1COTRmSDMiLCJzdWIiOiI1bjYwYkJQS0I1TXZDaWdlY1IzZkFtQjk0ZkgzIiwiaWF0IjoxNTg4NDQ0MzU2LCJleHAiOjE1ODg0NDc5NTYsImVtYWlsIjoibmV3N0BlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3N0BlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.W4BaTtULcVDxb1thACZFnJORW3uRDS1RjcdAiqQGUR2mWMGshcsELXiNw17NOm5-BRR8q4hhEGQrQ16RkCsKY739tKmkSk8DSU20Jz8PxxpSMwbj-tm6T4vjqrofwXbancsNm9w8qR_GjtB5njbSYpX7GZLZ2bIQjwhhfDo-T0qXvDE0gW-4jaEiEpMashaiwIMtvJILf2tWKtHAlQrwJ5hr9b8W089arf-2W_SAUzfiSDwO9KNZsB-l6wi58tpelFTAGM57dB9cEzyZJpCSAAWwTYAUm9S8GaZPqnqiKqhlZZ3EreKl-cXrx77yVWrM9IKL0VJiPDtSJ2Tp_3JBtA'}})
+        axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/user',{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
         .then(res => {
             console.log(res.data.credentials)
             this.setState({
@@ -39,6 +43,7 @@ class ProfileCustomer extends React.Component {
                 name:res.data.credentials.name,
                 phone: res.data.credentials.phoneNum,
                 gender: res.data.credentials.userGender,
+                isSignin : true
             })
         })
         .catch(err => console.log(err));
@@ -103,7 +108,7 @@ class ProfileCustomer extends React.Component {
             userGender: this.state.gender,
             imgUrl: this.state.imageUrl
         }
-          axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/editUser',editUser, {headers :{'Authorization':'Bearer ' + 'eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4ODQ4YjVhZmYyZDUyMDEzMzFhNTQ3ZDE5MDZlNWFhZGY2NTEzYzgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODQ0NDM1NiwidXNlcl9pZCI6IjVuNjBiQlBLQjVNdkNpZ2VjUjNmQW1COTRmSDMiLCJzdWIiOiI1bjYwYkJQS0I1TXZDaWdlY1IzZkFtQjk0ZkgzIiwiaWF0IjoxNTg4NDQ0MzU2LCJleHAiOjE1ODg0NDc5NTYsImVtYWlsIjoibmV3N0BlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3N0BlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.W4BaTtULcVDxb1thACZFnJORW3uRDS1RjcdAiqQGUR2mWMGshcsELXiNw17NOm5-BRR8q4hhEGQrQ16RkCsKY739tKmkSk8DSU20Jz8PxxpSMwbj-tm6T4vjqrofwXbancsNm9w8qR_GjtB5njbSYpX7GZLZ2bIQjwhhfDo-T0qXvDE0gW-4jaEiEpMashaiwIMtvJILf2tWKtHAlQrwJ5hr9b8W089arf-2W_SAUzfiSDwO9KNZsB-l6wi58tpelFTAGM57dB9cEzyZJpCSAAWwTYAUm9S8GaZPqnqiKqhlZZ3EreKl-cXrx77yVWrM9IKL0VJiPDtSJ2Tp_3JBtA'}})
+          axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/editUser',editUser, {headers :{'Authorization':'Bearer ' + localStorage.getItem('token')}})
             .then(res => {
                 console.log(res.data.credentials)
             })
@@ -113,6 +118,7 @@ class ProfileCustomer extends React.Component {
     };
 
     render(){
+        if(!this.state.isSignin) return <Redirect to='/home'/>
         return(
             <div className="big_container">
                 <NavBar />

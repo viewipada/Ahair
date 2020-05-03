@@ -21,20 +21,21 @@ const { postReviewFromUser, getReviewFromUser } = require('./handles/reviewFromU
 
 const { postReviewFromShop, getReviewFromShop } = require('./handles/reviewFromShop');
 
-const { addBooking , getBooking } = require('./handles/bookings');
+const { addBooking, getBooking } = require('./handles/bookings');
 
-const { addShopDetails } = require('./handles/shops');
+const { addShopDetails , getAllShops ,editShop,getAshop} = require('./handles/shops');
 
-const { addHairStyle } = require('./handles/hairStyle');
+const { addHairStyle, getHairStyle } = require('./handles/hairStyle');
 
-const { addBarber } = require('./handles/barbers');
+const { addBarber, getBarber } = require('./handles/barbers');
 
 const { 
     signup,
     login,
     profile,
     getAuthenticatedUser,
-    signupShop } = require('./handles/users');
+    signupShop,
+    editUser } = require('./handles/users');
  
 //, uploadImage
 
@@ -48,12 +49,18 @@ app.post('/login', login);
 //app.post('/user/image', FBAuth ,uploadImage);
 app.get('/profile',profile);
 app.get('/user', FBAuth, getAuthenticatedUser);
+app.post('/editUser', FBAuth , editUser);
 
 //Shops routes
 app.post('/signupShop' , signupShop);
 app.post('/shop', FBAuthforShop ,addShopDetails);
+app.post('/editShop',FBAuthforShop,editShop);
+app.get('/shop', getAllShops);
+app.get('/Ashop',FBAuthforShop,getAshop);
 app.post('/hairStyle', FBAuthforShop ,addHairStyle);
+app.get('/hairStyle/:shopName', getHairStyle);
 app.post('/barber',FBAuthforShop,addBarber);
+app.get('/barber/:shopName', getBarber);
 
 //reviewfromUser routes
 app.post('/reviewfromuser' , FBAuth , postReviewFromUser);
@@ -65,6 +72,6 @@ app.get('/reviewfromshop/:handle', getReviewFromShop );
 
 //bookings routes
 app.post('/booking', FBAuth , addBooking);
-app.get('/booking', getBooking);
+app.get('/booking/:bookingId', getBooking);
 
 exports.api = functions.https.onRequest(app);

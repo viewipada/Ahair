@@ -29,3 +29,32 @@ const { db } = require('../util/admin');
         return res.status(500).json({ error: err.code });
       });
 };
+
+exports.getHairStyle = (req,res) => {
+    let hairStyleData = {};
+    db.doc(`/shops/${req.params.shopName}`)
+      .get()
+      .then((doc) => {
+        if (!doc.exists) {
+          return res.status(404).json({ error: 'HairStyle not found' });
+        }
+        hairStyleData = doc.data();
+        hairStyleData.shopId = doc.data().shopId;
+
+        db.collection('hairStyle')
+          .where('shopId', '==', hairStyleData.shopId)
+          .orderBy('createAt','desc')
+          .get()
+          .then((data) => {
+              hairStyleData.hairStyles = [];
+              data.forEach((docdoc) => {
+                hairStyleData.hairStyles.push(docdoc.data());
+              });
+              return res.json(hairStyleData);
+          }).catch((err) => {console.error(err); res.status(500).json({ error : err.code })})
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).json({ error: err.code });
+      });
+};
