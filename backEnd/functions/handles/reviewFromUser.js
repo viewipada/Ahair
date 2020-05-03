@@ -15,7 +15,7 @@ exports.postReviewFromUser = (req, res) => {
     .add(newReviewFromUser)
     .then((doc) => {
       res.json({ message: `create ${doc.id} succesfully` });
-      return res.json({ message: `create ${doc.id} succesfully` });
+      return res.status(200).json({ message: `create ${doc.id} succesfully` });
     })
     .catch((err) => {
       res.status(500).json({ error: "something went wrong" });

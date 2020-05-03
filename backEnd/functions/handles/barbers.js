@@ -1,60 +1,68 @@
 const { db } = require("../util/admin");
 
 exports.addBarber = (req, res) => {
+  const newBarber = {
+    barberName: req.body.barberName,
+    phoneNum: req.body.phoneNum,
+    hairAble: req.body.hairAble,
+    shopId: req.shop.shopId,
+    createAt: new Date().toISOString(),
+  };
+
   db.collection("barbers")
-    .where("barberName", "==", req.body.barberName)
-    .get()
+    .add(newBarber)
     .then((doc) => {
-      let dd = {};
-      dd.docId = [];
-      doc.forEach((docdoc) => {
-        dd.docId.push({ barberId: docdoc.id });
-      });
-
-      let t = dd.docId[0].barberId;
-      dd.docId = t;
-
-      db.doc(`/barbers/${dd.docId}`)
-        .get()
-        .then((doc) => {
-          if (!doc.exists) {
-            return res.status(500).json({ error: "No barber added" });
-          } else {
-            db.collection("hairBarbers").add({
-              barberId: dd.docId,
-              hairStyleId: req.body.hairStyleId,
-              time: req.body.time,
-            });
-            return res.json({ message : 'Alright we got it!!'});
-          }
-        });
+      res.json({ message: `create ${doc.id} succesfully` });
+      return res.status(200).json({ message: `create ${doc.id} succesfully` });
     })
     .catch((err) => {
-      db.collection("barbers")
-        .add({
-          barberName: req.body.barberName,
-          createAt: new Date().toISOString(),
-          shopId: req.shop.shopId,
-          phoneNum: req.body.phoneNum,
-        })
-        .then((data) => {
-          return db.collection("hairBarbers").add({
-            barberId: data.id,
-            hairStyleId: req.body.hairStyleId,
-            time: req.body.time,
-          });
-        });
-      return res.json({ error: "good" });
+      res.status(500).json({ error: "something went wrong" });
+      console.error(err);
     });
 };
 
-exports.getBarber = (req, res) => {
+// exports.getBarber = (req, res) => {
+//   let barberData = {};
+//   db.doc(`/shops/${req.params.shopName}/${req.params.barberName}`)
+//     .get()
+//     .then((doc) => {
+//       if (!doc.exists) {
+//         return res.status(404).json({ error: "Barber not found" });
+//       }
+//       barberData = doc.data();
+//       barberData.shopId = doc.data().shopId;
+
+//       db.collection("barbers")
+//         .where("shopId", "==", barberData.shopId)
+//         .orderBy("createAt", "desc")
+//         .get()
+//         .then((data) => {
+//           barberData.barbers = [];
+//           data.forEach((docdoc) => {
+//             barberData.barbers.push(docdoc.data());
+//           });
+//           return res.json(barberData);
+//         })
+//         .catch((err) => {
+//           console.error(err);
+//           res.status(500).json({ error: err.code });
+//         });
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).json({ error: err.code });
+//     });
+// };
+
+exports.getAllBarberInShop = (req, res) => {
   let barberData = {};
-  db.doc(`/shops/${req.params.shopName}`)
+  barberData.shopName = req.params.shopName;
+
+  db.doc(`/shops/${barberData.shopName}`)
     .get()
     .then((doc) => {
       if (!doc.exists) {
-        return res.status(404).json({ error: "Barber not found" });
+        return res.status(404).json({ error: "shop not found" });
       }
       barberData = doc.data();
       barberData.shopId = doc.data().shopId;
@@ -64,9 +72,9 @@ exports.getBarber = (req, res) => {
         .orderBy("createAt", "desc")
         .get()
         .then((data) => {
-          barberData.barbers = [];
+          barberData.barber = [];
           data.forEach((docdoc) => {
-            barberData.barbers.push(docdoc.data());
+            barberData.barber.push(docdoc.data());
           });
           return res.json(barberData);
         })

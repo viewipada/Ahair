@@ -41,7 +41,7 @@ const {
 
 const { addHairStyle, getHairStyle } = require("./handles/hairStyle");
 
-const { addBarber, getBarber } = require("./handles/barbers");
+const { addBarber, getBarber, getAllBarberInShop } = require("./handles/barbers");
 
 const {
   signup,
@@ -75,7 +75,8 @@ app.get("/Ashop", FBAuthforShop, getAshop);
 app.post("/hairStyle", FBAuthforShop, addHairStyle);
 app.get("/hairStyle/:shopName", getHairStyle);
 app.post("/barber", FBAuthforShop, addBarber);
-app.get("/barber/:shopName", getBarber);
+//app.get("/barber/:barberName", getBarber);
+app.get("/barber/:shopName", getAllBarberInShop);
 
 //reviewfromUser routes
 app.post("/reviewfromuser", FBAuth, postReviewFromUser);
