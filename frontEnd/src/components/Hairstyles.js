@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import NavBarShop from "./NavBarShop";
 import {HairStyleswomenShort,HairStyleswomenMedium,HairStyleswomenLong, HairStylesmenShort, HairStylesmenLong } from "../redux/action/ShopInformationAction";
@@ -43,8 +43,14 @@ class Hairstyles extends React.Component {
             list_womenMedium: this.props.womenMediumStore ||[],
             list_womenLong: this.props.womenLongStore ||[],
             list_menShort: this.props.menShortStore ||[],
-            list_menLong: this.props.menLongStore ||[]
+            list_menLong: this.props.menLongStore ||[],
+            isSignin: null
         }
+    }
+    componentDidMount() {
+        const token = localStorage.getItem('token')
+        if (!token) this.setState({isSignin:false})
+        else this.setState({isSignin:true})
     }
     
     womenShortAllChecked = event => {

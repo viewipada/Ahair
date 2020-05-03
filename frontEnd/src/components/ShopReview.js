@@ -6,7 +6,7 @@ import Axios from 'axios'
 import ShopReviewItem from './ShopReviewItem'
 import Sidebar from './Sidebar'
 import shopIcon from './pic/1.jpg'
-import NavBar from './navbar'
+import NavBar from './NavBarShop'
 
 
 class ShopReview extends Component {

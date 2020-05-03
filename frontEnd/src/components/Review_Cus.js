@@ -51,22 +51,19 @@ class review_Cus extends React.Component {
             });
 
         }
-        const isEmpty = this.state.isEmpty;
-        console.log(isEmpty);
         const reviewData = {
             rate: this.state.ratingValue,
             message: this.state.reviewdata,
             shopId: "ulT9ZVyeo1ZvgRHgjDzMEjSVc932"
         }
-        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/reviewfromuser', reviewData,{headers: {'Authorization':'Bearer ' + localStorage.getItem('user')}})
+        axios.post(`https://us-central1-g10ahair.cloudfunctions.net/api/reviewfromuser`, reviewData,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
         .then(res => {
             console.log(res);
+            this.props.history.push('/thank4Review_Cus');
         })
         .catch(err => {
             console.log(err.response);
         })
-        this.props.history.push('/Thank4Review_Cus');
-
     }
     
     render() {

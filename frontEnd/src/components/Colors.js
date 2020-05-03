@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 import {Colorstock} from '../redux/index'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import NavBarShop from "./NavBarShop";
 import axios from 'axios'
 
@@ -44,11 +44,13 @@ export const ColorCheckBox = props => {
 class Colors extends React.Component {
     constructor(props) {
         super(props)
+        
         this.state = {
             color: this.props.shopColorStore || [], 
             add: "",
             addcolor: [],
-            shopColorstock : []
+            shopColorstock : [],
+            isSignin: null
         }
     }
     
@@ -58,6 +60,11 @@ class Colors extends React.Component {
             color.isChecked =  event.target.checked
         })
         this.setState({color: this.props.shopColorStore})
+    }
+    componentDidMount() {
+        const token = localStorage.getItem('token')
+        if (!token) this.setState({isSignin:false})
+        else this.setState({isSignin:true})
     }
 
     handleSubmit = event => {
@@ -88,7 +95,7 @@ class Colors extends React.Component {
             // shopImg : this.props.shopInfoStore.imageUrl,
             colors : this.state.shopColorstock
         }
-        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',shopInformation ,{headers: {'Authorization':'Bearer ' + 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjVlOWVlOTdjODQwZjk3ZTAyNTM2ODhhM2I3ZTk0NDczZTUyOGE3YjUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODA5NTYyOCwidXNlcl9pZCI6ImxZaDJ6djJ0M1dYQUdiWVVkN2syeXRreDllWTIiLCJzdWIiOiJsWWgyenYydDNXWEFHYllVZDdrMnl0a3g5ZVkyIiwiaWF0IjoxNTg4MDk1NjI4LCJleHAiOjE1ODgwOTkyMjgsImVtYWlsIjoibmV3MkBlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3MkBlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.HmF4xbkd8X8LczNbVfKJgWOFYpvJGmvmkmQ2-79Mm-a5bTKOmHqWzg2Ofo4ChIV5gsY7IKKsTRtRtePjC5Z-fJOoXkdc7iLEXELGuNn0LTs1-hLdMUYeqyavNsKOCZ_w-6M3KXY0VeYIusDMlXUDZAhGMZstmJgE7_bAo9e7C7eeCZRQzba0C-BShzcoNhT627PXC0C-MYl3fsU05NJ0djHuV7mPiZfTi0zh_7VzHa8bT4AGavgDJfPcRn6cd__KT65EVQ4nvYXsl-lqDGeaFKaUnGUOHcQQe17ExYHGZ5-lPOqVkRxPosK8KatLXCOkv7yCvE5gMcEtbyrxjK6wCA'}})
+        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',shopInformation ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
             .then(function(response){
                 console.log(response)
             })
@@ -118,6 +125,7 @@ class Colors extends React.Component {
 
     render() {
         return (
+            
             <div className="big_container">
                 <NavBarShop />
                 <div className="wrap_info">

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import addIcon from './pic/add_icon.png';
 import InputBarber from './InputBarber';
 import NavBarShop from './NavBarShop';
+import axios from 'axios'
 
 export const AddBarber = props => {
     return(
@@ -21,17 +22,24 @@ class HairBarBer extends React.Component {
         this.state = {    
             name:"",
             imageUrl: "",
-            hair:[],
+            phone:"",
+            hair:"",
             time:[],
             numOfbarber:[{id:0,edit:"visible"}],
-            barber: []
+            barber: [],
+            isSignin: null
         }
         this.getBarber = this.getBarber.bind(this);
     }
+    componentDidMount() {
+        const token = localStorage.getItem('token')
+        if (!token) this.setState({isSignin:false})
+        else this.setState({isSignin:true})
+    }
 
-    getBarber(name, img, hair, time) {
+    getBarber(name, img, phone, hair) {
         this.setState({
-            name:name, imageUrl:img, hair:hair, time:time
+            name:name, imageUrl:img, phone: phone, hair:hair
         })
     }
 
@@ -41,21 +49,35 @@ class HairBarBer extends React.Component {
             this.state.numOfbarber[this.state.numOfbarber.length -1].edit = "none"
             this.state.numOfbarber.push({id: this.state.numOfbarber.length, edit: "visible"})
             this.setState({numOfbarber: this.state.numOfbarber})
-            this.state.barber.push({name: this.state.name, img_barber: this.state.imageUrl, hair: this.state.hair, time: this.state.time})    
+            this.state.barber.push({baberName: this.state.name, img_barber: this.state.imageUrl,phoneNum: this.state.phone, hairAble: this.state.hair})    
         }
         this.setState({
-            name:"", imageUrl:"", hair:[], time:[]
+            name:"", imageUrl:"", hair:[], time:[],phone:""
         })
-        console.log(this.state)
+        // console.log(this.state)
     }
 
     handleSubmit = event => {
         event.preventDefault();
         if(this.state.name) {
-            this.state.barber.push({name: this.state.name, img_barber: this.state.imageUrl, hair: this.state.hair, time: this.state.time})
-            console.log(this.state);
+            this.state.barber.push({baberName: this.state.name, img_barber: this.state.imageUrl,phoneNum: this.state.phone, hairAble: this.state.hair})
+            console.log(this.state.barber[0].hairAble);
             this.setState(this.state);
-            this.props.history.push('/signup_shop_2') //home barber
+            // const newBarber = {
+            //     barberName : element.value,
+            //     phoneNum : parseInt(element.price, 10),
+            //     hairstyleId : element.value,
+            //     time:parseInt(element.price, 10),
+            //     barberImg: element.hairstyleImg
+            // }
+            // axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/barber',newBarber ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
+            //     .then(function(response){
+            //         console.log(response)
+            //     })
+            //     .catch(function(error) {
+            //         console.log(error)
+            //     })
+            this.props.history.push('/shop') 
         }
         // console.log(this.state);
     };

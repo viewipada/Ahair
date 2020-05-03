@@ -56,9 +56,9 @@ class App extends React.Component {
               <Route path='/profileshop' component={ProfileShop} />
               <Route path='/editprofileshop' component={EditProfileShop} />
               <Route path='/hairstyles' component={HairStyles} />
-              <Route path='/ReviewforCustomer' component={Review_Cus}/>
-              <Route path='/ReviewforShop' component={Review_Shop}/>
-              <Route path='' component={Home}/>
+              <PrivateRoute path='/ReviewforCustomer' component={Review_Cus}/>
+              <PrivateRoute path='/ReviewforShop' component={Review_Shop}/>
+              <Route path='/home' component={Home}/>
               <Route path='/pricelist' component={PriceList} />
               <Route path='/hairbarber' component={HairBarBer} />
               <Route path='/colors' component={Colors} />
@@ -71,8 +71,8 @@ class App extends React.Component {
               <Route path='/shop' component={Shop} />
               <Route path='/SelectHairStyle' component={SelectHairStyle} />
               <PrivateRoute exact path='/BookInfo_Cus' component={BookingInfo_Cus}/>
-              <Route path='/BookInfo_Shop' component={BookingInfo_Shop}/>
-              <Route path='/Thank4Review_Cus' component={Thx4Review_Cus}/>
+              <PrivateRoute path='/BookInfo_Shop' component={BookingInfo_Shop}/>
+              <PrivateRoute path='/thank4Review_Cus' component={Thx4Review_Cus}/>
               <Route path='/selecttime' component={SelectTime} />
             </Switch>
           </div>
