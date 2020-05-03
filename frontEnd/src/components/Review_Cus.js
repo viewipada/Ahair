@@ -58,13 +58,15 @@ class review_Cus extends React.Component {
             message: this.state.reviewdata,
             shopId: "ulT9ZVyeo1ZvgRHgjDzMEjSVc932"
         }
-        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/reviewfromuser', reviewData,{headers: {'Authorization':'Bearer ' + "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4ODQ4YjVhZmYyZDUyMDEzMzFhNTQ3ZDE5MDZlNWFhZGY2NTEzYzgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZzEwYWhhaXIiLCJhdWQiOiJnMTBhaGFpciIsImF1dGhfdGltZSI6MTU4ODMyNjU4MiwidXNlcl9pZCI6IlpWZ3QzZFRKVWdkMWFFVzB0R1RWeG9HT3VxUzIiLCJzdWIiOiJaVmd0M2RUSlVnZDFhRVcwdEdUVnhvR091cVMyIiwiaWF0IjoxNTg4MzI2NTgyLCJleHAiOjE1ODgzMzAxODIsImVtYWlsIjoibmV3M0BlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibmV3M0BlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.lit-CZ9TvaiDTeRoubh2nSsD8PYTVqumyDVf1ZlUjqNE-2M5ui9eGhN6ft1z3CUhbZPa3UbblunZ0QVMc-DKd32Hhl2amgvGU2ZlEtSkxtKniWzT1FuCHscN1uIASA0wQPHlakdlcWhcrIue36OzWiAg_PS-21xSKz4EGXmqYrkm4L6Fr3hNhQZqX_Ou8ehhkzwtY3PlXQj7o_nlMV6zltR0lhUhiyDhUNd1XHgPd5G4S_XOFMngVBcc9PqgG_1Ik3D5ezC7mNvtIt4DbNRa-tviKKsxAdtsHDu3diV3SEA7IUlNTFvm7NEoEBdHXnVDHX07JfzF0tZfOF16rymj6g"}})
+        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/reviewfromuser', reviewData,{headers: {'Authorization':'Bearer ' + localStorage.getItem('user')}})
         .then(res => {
             console.log(res);
         })
         .catch(err => {
             console.log(err.response);
         })
+        this.props.history.push('/Thank4Review_Cus');
+
     }
     
     render() {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { db, auth, str } from '../services/firebase'
 import Navbar from './navbar'
+
+
 
 class BookingInfo_Cus extends Component {
     constructor(props) {
@@ -9,6 +10,8 @@ class BookingInfo_Cus extends Component {
             info: ''
         };
     }
+    
+
     componentDidMount() {
         
 

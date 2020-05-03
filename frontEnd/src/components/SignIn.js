@@ -74,6 +74,7 @@ class SignIn extends React.Component {
         axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/login', userData)
           .then(function (response) {
             console.log(response);
+            localStorage.setItem('user', response.data.token);
           })
           .catch(function (error) {
             console.log(error);
