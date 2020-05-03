@@ -3,6 +3,7 @@ import img1 from './pic/1.jpg'
 import { GiShop } from "react-icons/gi"
 import Navbar from './navbar'
 import Sliderimg from './sliderimg'
+import axios from 'axios';
 
 class Home extends Component {
 
@@ -11,11 +12,22 @@ class Home extends Component {
     this.state = {
       statename: 'Sign in',
       displayMenu: false,
-      checkLogin: ''
+      checkLogin: '',
+      shopinfo: ''
     };
 
   }
+  componentDidMount() {
+    axios.get(`https://us-central1-g10ahair.cloudfunctions.net/api/shop`, {
+      params: {
 
+      }
+    })
+      .then((res) => {
+        console.log(res.data);
+        this.setState({ shopinfo: res.data });
+      });
+  }
   render() {
     return (
       <div class="wrap">
@@ -39,34 +51,26 @@ class Home extends Component {
           <text class="Topictext">Reccomended</text>
           <div class="shopRec">
             <div className='ui two link cards'>
-              <div class="card">
-                <div class="image">
-                  <img class="ui medium rounded image" src={img1} />
-                </div>
-                <div class="content">
-                  <div class="header">ShopName</div>
-                  <div class="meta">
-                    <span class="date">Location</span>
-                  </div>
-                  <div class="description">
-                    Rate
+              {
+                this.state.shopinfo &&
+                this.state.shopinfo.map((info) => {
+                  return (
+                    <div key={info.shopId} class="card">
+                      <div class="ui medium centered image">
+                        <img src={info.imgUrl} />
+                      </div>
+                      <div class="content">
+                        <div class="header" >{info.shopName}</div>
+                        <div class="meta">
+                          <span class="date">Tel.{info.phoneNum}</span>
+                        </div>
+                        <div class="description">
+                          Rate
+                        </div>
+                      </div>
                     </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="image">
-                  <img class="ui medium rounded image" src={img1} />
-                </div>
-                <div class="content">
-                  <div class="header">ShopName</div>
-                  <div class="meta">
-                    <span class="date">Location</span>
-                  </div>
-                  <div class="description">
-                    Rate
-                    </div>
-                </div>
-              </div>
+                  );
+                })}
             </div>
           </div>
         </div>

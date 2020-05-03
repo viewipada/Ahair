@@ -10,19 +10,7 @@ class BookingInfo_Cus extends Component {
         };
     }
     componentDidMount() {
-        db.collection('BookingInfo')
-            .get()
-            .then(snapshot => {
-                const data = [];
-                snapshot.forEach(doc => {
-                    const tmp = doc.data()
-                    data.push(tmp)
-                })
-                this.setState({
-                    info: data
-                });
-            })
-            .catch(error => console.log(error))
+        
 
     }
     render() {

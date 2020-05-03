@@ -76,7 +76,7 @@ class NavBar extends Component {
     render() {
         return (
             <div class="wrapnavbar">
-                <Link className="link" to="/home">
+                <Link className="link" to="">
                     <img src={logo} class="homelogo" alt="Home" />
                 </Link>
                 <div class="searchBox">
