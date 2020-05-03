@@ -19,6 +19,26 @@ exports.addShopDetails = (req, res) => {
       });
   };
 
+exports.editShop = (req,res) => {
+  const editShopData = {
+    adminName : req.body.adminName,
+    address : req.body.address,
+    phoneNum: req.body.phoneNum,
+    openTime : req.body.openTime,
+    closeTime : req.body.closeTime
+  }
+
+  db.doc(`/shops/${req.shop.shopName}`)
+      .update(editShopData)
+      .then(() => {
+        return res.json({ message: "Edit shop successfully" });
+      })
+      .catch((err) => {
+        console.error(err);
+        return res.status(500).json({ error: err.code });
+      });
+}
+
 exports.getAllShops = (req,res) => {
     db
         .collection('shops')
@@ -26,11 +46,26 @@ exports.getAllShops = (req,res) => {
         .get()
         .then(data => {
             let shops = [];
-            data.forEach(doc => {
-                shops.push(docdoc.data());
+            data.forEach((doc) => {
+                shops.push(doc.data());
             });
             return res.json(shops);
         })
         .catch((err) => console.error(err));
 };
 
+exports.getAshop = (req,res) => {
+  let shopData = {};
+    db.doc(`/shops/${req.shop.shopName}`)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          shopData.credentials = doc.data();
+        }
+        return res.json(shopData);
+      })        
+      .catch((err) => {
+        console.error(err);
+        return res.status(500).json({ error: err.code });
+      });
+};

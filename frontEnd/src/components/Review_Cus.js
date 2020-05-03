@@ -61,12 +61,11 @@ class review_Cus extends React.Component {
         axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/reviewfromuser', reviewData,{headers: {'Authorization':'Bearer ' + localStorage.getItem('user')}})
         .then(res => {
             console.log(res);
+            this.props.history.push('/thank4Review_Cus');
         })
         .catch(err => {
             console.log(err.response);
         })
-        this.props.history.push('/Thank4Review_Cus');
-
     }
     
     render() {

@@ -1,16 +1,12 @@
 const { db } = require('../util/admin');
 
 exports.addBooking = (req , res) => {
-    if(req.body.message.trim() === ''){
-        return res.status(400).json({ message :'message must not be empty'});
-    }
-    
-    const  newBooking = {
-        shopId : req.body.shopId,
+    const  newBooking = {    
         userHandle: req.user.handle,
         userId :req.user.userId, 
-        price: req.body.price,
-        hairBarber: req.body.hairBarber,
+        shopId : req.body.shopId,
+        hairStyleId: req.body.hairStyleId,
+        barberId : req.body.barberId,
         //imgUrl: req.body.imgUrl
         createAt: new Date().toISOString()
     };
@@ -28,37 +24,59 @@ exports.addBooking = (req , res) => {
 
 exports.getBooking = (req, res) => {
     let bookingData = {};
-    db.doc(`/users/${req.params.handle}`)
-      .get()
-      .then((doc) => {
+    db.doc(`/booking/${req.params.bookingId}`)
+    .get()
+    .then(
+      (doc) => {
         if (!doc.exists) {
-          return res.status(404).json({ error: 'Booking document is not found' });
+          return res.status(404).json({ error: 'Review not found' });
         }
-        bookingData = doc.data();
-        bookingData.userId = doc.data().userId;
-        bookingData.username = doc.data().handle;
 
-        db.collection('booking')
-          .where('userId', '==', bookingData.userId)
-          .orderBy('createAt','desc')
+        bookingData = doc.data();
+        
+        db.collection('hairBarbers')
+          .where('barberId', '==', bookingData.barberId)
+          .where('hairStyleId', '==', bookingData.hairStyleId)
           .get()
           .then((data) => {
-              bookingData.Booking = [];
-              data.forEach((bookingDoc) => {
-                bookingData.Booking.push({
-                    bookingId : bookingDoc.id,
-                    username : bookingData.username,
-                    shopId : bookingDoc.data().shopId,
-                    createAt : bookingDoc.data().createAt,
-                    //imgUrl
-                    price : bookingDoc.data().price    
-                });
+            bookingData.time = [];
+              data.forEach((docdoc) => {
+                bookingData.time.push({ time : docdoc.data().time});
               });
-              return res.json(bookingData);
-          }).catch((err) => {console.error(err); res.status(500).json({ error : err.code })})
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).json({ error: err.code });
+
+              let t = bookingData.time[0].time;
+              bookingData.time = t;
+              
+              db.collection('hairStyles').where('hairStyleId','==',bookingData.hairStyleId)
+              .get()
+              .then((data) => {
+                bookingData.hairName = [];
+                data.forEach((docdoc) => {
+                  bookingData.hairName.push({ hairName : docdoc.data().hairName});
+                });
+
+                let hn = bookingData.hairName[0].hairName;
+                bookingData.hairName = hn;
+
+                db.collection('barbers').where('barberId','==',bookingData.barberId)
+                .get()
+                .then((data) => {
+                  bookingData.barberName = [];
+                  data.forEach((docdoc) => {
+                    bookingData.barberName.push({ barberName : docdoc.data().barberName});
+                  });
+
+                  let bn = bookingData.barberName[0].barberName;
+                  bookingData.barberName = bn;
+
+                  return res.json(bookingData);
+                }).catch((err) => { console.error(err); return res.json({ error : err.code});
+                })
+              })
+          })
+          .catch((err) => {
+            console.error(err);
+            return res.json({ error : err.code});
+          });
       });
-  };
+};

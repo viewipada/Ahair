@@ -5,6 +5,7 @@ import { FaSistrix, FaUser } from "react-icons/fa"
 import { IoIosNotifications } from "react-icons/io"
 import { FaGrin } from 'react-icons/fa'
 import { storage } from 'firebase';
+import axios from 'axios'
 
 class NavBar extends Component {
     constructor(props) {
@@ -29,11 +30,22 @@ class NavBar extends Component {
         else this.setState({isSignin:true})
     }
 
+<<<<<<< HEAD
     showDropdownMenu = () => {
         if (!this.state.isSignin) {
             // <Link className="link" to="/signin"/>
+=======
+    componentDidMount() {
+        if (localStorage.getItem('user')) {
+            this.setState({ checkLogin: true });
+            this.setState({ statename: localStorage.getItem('username') });
+>>>>>>> ecb6b71763f4bb70e12fd46d838fe838b3eb2d7b
         }
-        else {
+    }
+
+    showDropdownMenu = () => {
+        const checkLogin = this.state.checkLogin;
+        if (checkLogin) {
             this.setState({ displayMenu: true }, () => {
                 document.addEventListener('click', this.hideDropdownMenu);
             });
@@ -48,11 +60,17 @@ class NavBar extends Component {
     }
 
     logoutevent = () => {
+<<<<<<< HEAD
         this.setState({ isSignin: false });
         this.props.history.push('/home')
         localStorage.removeItem('token')
         localStorage.removeItem('username')
         localStorage.removeItem('shopname')
+=======
+        this.setState({ checkLogin: false });
+        this.setState({ statename: 'SignIn' });
+        localStorage.clear();
+>>>>>>> ecb6b71763f4bb70e12fd46d838fe838b3eb2d7b
     }
 
     handleInputChange = (event) => {
@@ -62,80 +80,63 @@ class NavBar extends Component {
         })
     }
 
-    handleSubmit = (event) => {
-        event.preventDefault();
-        const data = this.state.searchValue;
-        console.log(data);
-        if (this.props._keySearch) {
-            this.props._keySearch(data)
-        }
-        this.setState({ statesubmit: true })
-    }
-    keyPress = (event) => {
-        if (event.key === "Enter") {
-            const data = this.state.searchValue;
-            console.log(data);
-            if (this.props._keySearch) {
-                this.props._keySearch(data)
-            }
-            this.setState({ statesubmit: true })
-        }
-    }
-
     render() {
         return (
             <div class="wrapnavbar">
-                <Link className="link" to="">
-                    <img src={logo} class="homelogo" alt="Home" />
+                <Link className="link" to="/home">
+                    <img src={logo} class="ui small image" alt="Home" />
                 </Link>
-                <div class="searchBox">
-                    <input
-                        type="text"
-                        placeholder="Search"
-                        className="searchInput"
-                        name="searchValue"
-                        onChange={this.handleInputChange}
-                        onKeyPress={this.keyPress}
-                    />
-                    <button className="searchBt" onClick={this.handleSubmit}>
-                        <FaSistrix size='1.5em' color="white" />
-                    </button>
-                    {
-                        this.state.statesubmit ?
-                            (
-                                <div href='/searchpage'/>
-                            )
-                            : null
-                    }
-                </div>
                 <div className="leftGroup">
                     {
                         this.state.isSignin ?
                             (
-                                <button className="iconBt"><FaGrin color='white' size='1.8em' /></button>
-
+                                <div>
+                                    <Link className="link" to='/searchpage'>
+                                        <button className="iconBt"><FaSistrix color='white' size='2em' /></button>
+                                    </Link>
+                                </div>
                             )
                             : null
                     }
                     {
                         this.state.isSignin ?
                             (
-                                <button className="iconBt"><IoIosNotifications color='white' size='2em' /></button>
+                                <div>
+                                    <Link className="link" to='/noticeforcustomer'>
+                                        <button className="iconBt"><IoIosNotifications color='white' size='2em' /></button>
+                                    </Link>
+                                </div>
                             )
                             : null
                     }
+<<<<<<< HEAD
 
                     <button 
                         class="Signin"
                         onClick={() => { this.showDropdownMenu() }}>
                         <i class={!this.state.isSignin ? "users icon" : "user circle icon"}></i>
                         {this.state.statename}
+=======
+                    <button
+                        class="Signin"
+                        onClick={this.showDropdownMenu}>
+                        {
+                            this.state.checkLogin ? <i className='user circle icon'></i>
+                                : <i className="users icon" size='2em'></i>
+                        }
+                        <span>{this.state.statename}</span>
+>>>>>>> ecb6b71763f4bb70e12fd46d838fe838b3eb2d7b
                     </button>
 
                     {this.state.displayMenu ? (
                         <ul>
+<<<<<<< HEAD
                             <a href= {localStorage.getItem('username') ? "/profilecustomer" : "/profileshop"}>Profile</a>
                             <a onClick={this.logoutevent}>Log Out</a>
+=======
+                            <a href="/profilecustomer" >Profile</a>
+                            <a href="/home" onClick={this.logoutevent}>Log Out</a>
+>>>>>>> ecb6b71763f4bb70e12fd46d838fe838b3eb2d7b
                         </ul>
                     ) :
                         (
