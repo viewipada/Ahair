@@ -24,6 +24,7 @@ export const AddColorCheckBox = props => {
 }
 
 export const ColorCheckBox = props => {
+    console.log("ColorCheckBox");
     return (
         <div className = "checkbox_info" style={{display:"inline-flex",flexWrap:"wrap"}}>
             <input 
@@ -55,6 +56,7 @@ class Colors extends React.Component {
     }
     
     colorChecked = event => {
+        console.log("colorChecked");
         this.props.shopColorStore.forEach(color => {
         if (color.value === event.target.value)
             color.isChecked =  event.target.checked
@@ -68,12 +70,18 @@ class Colors extends React.Component {
     }
 
     handleSubmit = event => {
+        console.log("handleSubmit");
         event.preventDefault();
         this.setState({shopColorstock:[]})
         // console.log(this.state.color)
         this.props.shopColorStore.forEach(color => {
             if(color.isChecked){
-                this.state.shopColorstock.push({id:this.state.shopColorstock.length, value: color.value, key: this.state.shopColorstock.length, isChecked:color.isChecked})
+                this.state.shopColorstock.push({
+                    id:this.state.shopColorstock.length, 
+                    value: color.value, 
+                    key: this.state.shopColorstock.length, 
+                    isChecked:color.isChecked
+                })
             }
         })
         if(this.state.addcolor) {
@@ -95,15 +103,16 @@ class Colors extends React.Component {
             // shopImg : this.props.shopInfoStore.imageUrl,
             colors : this.state.shopColorstock
         }
-        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',shopInformation ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
-            .then(function(response){
-                console.log(response)
-            })
-            .catch(function(error) {
-                console.log(error)
-            }
-        )
-        this.props.history.push('/hairstyles')
+        
+        // axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',shopInformation ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
+        //     .then(function(response){
+        //         console.log(response)
+        //     })
+        //     .catch(function(error) {
+        //         console.log(error)
+        //     }
+        // )
+        // this.props.history.push('/hairstyles')
     }
 
     typeAddcolor = event => {
@@ -124,7 +133,7 @@ class Colors extends React.Component {
     }
 
     render() {
-        if(!this.state.isSignin) return <Redirect to='/home'/>
+        // if(!this.state.isSignin) return <Redirect to='/home'/>
         return (
             
             <div className="big_container">
