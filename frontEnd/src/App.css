@@ -1655,7 +1655,8 @@ button[type='signIn_2']:hover {
   font-weight: bold;
   color: #cb2c6f;
 }
-.BookInfo p .subdetail{
+.subdetail{
+  display: flex;
   font-size: 20px;
   font-weight: normal;
   color: #ffffff;

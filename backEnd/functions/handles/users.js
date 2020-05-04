@@ -1,130 +1,137 @@
-const { admin, db } = require('../util/admin')
+const { admin, db } = require("../util/admin");
 
-const config = require('../util/config');
+const config = require("../util/config");
 
-const firebase = require('firebase');
+const firebase = require("firebase");
 firebase.initializeApp(config);
 
-const { validateSignupData , validateLoginData } = require('../util/validators');
+const { validateSignupData, validateLoginData } = require("../util/validators");
 
-exports.signup = (req , res) => {
-    const newUser = {
-         email: req.body.email,
-         password: req.body.password,
-         confirmPassword: req.body.confirmPassword,
-         handle: req.body.handle,
-         name: req.body.name,
-         phoneNum: req.body.phoneNum,
-         userGender: req.body.userGender,
-         imgUrl : req.body.imgUrl
+exports.signup = (req, res) => {
+  const newUser = {
+    email: req.body.email,
+    password: req.body.password,
+    confirmPassword: req.body.confirmPassword,
+    handle: req.body.handle,
+    name: req.body.name,
+    phoneNum: req.body.phoneNum,
+    userGender: req.body.userGender,
+    imgUrl: req.body.imgUrl,
+  };
+  //const noImg = 'no-Img.png';
 
-     };
-     //const noImg = 'no-Img.png';
-
-     let token,userId;
-     db
-     .doc(`/users/${newUser.handle}`)
-     .get()
-     .then(doc => {
-         if(doc.exists){
-             return res.status(400).json({ handle : 'this handle is already taken'});
-         }else {
-             return firebase.auth().createUserWithEmailAndPassword(newUser.email,newUser.password);
-         }
-     }).then(data => {
-         userId = data.user.uid;
-         return data.user.getIdToken();
-     }).then((idToken) => {
-         token = idToken;
-         const userCridentials = {
-            handle: newUser.handle,
-            email: newUser.email,
-            name: newUser.name,
-            phoneNum: newUser.phoneNum,
-            userGender: newUser.userGender,
-            createAt: new Date().toISOString(),
-            imgUrl : req.body.imgUrl,
-            userId
-         };
-         return db.doc(`/users/${newUser.handle}`).set(userCridentials);
-     }).then(() => {
-         return res.status(201).json({ token });
-     })
-     .catch(err => {
-         console.error(err);
-         if(err.code === 'auth/email-already-in-use'){
-             return res.status(400).json({ email : 'Email is already is use'});
-         }else { return res.status(500).json({error : err.code}); }       
-     });
- }
-
-exports.login = (req , res) => {
-    const user = {
-        email : req.body.email,
-        password : req.body.password
-    };
-    let loginData = {}; 
-    firebase
-    .auth()
-    .signInWithEmailAndPassword(user.email,user.password)
-    .then( data => {
-        return data.user.getIdToken();
+  let token, userId;
+  db.doc(`/users/${newUser.handle}`)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        return res.status(400).json({ handle: "this handle is already taken" });
+      } else {
+        return firebase
+          .auth()
+          .createUserWithEmailAndPassword(newUser.email, newUser.password);
+      }
     })
-    .then( token => {
+    .then((data) => {
+      userId = data.user.uid;
+      return data.user.getIdToken();
+    })
+    .then((idToken) => {
+      token = idToken;
+      const userCridentials = {
+        handle: newUser.handle,
+        email: newUser.email,
+        name: newUser.name,
+        phoneNum: newUser.phoneNum,
+        userGender: newUser.userGender,
+        createAt: new Date().toISOString(),
+        imgUrl: req.body.imgUrl,
+        userId,
+      };
+      return db.doc(`/users/${newUser.handle}`).set(userCridentials);
+    })
+    .then(() => {
+      return res.status(201).json({ token });
+    })
+    .catch((err) => {
+      console.error(err);
+      if (err.code === "auth/email-already-in-use") {
+        return res.status(400).json({ email: "Email is already is use" });
+      } else {
+        return res.status(500).json({ error: err.code });
+      }
+    });
+};
+
+exports.login = (req, res) => {
+  const user = {
+    email: req.body.email,
+    password: req.body.password,
+  };
+  let loginData = {};
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(user.email, user.password)
+    .then((data) => {
+      return data.user.getIdToken();
+    })
+    .then((token) => {
       loginData.token = token;
-      
+
       admin
-      .auth()
-      .verifyIdToken(token)
-      .then( async decodedToken => {
+        .auth()
+        .verifyIdToken(token)
+        .then(async (decodedToken) => {
           tkData = decodedToken;
           console.log(decodedToken);
 
           try {
-          const doc = await db.collection('shops')
-            .where('shopId', '==', tkData.uid)
-            .get();
-          if (!doc.exists) {
-            db
-              .collection('users')
-              .where('userId', '==', tkData.uid)
-              .limit(1)
-              .get()
-              .then((document) => {
-                loginData.username = [];
-                document.forEach((docdoc) => {
-                  loginData.username.push({ username: docdoc.data().handle });
+            const doc = await db
+              .collection("shops")
+              .where("shopId", "==", tkData.uid)
+              .get();
+            if (!doc.exists) {
+              db.collection("users")
+                .where("userId", "==", tkData.uid)
+                .limit(1)
+                .get()
+                .then((document) => {
+                  loginData.username = [];
+                  document.forEach((docdoc) => {
+                    loginData.username.push({ username: docdoc.data().handle });
+                  });
+                  let bn = loginData.username[0].username;
+                  loginData.username = bn;
+                  loginData.shopname = "";
+                  return res.json({ loginData });
+                })
+                .catch((err) => {
+                  console.error(err);
+                  loginData.shopname = [];
+                  doc.forEach((docdoc) => {
+                    loginData.shopname.push({
+                      shopname: docdoc.data().shopName,
+                    });
+                  });
+                  let bn_1 = loginData.shopname[0].shopname;
+                  loginData.shopname = bn_1;
+                  loginData.username = "";
+                  return res.json({ loginData });
                 });
-                let bn = loginData.username[0].username;
-                loginData.username = bn;
-                loginData.shopname = "";
-                return res.json({ loginData });
-              })
-              .catch((err) => {
-                console.error(err);
-                loginData.shopname = [];
-                doc.forEach((docdoc) => {
-                  loginData.shopname.push({ shopname: docdoc.data().shopName });
-                });
-                let bn_1 = loginData.shopname[0].shopname;
-                loginData.shopname = bn_1;
-                loginData.username = "";
-                return res.json({ loginData });
-              });
+            }
+          } catch (err_1) {
+            console.error(err_1);
+            return res.json({ message: "Esus you did wrong" });
           }
-          ;
-        }
-        catch (err_1) {
-          console.error(err_1);
-          return res.json({ message: 'Esus you did wrong' });
-        }
-      })
+        });
     })
-    .catch(err => {
-        console.error(err);
-        if(err.code === 'auth/wrong-password'){
-            return res.status(403).json({ general : 'Wrong credentials,please try again...'});
-        }else return res.status(500).json({ error: err.code});
+    .catch((err) => {
+      console.error(err);
+      if (err.code === "auth/wrong-password") {
+        return res
+          .status(403)
+          .json({ general: "Wrong credentials,please try again..." });
+      } else return res.status(500).json({ error: err.code });
     });
 };
 
@@ -181,110 +188,115 @@ exports.login = (req , res) => {
   };*/
 /////////////////////////////////////////////
 
-exports.profile = (req,res) => {
-  db
-      .collection('users')
-      .get()
-      .then(data => {
-          let users = [];
-          data.forEach(doc => {
-              users.push({
-                  email : doc.id,
-                  handle : doc.data().handle,
-                  name : doc.data().name,
-                  phoneNum : doc.data().phoneNum,
-                  userGender : doc.data().userGender,
-                  createAt : doc.data().createAt
-              });
-          });
-          return res.json(users);
-      })
-      .catch((err) => console.error(err));
+exports.profile = (req, res) => {
+  db.collection("users")
+    .get()
+    .then((data) => {
+      let users = [];
+      data.forEach((doc) => {
+        users.push({
+          email: doc.id,
+          handle: doc.data().handle,
+          name: doc.data().name,
+          phoneNum: doc.data().phoneNum,
+          userGender: doc.data().userGender,
+          createAt: doc.data().createAt,
+        });
+      });
+      return res.json(users);
+    })
+    .catch((err) => console.error(err));
 };
 
 //////////////////////////////////////////////////
 exports.getAuthenticatedUser = (req, res) => {
-    let userData = {};
-    db.doc(`/users/${req.user.handle}`)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          userData.credentials = doc.data();
-          
-        }
-        return res.json(userData);
-      })        
-      .catch((err) => {
-        console.error(err);
-        return res.status(500).json({ error: err.code });
-      });
+  let userData = {};
+  db.doc(`/users/${req.user.handle}`)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        userData.credentials = doc.data();
+      }
+      return res.json(userData);
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
+};
+/////////////// shop signup ////////////////////////
+exports.signupShop = (req, res) => {
+  const newShop = {
+    email: req.body.email,
+    password: req.body.password,
+    confirmPassword: req.body.confirmPassword,
+    shopName: req.body.shopName,
+    adminName: req.body.adminName,
+    phoneNum: req.body.phoneNum,
+    imgUrl: req.body.imgUrl,
   };
-  /////////////// shop signup ////////////////////////
-exports.signupShop = (req , res) => {
-    const newShop = {
-         email : req.body.email,
-         password : req.body.password,
-         confirmPassword : req.body.confirmPassword,
-         shopName : req.body.shopName,
-         adminName : req.body.adminName,
-         phoneNum: req.body.phoneNum,
-         imgUrl : req.body.imgUrl
-     };
-   
-     //const noImg = 'no-Img.png';
 
-     let token,shopId;
-     db
-     .doc(`/shops/${newShop.shopName}`)
-     .get()
-     .then(doc => {
-         if(doc.exists){
-             return res.status(400).json({ shopName : 'this shopName is already taken'});
-         }else {
-             return firebase.auth().createUserWithEmailAndPassword( newShop.email , newShop.password );
-         }
-     }).then(data => {
-         shopId = data.user.uid;
-         return data.user.getIdToken();
-     }).then((idToken) => {
-         token = idToken;
-         const shopCridentials = {
-            shopName: newShop.shopName,
-            adminName: newShop.adminName,
-            email: newShop.email,
-            phoneNum: newShop.phoneNum,
-            createAt: new Date().toISOString(),
-            ingUrl: newShop.ingUrl,
-            shopId
-         };
-         return db.doc(`/shops/${newShop.shopName}`).set(shopCridentials);
-     }).then(() => {
-         return res.status(201).json({ token });
-     })
-     .catch(err => {
-         console.error(err);
-         if(err.code === 'auth/email-already-in-use'){
-             return res.status(400).json({ email : 'Email is already is use'});
-         }else { return res.status(500).json({error : err.code}); }       
-     });
- };
+  //const noImg = 'no-Img.png';
+
+  let token, shopId;
+  db.doc(`/shops/${newShop.shopName}`)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        return res
+          .status(400)
+          .json({ shopName: "this shopName is already taken" });
+      } else {
+        return firebase
+          .auth()
+          .createUserWithEmailAndPassword(newShop.email, newShop.password);
+      }
+    })
+    .then((data) => {
+      shopId = data.user.uid;
+      return data.user.getIdToken();
+    })
+    .then((idToken) => {
+      token = idToken;
+      const shopCridentials = {
+        shopName: newShop.shopName,
+        adminName: newShop.adminName,
+        email: newShop.email,
+        phoneNum: newShop.phoneNum,
+        createAt: new Date().toISOString(),
+        ingUrl: newShop.ingUrl,
+        shopId,
+      };
+      return db.doc(`/shops/${newShop.shopName}`).set(shopCridentials);
+    })
+    .then(() => {
+      return res.status(201).json({ token });
+    })
+    .catch((err) => {
+      console.error(err);
+      if (err.code === "auth/email-already-in-use") {
+        return res.status(400).json({ email: "Email is already is use" });
+      } else {
+        return res.status(500).json({ error: err.code });
+      }
+    });
+};
 
 // edit User
-exports.editUser = (req,res) => {
-    const editUserData = {
+exports.editUser = (req, res) => {
+  const editUserData = {
     name: req.body.name,
-      phoneNum: req.body.phoneNum,
-      userGender: req.body.userGender
-    }
-  
-    db.doc(`/users/${req.user.handle}`)
-        .update(editUserData)
-        .then(() => {
-          return res.json({ message: "Edit User successfully" });
-        })
-        .catch((err) => {
-          console.error(err);
-          return res.status(500).json({ error: err.code });
-        });
+    phoneNum: req.body.phoneNum,
+    userGender: req.body.userGender,
   };
 
+  db.doc(`/users/${req.user.handle}`)
+    .update(editUserData)
+    .then(() => {
+      return res.json({ message: "Edit User successfully" });
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
+};

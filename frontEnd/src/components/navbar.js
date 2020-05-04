@@ -60,9 +60,9 @@ class NavBar extends Component {
 
     render() {
         return (
-            <div class="wrapnavbar">
+            <div className="wrapnavbar">
                 <Link className="link" to="/home">
-                    <img src={logo} class="ui small image" alt="Home" />
+                    <img src={logo} className="ui small image" alt="Home" />
                 </Link>
 
                 <div className="leftGroup">
@@ -91,7 +91,7 @@ class NavBar extends Component {
 
                     <Link className="link" to='/signin' style={{display:this.state.isSignin? "none" : "flex"}}>
                         <button
-                            class="Signin"
+                            className="Signin"
                             onClick={this.showDropdownMenu}>
                             {
                                 this.state.isSignin ? <i className='user circle icon'></i>
@@ -101,7 +101,7 @@ class NavBar extends Component {
                         </button>
                     </Link>
                         <button
-                            class="Signin"
+                            className="Signin"
                             style={{display:this.state.isSignin? "flex" : "none"}}
                             onClick={this.showDropdownMenu}>
                             {

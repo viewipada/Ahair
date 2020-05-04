@@ -30,7 +30,16 @@ const {
   getReviewFromShop,
 } = require("./handles/reviewFromShop");
 
-const { addBooking, getBooking } = require("./handles/bookings");
+const {
+  addBooking,
+  getBooking,
+  getBookingForOneUser,
+  getBookingForOneShop,
+  getBookingForOneBarber,
+  deleteBookingFromUser,
+  deleteBookingFromShop,
+  done
+} = require("./handles/bookings");
 
 const {
   addShopDetails,
@@ -41,7 +50,11 @@ const {
 
 const { addHairStyle, getHairStyle } = require("./handles/hairStyle");
 
-const { addBarber, getBarber, getAllBarberInShop } = require("./handles/barbers");
+const {
+  addBarber,
+  getBarber,
+  getAllBarberInShop,
+} = require("./handles/barbers");
 
 const {
   signup,
@@ -75,7 +88,7 @@ app.get("/Ashop", FBAuthforShop, getAshop);
 app.post("/hairStyle", FBAuthforShop, addHairStyle);
 app.get("/hairStyle/:shopName", getHairStyle);
 app.post("/barber", FBAuthforShop, addBarber);
-//pp.get("/barber/person/:barberId", getBarber);
+app.get("/barber/person/:barberId", getBarber);
 app.get("/barber/:shopName", getAllBarberInShop);
 
 //reviewfromUser routes
@@ -87,7 +100,13 @@ app.post("/reviewfromshop", FBAuthforShop, postReviewFromShop);
 app.get("/reviewfromshop/:handle", getReviewFromShop);
 
 //bookings routes
-app.post("/booking", FBAuth, addBooking);
+app.post("/bookings", FBAuth, addBooking);
 app.get("/booking/:bookingId", getBooking);
+app.get("/booking", FBAuth, getBookingForOneUser); //getBookingForOneUser
+app.get("/bookingforshop", FBAuthforShop, getBookingForOneShop); //getBookingForOneShop
+app.get("/bookingforbarber/:barberName", getBookingForOneBarber); //getBookingForOneBarber
+app.delete("/bookingfromuser/:bookingId",FBAuth, deleteBookingFromUser);//deleteBooking
+app.delete("/bookingfromshop/:bookingId",FBAuthforShop, deleteBookingFromShop);
+app.get("/done/:bookingId",FBAuthforShop, done);
 
 exports.api = functions.https.onRequest(app);

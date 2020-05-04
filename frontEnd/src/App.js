@@ -37,6 +37,7 @@ import Thx4Review_Cus from './components/FinishedReview_Cus';
 import SelectTime from './components/SelectTime';
 import {PrivateRoute} from './components/PrivateRoute'
 import HomeShop from './components/HomeShop';
+import dontforgettoreview from './components/dontforget2Review'
 class App extends React.Component {
   render() {
     return (
@@ -58,13 +59,13 @@ class App extends React.Component {
               <Route path='/profileshop' component={ProfileShop} />
               <Route path='/editprofileshop' component={EditProfileShop} />
               <Route path='/hairstyles' component={HairStyles} />
-              <PrivateRoute path='/ReviewforCustomer' component={Review_Cus}/>
-              <PrivateRoute path='/ReviewforShop' component={Review_Shop}/>
+              <PrivateRoute path='/ReviewforCustomer/:bookingId' component={Review_Cus}/>
+              <PrivateRoute path='/ReviewforShop/:bookingId' component={Review_Shop}/>
               <Route path='/home' component={Home}/>
               <Route path='/pricelist' component={PriceList} />
               <Route path='/hairbarber' component={HairBarBer} />
               <Route path='/colors' component={Colors} />
-              <Route path='/noticeforcustomer' component={notice_Cus}/>
+              <PrivateRoute path='/noticeforcustomer' component={notice_Cus}/>
               <Route path='/noticeforshop' component={notice_Shop}/>
               <Route path='/navbar' component={Navbar}/>
               <Route path='/navbarshop' component={NavBarShop} />
@@ -72,12 +73,16 @@ class App extends React.Component {
               <Route path='/searchpage' component={SearchPage} />
               <Route path='/shop' component={Shop} />
               <Route path='/SelectHairStyle' component={SelectHairStyle} />
-              <PrivateRoute exact path='/BookInfo_Cus' component={BookingInfo_Cus}/>
-              <PrivateRoute path='/BookInfo_Shop' component={BookingInfo_Shop}/>
+              <PrivateRoute path='/BookInfo_Cus/:bookingId' component={BookingInfo_Cus}/>
+              <PrivateRoute path='/BookInfo_Shop/:bookingId' component={BookingInfo_Shop}/>
               <PrivateRoute path='/thank4Review_Cus' component={Thx4Review_Cus}/>
               <Route path='/selecttime' component={SelectTime} />
+<<<<<<< HEAD
               <Route path='/homeshop' component={HomeShop} />
               <Route path='/editshopinformation' component={EditShopInformation} />
+=======
+              <Route path='/dontforgettoreview' component={dontforgettoreview}/>
+>>>>>>> b85c678ec59e694e19f22b434243aa1194a60ad1
             </Switch>
           </div>
         </Router>

@@ -5,6 +5,8 @@ import StarRate from './StarRate';
 import errorIcon from './pic/error_icon.png';
 import Navbar from './navbar'
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { Booking } from '../redux/index';
 
 class review_Cus extends React.Component {
 
@@ -17,7 +19,9 @@ class review_Cus extends React.Component {
             reviewdata: '',
             ratingValue: '',
             isEmpty: '',
-            starError: ''
+            starError: '',
+            bookingId: '',
+            shopId: ''
         }
         this.getFile = this.getFile.bind(this);
         this.getStar = this.getStar.bind(this);
@@ -36,14 +40,32 @@ class review_Cus extends React.Component {
             [event.target.name]: event.target.value
         })
     }
+    componentDidMount() {
+        const { bookingId } = this.props.match.params;
+
+        this.setState({ bookingId: bookingId });
+    }
     handleSubmit = (event) => {
         event.preventDefault();
         const rate = this.state.ratingValue;
         console.log(this.state);
+        const reviewData = {
+            rate: this.state.ratingValue,
+            message: this.state.reviewdata,
+            bookingId: this.state.bookingId
+        }
         if (rate != null) {
             this.setState({ isEmpty: false }, () => {
                 console.log(this.state.isEmpty);
             });
+            axios.post(`https://us-central1-g10ahair.cloudfunctions.net/api/reviewfromuser`, reviewData, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } })
+                .then(res => {
+                    console.log(res);
+                    this.props.history.push('/thank4Review_Cus');
+                })
+                .catch(err => {
+                    console.log(err.response);
+                })
         }
         else {
             this.setState({ isEmpty: true }, () => {
@@ -51,23 +73,9 @@ class review_Cus extends React.Component {
             });
 
         }
-        const reviewData = {
-            rate: this.state.ratingValue,
-            message: this.state.reviewdata,
-            shopId: "ulT9ZVyeo1ZvgRHgjDzMEjSVc932",
-            bookindId:"sg3LITjTkc3YZ5cXReSH"
-        }
-        
-        axios.post(`https://us-central1-g10ahair.cloudfunctions.net/api/reviewfromuser`, reviewData,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
-        .then(res => {
-            console.log(res);
-            this.props.history.push('/thank4Review_Cus');
-        })
-        .catch(err => {
-            console.log(err.response);
-        })
+       
     }
-    
+
     render() {
         return (
             <div><Navbar />
@@ -111,11 +119,11 @@ class review_Cus extends React.Component {
                             </div>
                         </div>
                         <div className="container_right_bt" >
-                                <button
-                                    type="submit"
-                                    className="submit_button" 
-                                >
-                                    Submit
+                            <button
+                                type="submit"
+                                className="submit_button"
+                            >
+                                Submit
                             </button>
                         </div>
                     </form>
@@ -125,4 +133,15 @@ class review_Cus extends React.Component {
     }
 }
 
-export default review_Cus;
+const mapStateToProps = (state) => { //subscribe
+    return {
+        shopStore: state.ShopReducer.shop
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        shop: (data) => dispatch(Booking(data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(review_Cus);

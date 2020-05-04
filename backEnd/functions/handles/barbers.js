@@ -12,7 +12,7 @@ exports.addBarber = (req, res) => {
   db.collection("barbers")
     .add(newBarber)
     .then((doc) => {
-      db.doc(`/barbers/${doc.id}`).update({barberId : doc.id})
+      db.doc(`/barbers/${doc.id}`).update({ barberId: doc.id });
       return res.status(200).json({ message: `create ${doc.id} succesfully` });
     })
     .catch((err) => {
@@ -26,31 +26,46 @@ exports.getBarber = (req, res) => {
   db.doc(`/barbers/${req.params.barberId}`)
     .get()
     .then((doc) => {
-      if (!doc.exists) {
-        return res.status(404).json({ error: "Barber not found" });
-      }
-      //barberData = doc.data();
+      barberData.barberId = doc.data().barberId;
+      barberData.hairAble = doc.data().hairAble;
       barberData.shopId = doc.data().shopId;
 
-      db.collection("barbers")
-        .where("shopId", "==", barberData.shopId)
-        .orderBy("createAt", "desc")
-        .get()
-        .then((data) => {
-          barberData.barbers = [];
-          data.forEach((docdoc) => {
-            barberData.barbers.push(docdoc.data());
-          });
-          return res.json(barberData);
-        })
-        .catch((err) => {
-          console.error(err);
-          res.status(500).json({ error: err.code });
+      //return res.json(barberData);
+      let count = 0;
+      barberData.list = [];
+      var l = new Promise((resolve, reject) => {
+        barberData.hairAble.forEach((hair, index, array) => {
+          db.collection("hairStyles")
+            .where("shopId", "==", barberData.shopId)
+            .get()
+            .then((dataQ) => {
+              dataQ.forEach((docdoc) => {
+                docdoc.data().hair.forEach((x) => {
+                  if (x.hairId === hair.hairId) {
+                    barberData.list.push({
+                      hairId: x.hairId,
+                      hairName: x.hairName,
+                      price: x.price,
+                      type: x.type,
+                      time: hair.time,
+                    });
+                    count++;
+                  }
+                });
+              });
+            });
+          if (index === array.length - 1) {
+            resolve();
+          }
         });
+      });
+      l.then(() => {
+        return res.json({ count });
+      });
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).json({ error: err.code });
+      return res.status(500).json({ error: "barber not found" });
     });
 };
 
