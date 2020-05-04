@@ -3,22 +3,29 @@ const { db } = require('../util/admin');
 exports.postReviewFromShop = (req , res) => {
       
     const  newReviewFromShop = {
-        userId : req.body.userId,
         rate : req.body.rate,
         shopName: req.shop.shopName,
         shopId :req.shop.shopId, 
+        bookingId: req.body.bookingId,
         createAt: new Date().toISOString()
     };
 
-    db
-    .collection('reviewFromShop')
-    .add(newReviewFromShop)
-    .then(doc => {res.json({message :`create ${doc.id} succesfully`}); 
-    return res.json({message :`create ${doc.id} succesfully`}); })
-    .catch(err => {
-        res.status(500).json({ error : 'something went wrong'});
+    db.doc(`/booking/${req.body.bookingId}`).get().then((doc) => {
+      return newReviewFromShop.userId =  doc.data().userId;
+    }).then(() => {
+      db.collection("reviewFromShop")
+      .add(newReviewFromShop)
+      .then((doc) => {
+        db.doc(`/booking/${newReviewFromShop.bookingId}`).update({ reviewedFromShop : true });
+        return res.status(200).json({ message: `create ${doc.id} succesfully` });
+      })
+      .catch((err) => {
+        res.status(500).json({ error: "something went wrong" });
         console.error(err);
-    });
+      });
+    })
+
+    
 };
 
 exports.getReviewFromShop = (req, res) => {

@@ -3,7 +3,6 @@ const { db } = require("../util/admin");
 exports.postReviewFromUser = (req, res) => {
   const newReviewFromUser = {
     message: req.body.message,
-    shopId: req.body.shopId,
     rate: req.body.rate,
     userHandle: req.user.handle,
     userId: req.user.userId,
@@ -11,16 +10,21 @@ exports.postReviewFromUser = (req, res) => {
     createAt: new Date().toISOString(),
   };
 
-  db.collection("reviewFromUser")
+  db.doc(`/booking/${req.body.bookingId}`).get().then((doc) => {
+    return newReviewFromUser.shopId =  doc.data().shopId;
+  }).then(() => {
+    db.collection("reviewFromUser")
     .add(newReviewFromUser)
     .then((doc) => {
-      db.doc(`/booking/${newReviewFromUser.bookingId}`).update({ reviewed : true });
+      db.doc(`/booking/${newReviewFromUser.bookingId}`).update({ reviewedFromUser : true });
       return res.status(200).json({ message: `create ${doc.id} succesfully` });
     })
     .catch((err) => {
       res.status(500).json({ error: "something went wrong" });
       console.error(err);
     });
+  })
+
 };
 
 exports.getReviewFromUser = (req, res) => {

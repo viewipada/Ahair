@@ -7,33 +7,35 @@ exports.addHairStyle = (req, res) => {
     createAt: new Date().toISOString(),
   };
 
-  db.collection('hairStyles').where('shopId','==', req.shop.shopId).get()
-  .then((doc) => {
-    let dd = {};
-    dd.hairStyleId =[];
-    doc.forEach((docdoc) => {
-      dd.hairStyleId.push( {hId : docdoc.data().hairStyleId })
-    })
-
-    let x = dd.hairStyleId[0].hId;
-    dd.hairStyleId = x
-
-    db.doc(`/hairStyles/${dd.hairStyleId}`).update(newHairStyle);
-    
-    return res.json({ message : `edited!! ${dd.hairStyleId} `});
-  })
-  .catch((err) => {
-    db.collection("hairStyles")
-    .add(newHairStyle)
+  db.collection("hairStyles")
+    .where("shopId", "==", req.shop.shopId)
+    .get()
     .then((doc) => {
-      db.doc(`/hairStyles/${doc.id}`).update({hairStyleId : doc.id});
+      let dd = {};
+      dd.hairStyleId = [];
+      doc.forEach((docdoc) => {
+        dd.hairStyleId.push({ hId: docdoc.data().hairStyleId });
+      });
+
+      let x = dd.hairStyleId[0].hId;
+      dd.hairStyleId = x;
+
+      db.doc(`/hairStyles/${dd.hairStyleId}`).update(newHairStyle);
+
+      return res.json({ message: `edited!! ${dd.hairStyleId} ` });
     })
     .catch((err) => {
-      res.status(500).json({ error: "something went wrong" });
-      console.error(err);
+      db.collection("hairStyles")
+        .add(newHairStyle)
+        .then((doc) => {
+          db.doc(`/hairStyles/${doc.id}`).update({ hairStyleId: doc.id });
+        })
+        .catch((err) => {
+          res.status(500).json({ error: "something went wrong" });
+          console.error(err);
+        });
+      return res.json({ message: "added++" });
     });
-    return res.json({ message : 'added++'})
-  })
 };
 
 exports.getHairStyle = (req, res) => {
@@ -54,7 +56,7 @@ exports.getHairStyle = (req, res) => {
           hairStyleData.hairStyles = [];
           data.forEach((docdoc) => {
             hairStyleData.hairStyles.push({
-              pi: docdoc.data().hair
+              pi: docdoc.data().hair,
             });
           });
 
