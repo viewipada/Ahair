@@ -94,7 +94,7 @@ class NavBar extends Component {
                             class="Signin"
                             onClick={this.showDropdownMenu}>
                             {
-                                this.state.checkLogin ? <i className='user circle icon'></i>
+                                this.state.isSignin ? <i className='user circle icon'></i>
                                     : <i className="users icon" size='2em'></i>
                             }
                             <span>{this.state.statename}</span>
@@ -105,7 +105,7 @@ class NavBar extends Component {
                             style={{display:this.state.isSignin? "flex" : "none"}}
                             onClick={this.showDropdownMenu}>
                             {
-                                this.state.checkLogin ? <i className='user circle icon'></i>
+                                this.state.isSignin ? <i className='user circle icon'></i>
                                     : <i className="users icon" size='2em'></i>
                             }
                             <span>{this.state.statename}</span>
