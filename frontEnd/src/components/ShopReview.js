@@ -64,7 +64,7 @@ class ShopReview extends Component {
 
                                 {/* Body */}
                                 {this.state.rows.map(item => (
-                                    <ShopReviewItem review={item} />
+                                    <ShopReviewItem key={item.userId} review={item} />
                                 ))}
 
                             </section>

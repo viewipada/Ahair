@@ -73,7 +73,12 @@ class Colors extends React.Component {
         // console.log(this.state.color)
         this.props.shopColorStore.forEach(color => {
             if(color.isChecked){
-                this.state.shopColorstock.push({id:this.state.shopColorstock.length, value: color.value, key: this.state.shopColorstock.length, isChecked:color.isChecked})
+                this.state.shopColorstock.push({
+                    id:this.state.shopColorstock.length, 
+                    value: color.value, 
+                    key: this.state.shopColorstock.length, 
+                    isChecked:color.isChecked
+                })
             }
         })
         if(this.state.addcolor) {
@@ -95,6 +100,7 @@ class Colors extends React.Component {
             // shopImg : this.props.shopInfoStore.imageUrl,
             colors : this.state.shopColorstock
         }
+        
         axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',shopInformation ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
             .then(function(response){
                 console.log(response)
@@ -124,6 +130,7 @@ class Colors extends React.Component {
     }
 
     render() {
+        // if(!this.state.isSignin) return <Redirect to='/home'/>
         return (
             
             <div className="big_container">

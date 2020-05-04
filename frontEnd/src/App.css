@@ -846,7 +846,7 @@ textarea{
 
   @font-face{
     font-family: "Signatra";
-    src: url("/fonts/signatra.ttf.ttf");
+    src: url("/fonts/signatra.ttf");
   }
   @font-face{
     font-family: cloud;
@@ -987,36 +987,7 @@ ul a:hover {
     -moz-transition: left 2s;
     -o-transition: left 2s;
 }
-.sliderImg{
-    float: left;
-    margin: 0%;
-    padding: 0%;
-}
-.buttonContainer{
-    position: relative;
-    top: -10%;
-}
-.sliderButton{
-    display: inline-block;
-    cursor: pointer;
-    height: 10px;
-    width: 10px;
-    border-radius: 5px;
-    margin: 2px;
-    background-color: rgb(202, 196, 196);
-}
-.sliderButton:hover{
-    background-color: #cb2c6f;
-}
-#sliderImg1:target ~ .imgContainer{
-    left: 0px;
-}
-#sliderImg2:target ~ .imgContainer{
-    left: -720px;
-}
-#sliderImg3:target ~ .imgContainer{
-    left: -1440px;
-}
+
 .Topictext{
     position: relative;
     display: flex;
@@ -1657,6 +1628,23 @@ button[type='signIn_2']:hover {
 .input_time::placeholder {
   color: rgb(145, 145, 145);
   color: #ffffff0e;
+}
+
+.container_next {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.container_hairstyle {
+  position: relative;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: center;
 }
 
 /*Booking Infomation*/

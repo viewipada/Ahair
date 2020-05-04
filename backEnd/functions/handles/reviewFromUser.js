@@ -1,20 +1,20 @@
 const { db } = require("../util/admin");
 
 exports.postReviewFromUser = (req, res) => {
-
   const newReviewFromUser = {
     message: req.body.message,
     shopId: req.body.shopId,
     rate: req.body.rate,
     userHandle: req.user.handle,
     userId: req.user.userId,
+    bookingId: req.body.bookingId,
     createAt: new Date().toISOString(),
   };
 
   db.collection("reviewFromUser")
     .add(newReviewFromUser)
     .then((doc) => {
-      res.json({ message: `create ${doc.id} succesfully` });
+      db.doc(`/booking/${newReviewFromUser.bookingId}`).update({ reviewed : true });
       return res.status(200).json({ message: `create ${doc.id} succesfully` });
     })
     .catch((err) => {

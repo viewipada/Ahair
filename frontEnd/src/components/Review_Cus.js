@@ -54,8 +54,10 @@ class review_Cus extends React.Component {
         const reviewData = {
             rate: this.state.ratingValue,
             message: this.state.reviewdata,
-            shopId: "ulT9ZVyeo1ZvgRHgjDzMEjSVc932"
+            shopId: "ulT9ZVyeo1ZvgRHgjDzMEjSVc932",
+            bookindId:"sg3LITjTkc3YZ5cXReSH"
         }
+        
         axios.post(`https://us-central1-g10ahair.cloudfunctions.net/api/reviewfromuser`, reviewData,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
         .then(res => {
             console.log(res);
