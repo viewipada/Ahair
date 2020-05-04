@@ -81,7 +81,7 @@ class SignIn extends React.Component {
                 localStorage.setItem('username', response.data.loginData.username);
                 localStorage.setItem('shopname', response.data.loginData.shopname);
                 currentState.setState({isSignin:true, messageError:""})
-                localStorage.getItem('username') ? currentState.props.history.push('/home') : currentState.props.history.push('/shop')
+                localStorage.getItem('username') ? currentState.props.history.push('/home') : currentState.props.history.push('/homeshop')
             }
           })
           .catch(function (error) {

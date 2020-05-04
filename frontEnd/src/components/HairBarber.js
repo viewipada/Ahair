@@ -134,7 +134,7 @@ class HairBarBer extends React.Component {
                 })
             })
             
-            this.props.history.push('/shop') 
+            this.props.history.push('/homeshop') 
         }
         console.log(this.state);
     };

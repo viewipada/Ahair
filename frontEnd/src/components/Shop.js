@@ -26,14 +26,15 @@ class Shop extends Component {
     }
 
     getShopData = (keyword) => {
+        let currentState = this
         var dataArray = []
-        var barberurl = "https://us-central1-g10ahair.cloudfunctions.net/api/barber/" + keyword;
+        var barberurl = "https://us-central1-g10ahair.cloudfunctions.net/api/barber/" + localStorage.getItem('shopname');
         Axios.get(barberurl).then(result => {
             this.setState({ shopdata: result.data });
             result.data.barber.forEach(item => {
                 dataArray.push(item)
             })
-            this.setState({ barberdata: dataArray });
+            this.setState({ barberdata: dataArray , hadData: true});
         })
     }
 
@@ -55,7 +56,6 @@ class Shop extends Component {
     }
 
     render() {
-
         // const { shopId, shopName, address, phoneNum, vote_average, email, imgUrl } = this.state.rows[0]
         return (
             <body class="is-preload">
@@ -76,12 +76,12 @@ class Shop extends Component {
                             <section>
 
                                 {/* Topic */}
-                                <div class="topic" style={{ marginTop: '0.4em', marginLeft: '-1em' }}>
-                                    <img class="shop_logo" src={shopIcon} />
-                                    {/* {this.state.shopdata.shopName} */}
-                                    {this.props.shopStore.shopName}
+                                <div className = "title">
+                                    <h1 style={{color:"#CB2D6F",fontSize:"30px"}}>
+                                        <img class="shop_logo" src={shopIcon} />
+                                        {localStorage.getItem('shopname')}
+                                    </h1>
                                 </div>
-                                <hr class="major" />
 
                                 {/* Edit Button for admin */}
                                 {/* <Link className="link" to="/shop">
@@ -89,7 +89,9 @@ class Shop extends Component {
                                 </Link> */}
 
                                 {/* image */}
-                                <ShopImgItem item={this.state.shopdata.imgUrl} />
+                                <div style={{display: this.state.shopdata.imgUrl === [] ? "flex":"none"}}>
+                                    <ShopImgItem item={this.state.shopdata.imgUrl} />
+                                </div>
 
                                 {/* information */}
                                 <div class="box_item2" style={{ border: '0' }}>
@@ -108,7 +110,7 @@ class Shop extends Component {
                                     </div>
                                 </div>
 
-                                <h2 style={{ color: '#cb2c6f', marginLeft: '0.8em' }}>Hairdresser</h2>
+                                <h2 style={{ color: '#cb2c6f', marginLeft: '0.8em' }}>Barber</h2>
 
                                 {this.state.barberdata.map(item => (
                                     <a key={item.barberId} onClick={() => this.handleOnClick(item)}>

@@ -11,6 +11,7 @@ import SignUpForCustomerFinished from './components/SignUpForCustomerFinished'
 import SignUpForShopOne from './components/SignUpForShopOne'
 import SignUpForShopTwo from './components/SignUpForShopTwo'
 import ShopInformation from './components/ShopInformation';
+import EditShopInformation from './components/EditShopInformation'
 import ProfileCustomer from './components/ProfileCustomer';
 import ProfileShop from './components/ProfileShop';
 import EditProfileCustomer from './components/EditProfileCustomer';
@@ -35,6 +36,7 @@ import BookingInfo_Shop from './components/BookingInfo_Shop';
 import Thx4Review_Cus from './components/FinishedReview_Cus';
 import SelectTime from './components/SelectTime';
 import {PrivateRoute} from './components/PrivateRoute'
+import HomeShop from './components/HomeShop';
 class App extends React.Component {
   render() {
     return (
@@ -74,6 +76,8 @@ class App extends React.Component {
               <PrivateRoute path='/BookInfo_Shop' component={BookingInfo_Shop}/>
               <PrivateRoute path='/thank4Review_Cus' component={Thx4Review_Cus}/>
               <Route path='/selecttime' component={SelectTime} />
+              <Route path='/homeshop' component={HomeShop} />
+              <Route path='/editshopinformation' component={EditShopInformation} />
             </Switch>
           </div>
         </Router>

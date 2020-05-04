@@ -1,44 +1,50 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {Information} from '../redux/index'
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import shopIcon from './pic/shop_icon.png';
 import timeIcon from './pic/clock_icon.png';
 import errorIcon from './pic/error_icon.png'
 import MultipleImageUpload from './MultipleImageUpload';
 import NavBarShop from './NavBarShop';
 import { Redirect } from 'react-router';
-// import axios from 'axios'
+import axios from 'axios'
 
-//ที่อยู่ เวลา รูปบรรยากาศ
-class ShopInformation extends React.Component {
+class EditShopInformation extends React.Component {
     constructor(props)
     {
         super(props);
-        let token = localStorage.getItem('token')
+        const token = localStorage.getItem('token')
         let isSignin = true
-        if(!token) isSignin =false
+        if (!token) isSignin =false
         this.state = { 
-            address: this.props.shopInfoStore.address || "",
+            posts:[],
+            address: "",
             addressError: "",
-            openhours: this.props.shopInfoStore.openhours || "09:00",
-            closehours: this.props.shopInfoStore.closehours || "18:00",
+            openhours:"09:00",
+            closehours: "18:00",
             imageFile: [],
             imagePreview: [],
-            imageUrl: this.props.shopInfoStore.imageUrl || [],
-            isSignin
+            imageUrl:[],
+            isSignin:null,
+            isEdit:false,
+            hadData: null
         }
         this.getFile = this.getFile.bind(this);
     }
     componentDidMount(){
+        let currentState=this
         axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/Ashop',{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
         .then(res => {
             this.setState({
                 posts: res.data.credentials,
-                isSignin : true
+                isSignin : true, hadData: true, openhours: res.data.credentials.openTime, colsehours: res.data.credentials.closeTime
             })
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err)
+            currentState.setState({hadData: false})
+        });
     }
 
     getFile(img_file, img_preview, img_url) {
@@ -59,6 +65,9 @@ class ShopInformation extends React.Component {
         // event.preventDefault();
         this.setState({[event.target.id]: event.target.value});
     };
+    funcEdit = () => {
+        this.setState({isEdit: !this.state.isEdit})
+    }
 
     handleSubmit = event => {
         event.preventDefault();
@@ -67,10 +76,26 @@ class ShopInformation extends React.Component {
         if (isValid) {
             console.log(this.state);
             this.setState(this.state);
-            this.props.shopInfo(this.state)
-            this.props.history.push('/colors')
+
+            const shopInformation = {
+                address : this.state.address,
+                openTime : this.state.openhours,
+                closeTime : this.state.closehours,
+                // shopImg : this.props.shopInfoStore.imageUrl,
+                colors : this.state.posts.shopColorstock
+            }
+
+            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',shopInformation ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
+            .then(function(response){
+                console.log(response)
+            })
+            .catch(function(error) {
+                console.log(error)
+            })
+            this.props.history.push('/editcolors')
         }
     };
+
 
     render(){
         return(
@@ -80,14 +105,21 @@ class ShopInformation extends React.Component {
                     <div className="wrap_info">
 
                         <div className = "title">
-                            <h1 style={{color:"#CB2D6F",fontSize:"30px"}}>
-                                Shop Infomation
-                            </h1>
+                            <div className="container_next_bt">
+                                <h1 style={{color:"#CB2D6F",fontSize:"30px"}}>
+                                    Shop Infomation
+                                </h1>
+                                    <div style={{display : this.state.hadData ? "flex":"none"}} >
+                                        <button className="login_button" type="submit" onClick={this.funcEdit}>
+                                            {this.state.isEdit ? "Save":"Edit"}
+                                        </button>
+                                    </div>
+                            </div>
                         </div>
                         
                         <div className="signup_form">
 
-                            <div className = "bigcontainer_info">
+                            <div className = "bigcontainer_info" style={{display : this.state.hadData ? "flex":"none"}}>
                                 <div className = "line_info">
                                     <div style={{width:"100px"}}>
                                         <p style={{color:"white", marginRight:"20px"}}>Adress</p>
@@ -98,19 +130,11 @@ class ShopInformation extends React.Component {
                                             className = "input_info" 
                                             type = "text"
                                             id = "address"
-                                            // placeholder = "Address"
-                                            value = {this.state.address}                                              
-                                            onChange = {this.handleChange}
-                                            style = {{placeholder:"gray"}}
+                                            placeholder = {this.state.posts.address}  
+                                            value = {this.state.address}  
+                                            style={{pointerEvents: this.state.isEdit ? "visible":"none"}}
+                                            onChange = {this.handleChange} 
                                         />
-                                        <div className={this.state.addressError===""? "validate_wrap" :"invalidate_wrap"}>
-                                            <div className="erroricon">
-                                                <img src={errorIcon} alt= "" width="20px" />
-                                            </div>
-                                            <div className="texterror">
-                                                <span>{this.state.addressError}</span>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                                 
@@ -124,10 +148,10 @@ class ShopInformation extends React.Component {
                                             className = "input_info" 
                                             type = "time"
                                             id = "openhours"
-                                            // placeholder = "Open hours"
-                                            value = {this.state.openhours}                                              
+                                            // placeholder = {this.state.posts.openTime} 
+                                            value = {this.state.openhours} 
+                                            style={{pointerEvents: this.state.isEdit ? "visible":"none"}}
                                             onChange = {this.handleChange} 
-                                            style = {{placeholder:"gray"}}
                                         />
                                     </div>
 
@@ -140,14 +164,15 @@ class ShopInformation extends React.Component {
                                             className = "input_info" 
                                             type = "time"
                                             id = "closehours"
-                                            value = {this.state.closehours}                                              
+                                            // placeholder = {this.state.posts.closeTime}
+                                            value = {this.state.closehours}
+                                            style={{pointerEvents: this.state.isEdit ? "visible":"none"}}
                                             onChange = {this.handleChange} 
-                                            style = {{placeholder:"gray"}}
                                         />
                                     </div>
                                 </div>
 
-                                <div className = "line_info">
+                                {/* <div className = "line_info">
                                     <div style={{width:"200px"}}>
                                         <p style={{color:"white", marginRight:"20px"}}>Images about shop</p>
                                         <p style={{color:"gray", marginRight:"20px"}}>(maximum 5 images)</p>
@@ -155,20 +180,31 @@ class ShopInformation extends React.Component {
                                     <div>
                                         <MultipleImageUpload getFile={this.getFile} />
                                     </div>
-                                </div>
+                                </div> */}
                                 
                             </div>
                             
-                            <div className="container_right_bt">
-                                {/* <Link className="link" to="/signup">
-                                    <div>
-                                        <button className="login_button" type="reset">
-                                            Back
-                                        </button>
-                                    </div>
-                                </Link> */}
+                            <div style={{display : this.state.hadData ? "none":"flex",textAlign:"center",flexDirection:"column" ,flexWrap:"wrap",justifyContent:"center",alignItems:"center",width:"100%"}}>
+                                    
+                                <div style={{color:"white",textAlign:"center",width:"100%,", justifyContent:"center", alignItems:"center"}}>
+                                    <img src={shopIcon} alt="" width="250px"style={{ alignItems:"center"}}/>
+                                    <p style={{marginBottom:"30px",fontSize:"20px"}}>Shop Information Did Not Create</p>
+                                </div>
+                                <div style={{color:"white",textAlign:"center",width:"100%,", justifyContent:"center", alignItems:"center"}}>
+                                    <Link className="link" to="/information">
+                                        <div style={{justifyContent:"center", alignItems:"center"}}>
+                                            <button className="login_button" type="submit">
+                                                Create Shop Information
+                                            </button>
+                                        </div>
+                                    </Link>
+                                </div>
+                                    
+                            </div>
+                            
+                            <div className="container_right_bt" style={{display : this.state.hadData ? "flex":"none"}}>
                                 <form onSubmit={this.handleSubmit} >
-                                    <button className="login_button" type="submit" onClick={this.handleSubmit}>
+                                    <button className="login_button" type="submit" onClick={this.handleSubmit} style={{display: this.state.isEdit? "none":"block"}}>
                                         Next
                                     </button>
                                 </form>
@@ -181,15 +217,5 @@ class ShopInformation extends React.Component {
         );
     }
 }
-const mapStateToProps = (state) => { //subscribe
-    return {
-        shopInfoStore: state.ShopInformationReducer.shopinfo
-    }       
-}
-const mapDispatchToProps =(dispatch) => {
-    return {
-        shopInfo: (data) => dispatch(Information(data))
-    }
-}
 
-export default connect(mapStateToProps,mapDispatchToProps)(ShopInformation);
+export default (EditShopInformation);
