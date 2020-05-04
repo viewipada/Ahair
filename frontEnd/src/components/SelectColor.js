@@ -1,27 +1,8 @@
 import React from "react";
 import { connect } from 'react-redux';
-import {Colorstock} from '../redux/index'
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import NavBarShop from "./NavBarShop";
 import axios from 'axios'
-
-export const AddColorCheckBox = props => {
-    return (
-        <div className = "checkbox_info">
-            <input 
-                key = {props.id}  
-                onClick = {props.addcolorChecked} 
-                type = "checkbox" 
-                checked = {props.isChecked} 
-                value = {props.value} 
-                onChange={()=>{}}
-            /> 
-            <div style={{backgroundColor:props.value, width:"90%", textAlign:"center", padding:"20px 0px 20px 0px", marginLeft:"5px", borderColor:"white", borderWidth:"1px", borderStyle:"solid"}}>
-                {props.value}
-            </div>
-        </div>
-    )
-}
 
 export const ColorCheckBox = props => {
     return (
@@ -73,12 +54,7 @@ class Colors extends React.Component {
         // console.log(this.state.color)
         this.props.shopColorStore.forEach(color => {
             if(color.isChecked){
-                this.state.shopColorstock.push({
-                    id:this.state.shopColorstock.length, 
-                    value: color.value, 
-                    key: this.state.shopColorstock.length, 
-                    isChecked:color.isChecked
-                })
+                this.state.shopColorstock.push({id:this.state.shopColorstock.length, value: color.value, key: this.state.shopColorstock.length, isChecked:color.isChecked})
             }
         })
         if(this.state.addcolor) {
@@ -91,24 +67,8 @@ class Colors extends React.Component {
         }
         
         console.log(this.state.shopColorstock)
-        this.props.stock(this.state.color)
-        
-        const shopInformation = {
-            address : this.props.shopInfoStore.address,
-            openTime : this.props.shopInfoStore.openhours,
-            closeTime : this.props.shopInfoStore.closehours,
-            // shopImg : this.props.shopInfoStore.imageUrl,
-            colors : this.state.shopColorstock
-        }
-        
-        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',shopInformation ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
-            .then(function(response){
-                console.log(response)
-            })
-            .catch(function(error) {
-                console.log(error)
-            }
-        )
+        // this.props.stock(this.state.color)
+    
         this.props.history.push('/hairstyles')
     }
 
@@ -130,7 +90,6 @@ class Colors extends React.Component {
     }
 
     render() {
-        // if(!this.state.isSignin) return <Redirect to='/home'/>
         return (
             
             <div className="big_container">
@@ -139,7 +98,7 @@ class Colors extends React.Component {
 
                     <div className = "title">
                         <h1 style={{color:"#CB2D6F",fontSize:"30px"}}>
-                            Hair Dye Stock
+                            SelectColor
                         </h1>
                     </div>
                     
@@ -149,29 +108,11 @@ class Colors extends React.Component {
                             <div className="line_info">
                                 <div className = "wrap_checkbox">
                                     
-                                    <div className = "wrap_input_add">
-                                        <input
-                                            className = "input_add" 
-                                            type ="text"
-                                            value = {this.state.add}
-                                            placeholder = "Type what you want..."
-                                            onChange = {this.typeAddcolor}
-                                        />
-                                        <button type="reset" className="login_button" onClick={this.addlist_color}>
-                                            Add
-                                        </button>
-                                    </div>
                                     { 
                                         this.props.shopColorStore.map((color) => {
                                             return (<ColorCheckBox colorChecked={this.colorChecked}  {...color} />)
                                         })
                                     }
-                                    { 
-                                        this.state.addcolor.map((addcolor) => {
-                                            return (<AddColorCheckBox addcolorChecked={this.addcolorChecked}  {...addcolor} />)
-                                        })
-                                    }
-
                                 </div>
                             </div>
       
@@ -208,4 +149,4 @@ const mapDispatchToProps =(dispatch) => {
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Colors);
+export default connect(mapStateToProps,mapDispatchToProps)(SelectColor);

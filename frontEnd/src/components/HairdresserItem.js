@@ -9,7 +9,7 @@ export default class HairdresserItem extends Component {
 
     render() {
 
-        // const { id, title, overview, poster_src, vote_average, release_date } = this.props.movie
+        const { barberId, barberName, phoneNum } = this.props.barber_item
         return (
 
             // ShopItem
@@ -21,8 +21,8 @@ export default class HairdresserItem extends Component {
                 {/* hairdresser information */}
                 {/* เขียว color: '#cb2c6f' */}
                 <div class="sub_box_item" style={{width:'80%'}}>
-                    <a href="/selecthairstyle"><h3 style={{ color: '#14a098' }}>Hairdresser Name</h3></a>
-                    <p style={{ color: '#14a098' }}>Description</p>
+                    <h3 style={{ color: '#14a098' }}>{barberName}</h3>
+                    <p style={{ color: '#14a098' }}>Tel. {phoneNum}</p>
                 </div>
             </div>
         );

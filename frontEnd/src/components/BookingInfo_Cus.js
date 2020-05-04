@@ -6,14 +6,34 @@ class BookingInfo_Cus extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            info: []
+            date: '',
+            hairStyle: [],
+            startTime: '',
+            stopTime: '',
+            price: '',
+            name: '',
+            shopname: '',
+            barber: ''
         };
     }
     componentDidMount() {
-        const id = 'bTMJ1FTzpEmqMFCRPQjP'
+        const id = 'sg3LITjTkc3YZ5cXReSH';
+        const dataArray = [];
         axios.get(`https://us-central1-g10ahair.cloudfunctions.net/api/booking/${id}`)
             .then((res) => {
-                this.setState({ info: [res.data] });
+                res.data.hairStyles.forEach(element => {
+                    dataArray.push(element);
+                });
+                dataArray.map(data=>{
+                    this.state.hairStyle.push(data.hairName)
+                })
+                this.setState({date:res.data.date})
+                this.setState({startTime:res.data.startTime})
+                this.setState({stopTime:res.data.stopTime})
+                this.setState({price:res.data.total})
+                this.setState({name:res.data.username})
+                this.setState({shopname:res.data.shopName})
+                this.setState({barber:res.data.barberName})
             })
             .catch((err) => {
                 console.log(err.response);
@@ -31,20 +51,14 @@ class BookingInfo_Cus extends Component {
                             fontFamily: "cloud",
                         }}>Booking Infomation</h1>
                     </div>
-                        {
-                            this.state.info &&
-                            this.state.info.map(data => {
-                                return (
-                                    <div className='BookInfo' key={data.id}>
-                                        <p>Name :           <span className="subdetail">{data.userHandle}</span></p>
-                                        <p>Hair Styles :    <span className="subdetail">{data.hairName}</span></p>
-                                        <p>Barber :         <span className="subdetail">{data.barberName}</span></p>
-                                        <p>Total Price :    <span className="subdetail">{data.price} Bath</span></p>
-                                        <p>Time :           <span className="subdetail">{data.time} minute</span></p>
-                                    </div>
-                                );
-                            })
-                        }
+                    <div className='BookInfo' >
+                        <p>Name :           <span className="subdetail">{this.state.name}</span></p>
+                        <p>Hair Styles :    <span className="subdetail">{this.state.hairStyle.join(' , ')}</span></p>
+                        <p>Barber :         <span className="subdetail">{this.state.barber}</span></p>
+                        <p>Total Price :    <span className="subdetail">{this.state.price} Bath</span></p>
+                        <p>Date :           <span className="subdetail">{this.state.date}</span></p>
+                        <p>Time :           <span className="subdetail">{this.state.startTime} - {this.state.stopTime} </span></p>
+                    </div>
                     <div className="container_right_bt" >
                         <button
                             type="submit"
