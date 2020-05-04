@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link,Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import emailIcon from './pic/email_icon.png';
 import passwordIcon from './pic/password_icon.png';
 import visibleIcon from './pic/visible_icon.png';
@@ -13,20 +13,19 @@ import axios from 'axios';
 //>>>>>>> 9309370d5a036eefceb3284d4018451b1ac433e1
 
 class SignIn extends React.Component {
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
         const token = localStorage.getItem('token')
         let isSignin = true
-        if (!token) isSignin =false
-        this.state = { 
-            hidePassword: true ,
+        if (!token) isSignin = false
+        this.state = {
+            hidePassword: true,
             email: "",
             password: "",
             emailError: "",
             passwordError: "",
             isSignin,
-            messageError:""
+            messageError: ""
         }
     }
 
@@ -58,7 +57,7 @@ class SignIn extends React.Component {
     // }
 
     handleChange = event => {
-        // event.preventDefault();
+        this.setState({messageError:""})
         this.setState({ [event.target.id]: event.target.value });
     };
 
@@ -68,15 +67,13 @@ class SignIn extends React.Component {
         let currentState = this;
 
         if (isValid) {
-          console.log(this.state);
-          this.setState(this.state);
-          
-          const userData = {
-            email: this.state.email,
-            password: this.state.password
-        }
-
-        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/login', userData)
+            console.log(this.state);
+            this.setState(this.state);
+            const userData = {
+                email : this.state.email,
+                password: this.state.password,
+            }
+          axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/login', userData)
           .then(function (response) {
             console.log(response);
             if(response.data.loginData.token) {
@@ -84,20 +81,20 @@ class SignIn extends React.Component {
                 localStorage.setItem('username', response.data.loginData.username);
                 localStorage.setItem('shopname', response.data.loginData.shopname);
                 currentState.setState({isSignin:true, messageError:""})
-                this.props.history.push('/home')
+                localStorage.getItem('username') ? currentState.props.history.push('/home') : currentState.props.history.push('/shop')
             }
           })
           .catch(function (error) {
                 currentState.setState({messageError : "Incorrect password or email", email:"",emailError:"",password:"",passwordError:""})
                 console.log(error);
           });
-
+          
         };
     };
-    
-    render(){
-        if(this.state.isSignin) return <Redirect to='/home' />
-        return(
+
+    render() {
+        if (this.state.isSignin) return <Redirect to='/home' />
+        return (
             <div className="big_container">
                 <div className="container_login">
                     <div className="wrap_login">
@@ -111,7 +108,7 @@ class SignIn extends React.Component {
                                     to continuous your service
                                 </h5>
                             </span>
-
+                            <div className="wrong">{this.state.messageError}</div>
                             <div className="wrap_input">
                                 <img className="input_icon" src={emailIcon} alt="" />
                                 <input

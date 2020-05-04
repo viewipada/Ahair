@@ -111,7 +111,6 @@ class EditProfileShop extends React.Component {
     };
 
     render(){
-        if(!this.state.isSignin) return <Redirect to='/home' />
         return(
             <div className="big_container">
                 <NavBarShop />

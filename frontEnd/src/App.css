@@ -841,9 +841,6 @@ textarea{
     margin: 10%;
     margin-bottom: 10%;
   }
-  .IconContainer{
-    
-  }
 
   /*Home Style*/
 
@@ -1723,4 +1720,12 @@ button[type='signIn_2']:hover {
 
 .slides .slick-next {
   right: 5%;
+}
+.wrong {
+  width: 100%;
+  color: #cb2c6f;
+  font-size: 16px;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
 }

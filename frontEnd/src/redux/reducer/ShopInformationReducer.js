@@ -164,27 +164,27 @@ const initialState = {
     ],
     servicesWomen: 
     [
-        {value:"Bang trim", price: 0, img:"", isCheck:true, key:0}, 
-        {value:"Blow dry", price: 0, img:"", isCheck:true, key:1}, 
-        {value:"Color", price: 0, img:"", isCheck:true, key:2}, 
-        {value:"Haircut", price: 0, img:"", isCheck:true, key:3},  
-        {value:"Highlights", price: 0, img:"", isCheck:true, key:4},
-        {value:"Perm", price: 0, img:"", isCheck:true, key:5},
-        {value:"Shampoo", price: 0, img:"", isCheck:true, key:6}, 
-        {value:"Straightening", price: 0, img:"", isCheck:true, key:7}, 
-        {value:"Treatment", price: 0, img:"", isCheck:true, key:8}
+        {id: "sw1", value:"Bang trim", price: 0, img:"", isCheck:true, key:0}, 
+        {id: "sw2",value:"Blow dry", price: 0, img:"", isCheck:true, key:1}, 
+        {id: "sw3",value:"Color", price: 0, img:"", isCheck:true, key:2}, 
+        {id: "sw4",value:"Haircut", price: 0, img:"", isCheck:true, key:3},  
+        {id: "sw5",value:"Highlights", price: 0, img:"", isCheck:true, key:4},
+        {id: "sw6",value:"Perm", price: 0, img:"", isCheck:true, key:5},
+        {id: "sw7",value:"Shampoo", price: 0, img:"", isCheck:true, key:6}, 
+        {id: "sw8",value:"Straightening", price: 0, img:"", isCheck:true, key:7}, 
+        {id: "sw9",value:"Treatment", price: 0, img:"", isCheck:true, key:8}
     ],
     servicesMen: 
     [
-        {value:"Beard trim", price: 0, img:"", isCheck:true, key:0}, 
-        {value:"Color", price: 0, img:"", isCheck:true, key:8},
-        {value:"Haircut", price: 0, img:"", isCheck:true, key:1}, 
-        {value:"Haircut (Children)", price: 0, img:"", isCheck:true, key:2},
-        {value:"Highlights", price: 0, img:"", isCheck:true, key:6},
-        {value:"Perm", price: 0, img:"", isCheck:true, key:5},  
-        {value:"Shampoo", price: 0, img:"", isCheck:true, key:3},  
-        {value:"Shave", price: 0, img:"", isCheck:true, key:4},
-        {value:"Straightening", price: 0, img:"", isCheck:true, key:7}, 
+        {id: "sm1",value:"Beard trim", price: 0, img:"", isCheck:true, key:0}, 
+        {id: "sm2",value:"Color", price: 0, img:"", isCheck:true, key:8},
+        {id: "sm3",value:"Haircut", price: 0, img:"", isCheck:true, key:1}, 
+        {id: "sm4",value:"Haircut (Children)", price: 0, img:"", isCheck:true, key:2},
+        {id: "sm5",value:"Highlights", price: 0, img:"", isCheck:true, key:6},
+        {id: "sm6",value:"Perm", price: 0, img:"", isCheck:true, key:5},  
+        {id: "sm7",value:"Shampoo", price: 0, img:"", isCheck:true, key:3},  
+        {id: "sm8",value:"Shave", price: 0, img:"", isCheck:true, key:4},
+        {id: "sm9",value:"Straightening", price: 0, img:"", isCheck:true, key:7}, 
     ],
 }
 

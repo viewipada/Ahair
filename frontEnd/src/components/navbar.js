@@ -12,7 +12,7 @@ class NavBar extends Component {
         super(props);
 
         this.state = {
-            statename: localStorage.getItem('username')+localStorage.getItem('shopname') || "SignIn",
+            statename: localStorage.getItem('username') || "SignIn",
             displayMenu: false,
             // checkLogin: false,
             iconchange: "users icon",
@@ -24,6 +24,7 @@ class NavBar extends Component {
         this.hideDropdownMenu = this.hideDropdownMenu.bind(this);
         this.logoutevent = this.logoutevent.bind(this)
     }
+
     componentDidMount(){
         const token = localStorage.getItem('token')
         if (!token) this.setState({isSignin:false})
@@ -31,21 +32,8 @@ class NavBar extends Component {
     }
 
     showDropdownMenu = () => {
-        if (!this.state.isSignin) {
-            // <Link className="link" to="/signin"/>
-        }
-    }
-    
-    componentDidMount() {
-        if (localStorage.getItem('user')) {
-            this.setState({ checkLogin: true });
-            this.setState({ statename: localStorage.getItem('username') });
-        }
-    }
-
-    showDropdownMenu = () => {
-        const checkLogin = this.state.checkLogin;
-        if (checkLogin) {
+        // const checkLogin = this.state.checkLogin;
+        if (this.state.isSignin) {
             this.setState({ displayMenu: true }, () => {
                 document.addEventListener('click', this.hideDropdownMenu);
             });
@@ -61,20 +49,13 @@ class NavBar extends Component {
 
     logoutevent = () => {
         this.setState({ isSignin: false });
-        this.props.history.push('/home')
+        // this.props.history.push('/home')
         localStorage.removeItem('token')
         localStorage.removeItem('username')
         localStorage.removeItem('shopname')
-        this.setState({ checkLogin: false });
-        this.setState({ statename: 'SignIn' });
-        localStorage.clear();
-    }
-
-    handleInputChange = (event) => {
-        event.preventDefault();
-        this.setState({
-            [event.target.name]: event.target.value
-        })
+        // this.setState({ checkLogin: false });
+        // this.setState({ statename: 'SignIn' });
+        // localStorage.clear();
     }
 
     render() {
@@ -108,20 +89,31 @@ class NavBar extends Component {
                             : null
                     }
 
-                    
-                    <button
-                        class="Signin"
-                        onClick={this.showDropdownMenu}>
-                        {
-                            this.state.checkLogin ? <i className='user circle icon'></i>
-                                : <i className="users icon" size='2em'></i>
-                        }
-                        <span>{this.state.statename}</span>
-                    </button>
+                    <Link className="link" to='/signin' style={{display:this.state.isSignin? "none" : "flex"}}>
+                        <button
+                            class="Signin"
+                            onClick={this.showDropdownMenu}>
+                            {
+                                this.state.checkLogin ? <i className='user circle icon'></i>
+                                    : <i className="users icon" size='2em'></i>
+                            }
+                            <span>{this.state.statename}</span>
+                        </button>
+                    </Link>
+                        <button
+                            class="Signin"
+                            style={{display:this.state.isSignin? "flex" : "none"}}
+                            onClick={this.showDropdownMenu}>
+                            {
+                                this.state.checkLogin ? <i className='user circle icon'></i>
+                                    : <i className="users icon" size='2em'></i>
+                            }
+                            <span>{this.state.statename}</span>
+                        </button>
 
                     {this.state.displayMenu ? (
                         <ul>
-                            <a href="/profilecustomer" >Profile</a>
+                            <a href={localStorage.getItem('username') ? "/profilecustomer" :"/profileshop"} >Profile</a>
                             <a href="/home" onClick={this.logoutevent}>Log Out</a>
                         </ul>
                     ) :

@@ -4,7 +4,7 @@ import shopIcon from './pic/1.jpg';
 import ShopImgItem from './ShopImgItem'
 import Sidebar from './Sidebar';
 import Hairdresser from './HairdresserItem';
-import NavBar from './navbar'
+import NavBar from './NavBarShop'
 import { connect } from 'react-redux';
 import { Shop_2 } from '../redux/index'
 import HairdresserItem from './HairdresserItem';
