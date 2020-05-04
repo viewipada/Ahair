@@ -75,7 +75,7 @@ app.get("/Ashop", FBAuthforShop, getAshop);
 app.post("/hairStyle", FBAuthforShop, addHairStyle);
 app.get("/hairStyle/:shopName", getHairStyle);
 app.post("/barber", FBAuthforShop, addBarber);
-//app.get("/barber/:barberName", getBarber);
+//pp.get("/barber/person/:barberId", getBarber);
 app.get("/barber/:shopName", getAllBarberInShop);
 
 //reviewfromUser routes

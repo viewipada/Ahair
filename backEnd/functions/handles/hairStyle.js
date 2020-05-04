@@ -2,34 +2,38 @@ const { db } = require("../util/admin");
 
 exports.addHairStyle = (req, res) => {
   const newHairStyle = {
-    hairName: req.body.hairName,
-    price: req.body.price,
+    hair: req.body.hair,
+    shopId: req.shop.shopId,
+    createAt: new Date().toISOString(),
   };
-  let hairStyleId;
 
-  db.collection("hairStyles")
-    .doc()
-    .get()
+  db.collection('hairStyles').where('shopId','==', req.shop.shopId).get()
+  .then((doc) => {
+    let dd = {};
+    dd.hairStyleId =[];
+    doc.forEach((docdoc) => {
+      dd.hairStyleId.push( {hId : docdoc.data().hairStyleId })
+    })
+
+    let x = dd.hairStyleId[0].hId;
+    dd.hairStyleId = x
+
+    db.doc(`/hairStyles/${dd.hairStyleId}`).update(newHairStyle);
+    
+    return res.json({ message : `edited!! ${dd.hairStyleId} `});
+  })
+  .catch((err) => {
+    db.collection("hairStyles")
+    .add(newHairStyle)
     .then((doc) => {
-      hairStyleId = doc.id;
-    })
-    .then(() => {
-      const hairCridentials = {
-        price: newHairStyle.price,
-        shopId: req.shop.shopId,
-        createAt: new Date().toISOString(),
-        hairName: newHairStyle.hairName,
-        hairStyleId: hairStyleId,
-      };
-      return db.doc(`/hairStyles/${hairStyleId}`).set(hairCridentials);
-    })
-    .then(() => {
-      return res.status(200).json({ message: "hairStyle added successfully" });
+      db.doc(`/hairStyles/${doc.id}`).update({hairStyleId : doc.id});
     })
     .catch((err) => {
+      res.status(500).json({ error: "something went wrong" });
       console.error(err);
-      return res.status(500).json({ error: err.code });
     });
+    return res.json({ message : 'added++'})
+  })
 };
 
 exports.getHairStyle = (req, res) => {

@@ -26,6 +26,7 @@ exports.editShop = (req, res) => {
     phoneNum: req.body.phoneNum,
     openTime: req.body.openTime,
     closeTime: req.body.closeTime,
+    imgUrl: req.body.imgUrl
   };
 
   db.doc(`/shops/${req.shop.shopName}`)
