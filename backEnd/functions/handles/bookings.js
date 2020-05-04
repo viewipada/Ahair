@@ -22,7 +22,7 @@ exports.addBooking = (req, res) => {
   db.collection("booking")
     .add(newBooking)
     .then((doc) => {
-      db.doc(`/booking/${doc.id}`).update({ bookingId: doc.id });
+      db.doc(`/booking/${doc.id}`).update({ bookingId: doc.id,done : false });
       return res.status(200).json({ message: `create ${doc.id} succesfully` });
     })
     .catch((err) => {
@@ -121,8 +121,32 @@ exports.getBookingForOneBarber = (req, res) => {
       return res.json({ error: err.code });
     });
 };
+exports.done = (req, res) => {
+  const document = db.doc(`/booking/${req.params.bookingId}`);
+  document
+    .get()
+    .then((doc) => {
+      if (!doc.exists) {
+        return res.status(404).json({ error: 'booking not found' });
+      }
+      if (doc.data().shopName !== req.shop.shopName) {
+        return res.status(403).json({ error: 'Unauthorized' });
+      } else {
+        return document.update({ done : true });
+      }
+    })
+    .then(() => {
+      res.json({ message: 'already successfully' });
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
+};
 
-exports.deleteBooking = (req, res) => {
+
+
+exports.deleteBookingFromUser = (req, res) => {
   const document = db.doc(`/booking/${req.params.bookingId}`);
   document
     .get()
@@ -144,6 +168,30 @@ exports.deleteBooking = (req, res) => {
       return res.status(500).json({ error: err.code });
     });
 };
+
+exports.deleteBookingFromShop = (req, res) => {
+  const document = db.doc(`/booking/${req.params.bookingId}`);
+  document
+    .get()
+    .then((doc) => {
+      if (!doc.exists) {
+        return res.status(404).json({ error: 'booking not found' });
+      }
+      if (doc.data().shopName !== req.shop.shopName) {
+        return res.status(403).json({ error: 'Unauthorized' });
+      } else {
+        return document.delete();
+      }
+    })
+    .then(() => {
+      res.json({ message: 'booking deleted successfully' });
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
+};
+
 
 // exports.getBooking = (req, res) => {
 //   let bookingData = {};

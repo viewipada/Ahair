@@ -36,7 +36,9 @@ const {
   getBookingForOneUser,
   getBookingForOneShop,
   getBookingForOneBarber,
-  deleteBooking
+  deleteBookingFromUser,
+  deleteBookingFromShop,
+  done
 } = require("./handles/bookings");
 
 const {
@@ -101,7 +103,10 @@ app.get("/reviewfromshop/:handle", getReviewFromShop);
 app.post("/bookings", FBAuth, addBooking);
 app.get("/booking/:bookingId", getBooking);
 app.get("/booking", FBAuth, getBookingForOneUser); //getBookingForOneUser
-app.get("/bookingforshop", FBAuthforShop, getBookingForOneShop); //getBookingForOneShop //getBookingForOneBarber
-app.get("/bookingforbarber/:barberName", getBookingForOneBarber);//deleteBooking
-app.delete("/booking/:bookingId",FBAuth, deleteBooking)
+app.get("/bookingforshop", FBAuthforShop, getBookingForOneShop); //getBookingForOneShop
+app.get("/bookingforbarber/:barberName", getBookingForOneBarber); //getBookingForOneBarber
+app.delete("/bookingfromuser/:bookingId",FBAuth, deleteBookingFromUser);//deleteBooking
+app.delete("/bookingfromshop/:bookingId",FBAuthforShop, deleteBookingFromShop);
+app.get("/done/:bookingId",FBAuthforShop, done);
+
 exports.api = functions.https.onRequest(app);
