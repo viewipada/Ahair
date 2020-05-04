@@ -24,7 +24,7 @@ export const Shop_4 = (data) => {
         payload: data //object
     }
 }
-export const getBookingId = (data) => {
+export const Booking = (data) => {
     return{
         type: SHOP,
         payload: data
