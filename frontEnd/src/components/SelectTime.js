@@ -11,12 +11,12 @@ import img1 from './pic/1.jpg'
 import { connect } from 'react-redux';
 import { Shop_4 } from '../redux/index'
 
-import { Grid, Image } from 'semantic-ui-react'
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import addDays from 'date-fns/addDays'
-import setHours from 'date-fns/setHours'
-import setMinutes from 'date-fns/setMinutes'
+// import { Grid, Image } from 'semantic-ui-react'
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
+// import addDays from 'date-fns/addDays'
+// import setHours from 'date-fns/setHours'
+// import setMinutes from 'date-fns/setMinutes'
 // import format from "date-fns/format";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
