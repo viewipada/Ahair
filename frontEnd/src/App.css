@@ -1630,6 +1630,23 @@ button[type='signIn_2']:hover {
   color: #ffffff0e;
 }
 
+.container_next {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.container_hairstyle {
+  position: relative;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: center;
+}
+
 /*Booking Infomation*/
 
 .BookInfo p{

@@ -15,7 +15,8 @@ exports.signup = (req , res) => {
          handle: req.body.handle,
          name: req.body.name,
          phoneNum: req.body.phoneNum,
-         userGender: req.body.userGender
+         userGender: req.body.userGender,
+         imgUrl : req.body.imgUrl
 
      };
      //const noImg = 'no-Img.png';
@@ -42,7 +43,7 @@ exports.signup = (req , res) => {
             phoneNum: newUser.phoneNum,
             userGender: newUser.userGender,
             createAt: new Date().toISOString(),
-            //imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
+            imgUrl : req.body.imgUrl,
             userId
          };
          return db.doc(`/users/${newUser.handle}`).set(userCridentials);
@@ -226,7 +227,8 @@ exports.signupShop = (req , res) => {
          confirmPassword : req.body.confirmPassword,
          shopName : req.body.shopName,
          adminName : req.body.adminName,
-         phoneNum: req.body.phoneNum
+         phoneNum: req.body.phoneNum,
+         imgUrl : req.body.imgUrl
      };
    
      //const noImg = 'no-Img.png';
@@ -252,7 +254,7 @@ exports.signupShop = (req , res) => {
             email: newShop.email,
             phoneNum: newShop.phoneNum,
             createAt: new Date().toISOString(),
-            //imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
+            ingUrl: newShop.ingUrl,
             shopId
          };
          return db.doc(`/shops/${newShop.shopName}`).set(shopCridentials);

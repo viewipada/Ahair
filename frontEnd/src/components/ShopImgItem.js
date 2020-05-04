@@ -13,11 +13,11 @@ export default class ShopImageItem extends Component {
 
             // ShopReviewItem
                 <div class="box_img_shop">
-                    <div class="row_box"><img className="image_shop" src={shopIcon1} alt="" /></div>
-                    <div class="row_box"><img className="image_shop" src={shopIcon1} alt="" /></div>
-                    <div class="row_box"><img className="image_shop" src={shopIcon1} alt="" /></div>
-                    <div class="row_box"><img className="image_shop" src={shopIcon1} alt="" /></div>
-                    <div class="row_box"><img className="image_shop" src={shopIcon1} alt="" /></div>
+                    <div class="row_box"><img className="image_shop" src={this.props.item} alt="" /></div>
+                    <div class="row_box"><img className="image_shop" src={this.props.item} alt="" /></div>
+                    <div class="row_box"><img className="image_shop" src={this.props.item} alt="" /></div>
+                    <div class="row_box"><img className="image_shop" src={this.props.item} alt="" /></div>
+                    <div class="row_box"><img className="image_shop" src={this.props.item} alt="" /></div>
                 </div>
 
             // Lightbox
