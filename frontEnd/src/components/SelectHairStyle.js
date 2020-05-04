@@ -12,7 +12,6 @@ class SelectHairStyle extends Component {
         super(props)
 
         this.state = {
-            nextStep:false,
             total: 0,
             totalTime: 0,
             hairStyles: [],
@@ -23,6 +22,7 @@ class SelectHairStyle extends Component {
     componentDidMount() {
         // this.getHairStyle(this.props.shopStore.shopName)
         this.getHairStyle('newshop4')
+        document.getElementById("myBtn").disabled = true;
     }
 
     getHairStyle = (keyword) => {
@@ -48,6 +48,9 @@ class SelectHairStyle extends Component {
                     type: hairstyle.type,
                     time: hairstyle.time
                 })
+                if(document.getElementById("myBtn").disabled){
+                    document.getElementById("myBtn").disabled = false
+                }
                 // this.setState(this.state)
                 this.setState({ total: this.state.total + hairstyle.price })
                 this.setState({ totalTime: this.state.totalTime + hairstyle.time })
@@ -60,7 +63,7 @@ class SelectHairStyle extends Component {
         console.log("handleSubmit :", this.state);
         event.preventDefault();
         this.props.shop(this.state)
-        // this.props.history.push('/hairstyles')
+        this.props.history.push('/selecttime')
     }
 
     render() {
@@ -122,7 +125,7 @@ class SelectHairStyle extends Component {
                                 </div>
 
                                 <form className="container_next" onSubmit={this.handleSubmit} >
-                                    <button className="login_button" type="submit" onClick={this.handleSubmit}>
+                                    <button id="myBtn" className="login_button" type="submit" onClick={this.handleSubmit}>
                                         Next
                                     </button>
                                 </form>

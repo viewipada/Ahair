@@ -8,8 +8,10 @@ import shopIcon from './pic/1.jpg'
 import Sidebar from './Sidebar'
 import NavBar from './navbar'
 import img1 from './pic/1.jpg'
-import { Grid, Image } from 'semantic-ui-react'
+import { connect } from 'react-redux';
+import { Shop_4 } from '../redux/index'
 
+import { Grid, Image } from 'semantic-ui-react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import addDays from 'date-fns/addDays'
@@ -20,7 +22,7 @@ import setMinutes from 'date-fns/setMinutes'
 
 
 
-export default class SelectTime extends Component {
+class SelectTime extends Component {
     constructor(props) {
         super(props)
 
@@ -30,6 +32,10 @@ export default class SelectTime extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
+    }
+
+    componentDidMount() {
+        console.log(this.props.shopStore)
     }
 
     handleChange = date => {
@@ -165,3 +171,16 @@ export default class SelectTime extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => { //subscribe
+    return {
+        shopStore: state.ShopReducer.shop
+    };
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        shop: (data) => dispatch(Shop_4(data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectTime);
