@@ -30,26 +30,26 @@ class SelectTime extends Component {
             startDate: new Date(),
             rows: []
         }
-        this.handleChange = this.handleChange.bind(this);
-        this.onFormSubmit = this.onFormSubmit.bind(this);
+        // this.handleChange = this.handleChange.bind(this);
+        // this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
     componentDidMount() {
         console.log(this.props.shopStore)
     }
 
-    handleChange = date => {
-        this.setState({
-            startDate: date
-        }, function () {
-            console.log(this.state.startDate)
-        });
-    };
+    // handleChange = date => {
+    //     this.setState({
+    //         startDate: date
+    //     }, function () {
+    //         console.log(this.state.startDate)
+    //     });
+    // };
 
-    onFormSubmit(e) {
-        e.preventDefault();
-        console.log(this.state.startDate)
-    }
+    // onFormSubmit(e) {
+    //     e.preventDefault();
+    //     console.log(this.state.startDate)
+    // }
 
     render() {
 
@@ -132,7 +132,7 @@ class SelectTime extends Component {
                                     onChange={this.handleChange} //only when value has changed
                                 /> */}
                                 {/* <form onSubmit={() => this.onFormSubmit}> */}
-                                    <DatePicker
+                                    {/* <DatePicker
                                         selected={this.state.date}
                                         onChange={this.handleSelect}
                                         minDate={new Date()}
@@ -149,7 +149,7 @@ class SelectTime extends Component {
                                         minTime={setHours(setMinutes(new Date(), 0), 0)}
                                         maxTime={setHours(setMinutes(new Date(), 30), 20)}
                                         dateFormat="MMMM d, yyyy h:mm aa"
-                                    />
+                                    /> */}
                                 {/* </form> */}
 
                                 {/* <input
