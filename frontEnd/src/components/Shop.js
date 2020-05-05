@@ -30,15 +30,21 @@ class Shop extends Component {
         var barberurl = "https://us-central1-g10ahair.cloudfunctions.net/api/barber/" + keyword;
         Axios.get(barberurl).then(result => {
             this.setState({ shopdata: result.data });
-            result.data.barber.forEach(item => {
-                dataArray.push(item)
-            })
-            this.setState({ barberdata: dataArray });
+            const dataCount = result.data.barber.length
+            if(dataCount===undefined){
+                this.setState({barberdata:result.data})
+            }
+            else{
+                result.data.barber.forEach(item => {
+                    dataArray.push(item)
+                })
+                this.setState({ barberdata: dataArray });
+            }
         })
     }
 
     handleOnClick = (item) => {
-        console.log("barber: ", this.state.barberdata)
+        // console.log("barber: ", this.state.barberdata)
         this.setState({
             barberName: item.barberName,
             barberId: item.barberId
@@ -49,14 +55,13 @@ class Shop extends Component {
     };
 
     submit = () =>{
-        console.log("submitSstate: ",this.state)
+        console.log("submitShop: ",this.state)
         this.props.shop(this.state)
         this.props.history.push('/selecthairstyle')
     }
 
     render() {
 
-        // const { shopId, shopName, address, phoneNum, vote_average, email, imgUrl } = this.state.rows[0]
         return (
             <body class="is-preload">
 

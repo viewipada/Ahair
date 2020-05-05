@@ -34,6 +34,7 @@ import BookingInfo_Cus from './components/BookingInfo_Cus';
 import BookingInfo_Shop from './components/BookingInfo_Shop';
 import Thx4Review_Cus from './components/FinishedReview_Cus';
 import SelectTime from './components/SelectTime';
+import FillTimeTable from './components/FillTimeTable';
 import {PrivateRoute} from './components/PrivateRoute'
 class App extends React.Component {
   render() {
@@ -74,6 +75,7 @@ class App extends React.Component {
               <PrivateRoute path='/BookInfo_Shop' component={BookingInfo_Shop}/>
               <PrivateRoute path='/thank4Review_Cus' component={Thx4Review_Cus}/>
               <Route path='/selecttime' component={SelectTime} />
+              <Route path='/filltimetable' component={FillTimeTable} />
             </Switch>
           </div>
         </Router>
