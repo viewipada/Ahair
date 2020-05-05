@@ -19,9 +19,10 @@ class SearchPage extends Component {
         this.state = {
             shopName: "",
             shopId: "",
-            rows: []
+            shoprows: [],
+            barberrows: []
         }
-        this.handleOnClick = this.handleOnClick.bind(this)
+        // this.keySearch = this.keySearch.bind(this)
     }
 
     handleInputChange = (event) => {
@@ -49,32 +50,69 @@ class SearchPage extends Component {
     }
 
     search = (keyword) => {
-        // console.log("Search: " + keyword)
+        console.log("Search: " + keyword)
         var dataArray = []
         // test api: http://api.themoviedb.org/3/search/movie?api_key=0696a5d8f4f751e4493e133825a494f4&query=
-        var url = "https://us-central1-g10ahair.cloudfunctions.net/api/shop" + keyword;
-        Axios.get(url).then(result => {
+        var shopurl = "https://us-central1-g10ahair.cloudfunctions.net/api/shop" + keyword;
+        Axios.get(shopurl).then(result => {
             // console.log(JSON.stringify(result.data.results))
+            const dataCount = result.data.length
+            // console.log("test: ",dataCount)
+            if(dataCount===undefined){
+                this.setState({ shoprows : result.data })
+            }
+            else{
+                result.data.forEach(item => {
+                     // item.poster_src = "https://image.tmdb.org/t/p/w185" + item.poster_path
+                    dataArray.push(item)
+                })
+                this.setState({ shoprows : dataArray });
+            }
+        })
+        var barberurl = "https://us-central1-g10ahair.cloudfunctions.net/api/searchBarber?key=" + keyword;
+        Axios.get(barberurl).then(result => {
+            const dataCount = result.data.length
+            if(dataCount===undefined){
+                this.setState({ barberrows:result.data })
+            }
+            else{
+                result.data.forEach(item => {
+                    dataArray.push(item)
+                })
+                this.setState({ barberrows: dataArray });
+            }
+
             result.data.forEach(item => {
                 // item.poster_src = "https://image.tmdb.org/t/p/w185" + item.poster_path
                 dataArray.push(item)
             })
+
             this.setState({ rows: dataArray });
         })
     }
 
     handleOnClick = (item) => {
+        // event.preventDefault();
+        // console.log(this.state);
+        console.log("onclick");
+        // console.log(item);
         this.setState({
-            shopName: item.shopName,
-            shopId: item.shopId
-        }, () => {
-            this.submit()
+            shopname: item.shopName,
+            shopid: item.shopId
+        }, function () {
+            console.log(this.state)
+            this.props.shop(this.state)
+            this.props.history.push('/shop')
         }
         );
+        // console.log(this.state);
+        // this.setState(this.state);
+        // this.props.shop(this.state);
+        //   this.props.history.push('/shop')
     };
 
     submit = () =>{
-        console.log("submitSstate: ",this.state)
+        console.log("submitSearch: ",this.state)
         this.props.shop(this.state)
         this.props.history.push('/shop')
     }
@@ -123,9 +161,12 @@ class SearchPage extends Component {
 
                                 {/* Body */}
                                 {/* <div style={{marginLeft:'2.5em'}}> */}
-                                {this.state.rows.map(item => (
+                                {this.state.shoprows.map(item => (
                                     <a key={item.shopId} onClick={() => this.handleOnClick(item)}>
-                                        <ShopItem_S shop_item={item} />
+                                        <ShopItem_S
+                                            // onClick={() => { this.handleOnClick(item.shopName) }}
+                                            id="shopname"
+                                            shop_item={item} />
                                     </a>
                                 ))}
 
@@ -142,7 +183,7 @@ class SearchPage extends Component {
 const mapStateToProps = (state) => { //subscribe
     return {
         shopStore: state.ShopReducer.shop
-    };
+    }
 }
 const mapDispatchToProps = (dispatch) => {
     return {

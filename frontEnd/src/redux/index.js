@@ -1,13 +1,13 @@
-import {combineReducers} from 'redux';
-import {SignUpForShopReducer} from './reducer/SignUpForShopReducer'
-import {SignUpForCustomerReducer} from './reducer/SignUpForCustomerReducer'
-import {ShopInformationReducer} from './reducer/ShopInformationReducer'
-import {ShopReducer} from './reducer/ShopReducer'
+import { combineReducers } from 'redux';
+import { SignUpForShopReducer } from './reducer/SignUpForShopReducer'
+import { SignUpForCustomerReducer } from './reducer/SignUpForCustomerReducer'
+import { ShopInformationReducer } from './reducer/ShopInformationReducer'
+import { ShopReducer } from './reducer/ShopReducer'
 
-export { SignUpForShop_one }from './action/SignUpForShopAction'
-export { SignUpForShop_two }from './action/SignUpForShopAction'
-export { SignUpForCustomer_one }from './action/SignUpForCustomerAction'
-export { SignUpForCustomer_two }from './action/SignUpForCustomerAction'
+export { SignUpForShop_one } from './action/SignUpForShopAction'
+export { SignUpForShop_two } from './action/SignUpForShopAction'
+export { SignUpForCustomer_one } from './action/SignUpForCustomerAction'
+export { SignUpForCustomer_two } from './action/SignUpForCustomerAction'
 export { Information } from './action/ShopInformationAction'
 export { Colorstock } from './action/ShopInformationAction'
 // export { AddColorstock } from './action/ShopInformationAction'
@@ -20,6 +20,8 @@ export { Shop_1 } from './action/ShopAction'
 export { Shop_2 } from './action/ShopAction'
 export { Shop_3 } from './action/ShopAction'
 export { Shop_4 } from './action/ShopAction'
+export { Shop_5 } from './action/ShopAction'
+export { HomeShop } from './action/ShopAction'
 
 // export { BarberDetail } from './action/ShopInformationAction'
 export { PriceMenLong } from './action/ShopInformationAction'
@@ -28,10 +30,10 @@ export { PriceWomenLong } from './action/ShopInformationAction'
 export { PriceWomenMedium } from './action/ShopInformationAction'
 export { PriceWomenShort } from './action/ShopInformationAction'
 export { PriceWomenService } from './action/ShopInformationAction'
-export { PriceMenService} from './action/ShopInformationAction'
+export { PriceMenService } from './action/ShopInformationAction'
 
 
-export default combineReducers ({
+export default combineReducers({
     SignUpForShopReducer,
     SignUpForCustomerReducer,
     ShopInformationReducer,

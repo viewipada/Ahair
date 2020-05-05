@@ -11,6 +11,7 @@ import SignUpForCustomerFinished from './components/SignUpForCustomerFinished'
 import SignUpForShopOne from './components/SignUpForShopOne'
 import SignUpForShopTwo from './components/SignUpForShopTwo'
 import ShopInformation from './components/ShopInformation';
+import EditShopInformation from './components/EditShopInformation'
 import ProfileCustomer from './components/ProfileCustomer';
 import ProfileShop from './components/ProfileShop';
 import EditProfileCustomer from './components/EditProfileCustomer';
@@ -34,7 +35,14 @@ import BookingInfo_Cus from './components/BookingInfo_Cus';
 import BookingInfo_Shop from './components/BookingInfo_Shop';
 import Thx4Review_Cus from './components/FinishedReview_Cus';
 import SelectTime from './components/SelectTime';
+import FillTimeTable from './components/FillTimeTable';
 import {PrivateRoute} from './components/PrivateRoute'
+import HomeShop from './components/HomeShop';
+import dontforgettoreview from './components/dontforget2Review'
+import confirmBooking from './components/ConfirmBooking'
+import EditHairstyles from './components/EditHairstyles'
+import EditColors from './components/EditColors'
+import EditBarber from './components/EditBarber'
 class App extends React.Component {
   render() {
     return (
@@ -56,13 +64,13 @@ class App extends React.Component {
               <Route path='/profileshop' component={ProfileShop} />
               <Route path='/editprofileshop' component={EditProfileShop} />
               <Route path='/hairstyles' component={HairStyles} />
-              <PrivateRoute path='/ReviewforCustomer' component={Review_Cus}/>
-              <PrivateRoute path='/ReviewforShop' component={Review_Shop}/>
+              <PrivateRoute path='/ReviewforCustomer/:bookingId' component={Review_Cus}/>
+              <PrivateRoute path='/ReviewforShop/:bookingId' component={Review_Shop}/>
               <Route path='/home' component={Home}/>
               <Route path='/pricelist' component={PriceList} />
               <Route path='/hairbarber' component={HairBarBer} />
               <Route path='/colors' component={Colors} />
-              <Route path='/noticeforcustomer' component={notice_Cus}/>
+              <PrivateRoute path='/noticeforcustomer' component={notice_Cus}/>
               <Route path='/noticeforshop' component={notice_Shop}/>
               <Route path='/navbar' component={Navbar}/>
               <Route path='/navbarshop' component={NavBarShop} />
@@ -70,10 +78,18 @@ class App extends React.Component {
               <Route path='/searchpage' component={SearchPage} />
               <Route path='/shop' component={Shop} />
               <Route path='/SelectHairStyle' component={SelectHairStyle} />
-              <PrivateRoute exact path='/BookInfo_Cus' component={BookingInfo_Cus}/>
-              <PrivateRoute path='/BookInfo_Shop' component={BookingInfo_Shop}/>
-              <PrivateRoute path='/thank4Review_Cus' component={Thx4Review_Cus}/>
+              <PrivateRoute path='/BookInfo_Cus/:bookingId' component={BookingInfo_Cus}/>
+              <Route path='/BookInfo_Shop/:bookingId' component={BookingInfo_Shop}/>
+              <PrivateRoute path='/thank4Review_Cus/:bookingId' component={Thx4Review_Cus}/>
               <Route path='/selecttime' component={SelectTime} />
+              <Route path='/homeshop' component={HomeShop} />
+              <Route path='/editshopinformation' component={EditShopInformation} />
+              <Route path='/dontforgettoreview' component={dontforgettoreview}/>
+              <PrivateRoute path='/confirmBooking' component={confirmBooking}/>
+              <Route path='/edithairstyles' component={EditHairstyles}/>
+              <Route path='/editcolors' component={EditColors} />
+              <Route path='/filltimetable' component={FillTimeTable} />
+              <Route path='/editbarber' component={EditBarber} />
             </Switch>
           </div>
         </Router>

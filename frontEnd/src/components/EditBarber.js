@@ -4,6 +4,7 @@ import addIcon from './pic/add_icon.png';
 import InputBarber from './InputBarber';
 import NavBarShop from './NavBarShop';
 import axios from 'axios'
+import userIcon from './pic/user_green_icon.png'
 
 class AddBarber extends React.Component {
     constructor()
@@ -75,10 +76,13 @@ class AddBarber extends React.Component {
     }
 }
 
-class HairBarBer extends React.Component {
+class EditHairBarber extends React.Component {
     constructor()
     {
         super();
+        const token = localStorage.getItem('token')
+        let isSignin = true
+        if (!token) isSignin =false
         this.state = {    
             name:"",
             imageUrl: "",
@@ -87,14 +91,25 @@ class HairBarBer extends React.Component {
             time:[],
             numOfbarber:[{id:0,edit:"visible",newisChecked :false}],
             barber: [],
-            isSignin: null
+            isSignin: null,
+            isEdit:false,
+            addBox:false
         }
         this.getBarber = this.getBarber.bind(this);
     }
     componentDidMount() {
-        const token = localStorage.getItem('token')
-        if (!token) this.setState({isSignin:false})
-        else this.setState({isSignin:true})
+        axios.get("https://us-central1-g10ahair.cloudfunctions.net/api/barber/" + localStorage.getItem('shopname'),{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
+        .then(res => {
+           this.setState({
+               isSignin:true,
+               barber : res.data.barber,
+               numOfbarber : [{id:res.data.barber.length, edit:"visible", newisChecked:false}]
+           })
+        })
+    }
+
+    funcEdit = () => {
+        this.setState({isEdit: !this.state.isEdit})
     }
 
     getBarber(name, img, phone, hair) {
@@ -125,19 +140,20 @@ class HairBarBer extends React.Component {
             this.setState(this.state);
             this.state.barber.forEach(newBarber => {
                 // const newBarber = {barber : e}
-                axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/barber',newBarber ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
-                .then(function(response){
-                    console.log(response)
-                })
-                .catch(function(error) {
-                    console.log(error)
-                })
+                // axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/barber',newBarber ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
+                // .then(function(response){
+                //     console.log(response)
+                // })
+                // .catch(function(error) {
+                //     console.log(error)
+                // })
             })
             
             this.props.history.push('/homeshop') 
         }
         console.log(this.state);
     };
+
 
     render(){
         return(
@@ -147,46 +163,93 @@ class HairBarBer extends React.Component {
                     <div className="wrap_info">
 
                         <div className = "title">
-                            <h1 style={{color:"#CB2D6F",fontSize:"30px"}}>
-                                Barber
-                            </h1>
+                            <div className="container_next_bt">
+                                <h1 style={{color:"#CB2D6F",fontSize:"30px"}}>
+                                    Barber
+                                </h1>
+                                <button className="login_button" type="submit" onClick={this.state.isEdit? this.handleSubmit : this.funcEdit}> 
+                                    {this.state.isEdit ? "Close":"Add Barber"}
+                                </button>
+                            </div>
                         </div>
                         
                         <div className="signup_form">
 
-                            <div className = "bigcontainer_info">
-                                {/* <div className = "line_info"> */}
-                                    {/* <div  > */}
+                            <div className = "bigcontainer_info" style={{pointerEvents: this.state.isEdit? "visible":"none"}}>
+                                
+                                    {
+                                        this.state.barber.map( e => {
+                                            return (
+                                                <div className = "wrap_barber" >
+                                                    <div style={{width:"35%", marginRight:"40px"}}>
+                                                        <div className="image_upload" >
+                                                            <div className = "wrap_preview">
+                                                                <img 
+                                                                    className = "image_preview"
+                                                                    alt = ""
+                                                                    id = "profile"
+                                                                    src = {userIcon }
+                                                                    
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div style={{width:"60%", display:"block", flexWrap:"wrap"}}>
+                                                        <div style={{width:"75%", marginBottom:"20px", marginTop:"20px"}}>
+                                                            <input 
+                                                                className = "name_barber"
+                                                                type="text"
+                                                                id="barber_name"
+                                                                value={e.barberName}
+                                                                onChange={this.handleChange}
+                                                            />
+                                                        </div>
+                                                        <div style={{width:"75%", marginBottom:"20px", marginTop:"20px"}}>
+                                                            <input 
+                                                                className = "name_barber"
+                                                                type="text"
+                                                                id="barber_phone"
+                                                                maxLength="10"
+                                                                value={e.phoneNum}
+                                                                onChange={this.handleChangePhone}
+                                                            />
+                                                        </div>
+                                
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                            </div>
+                                <div style={{display: this.state.isEdit? "block": "none" }}> 
                                     { 
                                         this.state.numOfbarber.map((numOfbarber) => {
                                             return (<AddBarber getBarber={this.getBarber} {...numOfbarber} key={numOfbarber.id} /> )
                                             // console.log(numOfbarber.length)
                                         })
                                     }
-                                    {/* </div> */}
                                     <div className="container_right_bt"  style={{marginBottom:"40px"}}>
                                         <button className="login_button" type="submit" onClick={this.newBarber}>
                                             <img src={addIcon} width="30px" style={{marginRight:"10px"}} />
                                             New barber
                                         </button>
                                     </div>
-                                {/* </div> */}
                                 
                             </div>
                             
-                            <div className="container_next_bt">
-                                <Link className="link" to="/pricelist">
+                            <div className="container_next_bt" >
+                                <Link className="link" to="/edithairstyles">
                                     <div>
-                                        <button className="login_button" type="reset">
+                                        <button className="login_button" type="reset"style={{display: this.state.isEdit? "none":"block"}}>
                                             Back
                                         </button>
                                     </div>
                                 </Link>
-                                <form onSubmit={this.handleSubmit} >
-                                    <button className="login_button" type="submit" onClick={this.handleSubmit}>
-                                        Submit
+                                <Link className="link" to="/homeshop">
+                                    <button className="login_button" type="submit" style={{display: this.state.isEdit? "none":"block"}}>
+                                        Close
                                     </button>
-                                </form>
+                                </Link>
                             </div>
 
                         </div>
@@ -196,4 +259,4 @@ class HairBarBer extends React.Component {
         );
     }
 }
-export default HairBarBer;
+export default EditHairBarber;

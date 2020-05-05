@@ -68,7 +68,7 @@ class NavBarShop extends Component {
     render() {
         return (
             <div class="wrapnavbar">
-                <Link className="link" to="/shop">
+                <Link className="link" to="/homeshop">
                     <img src={logo} class="ui small image" alt="Home" />
                 </Link>
 
@@ -110,7 +110,7 @@ class NavBarShop extends Component {
                     {this.state.displayMenu ? (
                         <ul>
                             <a href={localStorage.getItem('username') ? "/profilecustomer" :"/profileshop"} >Profile</a>
-                            <a href="/information" >Shop Information</a>
+                            <a href="/editshopinformation" >Shop Information</a>
                             <a href="/home" onClick={this.logoutevent}>Log Out</a>
                         </ul>
                     ) :
