@@ -11,7 +11,7 @@ class notice_Cus extends Component {
             image: 'null',
             noticecontent: '',
             noticestage: null,
-            isLoading:true
+            isLoading:true,
         };
     }
 
@@ -77,7 +77,7 @@ class notice_Cus extends Component {
                                                 {
                                                     data.done ?
                                                         (
-                                                            <button className='NoticeContent' onClick={() => this.onclickReview(data.bookingId, data.reviewed)}>
+                                                            <button className='NoticeContent' onClick={() => this.onclickReview(data.bookingId, data.reviewedFromShop)}>
                                                                 <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}>Review your new Look!</p>
                                                                 <p
                                                                     style={{

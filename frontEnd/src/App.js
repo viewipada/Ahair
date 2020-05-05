@@ -35,9 +35,11 @@ import BookingInfo_Cus from './components/BookingInfo_Cus';
 import BookingInfo_Shop from './components/BookingInfo_Shop';
 import Thx4Review_Cus from './components/FinishedReview_Cus';
 import SelectTime from './components/SelectTime';
+import FillTimeTable from './components/FillTimeTable';
 import {PrivateRoute} from './components/PrivateRoute'
 import HomeShop from './components/HomeShop';
 import dontforgettoreview from './components/dontforget2Review'
+import confirmBooking from './components/ConfirmBooking'
 import EditHairstyles from './components/EditHairstyles'
 import EditColors from './components/EditColors'
 class App extends React.Component {
@@ -76,14 +78,16 @@ class App extends React.Component {
               <Route path='/shop' component={Shop} />
               <Route path='/SelectHairStyle' component={SelectHairStyle} />
               <PrivateRoute path='/BookInfo_Cus/:bookingId' component={BookingInfo_Cus}/>
-              <PrivateRoute path='/BookInfo_Shop/:bookingId' component={BookingInfo_Shop}/>
+              <Route path='/BookInfo_Shop/:bookingId' component={BookingInfo_Shop}/>
               <PrivateRoute path='/thank4Review_Cus' component={Thx4Review_Cus}/>
               <Route path='/selecttime' component={SelectTime} />
               <Route path='/homeshop' component={HomeShop} />
               <Route path='/editshopinformation' component={EditShopInformation} />
               <Route path='/dontforgettoreview' component={dontforgettoreview}/>
+              <PrivateRoute path='/confirmBooking' component={confirmBooking}/>
               <Route path='/edithairstyles' component={EditHairstyles}/>
               <Route path='/editcolors' component={EditColors} />
+              <Route path='/filltimetable' component={FillTimeTable} />
             </Switch>
           </div>
         </Router>

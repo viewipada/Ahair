@@ -6,6 +6,7 @@ import HairStyleItem from './HairStyleItem';
 import NavBar from './navbar'
 import { connect } from 'react-redux';
 import { Shop_3 } from '../redux/index'
+import moment from 'moment/moment'
 
 class SelectHairStyle extends Component {
     constructor(props) {
@@ -15,32 +16,55 @@ class SelectHairStyle extends Component {
             total: 0,
             totalTime: 0,
             hairStyles: [],
-            hairstylesdata: []
+            hairstylesdata: [],
         }
     }
 
     componentDidMount() {
         // this.getHairStyle(this.props.shopStore.shopName)
-        this.getHairStyle('newshop4')
-        document.getElementById("myBtn").disabled = true;
+        this.getHairStyle('ไทน์ คนชิคชิค')
+        // document.getElementById("myBtn").disabled = true
     }
 
     getHairStyle = (keyword) => {
         var dataArray = []
         var url = "https://us-central1-g10ahair.cloudfunctions.net/api/hairStyle/" + keyword;
         Axios.get(url).then(result => {
-            result.data.hairStyles.forEach(item => {
-                dataArray.push(item)
-            })
-            this.setState({ hairstylesdata: dataArray });
+            const dataCount = result.data.hairStyles.length
+            if (dataCount === undefined) {
+                this.setState({ hairstylesdata: result.data })
+            }
+            else {
+                result.data.hairStyles.forEach(item => {
+                    dataArray.push(item)
+                })
+                this.setState({ hairstylesdata: dataArray });
+            }
         })
     }
 
     hairstyleChecked = event => {
         console.log("hairstyleChecked");
+        // document.getElementById("myBtn").disabled = true
         this.state.hairstylesdata.forEach(hairstyle => {
-            // console.log("inForEach",hairstyle.hairName,event.target.value)
-            if (hairstyle.hairName === event.target.value) {
+            if (hairstyle.hairId === event.target.value) {
+                hairstyle.isChecked =  event.target.checked            
+            }
+        })
+        this.state.hairstylesdata.forEach(hairstyle => {
+            if (hairstyle.isChecked){
+                if (document.getElementById("myBtn").disabled) {
+                    document.getElementById("myBtn").disabled = false
+                }
+                return false // break;
+            }
+        })
+    }
+
+    handleSubmit = event => {
+        event.preventDefault();
+        this.state.hairstylesdata.forEach(hairstyle => {
+            if (hairstyle.isChecked) {
                 this.state.hairStyles.push({
                     hairId: hairstyle.hairId,
                     hairName: hairstyle.hairName,
@@ -48,23 +72,23 @@ class SelectHairStyle extends Component {
                     type: hairstyle.type,
                     time: hairstyle.time
                 })
-                if(document.getElementById("myBtn").disabled){
-                    document.getElementById("myBtn").disabled = false
-                }
-                // this.setState(this.state)
-                this.setState({ total: this.state.total + hairstyle.price })
-                this.setState({ totalTime: this.state.totalTime + hairstyle.time })
-                console.log("state: ", this.state)
+                this.setState({ 
+                    total: this.state.total + hairstyle.price,
+                    totalTime: this.state.totalTime + hairstyle.time
+                })
             }
         })
+        this.submit(event)
     }
 
-    handleSubmit = event => {
-        console.log("handleSubmit :", this.state);
+    submit = (event) => {
+        console.log("handleSubmitSelectHairStle :", this.state);
         event.preventDefault();
         this.props.shop(this.state)
-        this.props.history.push('/selecttime')
+        // this.props.history.push('/filltimetable')
     }
+
+
 
     render() {
         return (
@@ -103,7 +127,7 @@ class SelectHairStyle extends Component {
                                                     onClick={this.hairstyleChecked}
                                                     type="checkbox"
                                                     checked={item.isChecked}
-                                                    value={item.hairName}
+                                                    value={item.hairId}
                                                     onChange={() => { }}
                                                 />
                                                 <HairStyleItem hairstyle_item={item} />
