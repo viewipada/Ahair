@@ -140,7 +140,7 @@ class EditHairBarber extends React.Component {
             // console.log(this.state.barber[0].hairAble);
             this.setState(this.state);
             this.state.barber.forEach(newBarber => {
-                const newBarber = {barber : e}
+                // const newBarber = {barber : e}
                 axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/barber',newBarber ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
                 .then(function(response){
                     console.log(response)
