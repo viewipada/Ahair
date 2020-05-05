@@ -49,6 +49,8 @@ import CategoryTwo from './components/CategoryTwo'
 import CategoryThree from './components/CategoryThree'
 import CategoryFour from './components/CategoryFour'
 import CategoryFive from './components/CategoryFive'
+import ConfirmBooking from './components/ConfirmBooking'
+
 class App extends React.Component {
   render() {
     return (
@@ -86,7 +88,7 @@ class App extends React.Component {
               <Route path='/SelectHairStyle' component={SelectHairStyle} />
               <PrivateRoute path='/BookInfo_Cus/:bookingId' component={BookingInfo_Cus}/>
               <Route path='/BookInfo_Shop/:bookingId' component={BookingInfo_Shop}/>
-              <PrivateRoute path='/thank4Review_Cus/:bookingId' component={Thx4Review_Cus}/>
+              <PrivateRoute path='/thank4Review_Cus' component={Thx4Review_Cus}/>
               <Route path='/selecttime' component={SelectTime} />
               <Route path='/homeshop' component={HomeShop} />
               <Route path='/editshopinformation' component={EditShopInformation} />
@@ -97,11 +99,15 @@ class App extends React.Component {
               <Route path='/filltimetable' component={FillTimeTable} />
               <Route path='/editbarber' component={EditBarber} />
               <Route path='/selectcolor' component={SelectColor} />
+<<<<<<< HEAD
               <Route path='/contain-1' component={CategoryOne} />
               <Route path='/contain-2' component={CategoryTwo} />
               <Route path='/contain-3' component={CategoryThree} />
               <Route path='/contain-4' component={CategoryFour} />
               <Route path='/contain-5' component={CategoryFive} />
+=======
+              <PrivateRoute path='/comfirmbooking' component={ConfirmBooking}/>
+>>>>>>> c4d0c9dfa3bef040f4fc62f96ae511b3b84d9ec5
             </Switch>
           </div>
         </Router>
