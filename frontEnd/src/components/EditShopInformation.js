@@ -9,6 +9,7 @@ import MultipleImageUpload from './MultipleImageUpload';
 import NavBarShop from './NavBarShop';
 import { Redirect } from 'react-router';
 import axios from 'axios'
+import moment from 'moment/moment'
 
 class EditShopInformation extends React.Component {
     constructor(props)
