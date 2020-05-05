@@ -1,38 +1,40 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
-import { FaSistrix } from "react-icons/fa"
-import { FaUserFriends } from "react-icons/fa"
 import Axios from 'axios'
 import ShopReviewItem from './ShopReviewItem'
 import Sidebar from './Sidebar'
 import shopIcon from './pic/1.jpg'
 import NavBar from './NavBarShop'
-
+import { connect } from 'react-redux';
 
 class ShopReview extends Component {
 
     constructor(props) {
         super(props)
-
-        this.state = { rows: [] }
+        this.state = { 
+            rows: [] 
+        }
     }
 
     componentDidMount() {
-        this.review('newshop1')
+        // this.review(this.props.shopStore.shopName)
+        this.review('newshop4')
     }
 
-    review = (shopName) => {
-        // console.log(shopName)
+    review = (keyword) => {
         var dataArray = []
-        var url = "https://us-central1-g10ahair.cloudfunctions.net/api/reviewfromuser/" + shopName;
-        Axios.get(url).then(result => {
-            // console.log(JSON.stringify(result.data.reviewFromUser))
-            result.data.reviewFromUser.forEach(item => {
-                dataArray.push(item)
-            })
-            this.setState({ rows: dataArray });
+        var reviewurl = "https://us-central1-g10ahair.cloudfunctions.net/api/barber/" + keyword;
+        Axios.get(reviewurl).then(result => {
+            const dataCount = result.data.barber.length
+            if (dataCount === undefined) {
+                this.setState({ barberdata: result.data })
+            }
+            else {
+                result.data.barber.forEach(item => {
+                    dataArray.push(item)
+                })
+                this.setState({ barberdata: dataArray });
+            }
         })
-        // .catch(error => console.error(error));
     }
 
     render() {
@@ -78,5 +80,10 @@ class ShopReview extends Component {
         );
     }
 }
+const mapStateToProps = (state) => { //subscribe
+    return {
+        shopStore: state.ShopReducer.shop
+    };
+}
 
-export default ShopReview;
+export default connect(mapStateToProps)(ShopReview);
