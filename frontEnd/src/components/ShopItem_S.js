@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Rating } from 'semantic-ui-react'
 
 export default class ShopItem_S extends Component {
 
@@ -8,7 +9,7 @@ export default class ShopItem_S extends Component {
 
     render() {
 
-        const { shopId, shopName, address, phoneNum, vote_average, email, imgUrl } = this.props.shop_item
+        const { shopId, shopName, address, phoneNum, averageRate, email, imgUrl } = this.props.shop_item
         return (
             // ShopItem
             <div class="box_item" style={{ textAlign: 'left', paddingTop: '1em' }}>
@@ -20,7 +21,8 @@ export default class ShopItem_S extends Component {
                 {/* shopName and shopRate */}
                 <div class="sub_box_item" style={{ width: '20%' }}>
                     <h3 style={{ color: '#cb2c6f' }}>{shopName}</h3>
-                    <p style={{ color: 'goldenrod' }}>shopRate : {vote_average}</p>
+                    <Rating icon='star' style={{  }} defaultRating={parseInt(averageRate, 10)} maxRating={5} disabled style={{ paddingLeft: '1.5em' }}/>
+                    {/* <p style={{ color: 'gold' }}>Rate: {averageRate}</p>  */}
                 </div>
 
                 {/* shop location */}

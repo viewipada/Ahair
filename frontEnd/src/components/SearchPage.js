@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 import { FaSistrix } from "react-icons/fa"
-import { FaUserFriends } from "react-icons/fa"
 import Axios from 'axios'
 import ShopItem_S from './ShopItem_S'
 import Sidebar from './Sidebar'
 import NavBar from './navbar'
 import { connect } from 'react-redux';
 import { Shop_1 } from '../redux/index'
-import HairdresserItem from './HairdresserItem';
 
 
 class SearchPage extends Component {
@@ -69,47 +66,31 @@ class SearchPage extends Component {
                 this.setState({ shoprows : dataArray });
             }
         })
-        var barberurl = "https://us-central1-g10ahair.cloudfunctions.net/api/searchBarber?key=" + keyword;
-        Axios.get(barberurl).then(result => {
-            const dataCount = result.data.length
-            if(dataCount===undefined){
-                this.setState({ barberrows:result.data })
-            }
-            else{
-                result.data.forEach(item => {
-                    dataArray.push(item)
-                })
-                this.setState({ barberrows: dataArray });
-            }
-
-            result.data.forEach(item => {
-                // item.poster_src = "https://image.tmdb.org/t/p/w185" + item.poster_path
-                dataArray.push(item)
-            })
-
-            this.setState({ rows: dataArray });
-        })
+        // var barberurl = "https://us-central1-g10ahair.cloudfunctions.net/api/searchBarber?key=" + keyword;
+        // Axios.get(barberurl).then(result => {
+        //     const dataCount = result.data.length
+        //     if(dataCount===undefined){
+        //         this.setState({ barberrows:result.data })
+        //     }
+        //     else{
+        //         result.data.forEach(item => {
+        //             dataArray.push(item)
+        //         })
+        //         this.setState({ barberrows: dataArray });
+        //     }
+        // })
     }
 
     handleOnClick = (item) => {
-        // event.preventDefault();
-        // console.log(this.state);
-        console.log("onclick");
-        // console.log(item);
         this.setState({
-            shopname: item.shopName,
-            shopid: item.shopId
-        }, function () {
-            console.log(this.state)
-            this.props.shop(this.state)
-            this.props.history.push('/shop')
+            shopName: item.shopName,
+            shopId: item.shopId
+        }, () => {
+            this.submit()
         }
         );
-        // console.log(this.state);
-        // this.setState(this.state);
-        // this.props.shop(this.state);
-        //   this.props.history.push('/shop')
-    };
+    }
+
 
     submit = () =>{
         console.log("submitSearch: ",this.state)
@@ -162,12 +143,9 @@ class SearchPage extends Component {
                                 {/* Body */}
                                 {/* <div style={{marginLeft:'2.5em'}}> */}
                                 {this.state.shoprows.map(item => (
-                                    <a key={item.shopId} onClick={() => this.handleOnClick(item)}>
-                                        <ShopItem_S
-                                            // onClick={() => { this.handleOnClick(item.shopName) }}
-                                            id="shopname"
-                                            shop_item={item} />
-                                    </a>
+                                    <div key={item.shopId} onClick={() => this.handleOnClick(item)}>
+                                        <ShopItem_S shop_item={item} />
+                                    </div>
                                 ))}
 
                                 {/* </div> */}

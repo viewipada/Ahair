@@ -12,13 +12,14 @@ class FillTimeTable extends Component {
         this.state = {
             // today: moment(new Date()).format('L'),
             today: "22/05/2020",
+            tomorrow: moment(new Date().setDate(new Date().getDate()+1)).format('L'),
             bookingdata: [],
             timetableProps: {
                 events: {
                     Today: [],
                     Tomorrow: []
                 },
-                hoursInterval: [this.props.shopStore.shopdata.openTime.substring(0,2), this.props.shopStore.shopdata.closeTime.substring(0,2)],
+                hoursInterval: [this.props.shopStore.shopdata.openTime.substring(0, 2), this.props.shopStore.shopdata.closeTime.substring(0, 2)],
                 // hoursInterval: [8, 20],
                 timeLabel: "Time",
                 renderHour(hour, defaulAttributes, styles) {
@@ -44,59 +45,45 @@ class FillTimeTable extends Component {
     }
 
     componentDidMount() {
-        this.getBooking(this.props.shopStore.barbarName)
-        // this.fillEvent()
+        // this.getBooking(this.props.shopStore.barbarName)
+        // console.log("TomorrowDate",moment(new Date().setDate(new Date().getDate()+1)).format('L'))
+        this.getBooking('idea')
     }
 
     getBooking = (keyword) => {
-        console.log("getBooking")
         var dataArray = []
         var url = "https://us-central1-g10ahair.cloudfunctions.net/api/bookingforbarber/" + keyword;
         Axios.get(url).then(result => {
-            console.log("getBooking2")
             const dataCount = result.data.length
             if (dataCount === undefined) {
-                console.log("getBooking3")
-                this.setState({ bookingdata: result.data },
-                    ()=>{
-                        console.log("test2: ",this.state.bookingdata)
-                    })
+                this.setState({ bookingdata: result.data })
             }
             else {
-                console.log("getBooking4")
                 result.data.forEach(item => {
                     dataArray.push(item)
                 })
-                this.setState({ bookingdata: dataArray },
-                    ()=>{
-                        console.log("test: ",this.state.bookingdata)
-                    });
+                this.setState({ bookingdata: dataArray });
             }
+            this.fillEvent()
         })
-    }
-
-    handleSubmit = () => {
-        console.log("handleSubmit :", this.state)
-        this.props.shop(this.state)
-        // this.props.history.push('/selecttime')
     }
 
     fillEvent = () => {
         var id = 0
+        console.log(this.state.bookingdata)
         this.state.bookingdata.forEach(book => {
-            //ดูว่า day1 2 3
-            console.log("test: ",book.date)
-            if(book.date===this.state.today){
+            console.log("test: ", book.date)
+            if (book.date === this.state.today) {
 
-                this.state.events.Today.push({
+                this.state.timetableProps.events.Today.push({
                     id: id,
                     name: book.bookingId,
                     type: 'Invalid',
-                    startTime: book.startTime,
-                    endTime: book.stopTime
+                    startTime: moment(book.startTime),
+                    endTime: moment(book.stopTime)
                 })
             }
-            id+=1
+            id += 1
         })
         // this.state.timetableProps.events.Today.push({
         //     id: id,
@@ -120,6 +107,12 @@ class FillTimeTable extends Component {
         //     endTime: moment('2018-02-23T13:30:00')
         // })
         this.handleSubmit()
+    }
+
+    handleSubmit = () => {
+        console.log("handleSubmit :", this.state)
+        this.props.shop(this.state)
+        this.props.history.push('/selecttime')
     }
 
     render() {
