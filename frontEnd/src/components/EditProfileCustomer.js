@@ -11,7 +11,7 @@ import invisibleIcon from './pic/invisible_icon.png'
 import ImageUpload from './ImageUpload';
 import NavBar from './navbar';
 import axios from 'axios'
-import userImage from './pic/default_user.png'
+import userImage from './pic/default_user.jpg'
 
 class ProfileCustomer extends React.Component {
     constructor()

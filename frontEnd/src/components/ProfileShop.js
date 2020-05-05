@@ -6,7 +6,7 @@ import phoneIcon from './pic/phone_icon.png';
 import errorIcon from './pic/error_icon.png';
 import shopIcon from './pic/shop_icon.png';
 import NavBarShop from './NavBarShop';
-import userImage from './pic/default_user.png'
+import userImage from './pic/default_user.jpg'
 import axios from 'axios';
 class ProfileShop extends React.Component {
     constructor(props)
