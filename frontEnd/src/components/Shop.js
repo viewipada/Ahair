@@ -26,7 +26,6 @@ class Shop extends Component {
     }
 
     getShopData = (keyword) => {
-        let currentState = this
         var dataArray = []
         var barberurl = "https://us-central1-g10ahair.cloudfunctions.net/api/barber/" + localStorage.getItem('shopname');
         Axios.get(barberurl).then(result => {

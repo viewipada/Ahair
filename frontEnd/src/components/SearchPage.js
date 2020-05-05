@@ -25,17 +25,6 @@ class SearchPage extends Component {
         // this.keySearch = this.keySearch.bind(this)
     }
 
-    // keySearch = (name) => {
-    //     console.log(name)
-    //     alert(name)
-    //     // if(this.state.keyword != name){
-    //     console.log(name + this.state.keyword)
-    //     const n = name
-    //     this.setState({ keyword: n });
-    //     alert(this.state.keyword)
-    //     console.log(name + this.state.keyword)
-    //     // }
-    // }
     handleInputChange = (event) => {
         event.preventDefault();
         this.setState({
