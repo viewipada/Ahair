@@ -11,47 +11,86 @@ import { Shop_5 } from '../redux/index'
 import Timetable from 'react-timetable-events'
 
 // import { Grid, Image } from 'semantic-ui-react'
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
-// import addDays from 'date-fns/addDays'
-// import setHours from 'date-fns/setHours'
-// import setMinutes from 'date-fns/setMinutes'
-// import format from "date-fns/format";
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import addDays from 'date-fns/addDays'
+import setHours from 'date-fns/setHours'
+import setMinutes from 'date-fns/setMinutes'
+import format from "date-fns/format";
 
 class SelectTime extends Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {           
-            timetableProps: this.props.shopStore.timetableProps          
+        this.state = {
+            timetableProps: this.props.shopStore.timetableProps,
+            date: new Date(),
+            startTime: new Date(),
+            stopTime: new Date(),
+            calstartTime: new Date(),
+            showstopTime: new Date(),
+            totalTime: 90
+            // moment().toISOString()
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.onFormSubmit = this.onFormSubmit.bind(this);
-      }
+    }
 
     componentDidMount() {
-        console.log(this.props.shopStore)
-        console.log(moment('2018-02-23T11:30:00').format('LLL'))
-        console.log(this.state.timetableProps)
+        // console.log("Timetable: ", this.state.timetableProps)
+        // console.log("shopStore: ", this.props.shopStore)
+        // console.log("Datepicker", setHours(setMinutes(new Date(), 0), 7))
+        // console.log(moment('2018-02-23T11:30:00').format('LLL'))
+        document.getElementById("myBtn").disabled = true
     }
 
     handleChange = date => {
         this.setState({
-            startDate: date
-        }, function () {
-            console.log(this.state.startDate)
-        });
+            calstartTime: date,
+            startTime: moment(date).toISOString()
+        },
+            () => {
+                console.log("Change: ", this.state)
+            });
     };
 
-    onFormSubmit(e) {
-        e.preventDefault();
-        console.log(this.state.startDate)
+    handleSelect = date => {
+        if (document.getElementById("myBtn").disabled) {
+            document.getElementById("myBtn").disabled = false
+        } 
+        this.setState({
+            calstartTime: date,
+            startTime: moment(date).toISOString()
+        },
+            () => {
+                console.log("Select: ", this.state)
+                this.calculateStoptime()
+            });
     }
 
-    // toDayLable= day =>{
-    //     moment(day).format('LLL')
-    // }
+    calculateStoptime = () => {
+        this.setState({ 
+            stopTime: moment(this.state.calstartTime).add(this.state.totalTime, 'minutes').toISOString(),
+            showstopTime: moment(this.state.calstartTime).add(this.state.totalTime, 'minutes')
+        },
+            () => {
+                console.log("StopTime: ",this.state)
+                console.log("datewithmomentandISOSrting: ",moment(this.state.date).toISOString())
+            })
+    }
+
+    handleSubmit = () => {
+        this.setState({
+            date:moment(this.state.calstartTime).format('L'),   
+        },
+        ()=>{
+            this.submit()
+        })
+    }
+
+    submit = () => {
+        console.log("handleSubmitSelectTime :", this.state)
+        this.props.shop(this.state)
+        this.props.history.push('/confirmbooking')
+    }
 
     render() {
 
@@ -105,42 +144,43 @@ class SelectTime extends Component {
                                     {/* <p style={{ color: '#14a098'}}>{moment(createAt).format('LLL')}</p> */}
 
                                     {/* select time */}
-                                    <div class="sub_box_item2" style={{ borderRadius: '20px', backgroundColor: '#ffffff0e', marginTop: '1em' }}>
+                                    <div class="sub_box_item2" style={{ borderRadius: '20px', backgroundColor: '#ffffff0e', margin: '1em 0 1em 0' }}>
                                         <h3 style={{ color: '#cb2c6f', marginTop: '1em' }}>Select time</h3>
-                                        <div class="box_item2" style={{ textAlign: 'left' }}>
-                                            <div class="sub_box_item2">
-                                                <h3 style={{ color: '#cb2c6f' }}>Start time</h3>
+                                        <div class="sub_box_item3" style={{ textAlign: 'left', paddingLeft: '1em' }}>
+                                            <h3 style={{ color: '#cb2c6f' }}>Start time</h3>
 
-                                                {/* <DatePicker
-                                                    className="wrap_input_time"
-                                                    selected={this.state.date}
-                                                    onChange={this.handleSelect}
-                                                    minDate={new Date()}
-                                                    maxDate={addDays(new Date(), 7)}
-                                                    placeholderText="Select Start Time"
-                                                    showTimeSelect
-                                                    timeIntervals={15}
-                                                    excludeTimes={[
-                                                        setHours(setMinutes(new Date(), 0), 7),
-                                                        setHours(setMinutes(new Date(), 30), 18),
-                                                        setHours(setMinutes(new Date(), 0), 9),
-                                                        setHours(setMinutes(new Date(), 30), 17)
-                                                    ]}
-                                                    minTime={setHours(setMinutes(new Date(), 0), 0)}
-                                                    maxTime={setHours(setMinutes(new Date(), 30), 20)}
-                                                    dateFormat="MMMM d, yyyy h:mm aa"
-                                                /> */}
-
-                                            </div>
-                                            <div class="sub_box_item2">
-                                                <h3 style={{ color: '#cb2c6f' }}>Stop time</h3>
-                                                <h3 id="stop_time" />
-                                            </div>
+                                            <DatePicker
+                                                className="wrap_input_time"
+                                                selected={this.state.calstartTime}
+                                                onSelect={this.handleSelect} //when day is clicked
+                                                onChange={this.handleChange} //only when value has changed
+                                                minDate={new Date()}
+                                                maxDate={addDays(new Date(), 1)}
+                                                placeholderText="Select Start Time"
+                                                showTimeInput
+                                                timeInputLabel="Time:"
+                                                excludeTimes={[
+                                                    setHours(setMinutes(new Date(), 0), 7),
+                                                    setHours(setMinutes(new Date(), 30), 18),
+                                                    setHours(setMinutes(new Date(), 0), 9),
+                                                    setHours(setMinutes(new Date(), 30), 17)
+                                                ]}
+                                                minTime={setHours(setMinutes(new Date(), 0), 0)}
+                                                maxTime={setHours(setMinutes(new Date(), 30), 20)}
+                                                dateFormat="MM/dd/yyyy h:mm aa"
+                                            />
+                                            <h3 style={{ color: '#cb2c6f', marginTop: '0.5em' }}>Stop time</h3>
+                                            <h3 style={{ color: '#cb2c6f',marginTop:'0.5em' }}>{moment(this.state.stopTime).format('L')} {moment(this.state.stopTime).format('LT')}</h3>
+                                            <form className="container_next" onSubmit={this.handleSubmit} >
+                                                <button id="myBtn" className="login_button" type="submit" onClick={this.handleSubmit}>
+                                                    Next
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
 
-                                <Timetable {...this.state.timetableProps}/>
+                                <Timetable {...this.props.shopStore.timetableProps} />
 
                             </section>
                         </div>

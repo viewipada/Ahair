@@ -1587,6 +1587,11 @@ button[type='signIn_2']:hover {
   padding: 0 1em 0 1em;
 }
 
+.sub_box_item3 {
+  position: relative;
+  width: 100%;
+}
+
 .sub_box_item a{
   text-decoration: none;
 }
@@ -1623,13 +1628,17 @@ button[type='signIn_2']:hover {
 }
 
 .wrap_input_time{
-  width: 70%;
+  width: 100%;
   height: 30px;
   position: relative;
-  border-radius: 50px;
+  border-radius: 25px;
   background-color: rgba(20, 160, 153, 0.3);
   display: flex;
 }
+.wrap_input_time::placeholder {
+  color: #ffffff0e;
+}
+
 .input_time{
   /* font-family: Poppins-Regular; */
   font-size: 16px;
@@ -1649,7 +1658,8 @@ button[type='signIn_2']:hover {
   position: relative;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
+  padding: 1em;
 }
 
 .container_hairstyle {

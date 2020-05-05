@@ -18,7 +18,7 @@ export default class ShopReviewItem extends Component {
 
     render() {
 
-        const { userId, userHandle, message, rete, shopId, createAt, imgUrl} = this.props.review
+        const { userId, userHandle, message, rate, shopId, createAt, imgUrl} = this.props.review
         return (
 
             // ShopReviewItem
@@ -26,7 +26,7 @@ export default class ShopReviewItem extends Component {
                 <h2 style={{ color: '#14a098' }}>{userHandle}</h2>
                 <p style={{ color: '#14a098'}}>{moment(createAt).format('LLL')}</p>
                 {/* <StarRate getStar={this.getStar} /> */}
-                <Rating icon='star' defaultRating={parseInt(rete, 10)} maxRating={5} disabled style={{ paddingLeft: '1.5em' }}/>
+                <Rating icon='star' defaultRating={parseInt(rate, 10)} maxRating={5} disabled style={{ paddingLeft: '1.5em' }}/>
                 <p style={{ color: '#cb2c6f', padding: '1em 0 0 4em' }}>{message}</p>
 
                 <section>

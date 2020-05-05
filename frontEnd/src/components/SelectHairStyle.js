@@ -21,9 +21,8 @@ class SelectHairStyle extends Component {
     }
 
     componentDidMount() {
-        // this.getHairStyle(this.props.shopStore.shopName)
-        this.getHairStyle('ไทน์ คนชิคชิค')
-        // document.getElementById("myBtn").disabled = true
+        this.getHairStyle(this.props.shopStore.shopName)
+        document.getElementById("myBtn").disabled = true
     }
 
     getHairStyle = (keyword) => {
@@ -44,51 +43,77 @@ class SelectHairStyle extends Component {
     }
 
     hairstyleChecked = event => {
-        console.log("hairstyleChecked");
-        // document.getElementById("myBtn").disabled = true
         this.state.hairstylesdata.forEach(hairstyle => {
             if (hairstyle.hairId === event.target.value) {
-                hairstyle.isChecked =  event.target.checked            
-            }
-        })
-        this.state.hairstylesdata.forEach(hairstyle => {
-            if (hairstyle.isChecked){
-                if (document.getElementById("myBtn").disabled) {
-                    document.getElementById("myBtn").disabled = false
-                }
-                return false // break;
-            }
-        })
-    }
-
-    handleSubmit = event => {
-        event.preventDefault();
-        this.state.hairstylesdata.forEach(hairstyle => {
-            if (hairstyle.isChecked) {
+                // const time = 0
+                // this.props.shopStore.barberdata.hairAble.forEach(hairable =>{
+                //     if(hairstyle.hairId===hairable.hairId){
+                //         time = hairable.time
+                //     }
+                // })
                 this.state.hairStyles.push({
                     hairId: hairstyle.hairId,
                     hairName: hairstyle.hairName,
                     price: hairstyle.price,
                     type: hairstyle.type,
                     time: hairstyle.time
+                    // time: time
                 })
                 this.setState({ 
                     total: this.state.total + hairstyle.price,
                     totalTime: this.state.totalTime + hairstyle.time
                 })
+                if (document.getElementById("myBtn").disabled) {
+                    document.getElementById("myBtn").disabled = false
+                }            
             }
         })
-        this.submit(event)
     }
 
-    submit = (event) => {
+
+    // hairstyleChecked = event => {
+    //     console.log("hairstyleChecked");
+    //     // document.getElementById("myBtn").disabled = true
+    //     this.state.hairstylesdata.forEach(hairstyle => {
+    //         if (hairstyle.hairId === event.target.value) {
+    //             hairstyle.isChecked =  event.target.checked            
+    //         }
+    //     })
+    //     this.state.hairstylesdata.forEach(hairstyle => {
+    //         if (hairstyle.isChecked){
+    //             if (document.getElementById("myBtn").disabled) {
+    //                 document.getElementById("myBtn").disabled = false
+    //             }
+    //             return false // break;
+    //         }
+    //     })
+    // }
+
+    // handleSubmit = event => {
+    //     event.preventDefault();
+    //     this.state.hairstylesdata.forEach(hairstyle => {
+    //         if (hairstyle.isChecked) {
+    //             this.state.hairStyles.push({
+    //                 hairId: hairstyle.hairId,
+    //                 hairName: hairstyle.hairName,
+    //                 price: hairstyle.price,
+    //                 type: hairstyle.type,
+    //                 time: hairstyle.time
+    //             })
+    //             this.setState({ 
+    //                 total: this.state.total + hairstyle.price,
+    //                 totalTime: this.state.totalTime + hairstyle.time
+    //             })
+    //         }
+    //     })
+    //     this.submit(event)
+    // }
+
+    handleSubmit = () => {
         console.log("handleSubmitSelectHairStle :", this.state);
-        event.preventDefault();
         this.props.shop(this.state)
-        // this.props.history.push('/filltimetable')
+        this.props.history.push('/filltimetable')
     }
-
-
 
     render() {
         return (
