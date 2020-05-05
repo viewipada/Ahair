@@ -6,6 +6,7 @@ import phoneIcon from './pic/phone_icon.png';
 import genderIcon from './pic/gender_icon.png';
 import errorIcon from './pic/error_icon.png';
 import NavBar from './navbar';
+import userImage from './pic/default_user.png'
 // import ImageUpload from './ImageUpload';
 import axios from 'axios';
 
@@ -58,7 +59,7 @@ class ProfileCustomer extends React.Component {
                                                     className = "image_preview"
                                                     alt = ""
                                                     id = "profile"
-                                                    src = {this.state.posts.imgUrl} //get data form backend
+                                                    src = {this.state.posts.imgUrl || userImage} //get data form backend
                                                     
                                                 />
                                             </div>

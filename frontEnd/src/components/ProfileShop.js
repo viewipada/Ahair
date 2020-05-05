@@ -6,6 +6,7 @@ import phoneIcon from './pic/phone_icon.png';
 import errorIcon from './pic/error_icon.png';
 import shopIcon from './pic/shop_icon.png';
 import NavBarShop from './NavBarShop';
+import userImage from './pic/default_user.png'
 import axios from 'axios';
 class ProfileShop extends React.Component {
     constructor(props)
@@ -55,7 +56,7 @@ class ProfileShop extends React.Component {
                                                     className = "image_preview"
                                                     alt = ""
                                                     id = "profile"
-                                                    src = {this.state.posts.imgUrl } //get data form backend
+                                                    src = {this.state.posts.imgUrl || userImage}
                                                     
                                                 />
                                             </div>
