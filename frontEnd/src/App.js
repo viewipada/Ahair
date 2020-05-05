@@ -80,7 +80,7 @@ class App extends React.Component {
               <Route path='/SelectHairStyle' component={SelectHairStyle} />
               <PrivateRoute path='/BookInfo_Cus/:bookingId' component={BookingInfo_Cus}/>
               <Route path='/BookInfo_Shop/:bookingId' component={BookingInfo_Shop}/>
-              <PrivateRoute path='/thank4Review_Cus' component={Thx4Review_Cus}/>
+              <PrivateRoute path='/thank4Review_Cus/:bookingId' component={Thx4Review_Cus}/>
               <Route path='/selecttime' component={SelectTime} />
               <Route path='/homeshop' component={HomeShop} />
               <Route path='/editshopinformation' component={EditShopInformation} />

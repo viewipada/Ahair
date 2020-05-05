@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from './navbar'
 import Axios from 'axios';
-import { connect } from 'react-redux';
-import { Booking } from '../redux/index';
+
 
 class notice_Cus extends Component {
     constructor(props) {
@@ -16,14 +15,19 @@ class notice_Cus extends Component {
             bookingId: '',
             canReview: true,
             isLoading: true,
-            done:''
+            done: '',
+            isEmpty:false
         };
     }
     componentDidMount() {
         Axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/booking', { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } })
             .then(res => {
                 this.setState({ noticecontent: res.data, isLoading: false })
-                this.props.shop(this.state.noticecontent)
+                console.log(res.data)
+                if(this.state.noticecontent.length===0){
+                    this.setState({isEmpty:true})
+                }
+                console.log(this.state.isEmpty)
             })
             .catch(err => {
                 console.log(err.response);
@@ -34,7 +38,7 @@ class notice_Cus extends Component {
     }
     onclickReview(bookingId, reviewed) {
         if (reviewed) {
-            this.props.history.push('/thank4Review_Cus');
+            this.props.history.push(`/thank4Review_Cus/${bookingId}`);
         }
         else {
             this.props.history.push(`/ReviewforCustomer/${bookingId}`)
@@ -54,6 +58,13 @@ class notice_Cus extends Component {
                             }}>Notification
                     </h1>
                     </div>
+                    {
+                        (this.state.isEmpty && !this.state.isLoading)?
+                        <div>
+                            <h1 style={{color:'white', fontSize:'250%',textAlign:'center'}}> No Notification Now </h1>
+                        </div>
+                        :null
+                    }
                     <div>
                         {
                             !this.state.isLoading ?
@@ -79,7 +90,7 @@ class notice_Cus extends Component {
                                                     click for more information</a>
                                                 </button>
                                                 {
-                                                    data.done ?
+                                                    (data.done && !data.reviewedFromUser) ?
                                                         (
                                                             <button className='NoticeContent' onClick={() => this.onclickReview(data.bookingId, data.reviewedFromUser)}>
                                                                 <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}>Review your new Look!</p>
@@ -99,6 +110,7 @@ class notice_Cus extends Component {
                                                         :
                                                         (null)
                                                 }
+                                                
 
                                             </div>
                                         );
@@ -106,7 +118,7 @@ class notice_Cus extends Component {
                                 )
                                 :
                                 (
-                                    <div class="ui massive active centered inline loader"></div>
+                                    <div className="ui massive active centered inline loader"></div>
                                 )
 
                         }
@@ -118,16 +130,6 @@ class notice_Cus extends Component {
     }
 }
 
-const mapStateToProps = (state) => { //subscribe
-    return {
-        shopStore: state.ShopReducer.shop
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-        shop: (data) => dispatch(Booking(data))
-    }
-}
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(notice_Cus);
+export default (notice_Cus);

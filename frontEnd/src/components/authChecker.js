@@ -1,5 +1,5 @@
 import React from 'react';
-import Home from './StarRate';
+import Home from './Home';
 
 const authChecker = (Component) => {
     return class extends React.Component {
