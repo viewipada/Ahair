@@ -11,7 +11,7 @@ import invisibleIcon from './pic/invisible_icon.png'
 import ImageUpload from './ImageUpload';
 import NavBarShop from './NavBarShop';
 import axios from 'axios'
-import userImage from './pic/default_user.png'
+import userImage from './pic/default_user.jpg'
 
 class EditProfileShop extends React.Component {
     constructor()

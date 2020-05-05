@@ -109,7 +109,7 @@ class HairBarBer extends React.Component {
             this.state.numOfbarber[this.state.numOfbarber.length -1].edit = "none"
             this.state.numOfbarber.push({id: this.state.numOfbarber.length, edit: "visible", newisChecked :false})
             this.setState({numOfbarber: this.state.numOfbarber})
-            this.state.barber.push({barberName: this.state.name, img_barber: this.state.imageUrl,phoneNum: this.state.phone, hairAble: this.state.hair})    
+            this.state.barber.push({barberName: this.state.name, img_barber: this.state.imageFile,phoneNum: this.state.phone, hairAble: this.state.hair})    
         }
         this.setState({
             name:"", imageUrl:"", hair:[], time:[],phone:""
@@ -120,7 +120,7 @@ class HairBarBer extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         if(this.state.name) {
-            this.state.barber.push({barberName: this.state.name, img_barber: this.state.imageUrl,phoneNum: this.state.phone, hairAble: this.state.hair})
+            this.state.barber.push({barberName: this.state.name, img_barber: this.state.imageFile,phoneNum: this.state.phone, hairAble: this.state.hair})
             // console.log(this.state.barber[0].hairAble);
             this.setState(this.state);
             this.state.barber.forEach(newBarber => {

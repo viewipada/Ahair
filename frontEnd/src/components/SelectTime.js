@@ -27,6 +27,8 @@ class SelectTime extends Component {
             date: new Date(),
             startTime: new Date(),
             stopTime: new Date(),
+            calstartTime: new Date(),
+            showstopTime: new Date(),
             totalTime: 90
             // moment().toISOString()
         };
@@ -42,7 +44,8 @@ class SelectTime extends Component {
 
     handleChange = date => {
         this.setState({
-            startTime: date
+            calstartTime: date,
+            startTime: moment(date).toISOString()
         },
             () => {
                 console.log("Change: ", this.state)
@@ -54,7 +57,8 @@ class SelectTime extends Component {
             document.getElementById("myBtn").disabled = false
         } 
         this.setState({
-            startTime: date
+            calstartTime: date,
+            startTime: moment(date).toISOString()
         },
             () => {
                 console.log("Select: ", this.state)
@@ -63,14 +67,26 @@ class SelectTime extends Component {
     }
 
     calculateStoptime = () => {
-        this.setState({ stopTime: moment(this.state.startTime).add(this.state.totalTime, 'minutes') },
+        this.setState({ 
+            stopTime: moment(this.state.calstartTime).add(this.state.totalTime, 'minutes').toISOString(),
+            showstopTime: moment(this.state.calstartTime).add(this.state.totalTime, 'minutes')
+        },
             () => {
                 console.log("StopTime: ",this.state)
+                console.log("datewithmomentandISOSrting: ",moment(this.state.date).toISOString())
             })
     }
 
     handleSubmit = () => {
-        this.setState({date:moment(this.state.startTime).format('L')})
+        this.setState({
+            date:moment(this.state.calstartTime).format('L'),   
+        },
+        ()=>{
+            this.submit()
+        })
+    }
+
+    submit = () => {
         console.log("handleSubmitSelectTime :", this.state)
         this.props.shop(this.state)
         this.props.history.push('/confirmbooking')
@@ -135,7 +151,7 @@ class SelectTime extends Component {
 
                                             <DatePicker
                                                 className="wrap_input_time"
-                                                selected={this.state.startTime}
+                                                selected={this.state.calstartTime}
                                                 onSelect={this.handleSelect} //when day is clicked
                                                 onChange={this.handleChange} //only when value has changed
                                                 minDate={new Date()}

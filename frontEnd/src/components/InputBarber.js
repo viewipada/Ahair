@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom'
-import ImageUpload from './ImageUpload';
-import userImage from './pic/user_green_icon.png'
+import ProfileBarber from './ProfileBarber';
+import userImage from './pic/default_user.jpg'
 import downIcon from './pic/arrowdown_icon.png'
 import upIcon from './pic/arrowup_icon.png'
 import axios from 'axios'
@@ -328,7 +328,7 @@ class InputBarber extends React.Component {
         <div className = "line_info">
                 <div className = "wrap_barber" >
                     <div style={{width:"35%", marginRight:"40px"}}>
-                        <ImageUpload getFile={this.getFile} imagePreview={userImage}/>
+                        <ProfileBarber getFile={this.getFile} imagePreview={userImage}/>
                     </div>
                     <div style={{width:"60%", display:"block", flexWrap:"wrap"}}>
                         <div style={{width:"75%", marginBottom:"20px", marginTop:"20px"}}>

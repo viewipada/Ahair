@@ -4,7 +4,7 @@ import addIcon from './pic/add_icon.png';
 import InputBarber from './InputBarber';
 import NavBarShop from './NavBarShop';
 import axios from 'axios'
-import userIcon from './pic/user_green_icon.png'
+import userIcon from './pic/default_user.jpg'
 
 class AddBarber extends React.Component {
     constructor()
