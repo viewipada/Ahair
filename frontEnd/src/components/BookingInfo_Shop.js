@@ -20,7 +20,8 @@ class BookingInfo_Cus extends Component {
                 shopId: '',
                 bookingId: '',
                 done: '',
-                averageRate: '0'
+                averageRate: '0',
+                color:''
             };
         }
         componentDidMount() {
@@ -31,9 +32,6 @@ class BookingInfo_Cus extends Component {
                     res.data.hairStyles.forEach(element => {
                         dataArray.push(element);
                     });
-                    dataArray.map(data => {
-                        this.state.hairStyle.push(data.hairName)
-                    })
                     this.setState({
                         date: res.data.date,
                         startTime: res.data.startTime,
@@ -46,6 +44,7 @@ class BookingInfo_Cus extends Component {
                         isLoading: false,
                         bookingId: bookingId,
                         done: res.data.done,
+                        hairStyle: dataArray
                     })
                     axios.get(`https://us-central1-g10ahair.cloudfunctions.net/api/reviewfromShop/${this.state.name}`)
                         .then(res => {
@@ -99,7 +98,27 @@ class BookingInfo_Cus extends Component {
                                 (
                                     <div className='BookInfo' >
                                         <p>Name           <span className="subdetail">{this.state.name} (rate : {this.state.averageRate})</span> </p>
-                                        <p>Hair Styles    <span className="subdetail">{this.state.hairStyle.join(' , ')}</span></p>
+                                        <p>Hair Styles    </p>
+                                        {
+                                            this.state.hairStyle &&
+                                            this.state.hairStyle.map(data=>{
+                                                return(
+                                                    <div key={data.hairStyles}>
+                                                        <span className='subdetail'><i className='hand point right icon' style={{color:'#cb2d6f'}}></i>HairStyle : {data.hairName}</span>
+                                                    </div>
+                                                );
+                                            })
+                                        }
+                                        {
+                                            this.state.hairStyle &&
+                                            this.state.hairStyle.map(data=>{
+                                                return(
+                                                    <div key={data.hairStyles}>
+                                                        <span className='subdetail'><i className='hand point right icon' style={{color:'#cb2d6f'}}></i>color : {data.colors}</span>
+                                                    </div>
+                                                );
+                                            })
+                                        }
                                         <p>Barber         <span className="subdetail">{this.state.barber}</span></p>
                                         <p>Total Price    <span className="subdetail">{this.state.price} Bath</span></p>
                                         <p>Date           <span className="subdetail">{this.state.date}</span></p>
