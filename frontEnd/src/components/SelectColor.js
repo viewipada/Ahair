@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import {Colorstock} from '../redux/index'
+import { Link, Redirect } from 'react-router-dom';
 import NavBarShop from "./NavBarShop";
 import axios from 'axios'
 
@@ -22,114 +23,106 @@ export const ColorCheckBox = props => {
     )
 }
 
-class Colors extends React.Component {
+class SelectColors extends React.Component {
     constructor(props) {
         super(props)
-        
+        const token = localStorage.getItem('token')
+        let isSignin = true
+        if (!token) isSignin =false
         this.state = {
-            color: this.props.shopColorStore || [], 
+            color: [], 
             add: "",
             addcolor: [],
-            shopColorstock : [],
-            isSignin: null
+            pickColer : "",
+            isSignin:null,
+            // hadData: null,
+            address:'',
+            closehours:"",
+            openhours:"",
         }
     }
     
     colorChecked = event => {
-        this.props.shopColorStore.forEach(color => {
-        if (color.value === event.target.value)
+        this.state.color.forEach(color => {
+        if (color.value === event.target.value){
             color.isChecked =  event.target.checked
-        })
-        this.setState({color: this.props.shopColorStore})
-    }
-    componentDidMount() {
-        const token = localStorage.getItem('token')
-        if (!token) this.setState({isSignin:false})
-        else this.setState({isSignin:true})
+            this.setState({pickColor: color.value})
+        }
+        else {
+            color.isChecked =  false
+        }}
+        )
+        this.setState({color: this.state.color})
     }
 
+    componentDidMount(){
+        let currentState=this
+        axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/shopcolors/'+"ไทน์ คนชิคชิค",{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
+        .then(res => {
+            // console.log(res.data)
+            this.setState({
+                isSignin : true,
+                color: res.data.colors
+            })
+            this.state.color.forEach(e => {
+                e.isChecked = false
+            })
+            this.setState({color:this.state.color})
+            console.log(this.state)
+        })
+        .catch(err => {
+            console.log(err)
+        });
+    }
     handleSubmit = event => {
         event.preventDefault();
-        this.setState({shopColorstock:[]})
-        // console.log(this.state.color)
-        this.props.shopColorStore.forEach(color => {
-            if(color.isChecked){
-                this.state.shopColorstock.push({id:this.state.shopColorstock.length, value: color.value, key: this.state.shopColorstock.length, isChecked:color.isChecked})
-            }
-        })
-        if(this.state.addcolor) {
-            this.state.addcolor.forEach(addcolor => {
-                if(addcolor.isChecked){
-                    this.state.shopColorstock.push({id:this.state.shopColorstock.length, value: addcolor.value, key: this.state.shopColorstock.length, isChecked:addcolor.isChecked})
-                    this.props.shopColorStore.push({id:this.props.shopColorStore.length, value: addcolor.value, key: this.props.shopColorStore.length, isChecked:addcolor.isChecked})
-                }
-            })
-        }
-        
-        console.log(this.state.shopColorstock)
-        // this.props.stock(this.state.color)
-    
-        this.props.history.push('/hairstyles')
-    }
-
-    typeAddcolor = event => {
-        this.setState({[event.target.id]: event.target.value});
-        this.setState({add: event.target.value})
-    };
-    addlist_color = () => {
-        this.state.addcolor.push({id: this.state.addcolor.length, value: this.state.add, key: this.state.addcolor.length, isChecked: true})
-        this.setState({add:""})
-    }
-
-    addcolorChecked = event => {
-        this.state.addcolor.forEach(addcolor => {
-        if (addcolor.value === event.target.value)
-            addcolor.isChecked =  event.target.checked
-        })
-        this.setState({addcolor: this.state.addcolor})
+        console.log(this.state.pickColor)
     }
 
     render() {
+        // if(!this.state.isSignin) return <Redirect to='/home'/>
         return (
             
             <div className="big_container">
                 <NavBarShop />
                 <div className="wrap_info">
 
-                    <div className = "title">
+                <div className = "title">
+                    <div className="container_next_bt">
                         <h1 style={{color:"#CB2D6F",fontSize:"30px"}}>
-                            SelectColor
+                            Select Color
                         </h1>
                     </div>
+                </div>
                     
                     <div className="signup_form">
 
                         <div className = "bigcontainer_info">
                             <div className="line_info">
-                                <div className = "wrap_checkbox">
+                                <div className = "wrap_checkbox" >
                                     
                                     { 
-                                        this.props.shopColorStore.map((color) => {
+                                        this.state.color.map((color) => {
                                             return (<ColorCheckBox colorChecked={this.colorChecked}  {...color} />)
                                         })
                                     }
+                                    
+
                                 </div>
                             </div>
       
                         </div>
                         <div className="container_next_bt">
-                            <Link className="link" to="/information">
+                            <Link className="link" to="/">
                                 <div>
-                                    <button className="login_button" type="reset">
+                                    <button className="login_button" type="reset" >
                                         Back
                                     </button>
                                 </div>
                             </Link>
-                            <form onSubmit={this.handleSubmit} >
-                                <button className="login_button" type="submit" onClick={this.handleSubmit}>
+                                <button className="login_button" type="submit" onClick={this.handleSubmit} >
                                     Next
                                 </button>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -137,16 +130,5 @@ class Colors extends React.Component {
         );
     }
 }
-const mapStateToProps = (state) => { //subscribe
-    return {
-        shopColorStore: state.ShopInformationReducer.colorstock,
-        shopInfoStore: state.ShopInformationReducer.shopinfo
-    }       
-}
-const mapDispatchToProps =(dispatch) => {
-    return {
-        stock: (data) => dispatch(Colorstock(data))
-    }
-}
 
-export default connect(mapStateToProps,mapDispatchToProps)(SelectColor);
+export default SelectColors
