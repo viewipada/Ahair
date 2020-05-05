@@ -11,7 +11,8 @@ class notice_Cus extends Component {
             image: 'null',
             noticecontent: '',
             noticestage: null,
-            isLoading:true,
+            isLoading: true,
+            isEmpty:false
         };
     }
 
@@ -19,6 +20,10 @@ class notice_Cus extends Component {
         axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/bookingforshop', { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } })
             .then(res => {
                 this.setState({ noticecontent: res.data, isLoading: false })
+                if (this.state.noticecontent.length===0) {
+                    this.setState({ isEmpty: true })
+                }
+                console.log(this.state.isEmpty)
             })
             .catch(err => {
                 console.log(err.response);
@@ -29,6 +34,7 @@ class notice_Cus extends Component {
         this.props.history.push(`/bookInfo_Shop/${bookingId}`)
     }
     onclickReview(bookingId, reviewed) {
+        console.log(reviewed)
         if (reviewed) {
             this.props.history.push('/noticeforshop');
         }
@@ -52,61 +58,68 @@ class notice_Cus extends Component {
                     </h1>
                     </div>
                     {
-                            !this.state.isLoading ?
-                                (
-                                    this.state.noticecontent &&
-                                    this.state.noticecontent.map((data) => {
-                                        return (
+                        (this.state.isEmpty && !this.state.isLoading) ?
+                            <div>
+                                <h1 style={{ color: 'white', fontSize: '250%', textAlign: 'center' }}> No Notification Now </h1>
+                            </div>
+                            : null
+                    }
+                    {
+                        !this.state.isLoading ?
+                            (
+                                this.state.noticecontent &&
+                                this.state.noticecontent.map((data) => {
+                                    return (
 
-                                            <div key={data.bookingId}>
-                                                < button className='NoticeContent' onClick={() => this.onclickBooking(data.bookingId)}>
-                                                    <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}>
-                                                        Booking Information</p>
-                                                    <p
-                                                        style={{
-                                                            margin: '0px 0px 20px 25px',
-                                                            fontSize: '10px',
-                                                            color: '#8DE8E3',
-                                                        }}>
-                                                        order number #{data.bookingId}
-                                                    </p>
-                                                    <a style={{ marginLeft: '20px', color: "white", fontSize: '10px', marginBottom: '20px' }}>
-                                                        <i className="hand point right outline icon" style={{ color: 'white' }}></i>
+                                        <div key={data.bookingId}>
+                                            < button className='NoticeContent' onClick={() => this.onclickBooking(data.bookingId)}>
+                                                <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}>
+                                                    Booking Information</p>
+                                                <p
+                                                    style={{
+                                                        margin: '0px 0px 20px 25px',
+                                                        fontSize: '10px',
+                                                        color: '#8DE8E3',
+                                                    }}>
+                                                    order number #{data.bookingId}
+                                                </p>
+                                                <a style={{ marginLeft: '20px', color: "white", fontSize: '10px', marginBottom: '20px' }}>
+                                                    <i className="hand point right outline icon" style={{ color: 'white' }}></i>
                                                     click for more information</a>
-                                                </button>
-                                                {
-                                                    data.done ?
-                                                        (
-                                                            <button className='NoticeContent' onClick={() => this.onclickReview(data.bookingId, data.reviewedFromShop)}>
-                                                                <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}>Review your new Look!</p>
-                                                                <p
-                                                                    style={{
-                                                                        margin: '0px 0px 20px 25px',
-                                                                        fontSize: '10px',
-                                                                        color: '#8DE8E3',
-                                                                    }}>
-                                                                    order number #{data.bookingId}
-                                                                </p>
-                                                                <p href={data.reviewed ? '/thank4Review_Cus' : '/ReviewforCustomer'} style={{ marginLeft: '20px', color: "white", fontSize: '10px', marginBottom: '20px' }}>
-                                                                    <i className="hand point right outline icon" style={{ color: 'white' }}></i>
+                                            </button>
+                                            {
+                                                (data.done && !data.reviewedFromShop) ?
+                                                    (
+                                                        <button className='NoticeContent' onClick={() => this.onclickReview(data.bookingId, data.reviewedFromShop)}>
+                                                            <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}>Review your new Look!</p>
+                                                            <p
+                                                                style={{
+                                                                    margin: '0px 0px 20px 25px',
+                                                                    fontSize: '10px',
+                                                                    color: '#8DE8E3',
+                                                                }}>
+                                                                order number #{data.bookingId}
+                                                            </p>
+                                                            <p href={data.reviewed ? '/thank4Review_Cus' : '/ReviewforCustomer'} style={{ marginLeft: '20px', color: "white", fontSize: '10px', marginBottom: '20px' }}>
+                                                                <i className="hand point right outline icon" style={{ color: 'white' }}></i>
                                                 click for more information</p>
-                                                            </button>
-                                                        )
-                                                        :
-                                                        (null)
-                                                }
+                                                        </button>
+                                                    )
+                                                    :
+                                                    (null)
+                                            }
 
-                                            </div>
-                                        );
-                                    })
-                                )
-                                :
-                                (
-                                    <div class="ui massive active centered inline loader"></div>
-                                )
+                                        </div>
+                                    );
+                                })
+                            )
+                            :
+                            (
+                                <div class="ui massive active centered inline loader"></div>
+                            )
 
 
-                        }
+                    }
                 </div>
             </div>
         );

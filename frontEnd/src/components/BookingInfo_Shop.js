@@ -101,8 +101,6 @@ class BookingInfo_Cus extends Component {
                     }
 
                     <div className="container_right_bt" >
-
-
                         {
                             this.state.done ?
                                 (

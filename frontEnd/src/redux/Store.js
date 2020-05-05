@@ -4,9 +4,10 @@ import rootReducer from "./index";
 import logger from "redux-logger";
 import jwtDecode from 'jwt-decode';
 
+
 const store = createStore(
     rootReducer,
-    composeWithDevTools(applyMiddleware(logger)),
+    composeWithDevTools(applyMiddleware(logger))
 );
 
 export default store;
