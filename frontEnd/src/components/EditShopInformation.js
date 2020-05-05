@@ -45,7 +45,8 @@ class EditShopInformation extends React.Component {
                 openhours: res.data.credentials.openTime, 
                 closehours: res.data.credentials.closeTime,
                 address: res.data.credentials.address,
-                colors: res.data.credentials.colors
+                colors: res.data.credentials.colors,
+                imageUrl: res.data.credentials.imgUrl
             })
         })
         .catch(err => {
