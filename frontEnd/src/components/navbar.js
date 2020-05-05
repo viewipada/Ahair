@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link ,Redirect} from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import logo from './pic/logo_V2.1.png'
 import { FaSistrix, FaUser } from "react-icons/fa"
 import { IoIosNotifications } from "react-icons/io"
@@ -19,16 +19,16 @@ class NavBar extends Component {
             searchValue: 'null',
             isSignin: null
         };
-        
+
         this.showDropdownMenu = this.showDropdownMenu.bind(this);
         this.hideDropdownMenu = this.hideDropdownMenu.bind(this);
         this.logoutevent = this.logoutevent.bind(this)
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const token = localStorage.getItem('token')
-        if (!token) this.setState({isSignin:false})
-        else this.setState({isSignin:true})
+        if (!token) this.setState({ isSignin: false })
+        else this.setState({ isSignin: true })
     }
 
     showDropdownMenu = () => {
@@ -66,18 +66,14 @@ class NavBar extends Component {
                 </Link>
 
                 <div className="leftGroup">
-                    {
-                        this.state.isSignin ?
-                            (
-                                <div>
-                                    <Link className="link" to='/searchpage'>
-                                        <button className="iconBt"><FaSistrix color='white' size='2em' /></button>
-                                    </Link>
-                                </div>
+
+                    <div>
+                        <Link className="link" to='/searchpage'>
+                            <button className="iconBt"><FaSistrix color='white' size='2em' /></button>
+                        </Link>
+                    </div>
                             )
-                            : null
-                    }
-                    {
+                        {
                         this.state.isSignin ?
                             (
                                 <div>
@@ -89,7 +85,7 @@ class NavBar extends Component {
                             : null
                     }
 
-                    <Link className="link" to='/signin' style={{display:this.state.isSignin? "none" : "flex"}}>
+                    <Link className="link" to='/signin' style={{ display: this.state.isSignin ? "none" : "flex" }}>
                         <button
                             className="Signin"
                             onClick={this.showDropdownMenu}>
@@ -100,20 +96,20 @@ class NavBar extends Component {
                             <span>{this.state.statename}</span>
                         </button>
                     </Link>
-                        <button
-                            className="Signin"
-                            style={{display:this.state.isSignin? "flex" : "none"}}
-                            onClick={this.showDropdownMenu}>
-                            {
-                                this.state.isSignin ? <i className='user circle icon'></i>
-                                    : <i className="users icon" size='2em'></i>
-                            }
-                            <span>{this.state.statename}</span>
-                        </button>
+                    <button
+                        className="Signin"
+                        style={{ display: this.state.isSignin ? "flex" : "none" }}
+                        onClick={this.showDropdownMenu}>
+                        {
+                            this.state.isSignin ? <i className='user circle icon'></i>
+                                : <i className="users icon" size='2em'></i>
+                        }
+                        <span>{this.state.statename}</span>
+                    </button>
 
                     {this.state.displayMenu ? (
                         <ul>
-                            <a href={localStorage.getItem('username') ? "/profilecustomer" :"/profileshop"} >Profile</a>
+                            <a href={localStorage.getItem('username') ? "/profilecustomer" : "/profileshop"} >Profile</a>
                             <a href="/home" onClick={this.logoutevent}>Log Out</a>
                         </ul>
                     ) :
