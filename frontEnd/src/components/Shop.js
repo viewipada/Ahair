@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import Axios from 'axios'
 import shopIcon from './pic/1.jpg';
 import ShopImgItem from './ShopImgItem'
 import Sidebar from './Sidebar';
-import Hairdresser from './HairdresserItem';
-import NavBar from './NavBarShop'
+import NavBar from './navbar'
 import { connect } from 'react-redux';
 import { Shop_2 } from '../redux/index'
 import HairdresserItem from './HairdresserItem';
@@ -23,18 +23,19 @@ class Shop extends Component {
 
     componentDidMount() {
         this.getShopData(this.props.shopStore.shopName)
+        // this.getShopData('newshop4')
     }
 
     getShopData = (keyword) => {
         var dataArray = []
-        var barberurl = "https://us-central1-g10ahair.cloudfunctions.net/api/barber/" + localStorage.getItem('shopname');
+        var barberurl = "https://us-central1-g10ahair.cloudfunctions.net/api/barber/" + keyword;
         Axios.get(barberurl).then(result => {
-            this.setState({ shopdata: result.data });
+            this.setState({ shopdata: result.data })
             const dataCount = result.data.barber.length
-            if(dataCount===undefined){
-                this.setState({barberdata:result.data})
+            if (dataCount === undefined) {
+                this.setState({ barberdata: result.data })
             }
-            else{
+            else {
                 result.data.barber.forEach(item => {
                     dataArray.push(item)
                 })
@@ -44,7 +45,6 @@ class Shop extends Component {
     }
 
     handleOnClick = (item) => {
-        // console.log("barber: ", this.state.barberdata)
         this.setState({
             barberName: item.barberName,
             barberId: item.barberId
@@ -54,8 +54,8 @@ class Shop extends Component {
         );
     };
 
-    submit = () =>{
-        console.log("submitShop: ",this.state)
+    submit = () => {
+        console.log("submitShop: ", this.state)
         this.props.shop(this.state)
         this.props.history.push('/selecthairstyle')
     }
@@ -80,20 +80,15 @@ class Shop extends Component {
                             <section>
 
                                 {/* Topic */}
-                                <div className = "title">
-                                    <h1 style={{color:"#CB2D6F",fontSize:"30px"}}>
+                                <div className="title">
+                                    <h1 style={{ color: "#CB2D6F", fontSize: "30px" }}>
                                         <img class="shop_logo" src={shopIcon} />
-                                        {localStorage.getItem('shopname')}
+                                        {this.state.shopdata.shopName}
                                     </h1>
                                 </div>
 
-                                {/* Edit Button for admin */}
-                                {/* <Link className="link" to="/shop">
-                                    <button class="Back">Edit</button>
-                                </Link> */}
-
                                 {/* image */}
-                                <div style={{display: this.state.shopdata.imgUrl === [] ? "flex":"none"}}>
+                                <div style={{ display: this.state.shopdata.imgUrl === [] ? "flex" : "none" }}>
                                     <ShopImgItem item={this.state.shopdata.imgUrl} />
                                 </div>
 
@@ -104,10 +99,10 @@ class Shop extends Component {
                                         <p style={{ color: '#14a098' }}>Tel. {this.state.shopdata.phoneNum}</p>
                                         <p style={{ color: '#14a098' }}>Email.{this.state.shopdata.email}</p>
                                     </div>
-                                    <div class="sub_box_item">
-                                        <a href="/shopreview"><h2 style={{ color: '#cb2c6f' }}>Rate</h2></a>
+                                    <Link to="/shopreview" class="sub_box_item">
+                                        <h2 style={{ color: '#cb2c6f' }}>Rate</h2>
                                         <p style={{ color: 'goldenrod' }}>Something</p>
-                                    </div>
+                                    </Link>
                                     <div class="sub_box_item">
                                         <h2 style={{ color: '#cb2c6f' }}>Location</h2>
                                         <p style={{ color: '#14a098' }}>{this.state.shopdata.address}</p>

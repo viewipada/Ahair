@@ -17,7 +17,8 @@ class BookingInfo_Cus extends Component {
             barber: '',
             isLoading: true,
             shopId: '',
-            bookingId: ''
+            bookingId: '',
+            color:[]
         };
     }
     componentDidMount() {
@@ -28,9 +29,6 @@ class BookingInfo_Cus extends Component {
                 res.data.hairStyles.forEach(element => {
                     dataArray.push(element);
                 });
-                dataArray.map(data => {
-                    this.state.hairStyle.push(data.hairName)
-                })
                 this.setState({
                     date: res.data.date,
                     startTime: res.data.startTime,
@@ -42,10 +40,11 @@ class BookingInfo_Cus extends Component {
                     shopId: res.data.shopId,
                     isLoading: false,
                     bookingId: bookingId,
-                    done: res.data.done
+                    done: res.data.done,
+                    hairStyle: dataArray
                 })
 
-
+                console.log(this.state)
             })
             .catch((err) => {
                 console.log(err.response);
@@ -83,7 +82,28 @@ class BookingInfo_Cus extends Component {
                             (
                                 <div className='BookInfo' >
                                     <p>Name           <span className="subdetail">{this.state.name}</span></p>
-                                    <p>Hair Styles    <span className="subdetail">{this.state.hairStyle.join(' , ')}</span></p>
+                                    <p>Hair Styles    </p>
+                                        {
+                                            this.state.hairStyle &&
+                                            this.state.hairStyle.map(data=>{
+                                                return(
+                                                    <div key={data.hairStyles}>
+                                                        <span className='subdetail'><i className='hand point right icon' style={{color:'#cb2d6f'}}></i>HairStyle : {data.hairName}</span>
+                                                    </div>
+                                                );
+                                            })
+                                        }
+                                        {
+                                            this.state.hairStyle &&
+                                            this.state.hairStyle.map(data=>{
+                                                return(
+                                                    <div key={data.hairStyles}>
+                                                        <span className='subdetail'><i className='hand point right icon' style={{color:'#cb2d6f'}}></i>color : {data.colors}</span>
+                                                    </div>
+                                                );
+                                            })
+                                        }
+                                        
                                     <p>Barber         <span className="subdetail">{this.state.barber}</span></p>
                                     <p>Total Price    <span className="subdetail">{this.state.price} Bath</span></p>
                                     <p>Date           <span className="subdetail">{this.state.date}</span></p>

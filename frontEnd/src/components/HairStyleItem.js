@@ -1,15 +1,24 @@
 import React, { Component } from 'react'
 import img1 from './pic/1.jpg';
+import { connect } from 'react-redux';
 
-export default class HairStyleItem extends Component {
+class HairStyleItem extends Component {
 
     constructor(props) {
         super(props)
     }
 
+    getHairTime=()=>{
+        this.props.shopStore.barberdata.hairAble.forEach(hairable =>{
+            if(this.props.hairstyle_item.hairId===hairable.hairId){
+                return hairable.time
+            }
+        })
+    }
+
     render() {
 
-        const { hairId, hairName, price, hour, img } = this.props.hairstyle_item
+        const { hairId, hairName, price, img } = this.props.hairstyle_item
         return (
 
             // ShopItem
@@ -23,9 +32,16 @@ export default class HairStyleItem extends Component {
                 <div class="sub_box_item" style={{ width: '50%', marginTop:'1em' }}>
                     <h3 style={{ color: '#cb2c6f', marginBottom:'1em'}}>{hairName}</h3>
                     <p style={{ color: '#14a098' }}>{price} Bath.</p>
-                    <p style={{ color: '#14a098' }}> Hr.</p>
+                    <p style={{ color: '#14a098' }}>{this.getHairTime} Hr.</p>
                 </div>
             </div>
         );
     }
 }
+const mapStateToProps = (state) => { //subscribe
+    return {
+        shopStore: state.ShopReducer.shop
+    }
+}
+
+export default connect(mapStateToProps)(HairStyleItem);
