@@ -77,12 +77,9 @@ class App extends React.Component {
               <PrivateRoute path='/BookInfo_Shop/:bookingId' component={BookingInfo_Shop}/>
               <PrivateRoute path='/thank4Review_Cus' component={Thx4Review_Cus}/>
               <Route path='/selecttime' component={SelectTime} />
-<<<<<<< HEAD
               <Route path='/homeshop' component={HomeShop} />
               <Route path='/editshopinformation' component={EditShopInformation} />
-=======
               <Route path='/dontforgettoreview' component={dontforgettoreview}/>
->>>>>>> b85c678ec59e694e19f22b434243aa1194a60ad1
             </Switch>
           </div>
         </Router>
