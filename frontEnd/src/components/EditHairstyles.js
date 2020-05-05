@@ -80,8 +80,11 @@ class EditHairstyles extends React.Component {
                                 {
                                     this.state.list_womenServices.map(element => {
                                         return (<div className="line_info" style={{justifyContent:"space-between"}}>
-                                            <div>{element.hairName}</div>
-                                            <div>{element.price}</div>
+                                            <div style={{marginLeft:"20px", padding:"20px"}}>{element.hairName}</div>
+                                            <div style={{marginRight:"20px",padding:"20px"}}>{element.price}
+                                                < div style={{marginRight:"20px",padding:"20px"}}>Baht</div>
+                                            </div>
+
                                         </div>)
                                     })
                                 }
@@ -94,9 +97,9 @@ class EditHairstyles extends React.Component {
                                 <div className = "wrap_checkbox">
                                 {
                                     this.state.list_menServices.map(element => {
-                                        return (<div className="line_info">
-                                            <div>{element.hairName}</div>
-                                            <div>{element.price}</div>
+                                        return (<div className="line_info" style={{justifyContent:"space-between"}}>
+                                        <div style={{marginLeft:"20px", padding:"20px"}}>{element.hairName}</div>
+                                        <div style={{marginRight:"20px",padding:"20px"}}>{element.price} Baht</div>
                                         </div>)
                                     })
                                 }
@@ -112,9 +115,9 @@ class EditHairstyles extends React.Component {
                                     <div className="title_hairstyles"><p>Short length</p></div>
                                     {
                                     this.state.list_womenShort.map(element => {
-                                        return (<div className="line_info">
-                                            <div>{element.hairName}</div>
-                                            <div>{element.price}</div>
+                                        return (<div className="line_info" style={{justifyContent:"space-between"}}>
+                                        <div style={{marginLeft:"20px", padding:"20px"}}>{element.hairName}</div>
+                                        <div style={{marginRight:"20px",padding:"20px"}}>{element.price} Baht</div>
                                         </div>)
                                     })
                                 }
@@ -126,9 +129,9 @@ class EditHairstyles extends React.Component {
                                     <div className="title_hairstyles"><p>Medium length</p></div>
                                     {
                                     this.state.list_womenMedium.map(element => {
-                                        return (<div className="line_info">
-                                            <div>{element.hairName}</div>
-                                            <div>{element.price}</div>
+                                        return (<div className="line_info" style={{justifyContent:"space-between"}}>
+                                        <div style={{marginLeft:"20px", padding:"20px"}}>{element.hairName}</div>
+                                        <div style={{marginRight:"20px",padding:"20px"}}>{element.price} Baht</div>
                                         </div>)
                                     })
                                 }
@@ -140,9 +143,9 @@ class EditHairstyles extends React.Component {
                                     <div className="title_hairstyles"><p>Long length</p></div>
                                     {
                                     this.state.list_womenLong.map(element => {
-                                        return (<div className="line_info">
-                                            <div>{element.hairName}</div>
-                                            <div>{element.price}</div>
+                                        return (<div className="line_info" style={{justifyContent:"space-between"}}>
+                                        <div style={{marginLeft:"20px", padding:"20px"}}>{element.hairName}</div>
+                                        <div style={{marginRight:"20px",padding:"20px"}}>{element.price} Baht</div>
                                         </div>)
                                     })
                                 }
@@ -159,9 +162,9 @@ class EditHairstyles extends React.Component {
                                     <div className="title_hairstyles"><p>Short length</p></div>
                                     {
                                     this.state.list_menShort.map(element => {
-                                        return (<div className="line_info">
-                                            <div>{element.hairName}</div>
-                                            <div>{element.price}</div>
+                                        return (<div className="line_info" style={{justifyContent:"space-between"}}>
+                                        <div style={{marginLeft:"20px", padding:"20px"}}>{element.hairName}</div>
+                                        <div style={{marginRight:"20px",padding:"20px"}}>{element.price} Baht</div>
                                         </div>)
                                     })
                                 }
@@ -173,9 +176,9 @@ class EditHairstyles extends React.Component {
                                     <div className="title_hairstyles"><p>Long length</p></div>
                                     {
                                     this.state.list_menLong.map(element => {
-                                        return (<div className="line_info">
-                                            <div>{element.hairName}</div>
-                                            <div>{element.price}</div>
+                                        return (<div className="line_info" style={{justifyContent:"space-between"}}>
+                                        <div style={{marginLeft:"20px", padding:"20px"}}>{element.hairName}</div>
+                                        <div style={{marginRight:"20px",padding:"20px"}}>{element.price} Baht</div>
                                         </div>)
                                     })
                                 }
