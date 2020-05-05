@@ -1,5 +1,7 @@
 const { db } = require("../util/admin");
 
+
+
 exports.postReviewFromShop = (req, res) => {
   const newReviewFromShop = {
     rate: req.body.rate,
@@ -43,7 +45,7 @@ exports.getReviewFromShop = (req, res) => {
       reviewData = doc.data();
       reviewData.userId = doc.data().userId;
       reviewData.username = doc.data().handle;
-      reviewData.averageRate = 0 ;
+      reviewData.averageRate = 0;
 
       db.collection("reviewFromShop")
         .where("userId", "==", reviewData.userId)
@@ -53,10 +55,19 @@ exports.getReviewFromShop = (req, res) => {
           reviewData.reviewFromShop = [];
           data.forEach((docdoc) => {
             reviewData.reviewFromShop.push(docdoc.data());
-            reviewData.averageRate = reviewData.averageRate + docdoc.data().rate;
+            reviewData.averageRate =
+              reviewData.averageRate + docdoc.data().rate;
           });
-          reviewData.averageRate = reviewData.averageRate / reviewData.reviewFromShop.length;
-          db.doc(`/users/${reviewData.username}`).update({averageRate: reviewData.averageRate});
+          if (reviewData.reviewFromShop.length !== 0) {
+            reviewData.averageRate =
+              reviewData.averageRate / reviewData.reviewFromShop.length;
+            db.doc(`/users/${reviewData.username}`).update({
+              averageRate: reviewData.averageRate,
+            });
+          } else {
+            db.doc(`/users/${reviewData.username}`).update({ averageRate: 0 });
+          }
+
           return res.json(reviewData);
         })
         .catch((err) => {

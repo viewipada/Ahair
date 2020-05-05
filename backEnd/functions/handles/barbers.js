@@ -1,5 +1,7 @@
 const { db } = require("../util/admin");
 
+const config = require("../util/config");
+
 exports.addBarber = (req, res) => {
   const newBarber = {
     barberName: req.body.barberName,
@@ -7,6 +9,7 @@ exports.addBarber = (req, res) => {
     hairAble: req.body.hairAble,
     shopId: req.shop.shopId,
     createAt: new Date().toISOString(),
+    imgUrl : `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${req.body.imgUrl}?alt=media`,
   };
 
   db.collection("barbers")
@@ -49,7 +52,6 @@ exports.getBarber = (req, res) => {
                     time: hair.time,
                   }
                   );
-               
                 }
               }count++
             }
