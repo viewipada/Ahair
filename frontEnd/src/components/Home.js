@@ -52,7 +52,7 @@ class Home extends Component {
                   <Sliderimg />
                 </div>
                 <div className="wrapcontainer">
-                  <h1 className="Topictext">Category</h1>
+                  {/* <h1 className="Topictext">Category</h1>
                   <div className="btcatContainer">
                     <button className="catbt" type="women">Women</button>
                     <button className="catbt" type="longW">Long Hairs</button>
@@ -63,7 +63,7 @@ class Home extends Component {
                     <button className="catbt" type="skinheadM">Skin Head</button>
                     <button className="catbt" type="ShortM">Short Hairs</button>
                     <button className="catbt" type="LongM">Long Hairs</button>
-                  </div>
+                  </div> */}
                   <h1 className="Topictext">Reccomended</h1>
                   <div className="shopRec">
                     <div className='ui link cards'>
@@ -81,7 +81,7 @@ class Home extends Component {
                                   <span className="date">Tel.{info.phoneNum}</span>
                                 </div>
                                 <div className="description">
-                                  Rate <Rating defaultRating={info.averageRate} maxRating={5} disabled icon='star' /> ({info.averageRate})
+                                  Rate <Rating defaultRating={info.averageRate} maxRating={5} disabled icon='star' /> ({info.averageRate+0})
                         </div>
                               </div>
                             </div>

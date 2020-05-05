@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import MultipleImageUpload from './MultipleImageUpload';
+import ImageUpload from './imgUploadforReview';
 import { Link } from 'react-router-dom';
 import StarRate from './StarRate';
 import errorIcon from './pic/error_icon.png';
@@ -50,7 +50,8 @@ class review_Cus extends React.Component {
         const reviewData = {
             rate: this.state.ratingValue,
             message: this.state.reviewdata,
-            bookingId: this.state.bookingId
+            bookingId: this.state.bookingId,
+            imgUrl : this.state.getFile
         }
         if (rate != null) {
             this.setState({ isEmpty: false }, () => {
@@ -98,9 +99,8 @@ class review_Cus extends React.Component {
                         </div>
 
                         <div className="wrapAddimg">
-                            <p style={{ color: "white", margin: "0px" }}>Add Image (Maximum 5 Image)</p>
                             <div className="AddImgReview">
-                                <MultipleImageUpload getFile={this.getFile} />
+                                <ImageUpload getFile={this.getFile} />
                             </div>
                         </div>
                         <div className="ReviewtxtBox">
