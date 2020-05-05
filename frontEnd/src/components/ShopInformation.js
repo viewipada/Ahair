@@ -9,7 +9,7 @@ import MultipleImageUpload from './MultipleImageUpload';
 import NavBarShop from './NavBarShop';
 import { Redirect } from 'react-router';
 // import axios from 'axios'
-import moment from 'moment'
+// import moment from 'moment'
 
 //ที่อยู่ เวลา รูปบรรยากาศ
 class ShopInformation extends React.Component {
@@ -55,19 +55,13 @@ class ShopInformation extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        
+        // console.log(this.state);
         let isValid = this.validate();
         if (isValid) {
-            
+            console.log(this.state);
             this.setState(this.state);
-            const dateObj = new Date();
-            const dateStr = dateObj.toISOString().split('T').shift();
-            const open = moment(dateStr + ' ' + this.state.openhours).toISOString();
-            const close = moment(dateStr + ' ' + this.state.closehours).toISOString();
-            this.setState({openhours: open, closehours: close})
             this.props.shopInfo(this.state)
             this.props.history.push('/colors')
-            console.log(this.state);
         }
     };
 
