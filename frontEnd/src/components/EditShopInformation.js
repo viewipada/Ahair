@@ -29,7 +29,7 @@ class EditShopInformation extends React.Component {
             colors:[],
             isSignin:null,
             isEdit:false,
-            hadData: null
+            hadData: false
         }
         this.getFile = this.getFile.bind(this);
     }
@@ -41,13 +41,13 @@ class EditShopInformation extends React.Component {
             this.setState({
                 posts: res.data.credentials,
                 isSignin : true, 
-                hadData: true, 
                 openhours: res.data.credentials.openTime, 
                 closehours: res.data.credentials.closeTime,
                 address: res.data.credentials.address,
                 colors: res.data.credentials.colors,
                 imageUrl: res.data.credentials.imgUrl
             })
+            if(res.data.barberArray) this.setState({hadData: true})
         })
         .catch(err => {
             console.log(err)
@@ -85,10 +85,14 @@ class EditShopInformation extends React.Component {
             console.log(this.state);
             this.setState(this.state);
             this.setState({isEdit: !this.state.isEdit})
+            let dateObj = new Date();
+            let dateStr = dateObj.toISOString().split('T').shift();
+            let open = moment(dateStr + ' ' + this.state.openhours).toISOString();
+            let close = moment(dateStr + ' ' + this.state.closehours).toISOString();
             const shopInformation = {
                 address : this.state.address,
-                openTime : this.state.openhours,
-                closeTime : this.state.closehours,
+                openTime : open,
+                closeTime : close,
                 // shopImg : this.props.shopInfoStore.imageUrl,
                 colors : this.state.colors
             }

@@ -45,6 +45,11 @@ import EditColors from './components/EditColors'
 import EditBarber from './components/EditBarber'
 import SelectColor from './components/SelectColor';
 import ConfirmBooking from './components/ConfirmBooking'
+import CatagoryOne from './components/CatagoryOne'
+import CatagoryTwo from './components/CatagoryTwo'
+import CatagoryThree from './components/CatagoryThree'
+import CatagoryFour from './components/CatagoryFour'
+import CatagoryFive from './components/CatagoryFive'
 class App extends React.Component {
   render() {
     return (

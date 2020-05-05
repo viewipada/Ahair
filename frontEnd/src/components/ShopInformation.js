@@ -9,6 +9,7 @@ import MultipleImageUpload from './MultipleImageUpload';
 import NavBarShop from './NavBarShop';
 import { Redirect } from 'react-router';
 // import axios from 'axios'
+// import moment from 'moment'
 
 //ที่อยู่ เวลา รูปบรรยากาศ
 class ShopInformation extends React.Component {
