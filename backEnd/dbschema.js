@@ -9,7 +9,76 @@ let db = {
         }
     ]
 }
-
+importPayment = async () => {
+  let query = firebase.firestore().collection("cart");
+  let productList = [];
+  await query
+   .get()
+   .then((querysnapshot) => {
+    // for (const x in querysnapshot) {
+    //  console.log("querere", x);
+    // }
+    querysnapshot.forEach(async (cartlists) => {
+     //cartlist
+                    this.setState({cart: []});
+                    console.log(cartlists.data().cartlist,'fdfffffff')
+                    for (const [i, cart] of cartlists.data().cartlist.entries()) {
+                        let productList = [];
+                        if (cart.payment_status && !cart.shop_check) {
+                            for (const product of cart.productlist) {
+                                let query = firebase.firestore().collection("product");
+                                await query
+                                    .doc(product.id.split(" ")[0])
+                                    .get()
+                                    .then((documentsnapshots) => {
+                                        if (
+                                            documentsnapshots.data().store_id ===
+                                            this.props.store_id
+                                        ) {
+                                            this.setState((prevState) => {
+                                                productList.push(product);
+                                                return {
+                                                    ...prevState,
+                                                    tmp: true,
+                                                    productList: [
+                                                        ...prevState.productList,
+                                                        product,
+                                                    ],
+                                                };
+                                            });
+                                        }
+                                    })
+                                    .catch((e) => {
+                                        console.log(e.message);
+                                    });
+                            }
+                            if (this.state.tmp) {
+                                let s = {
+                                    productList: productList,
+                                    shop_check: cart.shop_check,
+                                    realCartIndex: i,
+                                };
+                                this.setState((prevState) => {
+                                    return {
+                                        ...prevState,
+                                        cart: [...prevState.cart, s],
+                                    };
+                                });
+                            }
+                            this.setState({
+                                tmp: false,
+                                productList: [],
+                            });
+                        }
+                        console.log("last", this.state.cart);
+                    }
+     this.summary(cartlists.id);
+    });
+   })
+   .catch((e) => {
+    console.log(e.message);
+   });
+ };
 // exports.addBarber = (req, res) => {
 //     db.collection("barbers")
 //       .where("barberName", "==", req.body.barberName)

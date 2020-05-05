@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 class ImageUpload extends React.Component {
     constructor(){
         super();
@@ -16,9 +17,20 @@ class ImageUpload extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault()
+        let formData = new FormData()
+
         if(!this.state.isSaved){
             this.props.getFile(this.state.imageFile, this.state.imagePreview, this.state.imageUrl )
         }
+
+        formData.append('imgUrl',this.state.imageFile)
+        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/user/image',formData,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        });
     }
 
     handleChange = event => {

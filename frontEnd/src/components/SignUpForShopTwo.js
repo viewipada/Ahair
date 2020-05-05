@@ -7,7 +7,7 @@ import passwordIcon from './pic/password_icon.png';
 import errorIcon from './pic/error_icon.png';
 import visibleIcon from './pic/visible_icon.png'
 import invisibleIcon from './pic/invisible_icon.png'
-import userImage from './pic/user_green_icon.png'
+import userImage from './pic/default_user.png'
 import axios from 'axios';
 
 class SignUpForShopTwo extends React.Component {

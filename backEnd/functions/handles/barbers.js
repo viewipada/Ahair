@@ -29,43 +29,34 @@ exports.getBarber = (req, res) => {
       barberData.barberId = doc.data().barberId;
       barberData.hairAble = doc.data().hairAble;
       barberData.shopId = doc.data().shopId;
-
-      //return res.json(barberData);
       let count = 0;
       barberData.list = [];
-      var l = new Promise((resolve, reject) => {
-        barberData.hairAble.forEach((hair, index, array) => {
-          db.collection("hairStyles")
-            .where("shopId", "==", barberData.shopId)
-            .get()
-            .then((dataQ) => {
-              dataQ.forEach((docdoc) => {
-                docdoc.data().hair.forEach((x) => {
-                  if (x.hairId === hair.hairId) {
-                    barberData.list.push({
-                      hairId: x.hairId,
-                      hairName: x.hairName,
-                      price: x.price,
-                      type: x.type,
-                      time: hair.time,
-                    });
-                    count++;
+      const hab = barberData.hairAble;
+      for (const hair of hab) {
+        db.collection("hairStyles")
+          .where("shopId", "==", barberData.shopId)
+          .get()
+          .then((dataQ) => {
+            dataQ.forEach((docdoc) => {
+              const y = docdoc.data().hair.entries();
+              for (const x of y) {
+                if (x.hairId === hair.hairId) {
+                  barberData.list.push({
+                    hairId: x.hairId,
+                    hairName: x.hairName,
+                    price: x.price,
+                    type: x.type,
+                    time: hair.time,
                   }
-                });
-              });
-            });
-          if (index === array.length - 1) {
-            resolve();
-          }
-        });
-      });
-      l.then(() => {
-        return res.json({ count });
-      });
-    })
-    .catch((err) => {
-      console.error(err);
-      return res.status(500).json({ error: "barber not found" });
+                  );
+               
+                }
+              }count++
+            }
+            );
+          });
+      }
+      return res.json({count});
     });
 };
 

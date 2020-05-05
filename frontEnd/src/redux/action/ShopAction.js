@@ -30,7 +30,7 @@ export const Shop_5 = (data) => {
         payload: data //object
     }
 }
-export const Booking = (data) => {
+export const HomeShop = (data) => {
     return{
         type: SHOP,
         payload: data

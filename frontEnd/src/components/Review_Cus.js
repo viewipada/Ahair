@@ -5,8 +5,6 @@ import StarRate from './StarRate';
 import errorIcon from './pic/error_icon.png';
 import Navbar from './navbar'
 import axios from 'axios';
-import { connect } from 'react-redux';
-import { Booking } from '../redux/index';
 
 class review_Cus extends React.Component {
 
@@ -133,15 +131,5 @@ class review_Cus extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => { //subscribe
-    return {
-        shopStore: state.ShopReducer.shop
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-        shop: (data) => dispatch(Booking(data))
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(review_Cus);
+export default (review_Cus);

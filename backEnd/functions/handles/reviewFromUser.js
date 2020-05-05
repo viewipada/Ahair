@@ -10,21 +10,28 @@ exports.postReviewFromUser = (req, res) => {
     createAt: new Date().toISOString(),
   };
 
-  db.doc(`/booking/${req.body.bookingId}`).get().then((doc) => {
-    return newReviewFromUser.shopId =  doc.data().shopId;
-  }).then(() => {
-    db.collection("reviewFromUser")
-    .add(newReviewFromUser)
+  db.doc(`/booking/${req.body.bookingId}`)
+    .get()
     .then((doc) => {
-      db.doc(`/booking/${newReviewFromUser.bookingId}`).update({ reviewedFromUser : true });
-      return res.status(200).json({ message: `create ${doc.id} succesfully` });
+      return (newReviewFromUser.shopId = doc.data().shopId);
     })
-    .catch((err) => {
-      res.status(500).json({ error: "something went wrong" });
-      console.error(err);
+    .then(() => {
+      db.collection("reviewFromUser")
+        .add(newReviewFromUser)
+        .then((doc) => {
+          db.doc(`/booking/${newReviewFromUser.bookingId}`).update({
+            reviewedFromUser: true,
+          });
+          
+          return res
+            .status(200)
+            .json({ message: `create ${doc.id} succesfully` });
+        })
+        .catch((err) => {
+          res.status(500).json({ error: "something went wrong" });
+          console.error(err);
+        });
     });
-  })
-
 };
 
 exports.getReviewFromUser = (req, res) => {
@@ -37,6 +44,8 @@ exports.getReviewFromUser = (req, res) => {
       }
       reviewData = doc.data();
       reviewData.shopId = doc.data().shopId;
+      reviewData.shopName =doc.data().shopName;
+      reviewData.averageRate = 0;
 
       db.collection("reviewFromUser")
         .where("shopId", "==", reviewData.shopId)
@@ -46,7 +55,10 @@ exports.getReviewFromUser = (req, res) => {
           reviewData.reviewFromUser = [];
           data.forEach((docdoc) => {
             reviewData.reviewFromUser.push(docdoc.data());
+            reviewData.averageRate = reviewData.averageRate + docdoc.data().rate;
           });
+          reviewData.averageRate = reviewData.averageRate / reviewData.reviewFromUser.length;
+          db.doc(`/shops/${reviewData.shopName}`).update({ averageRate : reviewData.averageRate });
           return res.json(reviewData);
         })
         .catch((err) => {

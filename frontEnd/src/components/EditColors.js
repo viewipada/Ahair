@@ -54,36 +54,30 @@ class EditColors extends React.Component {
             shopColorstock : [],
             isSignin:null,
             isEdit:false,
-            hadData: null,
-            address:'',
-            closehours:"",
-            openhours:""
+            hadData: null
         }
     }
     
     colorChecked = event => {
-        this.props.shopColorStore.forEach(color => {
+        this.state.color.forEach(color => {
         if (color.value === event.target.value)
             color.isChecked =  event.target.checked
         })
-        this.setState({color: this.props.shopColorStore})
+        this.setState({color: this.state.color})
     }
 
     componentDidMount(){
         let currentState=this
         axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/shopcolors/'+localStorage.getItem('shopname'),{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
         .then(res => {
-            console.log(res.data.credentials)
+            // console.log(res.data)
             this.setState({
-                posts: res.data.credentials,
+                posts: res.data,
                 isSignin : true, 
                 hadData: true, 
-                openhours: res.data.credentials.openTime, 
-                closehours: res.data.credentials.closeTime,
-                address: res.data.credentials.address,
-                color: res.data.credentials.colors
-
+                color: res.data.colors
             })
+            console.log(this.state)
         })
         .catch(err => {
             console.log(err)
@@ -116,15 +110,11 @@ class EditColors extends React.Component {
         console.log(this.state.shopColorstock)
         // this.props.stock(this.state.color)
         
-        const shopInformation = {
-            address : this.state.address,
-            openTime : this.state.openhours,
-            closeTime : this.state.closehours,
-            // shopImg : this.props.shopInfoStore.imageUrl,
+        const newColor = {
             colors : this.state.shopColorstock
         }
         
-        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',shopInformation ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
+        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/updateColors',newColor ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
             .then(function(response){
                 console.log(response)
             })
@@ -162,9 +152,10 @@ class EditColors extends React.Component {
                 <NavBarShop />
                 <div className="wrap_info">
 
-                    <div className = "title">
+                <div className = "title">
+                    <div className="container_next_bt">
                         <h1 style={{color:"#CB2D6F",fontSize:"30px"}}>
-                            Hair Dye Stock
+                        Hair Dye Stock
                         </h1>
                         <div style={{display : this.state.hadData ? "flex":"none"}} >
                             <button className="login_button" type="submit" onClick={this.state.isEdit? this.handleSubmit : this.funcEdit}> 
@@ -172,12 +163,13 @@ class EditColors extends React.Component {
                             </button>
                         </div>
                     </div>
+                </div>
                     
                     <div className="signup_form">
 
                         <div className = "bigcontainer_info">
                             <div className="line_info">
-                                <div className = "wrap_checkbox">
+                                <div className = "wrap_checkbox" style={{pointerEvents: this.state.isEdit? "visible":"none"}}>
                                     
                                     <div className = "wrap_input_add" style={{visibility: this.state.isEdit? "visible":"hidden"}}>
                                         <input
@@ -191,18 +183,18 @@ class EditColors extends React.Component {
                                             Add
                                         </button>
                                     </div>
-                                    {/* { 
-                                        this.props.shopColorStore.map((color) => {
+                                    { 
+                                        this.state.color.map((color) => {
                                             return (<ColorCheckBox colorChecked={this.colorChecked}  {...color} />)
                                         })
-                                    } */}
+                                    }
                                     
-                                    {/* { 
+                                    { 
                                         
                                         this.state.addcolor.map((addcolor) => {
                                                 return (<AddColorCheckBox addcolorChecked={this.addcolorChecked}  {...addcolor} />)
                                         })
-                                    } */}
+                                    }
 
                                 </div>
                             </div>

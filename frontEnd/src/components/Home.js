@@ -5,6 +5,8 @@ import Navbar from './navbar'
 import Sliderimg from './sliderimg'
 import axios from 'axios';
 import { Rating } from 'semantic-ui-react'
+import { connect } from 'react-redux';
+import { HomeShop } from '../redux/index'
 
 class Home extends Component {
 
@@ -21,30 +23,20 @@ class Home extends Component {
 
   }
   async componentDidMount() {
-    // window.onbeforeunload = () => {
-
-    //   window.localStorage.unloadTime = JSON.stringify(new Date());
-
-    // };
-
-    // window.onload = () => {
-
-    //   let loadTime = new Date();
-    //   let unloadTime = new Date(JSON.parse(window.localStorage.unloadTime));
-    //   let refreshTime = loadTime.getTime() - unloadTime.getTime();
-
-    //   if (refreshTime > 3000)//3000 milliseconds
-    //   {
-    //     window.localStorage.clear();
-    //   }
-
-    // };
     await axios.get(`https://us-central1-g10ahair.cloudfunctions.net/api/shop`)
       .then((res) => {
         console.log(res.data);
         this.setState({ shopinfo: res.data, isLoading: false, shopId: res.data.shopId });
 
       });
+  }
+  handleClick = (shopId, shopName) => {
+    const shopdata = {
+      shopId: shopId,
+      shopName: shopName
+    }
+    this.props.shop(shopdata)
+    this.props.history.push('/shop')
   }
   render() {
     return (
@@ -79,7 +71,7 @@ class Home extends Component {
                         this.state.shopinfo &&
                         this.state.shopinfo.map((info) => {
                           return (
-                            <div key={info.shopId} className="card">
+                            <div key={info.shopId} className="card" onClick={() => this.handleClick(info.shopId, info.shopName)}>
                               <div className="ui centered small image">
                                 <img className="ui fluid image" src={info.imgUrl} />
                               </div>
@@ -106,5 +98,14 @@ class Home extends Component {
     );
   }
 }
-
-export default Home;
+const mapStateToProps = (state) => { //subscribe
+  return {
+    shopStore: state.ShopReducer.shop
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    shop: (data) => dispatch(HomeShop(data))
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
