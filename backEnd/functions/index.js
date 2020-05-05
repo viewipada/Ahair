@@ -53,6 +53,8 @@ const {
 
 const { addHairStyle, getHairStyle } = require("./handles/hairStyle");
 
+const { searchShop, searchAddress, searchBarber } = require("./handles/search");
+
 const {
   addBarber,
   getBarber,
@@ -66,6 +68,11 @@ const {
   getAuthenticatedUser,
   signupShop,
   editUser,
+  uploadShopImage,
+  uploadUserImage,
+  uploadShopImageDetails,
+  uploadShopImageBarber
+
 } = require("./handles/users");
 
 //, uploadImage
@@ -77,7 +84,10 @@ app.post("/scream", FBAuth, postOneScream);
 ////Users routes
 app.post("/signup", signup);
 app.post("/login", login);
-//app.post('/user/image', FBAuth ,uploadImage);
+app.post("/user/image", FBAuth, uploadUserImage);
+app.post("/shop/image", FBAuthforShop, uploadShopImage);
+app.post("/shopDetails/image", FBAuthforShop, uploadShopImageDetails);
+app.post("/shopBarber/image",FBAuthforShop, uploadShopImageBarber);
 app.get("/profile", profile);
 app.get("/user", FBAuth, getAuthenticatedUser);
 app.post("/editUser", FBAuth, editUser);
@@ -105,6 +115,10 @@ app.get("/reviewfromuser/:shopName", getReviewFromUser);
 app.post("/reviewfromshop", FBAuthforShop, postReviewFromShop);
 app.get("/reviewfromshop/:handle", getReviewFromShop);
 
+app.get("/searchShop", searchShop); //searchShop
+app.get("/searchAddress", searchAddress); //searchAddress
+app.get("/searchBarber", searchBarber); //searchBarber
+
 //bookings routes
 app.post("/bookings", FBAuth, addBooking);
 app.get("/booking/:bookingId", getBooking);
@@ -112,7 +126,7 @@ app.get("/booking", FBAuth, getBookingForOneUser); //getBookingForOneUser
 app.get("/bookingforshop", FBAuthforShop, getBookingForOneShop); //getBookingForOneShop
 app.get("/bookingforbarber/:barberName", getBookingForOneBarber); //getBookingForOneBarber
 app.delete("/bookingfromuser/:bookingId", FBAuth, deleteBookingFromUser); //deleteBookingFromUser
-app.delete("/bookingfromshop/:bookingId", FBAuthforShop, deleteBookingFromShop);//deleteBookingFromShop
+app.delete("/bookingfromshop/:bookingId", FBAuthforShop, deleteBookingFromShop); //deleteBookingFromShop
 app.get("/done/:bookingId", FBAuthforShop, done);
 
 exports.api = functions.https.onRequest(app);

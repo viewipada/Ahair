@@ -1,5 +1,7 @@
 const { db } = require("../util/admin");
 
+const config = require("../util/config");
+
 exports.postReviewFromUser = (req, res) => {
   const newReviewFromUser = {
     message: req.body.message,
@@ -8,6 +10,7 @@ exports.postReviewFromUser = (req, res) => {
     userId: req.user.userId,
     bookingId: req.body.bookingId,
     createAt: new Date().toISOString(),
+    imgUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${req.body.imgUrl}?alt=media`,
   };
 
   db.doc(`/booking/${req.body.bookingId}`)
@@ -57,8 +60,16 @@ exports.getReviewFromUser = (req, res) => {
             reviewData.reviewFromUser.push(docdoc.data());
             reviewData.averageRate = reviewData.averageRate + docdoc.data().rate;
           });
-          reviewData.averageRate = reviewData.averageRate / reviewData.reviewFromUser.length;
-          db.doc(`/shops/${reviewData.shopName}`).update({ averageRate : reviewData.averageRate });
+          if (reviewData.reviewFromShop.length !== 0) {
+            reviewData.averageRate =
+              reviewData.averageRate / reviewData.reviewFromShop.length;
+            db.doc(`/users/${reviewData.username}`).update({
+              averageRate: reviewData.averageRate,
+            });
+          } else {
+            db.doc(`/users/${reviewData.username}`).update({ averageRate: 0 });
+          }
+
           return res.json(reviewData);
         })
         .catch((err) => {
