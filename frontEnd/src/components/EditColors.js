@@ -44,13 +44,20 @@ export const ColorCheckBox = props => {
 class EditColors extends React.Component {
     constructor(props) {
         super(props)
-        
+        const token = localStorage.getItem('token')
+        let isSignin = true
+        if (!token) isSignin =false
         this.state = {
-            color: this.props.shopColorStore || [], 
+            color: [], 
             add: "",
             addcolor: [],
             shopColorstock : [],
-            isSignin: null
+            isSignin:null,
+            isEdit:false,
+            hadData: null,
+            address:'',
+            closehours:"",
+            openhours:""
         }
     }
     
@@ -61,17 +68,33 @@ class EditColors extends React.Component {
         })
         this.setState({color: this.props.shopColorStore})
     }
-    componentDidMount() {
-        const token = localStorage.getItem('token')
-        if (!token) this.setState({isSignin:false})
-        else this.setState({isSignin:true})
-    }
 
+    componentDidMount(){
+        let currentState=this
+        axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/shopcolors/'+localStorage.getItem('shopname'),{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
+        .then(res => {
+            console.log(res.data.credentials)
+            this.setState({
+                posts: res.data.credentials,
+                isSignin : true, 
+                hadData: true, 
+                openhours: res.data.credentials.openTime, 
+                closehours: res.data.credentials.closeTime,
+                address: res.data.credentials.address,
+                color: res.data.credentials.colors
+
+            })
+        })
+        .catch(err => {
+            console.log(err)
+            currentState.setState({hadData: false})
+        });
+    }
     handleSubmit = event => {
         event.preventDefault();
         this.setState({shopColorstock:[]})
-        // console.log(this.state.color)
-        this.props.shopColorStore.forEach(color => {
+        this.setState({isEdit: !this.state.isEdit})
+        this.state.color.forEach(color => {
             if(color.isChecked){
                 this.state.shopColorstock.push({
                     id:this.state.shopColorstock.length, 
@@ -85,18 +108,18 @@ class EditColors extends React.Component {
             this.state.addcolor.forEach(addcolor => {
                 if(addcolor.isChecked){
                     this.state.shopColorstock.push({id:this.state.shopColorstock.length, value: addcolor.value, key: this.state.shopColorstock.length, isChecked:addcolor.isChecked})
-                    this.props.shopColorStore.push({id:this.props.shopColorStore.length, value: addcolor.value, key: this.props.shopColorStore.length, isChecked:addcolor.isChecked})
+                    // this.props.shopColorStore.push({id:this.props.shopColorStore.length, value: addcolor.value, key: this.props.shopColorStore.length, isChecked:addcolor.isChecked})
                 }
             })
         }
         
         console.log(this.state.shopColorstock)
-        this.props.stock(this.state.color)
+        // this.props.stock(this.state.color)
         
         const shopInformation = {
-            address : this.state.posts.address,
-            openTime : this.state.posts.openTime,
-            closeTime : this.state.posts.closeTime,
+            address : this.state.address,
+            openTime : this.state.openhours,
+            closeTime : this.state.closehours,
             // shopImg : this.props.shopInfoStore.imageUrl,
             colors : this.state.shopColorstock
         }
@@ -109,7 +132,9 @@ class EditColors extends React.Component {
                 console.log(error)
             }
         )
-        this.props.history.push('/hairstyles')
+    }
+    funcEdit = () => {
+        this.setState({isEdit: !this.state.isEdit})
     }
 
     typeAddcolor = event => {
@@ -141,6 +166,11 @@ class EditColors extends React.Component {
                         <h1 style={{color:"#CB2D6F",fontSize:"30px"}}>
                             Hair Dye Stock
                         </h1>
+                        <div style={{display : this.state.hadData ? "flex":"none"}} >
+                            <button className="login_button" type="submit" onClick={this.state.isEdit? this.handleSubmit : this.funcEdit}> 
+                                {this.state.isEdit ? "Save":"Edit"}
+                            </button>
+                        </div>
                     </div>
                     
                     <div className="signup_form">
@@ -149,7 +179,7 @@ class EditColors extends React.Component {
                             <div className="line_info">
                                 <div className = "wrap_checkbox">
                                     
-                                    <div className = "wrap_input_add">
+                                    <div className = "wrap_input_add" style={{visibility: this.state.isEdit? "visible":"hidden"}}>
                                         <input
                                             className = "input_add" 
                                             type ="text"
@@ -161,34 +191,36 @@ class EditColors extends React.Component {
                                             Add
                                         </button>
                                     </div>
-                                    { 
+                                    {/* { 
                                         this.props.shopColorStore.map((color) => {
                                             return (<ColorCheckBox colorChecked={this.colorChecked}  {...color} />)
                                         })
-                                    }
-                                    { 
+                                    } */}
+                                    
+                                    {/* { 
+                                        
                                         this.state.addcolor.map((addcolor) => {
-                                            return (<AddColorCheckBox addcolorChecked={this.addcolorChecked}  {...addcolor} />)
+                                                return (<AddColorCheckBox addcolorChecked={this.addcolorChecked}  {...addcolor} />)
                                         })
-                                    }
+                                    } */}
 
                                 </div>
                             </div>
       
                         </div>
                         <div className="container_next_bt">
-                            <Link className="link" to="/information">
+                            <Link className="link" to="/editshopinformation">
                                 <div>
-                                    <button className="login_button" type="reset">
+                                    <button className="login_button" type="reset" style={{display: this.state.isEdit? "none":"block"}}>
                                         Back
                                     </button>
                                 </div>
                             </Link>
-                            <form onSubmit={this.handleSubmit} >
-                                <button className="login_button" type="submit" onClick={this.handleSubmit}>
+                            <Link className="link" to="/edithairstyles">
+                                <button className="login_button" type="submit"  style={{display: this.state.isEdit? "none":"block"}}>
                                     Next
                                 </button>
-                            </form>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -197,4 +229,4 @@ class EditColors extends React.Component {
     }
 }
 
-export default (EditColors);
+export default EditColors

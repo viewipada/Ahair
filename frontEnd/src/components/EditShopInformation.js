@@ -26,6 +26,7 @@ class EditShopInformation extends React.Component {
             imageFile: [],
             imagePreview: [],
             imageUrl:[],
+            colors:[],
             isSignin:null,
             isEdit:false,
             hadData: null
@@ -36,9 +37,15 @@ class EditShopInformation extends React.Component {
         let currentState=this
         axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/Ashop',{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
         .then(res => {
+            console.log(res.data.credentials.colors)
             this.setState({
                 posts: res.data.credentials,
-                isSignin : true, hadData: true, openhours: res.data.credentials.openTime, colsehours: res.data.credentials.closeTime
+                isSignin : true, 
+                hadData: true, 
+                openhours: res.data.credentials.openTime, 
+                closehours: res.data.credentials.closeTime,
+                address: res.data.credentials.address,
+                colors: res.data.credentials.colors
             })
         })
         .catch(err => {
@@ -76,13 +83,13 @@ class EditShopInformation extends React.Component {
         if (isValid) {
             console.log(this.state);
             this.setState(this.state);
-
+            this.setState({isEdit: !this.state.isEdit})
             const shopInformation = {
                 address : this.state.address,
                 openTime : this.state.openhours,
                 closeTime : this.state.closehours,
                 // shopImg : this.props.shopInfoStore.imageUrl,
-                colors : this.state.posts.shopColorstock
+                colors : this.state.colors
             }
 
             axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',shopInformation ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
@@ -92,12 +99,12 @@ class EditShopInformation extends React.Component {
             .catch(function(error) {
                 console.log(error)
             })
-            this.props.history.push('/editcolors')
         }
     };
 
 
     render(){
+        // if(!this.state.isSignin) return <Redirect to='/home'/>
         return(
             <div className="big_container">
                 <NavBarShop />
@@ -110,7 +117,7 @@ class EditShopInformation extends React.Component {
                                     Shop Infomation
                                 </h1>
                                     <div style={{display : this.state.hadData ? "flex":"none"}} >
-                                        <button className="login_button" type="submit" onClick={this.funcEdit}>
+                                        <button className="login_button" type="submit" onClick={this.state.isEdit? this.handleSubmit : this.funcEdit}> 
                                             {this.state.isEdit ? "Save":"Edit"}
                                         </button>
                                     </div>
@@ -127,7 +134,7 @@ class EditShopInformation extends React.Component {
                                     <div className="wrap_input_info" style={{width:"70%"}}>
                                         <img className="input_icon"src={shopIcon} alt=""/>
                                         <input  
-                                            className = "input_info" 
+                                            className = "showinput_info" 
                                             type = "text"
                                             id = "address"
                                             placeholder = {this.state.posts.address}  
@@ -152,6 +159,7 @@ class EditShopInformation extends React.Component {
                                             value = {this.state.openhours} 
                                             style={{pointerEvents: this.state.isEdit ? "visible":"none"}}
                                             onChange = {this.handleChange} 
+                                            step = "3600"
                                         />
                                     </div>
 
@@ -168,19 +176,26 @@ class EditShopInformation extends React.Component {
                                             value = {this.state.closehours}
                                             style={{pointerEvents: this.state.isEdit ? "visible":"none"}}
                                             onChange = {this.handleChange} 
+                                            step = "3600"
                                         />
                                     </div>
                                 </div>
 
-                                {/* <div className = "line_info">
+                                <div className = "line_info">
                                     <div style={{width:"200px"}}>
                                         <p style={{color:"white", marginRight:"20px"}}>Images about shop</p>
-                                        <p style={{color:"gray", marginRight:"20px"}}>(maximum 5 images)</p>
                                     </div>
-                                    <div>
-                                        <MultipleImageUpload getFile={this.getFile} />
-                                    </div>
-                                </div> */}
+                                    {/* <div>
+                                        {
+                                            this.state.posts.imgUrl.map(element => {
+                                                return (<div>
+                                                    
+                                                </div>    
+                                                )
+                                            })
+                                        }
+                                    </div> */}
+                                </div>
                                 
                             </div>
                             
@@ -203,11 +218,11 @@ class EditShopInformation extends React.Component {
                             </div>
                             
                             <div className="container_right_bt" style={{display : this.state.hadData ? "flex":"none"}}>
-                                <form onSubmit={this.handleSubmit} >
-                                    <button className="login_button" type="submit" onClick={this.handleSubmit} style={{display: this.state.isEdit? "none":"block"}}>
+                                <Link className="link" to="/editcolors">    
+                                    <button className="login_button" type="submit" style={{display: this.state.isEdit? "none":"block"}}>
                                         Next
                                     </button>
-                                </form>
+                                </Link>
                             </div>
 
                         </div>
