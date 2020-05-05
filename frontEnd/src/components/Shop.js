@@ -4,7 +4,7 @@ import Axios from 'axios'
 import shopIcon from './pic/1.jpg';
 import ShopImgItem from './ShopImgItem'
 import Sidebar from './Sidebar';
-import NavBar from './NavBarShop'
+import NavBar from './navbar'
 import { connect } from 'react-redux';
 import { Shop_2 } from '../redux/index'
 import HairdresserItem from './HairdresserItem';

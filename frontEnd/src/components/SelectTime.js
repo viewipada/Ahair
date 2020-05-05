@@ -24,16 +24,18 @@ class SelectTime extends Component {
         super(props, context);
         this.state = {
             timetableProps: this.props.shopStore.timetableProps,
+            date: new Date(),
             startTime: new Date(),
-            stopTime: new Date,
+            stopTime: new Date(),
             totalTime: 90
+            // moment().toISOString()
         };
     }
 
     componentDidMount() {
-        console.log("Timetable: ", this.state.timetableProps)
-        console.log("shopStore: ", this.props.shopStore)
-        console.log("Datepicker", setHours(setMinutes(new Date(), 0), 7))
+        // console.log("Timetable: ", this.state.timetableProps)
+        // console.log("shopStore: ", this.props.shopStore)
+        // console.log("Datepicker", setHours(setMinutes(new Date(), 0), 7))
         // console.log(moment('2018-02-23T11:30:00').format('LLL'))
         document.getElementById("myBtn").disabled = true
     }
@@ -43,7 +45,7 @@ class SelectTime extends Component {
             startTime: date
         },
             () => {
-                console.log("Change", this.state.startTime)
+                console.log("Change: ", this.state)
             });
     };
 
@@ -55,7 +57,7 @@ class SelectTime extends Component {
             startTime: date
         },
             () => {
-                console.log("Select", this.state.startTime)
+                console.log("Select: ", this.state)
                 this.calculateStoptime()
             });
     }
@@ -63,11 +65,12 @@ class SelectTime extends Component {
     calculateStoptime = () => {
         this.setState({ stopTime: moment(this.state.startTime).add(this.state.totalTime, 'minutes') },
             () => {
-                console.log("StopTime: ",this.state.stopTime.toString())
+                console.log("StopTime: ",this.state)
             })
     }
 
     handleSubmit = () => {
+        this.setState({date:moment(this.state.startTime).format('L')})
         console.log("handleSubmitSelectTime :", this.state)
         this.props.shop(this.state)
         this.props.history.push('/confirmbooking')

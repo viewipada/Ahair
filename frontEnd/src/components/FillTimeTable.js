@@ -10,8 +10,8 @@ class FillTimeTable extends Component {
         super(props)
 
         this.state = {
-            // today: moment(new Date()).format('L'),
-            today: "22/05/2020",
+            today: moment(new Date()).format('L'),
+            // today: "22/05/2020",
             tomorrow: moment(new Date().setDate(new Date().getDate()+1)).format('L'),
             bookingdata: [],
             timetableProps: {
@@ -70,11 +70,10 @@ class FillTimeTable extends Component {
 
     fillEvent = () => {
         var id = 0
-        console.log(this.state.bookingdata)
+        console.log("booking: ",this.state.bookingdata)
         this.state.bookingdata.forEach(book => {
-            console.log("test: ", book.date)
+            // console.log("test: ", book.date)
             if (book.date === this.state.today) {
-
                 this.state.timetableProps.events.Today.push({
                     id: id,
                     name: book.bookingId,
@@ -110,7 +109,7 @@ class FillTimeTable extends Component {
     }
 
     handleSubmit = () => {
-        console.log("handleSubmit :", this.state)
+        console.log("handleSubmitFillTimeTable :", this.state)
         this.props.shop(this.state)
         this.props.history.push('/selecttime')
     }
