@@ -1,5 +1,17 @@
 const { db } = require("../util/admin");
 
+exports.updateColors = (req, res) => {
+  db.doc(`/shops/${req.shop.shopName}`)
+    .update({ colors: req.body.colors })
+    .then(() => {
+      return res.json({ message: "colors added successfully" });
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
+};
+
 exports.addShopDetails = (req, res) => {
   const shopDetails = {
     address: req.body.address,
@@ -61,6 +73,38 @@ exports.getAshop = (req, res) => {
     .then((doc) => {
       if (doc.exists) {
         shopData.credentials = doc.data();
+      }
+      return res.json(shopData);
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
+};
+
+exports.getOneshop = (req, res) => {
+  let shopData = {};
+  db.doc(`/shops/${req.params.shopName}`)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        shopData.credentials = doc.data();
+      }
+      return res.json(shopData);
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
+};
+
+exports.getShopscolors = (req, res) => {
+  let shopData = {};
+  db.doc(`/shops/${req.params.shopName}`)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        shopData.colors = doc.data().colors;
       }
       return res.json(shopData);
     })

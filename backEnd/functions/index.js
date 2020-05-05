@@ -38,7 +38,7 @@ const {
   getBookingForOneBarber,
   deleteBookingFromUser,
   deleteBookingFromShop,
-  done
+  done,
 } = require("./handles/bookings");
 
 const {
@@ -46,6 +46,9 @@ const {
   getAllShops,
   editShop,
   getAshop,
+  getShopscolors,
+  getOneshop,
+  updateColors,
 } = require("./handles/shops");
 
 const { addHairStyle, getHairStyle } = require("./handles/hairStyle");
@@ -82,14 +85,17 @@ app.post("/editUser", FBAuth, editUser);
 //Shops routes
 app.post("/signupShop", signupShop);
 app.post("/shop", FBAuthforShop, addShopDetails);
-app.post("/editShop", FBAuthforShop, editShop);
+app.post("/editShop", FBAuthforShop, editShop); //updateColors
+app.post("/updateColors", FBAuthforShop, updateColors);
 app.get("/shop", getAllShops);
 app.get("/Ashop", FBAuthforShop, getAshop);
+app.get("/Oneshop/:shopName", getOneshop);
 app.post("/hairStyle", FBAuthforShop, addHairStyle);
 app.get("/hairStyle/:shopName", getHairStyle);
 app.post("/barber", FBAuthforShop, addBarber);
 app.get("/barber/person/:barberId", getBarber);
 app.get("/barber/:shopName", getAllBarberInShop);
+app.get("/shopcolors/:shopName", getShopscolors); //getShopscolors
 
 //reviewfromUser routes
 app.post("/reviewfromuser", FBAuth, postReviewFromUser);
@@ -105,8 +111,8 @@ app.get("/booking/:bookingId", getBooking);
 app.get("/booking", FBAuth, getBookingForOneUser); //getBookingForOneUser
 app.get("/bookingforshop", FBAuthforShop, getBookingForOneShop); //getBookingForOneShop
 app.get("/bookingforbarber/:barberName", getBookingForOneBarber); //getBookingForOneBarber
-app.delete("/bookingfromuser/:bookingId",FBAuth, deleteBookingFromUser);//deleteBooking
-app.delete("/bookingfromshop/:bookingId",FBAuthforShop, deleteBookingFromShop);
-app.get("/done/:bookingId",FBAuthforShop, done);
+app.delete("/bookingfromuser/:bookingId", FBAuth, deleteBookingFromUser); //deleteBookingFromUser
+app.delete("/bookingfromshop/:bookingId", FBAuthforShop, deleteBookingFromShop);//deleteBookingFromShop
+app.get("/done/:bookingId", FBAuthforShop, done);
 
 exports.api = functions.https.onRequest(app);
