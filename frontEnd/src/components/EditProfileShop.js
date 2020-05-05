@@ -11,6 +11,7 @@ import invisibleIcon from './pic/invisible_icon.png'
 import ImageUpload from './ImageUpload';
 import NavBarShop from './NavBarShop';
 import axios from 'axios'
+import userImage from './pic/default_user.png'
 
 class EditProfileShop extends React.Component {
     constructor()
@@ -128,7 +129,7 @@ class EditProfileShop extends React.Component {
                                     <div className="bigcontainer_info_profile">
                                         <div className="image_upload" >
                                             <div className = "wrap_preview">
-                                                <ImageUpload getFile={this.getFile} imagePreview={this.state.posts.imgUrl}/>
+                                                <ImageUpload getFile={this.getFile} imagePreview={this.state.posts.imgUrl || userImage}/>
                                             </div>
                                         </div>
                                     </div> 
