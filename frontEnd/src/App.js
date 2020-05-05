@@ -38,6 +38,8 @@ import SelectTime from './components/SelectTime';
 import {PrivateRoute} from './components/PrivateRoute'
 import HomeShop from './components/HomeShop';
 import dontforgettoreview from './components/dontforget2Review'
+import EditHairstyles from './components/EditHairstyles'
+import EditColors from './components/EditColors'
 class App extends React.Component {
   render() {
     return (
@@ -80,6 +82,8 @@ class App extends React.Component {
               <Route path='/homeshop' component={HomeShop} />
               <Route path='/editshopinformation' component={EditShopInformation} />
               <Route path='/dontforgettoreview' component={dontforgettoreview}/>
+              <Route path='/edithairstyles' component={EditHairstyles}/>
+              <Route path='/editcolors' component={EditColors} />
             </Switch>
           </div>
         </Router>

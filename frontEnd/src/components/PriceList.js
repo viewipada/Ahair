@@ -226,25 +226,25 @@ class PriceList extends React.Component {
           this.props.priceWomenService(this.state.servicesWomen)
       
         this.props.womenServiceStore.forEach(element => {
-            allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "service_women"})
+            allHair.push({hairId : element.id, hairName: element.value, price : parseInt(element.price), type: "service_women"})
         })
         this.props.menServiceStore.forEach(element => {
-            allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "service_men"})
+            allHair.push({hairId : element.id, hairName: element.value, price : parseInt(element.price), type: "service_men"})
         })
         this.props.womenShortStore.forEach(element => {
-            if( element.isChecked) allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "women_short"})
+            if( element.isChecked) allHair.push({hairId : element.id, hairName: element.value, price : parseInt(element.price), type: "women_short"})
         })
         this.props.womenMediumStore.forEach(element => {
-            if( element.isChecked) allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "women_medium"})
+            if( element.isChecked) allHair.push({hairId : element.id, hairName: element.value, price : parseInt(element.price), type: "women_medium"})
         })
         this.props.womenLongStore.forEach(element => {
-            if( element.isChecked) allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "women_long"})
+            if( element.isChecked) allHair.push({hairId : element.id, hairName: element.value, price : parseInt(element.price), type: "women_long"})
         })
         this.props.menShortStore.forEach(element => {
-            if( element.isChecked) allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "men_short"})
+            if( element.isChecked) allHair.push({hairId : element.id, hairName: element.value, price : parseInt(element.price), type: "men_short"})
         })
         this.props.menLongStore.forEach(element => {
-            if( element.isChecked) allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "men_long"})
+            if( element.isChecked) allHair.push({hairId : element.id, hairName: element.value, price : parseInt(element.price), type: "men_long"})
         })
         console.log(allHair)
         const newHairstyle = {hair: allHair}

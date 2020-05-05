@@ -110,7 +110,7 @@ class NavBarShop extends Component {
                     {this.state.displayMenu ? (
                         <ul>
                             <a href={localStorage.getItem('username') ? "/profilecustomer" :"/profileshop"} >Profile</a>
-                            <a href="/editinformation" >Shop Information</a>
+                            <a href="/editshopinformation" >Shop Information</a>
                             <a href="/home" onClick={this.logoutevent}>Log Out</a>
                         </ul>
                     ) :
