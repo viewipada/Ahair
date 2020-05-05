@@ -93,7 +93,8 @@ class EditHairBarber extends React.Component {
             barber: [],
             isSignin: null,
             isEdit:false,
-            addBox:false
+            addBox:false,
+            barberOlder:[]
         }
         this.getBarber = this.getBarber.bind(this);
     }
@@ -102,7 +103,7 @@ class EditHairBarber extends React.Component {
         .then(res => {
            this.setState({
                isSignin:true,
-               barber : res.data.barber,
+               barberOlder : res.data.barber,
                numOfbarber : [{id:res.data.barber.length, edit:"visible", newisChecked:false}]
            })
         })
@@ -140,13 +141,13 @@ class EditHairBarber extends React.Component {
             this.setState(this.state);
             this.state.barber.forEach(newBarber => {
                 // const newBarber = {barber : e}
-                // axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/barber',newBarber ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
-                // .then(function(response){
-                //     console.log(response)
-                // })
-                // .catch(function(error) {
-                //     console.log(error)
-                // })
+                axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/barber',newBarber ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
+                .then(function(response){
+                    console.log(response)
+                })
+                .catch(function(error) {
+                    console.log(error)
+                })
             })
             
             this.props.history.push('/homeshop') 
@@ -178,7 +179,7 @@ class EditHairBarber extends React.Component {
                             <div className = "bigcontainer_info" style={{pointerEvents: this.state.isEdit? "visible":"none"}}>
                                 
                                     {
-                                        this.state.barber.map( e => {
+                                        this.state.barberOlder.map( e => {
                                             return (
                                                 <div className = "wrap_barber" >
                                                     <div style={{width:"35%", marginRight:"40px"}}>

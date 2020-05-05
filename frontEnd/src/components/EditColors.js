@@ -54,11 +54,7 @@ class EditColors extends React.Component {
             shopColorstock : [],
             isSignin:null,
             isEdit:false,
-            hadData: null,
-            address:'',
-            closehours:"",
-            openhours:"",
-            isEdit:false
+            hadData: null
         }
     }
     
@@ -79,9 +75,6 @@ class EditColors extends React.Component {
                 posts: res.data,
                 isSignin : true, 
                 hadData: true, 
-                // openhours: res.data.credentials.openTime, 
-                // closehours: res.data.credentials.closeTime,
-                // address: res.data.credentials.address,
                 color: res.data.colors
             })
             console.log(this.state)
@@ -117,22 +110,18 @@ class EditColors extends React.Component {
         console.log(this.state.shopColorstock)
         // this.props.stock(this.state.color)
         
-        const shopInformation = {
-            address : this.state.address,
-            openTime : this.state.openhours,
-            closeTime : this.state.closehours,
-            // shopImg : this.props.shopInfoStore.imageUrl,
+        const newColor = {
             colors : this.state.shopColorstock
         }
         
-        // axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/shop',shopInformation ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
-        //     .then(function(response){
-        //         console.log(response)
-        //     })
-        //     .catch(function(error) {
-        //         console.log(error)
-        //     }
-        // )
+        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/updateColors',newColor ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
+            .then(function(response){
+                console.log(response)
+            })
+            .catch(function(error) {
+                console.log(error)
+            }
+        )
     }
     funcEdit = () => {
         this.setState({isEdit: !this.state.isEdit})

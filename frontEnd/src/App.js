@@ -43,6 +43,7 @@ import confirmBooking from './components/ConfirmBooking'
 import EditHairstyles from './components/EditHairstyles'
 import EditColors from './components/EditColors'
 import EditBarber from './components/EditBarber'
+import SelectColor from './components/SelectColor';
 class App extends React.Component {
   render() {
     return (
@@ -90,6 +91,7 @@ class App extends React.Component {
               <Route path='/editcolors' component={EditColors} />
               <Route path='/filltimetable' component={FillTimeTable} />
               <Route path='/editbarber' component={EditBarber} />
+              <Route path='/selectcolor' component={SelectColor} />
             </Switch>
           </div>
         </Router>
