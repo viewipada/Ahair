@@ -116,23 +116,26 @@ class BookingInfo_Cus extends Component {
                                 )
                                 :
                                 (
-                                    <div>
+                                    <div style={{display:'flex'}}>
                                         <button
                                             type="submit"
                                             className="submit_button"
+                                            style={{ margin: '5% 0% 0% 2%' }}
                                             onClick={() => this.onClickStart()}
                                         >
                                             Start
-                                    </button>
+                                </button>
                                         <button
                                             className="submit_button"
-                                            style={{ margin: '3% 0% 0% 2%' }}
+                                            style={{ margin: '5% 0% 0% 2%' }}
                                             onClick={() => this.handleCancle()}
                                         >
                                             Cancle
-                                    </button>
+                                </button>
                                     </div>
                                 )
+
+
                         }
 
                     </div>

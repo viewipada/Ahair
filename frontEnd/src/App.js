@@ -38,6 +38,7 @@ import SelectTime from './components/SelectTime';
 import {PrivateRoute} from './components/PrivateRoute'
 import HomeShop from './components/HomeShop';
 import dontforgettoreview from './components/dontforget2Review'
+import confirmBooking from './components/ConfirmBooking'
 class App extends React.Component {
   render() {
     return (
@@ -74,15 +75,13 @@ class App extends React.Component {
               <Route path='/shop' component={Shop} />
               <Route path='/SelectHairStyle' component={SelectHairStyle} />
               <PrivateRoute path='/BookInfo_Cus/:bookingId' component={BookingInfo_Cus}/>
-              <PrivateRoute path='/BookInfo_Shop/:bookingId' component={BookingInfo_Shop}/>
+              <Route path='/BookInfo_Shop/:bookingId' component={BookingInfo_Shop}/>
               <PrivateRoute path='/thank4Review_Cus' component={Thx4Review_Cus}/>
               <Route path='/selecttime' component={SelectTime} />
-<<<<<<< HEAD
               <Route path='/homeshop' component={HomeShop} />
               <Route path='/editshopinformation' component={EditShopInformation} />
-=======
               <Route path='/dontforgettoreview' component={dontforgettoreview}/>
->>>>>>> b85c678ec59e694e19f22b434243aa1194a60ad1
+              <PrivateRoute path='/confirmBooking' component={confirmBooking}/>
             </Switch>
           </div>
         </Router>

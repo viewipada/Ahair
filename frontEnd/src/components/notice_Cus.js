@@ -15,7 +15,8 @@ class notice_Cus extends Component {
             noticestage: null,
             bookingId: '',
             canReview: true,
-            isLoading: true
+            isLoading: true,
+            done:''
         };
     }
     componentDidMount() {
@@ -78,7 +79,7 @@ class notice_Cus extends Component {
                                                     click for more information</a>
                                                 </button>
                                                 {
-                                                    this.state.canReview ?
+                                                    data.done ?
                                                         (
                                                             <button className='NoticeContent' onClick={() => this.onclickReview(data.bookingId, data.reviewedFromUser)}>
                                                                 <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}>Review your new Look!</p>
