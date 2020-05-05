@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from './navbar'
+import Navbar from './NavBarShop'
 
-class FinishedReview_Cus extends Component {
+class dontforget2Review extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
     }
     render() {
         return (
@@ -14,12 +13,12 @@ class FinishedReview_Cus extends Component {
                 <div className="Format_Container">
                     <div className="TextContainer">
                         <div className="IconContainer">
-                            <i className="thumbs up icon" style={{ color: "white", fontSize: "50px" }} ></i>
+                            <i className="hand scissors icon" style={{ color: "white", fontSize: "50px" }} ></i>
                         </div>
-                        <h1 style={{ color: "#cb2d6f" }}>Thank You For Your Review!</h1>
+                        <h1 style={{ color: "#cb2d6f" }}>Don't forget to review your customer!</h1>
                     </div>
                     <div className="container_right_bt_Review" >
-                        <Link className="link" to="/home">
+                        <Link className="link" to="/noticeforshop">
                             <button
                                 type="submit"
                                 className="submit_button"
@@ -31,9 +30,8 @@ class FinishedReview_Cus extends Component {
                 </div>
 
             </div>
-
         );
     }
 }
 
-export default FinishedReview_Cus;
+export default dontforget2Review;

@@ -226,28 +226,29 @@ class PriceList extends React.Component {
           this.props.priceWomenService(this.state.servicesWomen)
       
         this.props.womenServiceStore.forEach(element => {
-            allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "service_women"})
+            allHair.push({hairId : element.id, hairName: element.value, price : parseInt(element.price), type: "service_women"})
         })
         this.props.menServiceStore.forEach(element => {
-            allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "service_men"})
+            allHair.push({hairId : element.id, hairName: element.value, price : parseInt(element.price), type: "service_men"})
         })
         this.props.womenShortStore.forEach(element => {
-            allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "women_short"})
+            if( element.isChecked) allHair.push({hairId : element.id, hairName: element.value, price : parseInt(element.price), type: "women_short"})
         })
         this.props.womenMediumStore.forEach(element => {
-            allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "women_medium"})
+            if( element.isChecked) allHair.push({hairId : element.id, hairName: element.value, price : parseInt(element.price), type: "women_medium"})
         })
         this.props.womenLongStore.forEach(element => {
-            allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "women_long"})
+            if( element.isChecked) allHair.push({hairId : element.id, hairName: element.value, price : parseInt(element.price), type: "women_long"})
         })
         this.props.menShortStore.forEach(element => {
-            allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "men_short"})
+            if( element.isChecked) allHair.push({hairId : element.id, hairName: element.value, price : parseInt(element.price), type: "men_short"})
         })
         this.props.menLongStore.forEach(element => {
-            allHair.push({hairId : element.id, hairName: element.value, price : element.price, type: "men_long"})
+            if( element.isChecked) allHair.push({hairId : element.id, hairName: element.value, price : parseInt(element.price), type: "men_long"})
         })
-        const newHairstyle = allHair
-            axios.post('',newHairstyle ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
+        console.log(allHair)
+        const newHairstyle = {hair: allHair}
+            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/hairStyle',newHairstyle ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
                 .then(function(response){
                     console.log(response)
                 })

@@ -120,6 +120,7 @@ class ShopInformation extends React.Component {
                                             value = {this.state.openhours}                                              
                                             onChange = {this.handleChange} 
                                             style = {{placeholder:"gray"}}
+                                            step = "3600"
                                         />
                                     </div>
 
@@ -135,6 +136,7 @@ class ShopInformation extends React.Component {
                                             value = {this.state.closehours}                                              
                                             onChange = {this.handleChange} 
                                             style = {{placeholder:"gray"}}
+                                            step = "3600"
                                         />
                                     </div>
                                 </div>

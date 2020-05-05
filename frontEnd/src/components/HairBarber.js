@@ -5,14 +5,74 @@ import InputBarber from './InputBarber';
 import NavBarShop from './NavBarShop';
 import axios from 'axios'
 
-export const AddBarber = props => {
-    return(
-        <div style={{pointerEvents: props.edit}} >
-            <InputBarber 
-                getBarber={props.getBarber} 
-            /> 
-        </div>
-    )
+class AddBarber extends React.Component {
+    constructor()
+    {
+        super();
+        this.state = {    
+            list_womenServices:[],
+            list_menServices:[],
+            list_womenShort:[],
+            list_womenMedium:[],
+            list_womenLong:[],
+            list_menShort:[],
+            list_menLong:[],
+            posts:[]
+        }
+    }
+    componentDidMount(){
+        axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/hairStyle/'+localStorage.getItem('shopname'),{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
+        .then(res => {
+            // console.log(res.data)
+            this.setState({
+                posts: res.data
+            })
+            let i=0
+            res.data.hairStyles.forEach(e => {
+                if(e.type==="service_women"){
+                    this.state.list_womenServices.push({hairId:e.hairId, hairName: e.hairName, isChecked:false, key:i+=1, copy: e.hairName+this.props.id})
+                }
+                else if (e.type==="service_men"){
+                    this.state.list_menServices.push({hairId:e.hairId, hairName: e.hairName, isChecked:false, key:i+=1,copy: e.hairName+this.props.id,time:0})
+                }
+                else if(e.type ==="women_short"){
+                    this.state.list_womenShort.push({hairId:e.hairId, hairName: e.hairName, isChecked:false, key:i+=1,copy: e.hairName+this.props.id,time:0})
+                }
+                else if(e.type === "women_medium"){
+                    this.state.list_womenMedium.push({hairId:e.hairId, hairName: e.hairName, isChecked:false, key:i+=1,copy: e.hairName+this.props.id,time:0})
+                }
+                else if(e.type ==="women_long"){
+                    this.state.list_womenLong.push({hairId:e.hairId, hairName: e.hairName, isChecked:false, key:i+=1,copy: e.hairName+this.props.id,time:0})
+                }
+                else if (e.type==="men_short"){
+                    this.state.list_menShort.push({hairId:e.hairId, hairName: e.hairName, isChecked:false, key:i+=1,copy: e.hairName+this.props.id,time:0})
+                }
+                else {
+                    this.state.list_menLong.push({hairId:e.hairId, hairName: e.hairName, isChecked:false, key:i+=1,copy: e.hairName+this.props.id,time:0})
+                }
+            })
+            console.log(this.props.newisChecked+ this.props.id)
+        })
+        .catch(err => console.log(err));
+
+    }
+    render() { 
+        return (
+            <div style={{pointerEvents: this.props.edit}} >
+                <InputBarber 
+                    getBarber={this.props.getBarber} 
+                    {...this.props}
+                    list_menLong={this.state.list_menLong}
+                    list_menServices={this.state.list_menServices}
+                    list_menShort={this.state.list_menShort}
+                    list_womenLong={this.state.list_womenLong}
+                    list_womenMedium={this.state.list_womenMedium}
+                    list_womenServices={this.state.list_womenServices}
+                    list_womenShort={this.state.list_womenShort}
+                /> 
+            </div>
+        )
+    }
 }
 
 class HairBarBer extends React.Component {
@@ -25,7 +85,7 @@ class HairBarBer extends React.Component {
             phone:"",
             hair:"",
             time:[],
-            numOfbarber:[{id:0,edit:"visible"}],
+            numOfbarber:[{id:0,edit:"visible",newisChecked :false}],
             barber: [],
             isSignin: null
         }
@@ -47,9 +107,9 @@ class HairBarBer extends React.Component {
         event.preventDefault()
         if(this.state.name) {
             this.state.numOfbarber[this.state.numOfbarber.length -1].edit = "none"
-            this.state.numOfbarber.push({id: this.state.numOfbarber.length, edit: "visible"})
+            this.state.numOfbarber.push({id: this.state.numOfbarber.length, edit: "visible", newisChecked :false})
             this.setState({numOfbarber: this.state.numOfbarber})
-            this.state.barber.push({baberName: this.state.name, img_barber: this.state.imageUrl,phoneNum: this.state.phone, hairAble: this.state.hair})    
+            this.state.barber.push({barberName: this.state.name, img_barber: this.state.imageUrl,phoneNum: this.state.phone, hairAble: this.state.hair})    
         }
         this.setState({
             name:"", imageUrl:"", hair:[], time:[],phone:""
@@ -60,26 +120,23 @@ class HairBarBer extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         if(this.state.name) {
-            this.state.barber.push({baberName: this.state.name, img_barber: this.state.imageUrl,phoneNum: this.state.phone, hairAble: this.state.hair})
-            console.log(this.state.barber[0].hairAble);
+            this.state.barber.push({barberName: this.state.name, img_barber: this.state.imageUrl,phoneNum: this.state.phone, hairAble: this.state.hair})
+            // console.log(this.state.barber[0].hairAble);
             this.setState(this.state);
-            // const newBarber = {
-            //     barberName : element.value,
-            //     phoneNum : parseInt(element.price, 10),
-            //     hairstyleId : element.value,
-            //     time:parseInt(element.price, 10),
-            //     barberImg: element.hairstyleImg
-            // }
-            // axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/barber',newBarber ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
-            //     .then(function(response){
-            //         console.log(response)
-            //     })
-            //     .catch(function(error) {
-            //         console.log(error)
-            //     })
-            this.props.history.push('/shop') 
+            this.state.barber.forEach(newBarber => {
+                // const newBarber = {barber : e}
+                axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/barber',newBarber ,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
+                .then(function(response){
+                    console.log(response)
+                })
+                .catch(function(error) {
+                    console.log(error)
+                })
+            })
+            
+            this.props.history.push('/homeshop') 
         }
-        // console.log(this.state);
+        console.log(this.state);
     };
 
     render(){

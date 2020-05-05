@@ -22,9 +22,20 @@ class SearchPage extends Component {
             shoprows: [],
             barberrows: []
         }
-        this.handleOnClick = this.handleOnClick.bind(this)
+        // this.keySearch = this.keySearch.bind(this)
     }
 
+    // keySearch = (name) => {
+    //     console.log(name)
+    //     alert(name)
+    //     // if(this.state.keyword != name){
+    //     console.log(name + this.state.keyword)
+    //     const n = name
+    //     this.setState({ keyword: n });
+    //     alert(this.state.keyword)
+    //     console.log(name + this.state.keyword)
+    //     // }
+    // }
     handleInputChange = (event) => {
         event.preventDefault();
         this.setState({
@@ -50,7 +61,7 @@ class SearchPage extends Component {
     }
 
     search = (keyword) => {
-        // console.log("Search: " + keyword)
+        console.log("Search: " + keyword)
         var dataArray = []
         // test api: http://api.themoviedb.org/3/search/movie?api_key=0696a5d8f4f751e4493e133825a494f4&query=
         var shopurl = "https://us-central1-g10ahair.cloudfunctions.net/api/shop" + keyword;
@@ -81,17 +92,34 @@ class SearchPage extends Component {
                 })
                 this.setState({ barberrows: dataArray });
             }
+
+            result.data.forEach(item => {
+                // item.poster_src = "https://image.tmdb.org/t/p/w185" + item.poster_path
+                dataArray.push(item)
+            })
+
+            this.setState({ rows: dataArray });
         })
     }
 
     handleOnClick = (item) => {
+        // event.preventDefault();
+        // console.log(this.state);
+        console.log("onclick");
+        // console.log(item);
         this.setState({
-            shopName: item.shopName,
-            shopId: item.shopId
-        }, () => {
-            this.submit()
+            shopname: item.shopName,
+            shopid: item.shopId
+        }, function () {
+            console.log(this.state)
+            this.props.shop(this.state)
+            this.props.history.push('/shop')
         }
         );
+        // console.log(this.state);
+        // this.setState(this.state);
+        // this.props.shop(this.state);
+        //   this.props.history.push('/shop')
     };
 
     submit = () =>{
@@ -146,7 +174,10 @@ class SearchPage extends Component {
                                 {/* <div style={{marginLeft:'2.5em'}}> */}
                                 {this.state.shoprows.map(item => (
                                     <a key={item.shopId} onClick={() => this.handleOnClick(item)}>
-                                        <ShopItem_S shop_item={item} />
+                                        <ShopItem_S
+                                            // onClick={() => { this.handleOnClick(item.shopName) }}
+                                            id="shopname"
+                                            shop_item={item} />
                                     </a>
                                 ))}
 
@@ -163,7 +194,7 @@ class SearchPage extends Component {
 const mapStateToProps = (state) => { //subscribe
     return {
         shopStore: state.ShopReducer.shop
-    };
+    }
 }
 const mapDispatchToProps = (dispatch) => {
     return {

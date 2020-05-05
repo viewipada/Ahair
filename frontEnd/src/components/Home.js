@@ -30,41 +30,41 @@ class Home extends Component {
   }
   render() {
     return (
-      <div class="wrap">
+      <div className="wrap">
         <Navbar />
         <div>
           <Sliderimg />
         </div>
-        <div class="wrapcontainer">
-          <h1 class="Topictext">Category</h1>
-          <div class="btcatContainer">
-            <button class="catbt" type="women">Women</button>
-            <button class="catbt" type="longW">Long Hairs</button>
-            <button class="catbt" type="sholderW">Sholder</button>
-            <button class="catbt" type="shortW">Short Hairs</button>
+        <div className="wrapcontainer">
+          <h1 className="Topictext">Category</h1>
+          <div className="btcatContainer">
+            <button className="catbt" type="women">Women</button>
+            <button className="catbt" type="longW">Long Hairs</button>
+            <button className="catbt" type="sholderW">Sholder</button>
+            <button className="catbt" type="shortW">Short Hairs</button>
             <br />
-            <button class="catbt" type="men">Men</button>
-            <button class="catbt" type="skinheadM">Skin Head</button>
-            <button class="catbt" type="ShortM">Short Hairs</button>
-            <button class="catbt" type="LongM">Long Hairs</button>
+            <button className="catbt" type="men">Men</button>
+            <button className="catbt" type="skinheadM">Skin Head</button>
+            <button className="catbt" type="ShortM">Short Hairs</button>
+            <button className="catbt" type="LongM">Long Hairs</button>
           </div>
-          <h1 class="Topictext">Reccomended</h1>
-          <div class="shopRec">
+          <h1 className="Topictext">Reccomended</h1>
+          <div className="shopRec">
             <div className='ui two link cards'>
               {
                 this.state.shopinfo &&
                 this.state.shopinfo.map((info) => {
                   return (
-                    <div key={info.shopId} class="card">
-                      <div class="ui medium centered image">
+                    <div key={info.shopId} className="card">
+                      <div className="ui medium centered image">
                         <img src={info.imgUrl} />
                       </div>
-                      <div class="content">
-                        <div class="header" >{info.shopName}</div>
-                        <div class="meta">
-                          <span class="date">Tel.{info.phoneNum}</span>
+                      <div className="content">
+                        <div className="header" >{info.shopName}</div>
+                        <div className="meta">
+                          <span className="date">Tel.{info.phoneNum}</span>
                         </div>
-                        <div class="description">
+                        <div className="description">
                           Rate
                         </div>
                       </div>

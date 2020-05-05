@@ -220,6 +220,7 @@ select {
   justify-content: center;
   align-items: center;
 }
+
 .login_button {
   /* font-family: Poppins-Medium; */
   font-size: 16px;
@@ -550,6 +551,20 @@ p.pattern {
 }
 .input_info::placeholder {
   color: gray;
+}
+.showinput_info{
+  /* font-family: Poppins-Regular; */
+  font-size: 16px;
+  color:white;
+  display: flex;
+  /* justify-content: space-around; */
+  align-items: center;
+  width: 100%;
+  background: transparent;
+  padding: 0 5px 0 10px;
+}
+.showinput_info::placeholder {
+  color: white;
 }
 .wrap_time {
   width: 210px;
@@ -1654,7 +1669,8 @@ button[type='signIn_2']:hover {
   font-weight: bold;
   color: #cb2c6f;
 }
-.BookInfo p .subdetail{
+.subdetail{
+  display: flex;
   font-size: 20px;
   font-weight: normal;
   color: #ffffff;
