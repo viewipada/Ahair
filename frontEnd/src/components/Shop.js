@@ -125,7 +125,7 @@ class Shop extends Component {
 
                                 {/* Topic */}
                                 <div className="title">
-                                    <h1 style={{ color: "#CB2D6F", fontSize: "30px" }}>
+                                    <h1 style={{ color: "#CB2D6F", fontSize: "30px" , fontFamily:'cloud' , fontWeight:'lighter'}}>
                                         <img class="shop_logo" src={shopIcon} />
                                         {this.state.shopdata.shopName}
                                     </h1>
