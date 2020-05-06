@@ -110,15 +110,18 @@ class BookingInfo_Cus extends Component {
                                             })
                                         }
                                         {
-                                            this.state.hairStyle &&
-                                            this.state.hairStyle.map(data=>{
-                                                return(
-                                                    <div key={data.hairStyles}>
-                                                        <span className='subdetail'><i className='hand point right icon' style={{color:'#cb2d6f'}}></i>color : {data.colors}</span>
-                                                    </div>
-                                                );
-                                            })
-                                        }
+                                        this.state.hairStyle &&
+                                        this.state.hairStyle.map(data => {
+                                            return (
+                                                <div key={data.hairStyles}>
+                                                    (data.colors?
+                                                    <span className='subdetail'><i className='hand point right icon' style={{ color: '#cb2d6f' }}></i>color : {data.colors}</span>
+                                                    :null
+                                                        )
+                                                </div>
+                                            );
+                                        })
+                                    }
                                         <p>Barber         <span className="subdetail">{this.state.barber}</span></p>
                                         <p>Total Price    <span className="subdetail">{this.state.price} Bath</span></p>
                                         <p>Date           <span className="subdetail">{this.state.date}</span></p>
