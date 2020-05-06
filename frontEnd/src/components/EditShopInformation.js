@@ -38,17 +38,20 @@ class EditShopInformation extends React.Component {
         let currentState=this
         axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/Ashop',{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
         .then(res => {
-            console.log(res.data.credentials.colors)
+            console.log(res.data.credentials)
+            let open = moment(res.data.credentials.openTime).format("kk:mm")
+            let close = moment(res.data.credentials.closeTime).format("kk:mm")
+            console.log(open,close)
             this.setState({
                 posts: res.data.credentials,
                 isSignin : true, 
-                openhours: res.data.credentials.openTime, 
-                closehours: res.data.credentials.closeTime,
+                openhours: open, 
+                closehours: close,
                 address: res.data.credentials.address,
                 colors: res.data.credentials.colors,
                 imageUrl: res.data.credentials.imgUrl
             })
-            if(res.data.barberArray) this.setState({hadData: true})
+            if(res.data.credentials.address) this.setState({hadData: true})
         })
         .catch(err => {
             console.log(err)
