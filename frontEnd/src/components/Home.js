@@ -7,6 +7,10 @@ import axios from 'axios';
 import { Rating } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { HomeShop } from '../redux/index'
+import content1 from './content1/1.jpg'
+import content2 from './content2/1.jpg'
+import content3 from './content3/1.jpg'
+import content4 from './content4/1.jpg'
 
 class Home extends Component {
 
@@ -52,18 +56,32 @@ class Home extends Component {
                   <Sliderimg />
                 </div>
                 <div className="wrapcontainer">
-                  {/* <h1 className="Topictext">Category</h1>
+                  <h1 className="Topictext">Hot Content</h1>
                   <div className="btcatContainer">
-                    <button className="catbt" type="women">Women</button>
-                    <button className="catbt" type="longW">Long Hairs</button>
-                    <button className="catbt" type="sholderW">Sholder</button>
-                    <button className="catbt" type="shortW">Short Hairs</button>
-                    <br />
-                    <button className="catbt" type="men">Men</button>
-                    <button className="catbt" type="skinheadM">Skin Head</button>
-                    <button className="catbt" type="ShortM">Short Hairs</button>
-                    <button className="catbt" type="LongM">Long Hairs</button>
-                  </div> */}
+                    <div className="container">
+                    <div className="card">
+                      <img src={content1} alt="" />
+                      <div className="card__head">How to Figure Out Your Face Shape</div>
+                    </div>
+                    <div className="card">
+                      <img src={content2} alt="" />
+                      <div className="card__head">Trendy Summer Hair Color</div>
+                    </div>
+                    <div className="card">
+                      <img src={content3} alt="" />
+                      <div class="card__head">Short Haircut Ideas</div>
+                    </div>
+                    <div className="card">
+                      <img src={content4} alt="" />
+                      <div className="card__head">Best Hot Men's Haircuts</div>
+                    </div>
+                    {/* <div className="card">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Mimi%26Tigsi.jpg/1280px-Mimi%26Tigsi.jpg" alt="" />
+                      <div className="card__head">Sleepy Cat</div>
+                    </div> */}
+                  </div>
+                  </div>
+                  
                   <h1 className="Topictext">Reccomended</h1>
                   <div className="shopRec">
                     <div className='ui link cards'>
