@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import {Information} from '../redux/index'
 // import { Link } from 'react-router-dom';
@@ -10,56 +11,67 @@ import NavBar from './navbar'
 import { Redirect } from 'react-router';
 // import axios from 'axios'
 // import moment from 'moment'
-import Sidebar from './Sidebar'
+import content1_1 from './content1/2.jpg'
+import content1_2 from './content1/3.jpg'
+import content1_3 from './content1/4.jpg'
+import content1_4 from './content1/5.jpg'
+import content1_5 from './content1/6.jpg'
+import content1_6 from './content1/7.jpg'
 
 //ที่อยู่ เวลา รูปบรรยากาศ
 class CategoryOne extends React.Component {
     constructor(props)
     {
         super(props);
+        this.state = {
+            preview : content1_1
+        }
+        this.show = this.show.bind(this)
     }
-
+    show = (img) => {
+        this.setState({preview:img})
+    }
     render(){
         return(
-            <div className="big_container">
-                <NavBar />
-                {/* <div className="container_signup"> */}
-                    <div className="wrap_info">
-
-                        <div className = "title">
-                            <h1 style={{color:"#CB2D6F",fontSize:"30px"}}>
-                                Shop Infomation
-                            </h1>
-                        </div>
                         
-                        <div className="signup_form">
+                        <div className="wrap_content">
 
-                            <div className = "bigcontainer_info">
-                                <div className = "line_info">
-                                    
-                                </div>
-                                
-                            </div>
                             
-                            <div className="container_right_bt">
-                                {/* <Link className="link" to="/signup">
-                                    <div>
-                                        <button className="login_button" type="reset">
-                                            Back
-                                        </button>
+                            <div className = "bigcontainer_info">
+                            <div className="title_hairstyles"><h1>How to Figure Out Your Face Shape</h1></div>
+                                <div className = "line_info">
+                                <div className="container1">
+                                    <div className="boxpreview">
+                                        <img src={this.state.preview} alt="" width="40%" />
                                     </div>
-                                </Link> */}
-                                <form onSubmit={this.handleSubmit} >
-                                    <button className="login_button" type="submit" onClick={this.handleSubmit}>
-                                        Next
-                                    </button>
-                                </form>
+                                </div>
+                                </div>
+                                <div  className="line_info">
+                                <div className="container1">
+                                    <div className="box">
+                                        <img src={content1_1} alt="" width="100%" onClick={()=>this.show(content1_1)} />
+                                    </div>
+                                    <div className="box">
+                                    <   img src={content1_2} alt="" width="100%"onClick={()=>this.show(content1_2)}/>
+                                    </div>
+                                    <div className="box">
+                                        <img src={content1_3} alt=""width="100%" onClick={()=>this.show(content1_3)}/>
+                                    </div>
+                                    <div className="box">
+                                        <img src={content1_4} alt="" width="100%"onClick={()=>this.show(content1_4)}/>
+                                    </div>
+                                    <div className="box">
+                                        <img src={content1_5} alt="" width="100%"onClick={()=>this.show(content1_5)}/>
+                                    </div>
+                                    <div className="box">
+                                        <img src={content1_6} alt="" width="100%"onClick={()=>this.show(content1_6)}/>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
                             </div>
+                        // </div>
 
-                        </div>
-                    </div>
-                {/* </div> */}
-            </div>
         );
     }
 }
