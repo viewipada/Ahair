@@ -106,7 +106,6 @@ class App extends React.Component {
               <Route path='/content-2' component={CategoryTwo} />
               <Route path='/content-3' component={CategoryThree} />
               <Route path='/content-4' component={CategoryFour} />
-              <PrivateRoute path='/comfirmbooking' component={ConfirmBooking}/>
             </Switch>
           </div>
         </Router>

@@ -46,7 +46,7 @@ class FillTimeTable extends Component {
     }
 
     componentDidMount() {
-        this.getBooking(this.props.shopStore.barbarName)
+        this.getBooking('idea')
         // console.log("TomorrowDate",moment(new Date().setDate(new Date().getDate()+1)).format('L'))
         // console.log("test: ",moment(this.props.shopStore.shopdata.openTime).hour(),moment(this.props.shopStore.shopdata.closeTime).hour())
         // this.getBooking('idea')
