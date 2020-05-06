@@ -17,7 +17,9 @@ class Shop extends Component {
             barberName: "",
             barberId: "",
             shopdata: [],
-            barberdata: []
+            barberdata: [],
+            hairstylesdata: [],
+            hairstylesstore: []
         }
     }
 
@@ -44,6 +46,49 @@ class Shop extends Component {
         })
     }
 
+    getHairStyle = (keyword) => {
+        var dataArray = []
+        var url = "https://us-central1-g10ahair.cloudfunctions.net/api/hairStyle/" + keyword;
+        // var url = "https://us-central1-g10ahair.cloudfunctions.net/api/barber/" + keyword;
+        Axios.get(url).then(result => {
+            const dataCount = result.data.hairStyles.length
+            if (dataCount === undefined) {
+                this.setState({ hairstylesstore: result.data })
+            }
+            else {
+                result.data.hairStyles.forEach(item => {
+                    dataArray.push(item)
+                })
+                this.setState({ hairstylesstore: dataArray });
+            }
+            this.getHairStylesData()
+        })
+    }
+
+    getHairStylesData = () => {
+        this.props.shopStore.shopdata.barber.forEach(barber => {
+            if (barber.barberName === this.props.shopStore.barberName) {
+                barber.hairAble.forEach(hairable => {
+                    this.state.hairstylesstore.forEach(hairstore => {
+                        if (hairable.hairId === hairstore.hairId) {
+                            this.state.hairstylesdata.push({
+                                hairId: hairstore.hairId,
+                                hairName: hairstore.hairName,
+                                price: hairstore.price,
+                                type: hairstore.type,
+                                time: hairable.time,
+                                color: ""
+                            })
+                        }
+                    })
+                })
+            }
+        })
+        console.log("test", this.state.hairstylesdata)
+        this.props.shop(this.state)
+        this.props.history.push('/selecthairstyle')
+    }
+
     handleOnClick = (item) => {
         this.setState({
             barberName: item.barberName,
@@ -57,7 +102,7 @@ class Shop extends Component {
     submit = () => {
         console.log("submitShop: ", this.state)
         this.props.shop(this.state)
-        this.props.history.push('/selecthairstyle')
+        this.getHairStyle(this.props.shopStore.shopName)
     }
 
     render() {

@@ -99,15 +99,12 @@ class App extends React.Component {
               <Route path='/filltimetable' component={FillTimeTable} />
               <Route path='/editbarber' component={EditBarber} />
               <Route path='/selectcolor' component={SelectColor} />
-<<<<<<< HEAD
               <Route path='/contain-1' component={CategoryOne} />
               <Route path='/contain-2' component={CategoryTwo} />
               <Route path='/contain-3' component={CategoryThree} />
               <Route path='/contain-4' component={CategoryFour} />
               <Route path='/contain-5' component={CategoryFive} />
-=======
               <PrivateRoute path='/comfirmbooking' component={ConfirmBooking}/>
->>>>>>> c4d0c9dfa3bef040f4fc62f96ae511b3b84d9ec5
             </Switch>
           </div>
         </Router>
