@@ -4,12 +4,6 @@ const initialState = {
     shop : ""
 }
 
-// let shop = JSON.parse(localStorage.getItem('shop'))
-
-// export const initialState = shop ? {
-//     shop
-// } : {}
-
 export const ShopReducer = (state = initialState, action) => {
     switch(action.type) {
         case SHOP : {

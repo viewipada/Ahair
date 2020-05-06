@@ -1,27 +1,27 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
 import { connect } from 'react-redux';
-import { Shop_4 } from '../redux/index'
+import { Admin_2 } from '../redux/index'
 import moment from 'moment/moment'
 
-class FillTimeTable extends Component {
+class FillTimeTableShop extends Component {
 
     constructor(props) {
         super(props)
 
         this.state = {
-            today: moment(new Date()).format('L'),
-            tomorrow: moment(new Date().setDate(new Date().getDate()+1)).format('L'),
-            // today: "22/05/2020",
-            // tomorrow: "27/05/2020",
+            // today: moment(new Date()).format('L'),
+            // tomorrow: moment(new Date().setDate(new Date().getDate()+1)).format('L'),
+            today: "22/05/2020",
+            tomorrow: "27/05/2020",
             bookingdata: [],
             timetableProps: {
                 events: {
                     Today: [],
                     Tomorrow: []
                 },
-                hoursInterval: [moment(this.props.shopStore.shopdata.openTime).hour(), moment(this.props.shopStore.shopdata.closeTime).hour()],
-                // hoursInterval: [8, 20],
+                // hoursInterval: [moment(this.props.adminStore.shopdata.openTime).hour(), moment(this.props.adminStore.shopdata.closeTime).hour()],
+                hoursInterval: [8, 20],
                 timeLabel: "Time",
                 renderHour(hour, defaulAttributes, styles) {
                     return (
@@ -46,10 +46,10 @@ class FillTimeTable extends Component {
     }
 
     componentDidMount() {
-        this.getBooking(this.props.shopStore.barbarName)
+        // this.getBooking(this.props.shopStore.barbarName)
         // console.log("TomorrowDate",moment(new Date().setDate(new Date().getDate()+1)).format('L'))
         // console.log("test: ",moment(this.props.shopStore.shopdata.openTime).hour(),moment(this.props.shopStore.shopdata.closeTime).hour())
-        // this.getBooking('idea')
+        this.getBooking('idea')
     }
 
     getBooking = (keyword) => {
@@ -74,7 +74,6 @@ class FillTimeTable extends Component {
         var id = 0
         console.log("booking: ",this.state.bookingdata)
         this.state.bookingdata.forEach(book => {
-            // console.log("test: ", book.date)
             if (book.date === this.state.today) {
                 this.state.timetableProps.events.Today.push({
                     id: id,
@@ -86,35 +85,13 @@ class FillTimeTable extends Component {
             }
             id += 1
         })
-
-        // this.state.timetableProps.events.Today.push({
-        //     id: id,
-        //     name: "this.state.bookingdata.bookingId",
-        //     type: 'Invalid',
-        //     startTime: moment('2018-02-22T12:30:00'),
-        //     endTime: moment('2018-02-22T14:30:00')
-        // })
-        // this.state.timetableProps.events.Today.push({
-        //     id: id,
-        //     name: "this.state.bookingdata.bookingId",
-        //     type: 'Invalid',
-        //     startTime: moment('2018-02-22T16:30:00'),
-        //     endTime: moment('2018-02-22T18:45:00')
-        // })
-        // this.state.timetableProps.events.Tomorrow.push({
-        //     id: id,
-        //     name: "this.state.bookingdata.bookingId",
-        //     type: 'Invalid',
-        //     startTime: moment('2018-02-23T11:30:00'),
-        //     endTime: moment('2018-02-23T13:30:00')
-        // })
         this.handleSubmit()
     }
 
     handleSubmit = () => {
         console.log("handleSubmitFillTimeTable :", this.state)
         this.props.shop(this.state)
-        this.props.history.push('/selecttime')
+        this.props.history.push('/selecttimeshop')
     }
 
     render() {
@@ -127,13 +104,13 @@ class FillTimeTable extends Component {
 }
 const mapStateToProps = (state) => { //subscribe
     return {
-        shopStore: state.ShopReducer.shop
+        adminStore: state.AdminReducer.admin
     };
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        shop: (data) => dispatch(Shop_4(data))
+        admin: (data) => dispatch(Admin_2(data))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FillTimeTable);
+export default connect(mapStateToProps, mapDispatchToProps)(FillTimeTableShop);

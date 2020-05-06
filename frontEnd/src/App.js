@@ -35,7 +35,9 @@ import BookingInfo_Cus from './components/BookingInfo_Cus';
 import BookingInfo_Shop from './components/BookingInfo_Shop';
 import Thx4Review_Cus from './components/FinishedReview_Cus';
 import SelectTime from './components/SelectTime';
+import SelectTimeShop from './components/SelectTimeShop';
 import FillTimeTable from './components/FillTimeTable';
+import FillTimeTableShop from './components/FillTimeTableShop';
 import {PrivateRoute} from './components/PrivateRoute'
 import HomeShop from './components/HomeShop';
 import dontforgettoreview from './components/dontforget2Review'
@@ -90,6 +92,7 @@ class App extends React.Component {
               <Route path='/BookInfo_Shop/:bookingId' component={BookingInfo_Shop}/>
               <PrivateRoute path='/thank4Review_Cus' component={Thx4Review_Cus}/>
               <Route path='/selecttime' component={SelectTime} />
+              <Route path='/selecttimeshop' component={SelectTimeShop} />
               <Route path='/homeshop' component={HomeShop} />
               <Route path='/editshopinformation' component={EditShopInformation} />
               <Route path='/dontforgettoreview' component={dontforgettoreview}/>
@@ -97,6 +100,7 @@ class App extends React.Component {
               <Route path='/edithairstyles' component={EditHairstyles}/>
               <Route path='/editcolors' component={EditColors} />
               <Route path='/filltimetable' component={FillTimeTable} />
+              <Route path='/filltimetableshop' component={FillTimeTableShop} />
               <Route path='/editbarber' component={EditBarber} />
               <Route path='/selectcolor' component={SelectColor} />
               <Route path='/contain-1' component={CategoryOne} />

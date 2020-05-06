@@ -52,15 +52,12 @@ class SearchPage extends Component {
         // test api: http://api.themoviedb.org/3/search/movie?api_key=0696a5d8f4f751e4493e133825a494f4&query=
         var shopurl = "https://us-central1-g10ahair.cloudfunctions.net/api/shop" + keyword;
         Axios.get(shopurl).then(result => {
-            // console.log(JSON.stringify(result.data.results))
             const dataCount = result.data.length
-            // console.log("test: ",dataCount)
             if(dataCount===undefined){
                 this.setState({ shoprows : result.data })
             }
             else{
                 result.data.forEach(item => {
-                     // item.poster_src = "https://image.tmdb.org/t/p/w185" + item.poster_path
                     dataArray.push(item)
                 })
                 this.setState({ shoprows : dataArray });
