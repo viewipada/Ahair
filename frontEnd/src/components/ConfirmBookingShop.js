@@ -7,7 +7,7 @@ import moment from 'moment/moment'
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
-class BookingInfo_Cus extends Component {
+class ConfirmBookinShop extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,7 +29,7 @@ class BookingInfo_Cus extends Component {
         };
     }
     componentDidMount() {
-        const baberName = this.props.shopStore.barberName;
+        const baberName = this.props.adminStore.barberName;
         axios.get(`https://us-central1-g10ahair.cloudfunctions.net/api/bookingforbarber/${baberName}`)
             .then(res => {
                 this.setState({bookingData: res.data})
@@ -40,11 +40,11 @@ class BookingInfo_Cus extends Component {
     }
 
     eventEmpty = () => {
-        const bookDate = this.props.shopStore.date
-        const startTime = moment(this.props.shopStore.startTime)
-        const stopTime = moment(this.props.shopStore.stopTime)
-        const open = moment(this.props.shopStore.shopdata.openTime)
-        const close = moment(this.props.shopStore.shopdata.closeTime)
+        const bookDate = this.props.adminStore.date
+        const startTime = moment(this.props.adminStore.startTime)
+        const stopTime = moment(this.props.adminStore.stopTime)
+        const open = moment(this.props.adminStore.shopdata.openTime)
+        const close = moment(this.props.adminStore.shopdata.closeTime)
 
         if (open.hour() >= 12 && close.hour() <= 12) {
             close.add(1, "days");       // handle spanning days
@@ -250,7 +250,7 @@ class BookingInfo_Cus extends Component {
 }
 const mapStateToProps = (state) => { //subscribe
     return {
-        shopStore: state.ShopReducer.shop
+        adminStore: state.adminReducer.admin
     }
 }
-export default connect(mapStateToProps)(BookingInfo_Cus);
+export default connect(mapStateToProps)(ConfirmBookinShop);

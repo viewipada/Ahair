@@ -8,6 +8,7 @@ import NavBar from './navbar'
 import { connect } from 'react-redux';
 import { Shop_2 } from '../redux/index'
 import HairdresserItem from './HairdresserItem';
+import { Rating } from 'semantic-ui-react'
 
 class Shop extends Component {
     constructor(props) {
@@ -126,7 +127,7 @@ class Shop extends Component {
                                 {/* Topic */}
                                 <div className="title">
                                     <h1 style={{ color: "#CB2D6F", fontSize: "30px" }}>
-                                        <img class="shop_logo" src={shopIcon} />
+                                        <img class="shop_logo" src={this.state.shopdata.imgUrl} />
                                         {this.state.shopdata.shopName}
                                     </h1>
                                 </div>
@@ -139,13 +140,15 @@ class Shop extends Component {
                                 {/* information */}
                                 <div class="box_item2" style={{ border: '0' }}>
                                     <div class="sub_box_item">
-                                        <h2 style={{ color: '#cb2c6f' }}>Description</h2>
+                                        <h2 style={{ color: '#cb2c6f' }}>Contact</h2>
                                         <p style={{ color: '#14a098' }}>Tel. {this.state.shopdata.phoneNum}</p>
                                         <p style={{ color: '#14a098' }}>Email.{this.state.shopdata.email}</p>
                                     </div>
                                     <Link to="/shopreview" class="sub_box_item">
-                                        <h2 style={{ color: '#cb2c6f' }}>Rate</h2>
-                                        <p style={{ color: 'goldenrod' }}>Something</p>
+                                        <h2 style={{ color: '#cb2c6f' }}>Review</h2>
+                                        <div className="description" style={{ color: 'goldenrod' }}>
+                                            Rate <Rating defaultRating={this.state.shopdata.averageRate} maxRating={5} disabled icon='star' /> ({this.state.shopdata.averageRate + 0})
+                                        </div>
                                     </Link>
                                     <div class="sub_box_item">
                                         <h2 style={{ color: '#cb2c6f' }}>Location</h2>

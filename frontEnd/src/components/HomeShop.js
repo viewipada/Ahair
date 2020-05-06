@@ -9,10 +9,10 @@ import Sidebar from './Sidebar';
 import Hairdresser from './HairdresserItem';
 import NavBar from './NavBarShop'
 import { connect } from 'react-redux';
-import { Shop_2 } from '../redux/index'
+import { Admin_1 } from '../redux/index'
 import HairdresserItem from './HairdresserItem';
 
-class Shop extends Component {
+class HomeShop extends Component {
     constructor(props) {
         super(props)
 
@@ -26,7 +26,7 @@ class Shop extends Component {
     }
 
     componentDidMount() {
-        this.getShopData(this.props.shopStore.shopName)
+        this.getShopData(this.props.adminStore.shopName)
     }
 
     getShopData = (keyword) => {
@@ -60,13 +60,12 @@ class Shop extends Component {
     };
 
     submit = () =>{
-        console.log("submitSstate: ",this.state)
-        this.props.shop(this.state)
-        this.props.history.push('/selecthairstyle')
+        console.log("submitHomeShop: ",this.state)
+        this.props.admin(this.state)
+        this.props.history.push('/filltimetableshop')
     }
 
     render() {
-        // const { shopId, shopName, address, phoneNum, vote_average, email, imgUrl } = this.state.rows[0]
         return (
             <body class="is-preload">
 
@@ -93,10 +92,6 @@ class Shop extends Component {
                                     </h1>
                                 </div>
 
-                                {/* Edit Button for admin */}
-                                {/* <Link className="link" to="/shop">
-                                    <button class="Back">Edit</button>
-                                </Link> */}
                                 <div style={{display : this.state.hadData ? "block":"none"}}>
                                     {/* image ร้าน*/}
                                     <div style={{display: this.state.shopdata.imgUrl === [] ? "flex":"none"}}>
@@ -158,13 +153,13 @@ class Shop extends Component {
 
 const mapStateToProps = (state) => { //subscribe
     return {
-        shopStore: state.ShopReducer.shop
+        adminStore: state.AdminReducer.admin
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        shop: (data) => dispatch(Shop_2(data))
+        admin: (data) => dispatch(Admin_1(data))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Shop);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeShop);

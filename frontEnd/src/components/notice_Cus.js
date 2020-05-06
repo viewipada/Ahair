@@ -84,6 +84,7 @@ class notice_Cus extends Component {
                                                                         margin: '0px 0px 0px 50px',
                                                                         fontSize: '15px',
                                                                         color: 'white',
+                                                                        fontFamily:'cloud'
                                                                     }}>
                                                                     Shop Name : {data.shopName}
                                                                 </p>

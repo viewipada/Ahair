@@ -3,6 +3,7 @@ import { SignUpForShopReducer } from './reducer/SignUpForShopReducer'
 import { SignUpForCustomerReducer } from './reducer/SignUpForCustomerReducer'
 import { ShopInformationReducer } from './reducer/ShopInformationReducer'
 import { ShopReducer } from './reducer/ShopReducer'
+import { AdminReducer } from './reducer/AdminReducer'
 
 export { SignUpForShop_one } from './action/SignUpForShopAction'
 export { SignUpForShop_two } from './action/SignUpForShopAction'
@@ -23,6 +24,9 @@ export { Shop_4 } from './action/ShopAction'
 export { Shop_5 } from './action/ShopAction'
 export { Shop_6 } from './action/ShopAction'
 export { HomeShop } from './action/ShopAction'
+export { Admin_1 } from './action/AdminAction'
+export { Admin_2 } from './action/AdminAction'
+export { Admin_3 } from './action/AdminAction'
 
 // export { BarberDetail } from './action/ShopInformationAction'
 export { PriceMenLong } from './action/ShopInformationAction'
@@ -38,5 +42,6 @@ export default combineReducers({
     SignUpForShopReducer,
     SignUpForCustomerReducer,
     ShopInformationReducer,
-    ShopReducer
+    ShopReducer,
+    AdminReducer
 })

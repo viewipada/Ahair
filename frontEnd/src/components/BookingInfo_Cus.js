@@ -75,7 +75,7 @@ class BookingInfo_Cus extends Component {
         });
     }
 
-    dekBook=()=>{
+    delBook=()=>{
         axios.delete(`https://us-central1-g10ahair.cloudfunctions.net/api/bookingfromuser/${this.state.bookingId}`, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } })
             .then(res => {
                 console.log(res.status)
@@ -122,8 +122,8 @@ class BookingInfo_Cus extends Component {
                                         this.state.hairStyle.map(data => {
                                             return (
                                                 <div key={data.hairStyles}>
-                                                    {data.colors?
-                                                    <span className='subdetail'><i className='hand point right icon' style={{ color: '#cb2d6f' }}></i>color : {data.colors}</span>
+                                                    {data.color?
+                                                    <span className='subdetail'><i className='hand point right icon' style={{ color: '#cb2d6f' }}></i>color : {data.color}</span>
                                                     :null}
                                                         
                                                 </div>
