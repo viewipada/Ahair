@@ -41,6 +41,8 @@ class CategoryFour extends React.Component {
 
                            
                             <div className = "bigcontainer_info">
+                            <div className="title_hairstyles"><h1>Best Hot Men's Haircuts</h1></div>
+                            
                                 <div className = "line_info">
                                 <div className="container1">
                                     <div className="boxpreview">

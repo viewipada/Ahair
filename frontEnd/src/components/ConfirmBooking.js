@@ -32,8 +32,11 @@ class BookingInfo_Cus extends Component {
         const baberName = this.props.shopStore.barberName;
         axios.get(`https://us-central1-g10ahair.cloudfunctions.net/api/bookingforbarber/${baberName}`)
             .then(res => {
-                this.setState({bookingData: res.data})
+                this.setState({ bookingData: res.data })
                 this.eventEmpty();
+                this.props.shopStore.hairStyles.forEach(data => {
+                    this.state.dataColor.push(data.color)
+                })
                 this.setState({ isLoading: false })
                 console.log(this.state.bookingData)
             })
@@ -60,7 +63,7 @@ class BookingInfo_Cus extends Component {
                 console.log('sas')
                 if (booking.date === bookDate) {
                     console.log('sasbook')
-                    console.log(startTime,moment(booking.startTime))
+                    console.log(startTime, moment(booking.startTime))
 
                     if (!startTime.isBefore(moment(booking.startTime)) && startTime.isBefore(moment(booking.stopTime))) {
                         this.setState({ isElapes: true })
@@ -87,7 +90,7 @@ class BookingInfo_Cus extends Component {
                         <div className='custom-ui'>
                             <h1 style={{ color: 'white', textAlign: 'center' }}>Booking Time Is ELAPSE !</h1>
                             <p>Please Select another Time</p>
-                            <button className='confirmBT' onClick={() => {this.props.history.push('/filltimetable'); onClose();}}>OK</button>
+                            <button className='confirmBT' onClick={() => { this.props.history.push('/filltimetable'); onClose(); }}>OK</button>
                         </div>
                     );
                 }
@@ -104,7 +107,7 @@ class BookingInfo_Cus extends Component {
                         <div className='custom-ui'>
                             <h1 style={{ color: 'white', textAlign: 'center' }}>Booking Time Is ELAPSE !</h1>
                             <p>Please Select another Time</p>
-                            <button className='confirmBT' onClick={() => {this.props.history.push('/filltimetable'); onClose();}}>OK</button>
+                            <button className='confirmBT' onClick={() => { this.props.history.push('/filltimetable'); onClose(); }}>OK</button>
                         </div>
                     );
                 }
@@ -116,7 +119,7 @@ class BookingInfo_Cus extends Component {
                     return (
                         <div className='custom-ui'>
                             <h1 style={{ color: 'white', textAlign: 'center' }}>Are you sure to Booking?</h1>
-                            <button className='confirmBT' onClick={() => {this.KeepData(); onClose();}}>Yes</button>
+                            <button className='confirmBT' onClick={() => { this.KeepData(); onClose(); }}>Yes</button>
                             <button
                                 className='confirmBT'
                                 onClick={() => {
@@ -186,26 +189,19 @@ class BookingInfo_Cus extends Component {
                                         this.props.shopStore.hairStyles &&
                                         this.props.shopStore.hairStyles.map(data => {
                                             return (
-                                                <div key={data.hairName}>
+                                                <div key={data.hairStyles}>
                                                     <span className='subdetail'><i className='hand point right icon' style={{ color: '#cb2d6f' }}></i>HairStyle : {data.hairName}</span>
                                                 </div>
                                             );
                                         })
                                     }
+                                    <div>
+                                        {this.state.dataColor != '' ?
+                                            <span className='subdetail'><i className='hand point right icon' style={{ color: '#cb2d6f' }}></i>color : {this.state.dataColor}</span>
+                                            : null}
 
-                                    {
-                                        this.state.hairStyle &&
-                                        this.state.hairStyle.map(data => {
-                                            return (
-                                                <div key={data.hairStyles}>
-                                                    {data.color ?
-                                                        <span className='subdetail'><i className='hand point right icon' style={{ color: '#cb2d6f' }}></i>color : {data.color}</span>
-                                                        : null
-                                                    }
-                                                </div>
-                                            );
-                                        })
-                                    }
+                                    </div>
+
 
 
                                     <p>Barber         <span className="subdetail">{this.props.shopStore.barberName}</span></p>
@@ -244,7 +240,7 @@ class BookingInfo_Cus extends Component {
                         }
                     </div>
                 </div>
-            </div>
+            </div >
         );
     }
 }

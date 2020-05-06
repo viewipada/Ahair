@@ -46,6 +46,8 @@ class CategoryTwo extends React.Component {
 
                            
                             <div className = "bigcontainer_info">
+                            <div className="title_hairstyles"><h1>Trendy Summer Hair Color</h1></div>
+                            
                                 <div className = "line_info">
                                 <div className="container1">
                                     <div className="boxpreview">

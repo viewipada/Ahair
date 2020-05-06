@@ -6,7 +6,7 @@ import { Rating } from 'semantic-ui-react'
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import moment from 'moment/moment'
-import StarRatings from 'react-star-ratings';
+// import StarRatings from 'react-star-ratings';
 
 
 class BookingInfo_Cus extends Component {
@@ -166,8 +166,8 @@ class BookingInfo_Cus extends Component {
                                         this.state.hairStyle.map(data => {
                                             return (
                                                 <div key={data.hairStyles}>
-                                                    {data.colors ?
-                                                        <span className='subdetail'><i className='hand point right icon' style={{ color: '#cb2d6f' }}></i>color : {data.colors}</span>
+                                                    {data.color!='' ?
+                                                        <span className='subdetail'><i className='hand point right icon' style={{ color: '#cb2d6f' }}></i>color : {data.color}</span>
                                                         : null
                                                     }
                                                 </div>

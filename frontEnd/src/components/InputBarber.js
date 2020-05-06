@@ -327,8 +327,10 @@ class InputBarber extends React.Component {
       return (
         <div className = "line_info">
                 <div className = "wrap_barber" >
-                    <div style={{width:"35%", marginRight:"40px"}}>
-                        <ProfileBarber getFile={this.getFile} imagePreview={userImage}/>
+                    <div style={{width:"35%" , marginLeft:"40px"}}>
+                        <div className="wrap_preview_barber">
+                            <img className="image_preview" alt=" "src={userImage}/>
+                        </div>
                     </div>
                     <div style={{width:"60%", display:"block", flexWrap:"wrap"}}>
                         <div style={{width:"75%", marginBottom:"20px", marginTop:"20px"}}>
