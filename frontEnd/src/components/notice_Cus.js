@@ -16,7 +16,7 @@ class notice_Cus extends Component {
             canReview: true,
             isLoading: true,
             done: '',
-            isEmpty:false
+            isEmpty: false
         };
     }
     componentDidMount() {
@@ -24,8 +24,8 @@ class notice_Cus extends Component {
             .then(res => {
                 this.setState({ noticecontent: res.data, isLoading: false })
                 console.log(res.data)
-                if(this.state.noticecontent.length===0){
-                    this.setState({isEmpty:true})
+                if (this.state.noticecontent.length === 0) {
+                    this.setState({ isEmpty: true })
                 }
                 console.log(this.state.isEmpty)
             })
@@ -59,11 +59,11 @@ class notice_Cus extends Component {
                     </h1>
                     </div>
                     {
-                        (this.state.isEmpty && !this.state.isLoading)?
-                        <div>
-                            <h1 style={{color:'white', fontSize:'250%',textAlign:'center'}}> No Notification Now </h1>
-                        </div>
-                        :null
+                        (this.state.isEmpty && !this.state.isLoading) ?
+                            <div>
+                                <h1 style={{ color: 'white', fontSize: '250%', textAlign: 'center' }}> No Notification Now </h1>
+                            </div>
+                            : null
                     }
                     <div>
                         {
@@ -74,26 +74,19 @@ class notice_Cus extends Component {
                                         return (
 
                                             <div key={data.bookingId}>
-                                                < button className='NoticeContent' onClick={() => this.onclickBooking(data.bookingId)}>
-                                                    <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}>
-                                                        Booking Information</p>
-                                                    <p
-                                                        style={{
-                                                            margin: '0px 0px 20px 25px',
-                                                            fontSize: '10px',
-                                                            color: '#8DE8E3',
-                                                        }}>
-                                                        order number #{data.bookingId}
-                                                    </p>
-                                                    <a style={{ marginLeft: '20px', color: "white", fontSize: '10px', marginBottom: '20px' }}>
-                                                        <i className="hand point right outline icon" style={{ color: 'white' }}></i>
-                                                    click for more information</a>
-                                                </button>
                                                 {
                                                     (data.done && !data.reviewedFromUser) ?
                                                         (
                                                             <button className='NoticeContent' onClick={() => this.onclickReview(data.bookingId, data.reviewedFromUser)}>
-                                                                <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}>Review your new Look!</p>
+                                                                <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}><i className='thumbs up icon'></i> Review your new Look!</p>
+                                                                <p
+                                                                    style={{
+                                                                        margin: '0px 0px 0px 50px',
+                                                                        fontSize: '15px',
+                                                                        color: 'white',
+                                                                    }}>
+                                                                    Shop Name : {data.shopName}
+                                                                </p>
                                                                 <p
                                                                     style={{
                                                                         margin: '0px 0px 20px 25px',
@@ -110,7 +103,29 @@ class notice_Cus extends Component {
                                                         :
                                                         (null)
                                                 }
-                                                
+                                                < button className='NoticeContent' onClick={() => this.onclickBooking(data.bookingId)}>
+                                                    <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}>
+                                                        <i className={data.done ? 'check icon' : 'thumbtack icon'}></i>    {data.done ? 'Booking Information (Done!)' : 'Booking Information'}</p>
+                                                    <p
+                                                        style={{
+                                                            margin: '0px 0px 0px 50px',
+                                                            fontSize: '15px',
+                                                            color: 'white',
+                                                        }}>
+                                                        Shop Name : {data.shopName}
+                                                    </p>
+                                                    <p
+                                                        style={{
+                                                            margin: '0px 0px 20px 25px',
+                                                            fontSize: '10px',
+                                                            color: '#8DE8E3',
+                                                        }}>
+                                                        order number #{data.bookingId}
+                                                    </p>
+                                                    <p style={{ marginLeft: '20px', color: "white", fontSize: '10px', marginBottom: '20px' }}>
+                                                        <i className="hand point right outline icon" style={{ color: 'white' }}></i>
+                                                    click for more information</p>
+                                                </button>
 
                                             </div>
                                         );
