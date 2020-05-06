@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
+import { Rating } from 'semantic-ui-react'
 import Axios from 'axios'
 import shopIcon from './pic/1.jpg';
 import ShopImgItem from './ShopImgItem'
@@ -33,12 +34,13 @@ class Shop extends Component {
         var dataArray = []
         var barberurl = "https://us-central1-g10ahair.cloudfunctions.net/api/barber/" + localStorage.getItem('shopname');
         Axios.get(barberurl).then(result => {
+            console.log(result.data)
             this.setState({ shopdata: result.data });
             result.data.barber.forEach(item => {
                 dataArray.push(item)
             })
             this.setState({ barberdata: dataArray});
-            if(result.data.barberArray) this.setState({hadData: true})
+            if(result.data.barber) this.setState({hadData: true})
         })
         .catch(function(error) {
             console.log(error)
@@ -86,8 +88,8 @@ class Shop extends Component {
                                 {/* Topic */}
                                 <div className = "title">
                                     <h1 style={{color:"#CB2D6F",fontSize:"30px"}}>
-                                        <img class="shop_logo" src={shopIcon} alt="" />
-                                        {localStorage.getItem('shopname')}
+                                        <img class="shop_logo" src={this.state.shopdata.imgUrl} alt="" />
+                                        {this.state.shopdata.shopName}
                                     </h1>
                                 </div>
 
@@ -96,9 +98,9 @@ class Shop extends Component {
                                     <button class="Back">Edit</button>
                                 </Link> */}
                                 <div style={{display : this.state.hadData ? "block":"none"}}>
-                                    {/* image */}
+                                    {/* image ร้าน*/}
                                     <div style={{display: this.state.shopdata.imgUrl === [] ? "flex":"none"}}>
-                                        <ShopImgItem item={this.state.shopdata.imgUrl} />
+                                        <ShopImgItem item={this.state.shopdata} /> 
                                     </div>
 
                                     {/* information */}
@@ -110,7 +112,9 @@ class Shop extends Component {
                                         </div>
                                         <div class="sub_box_item">
                                             <a href="/shopreview"><h2 style={{ color: '#cb2c6f' }}>Rate</h2></a>
-                                            <p style={{ color: 'goldenrod' }}>{this.state.shopdata.review}</p>
+                                            <p style={{ color: 'goldenrod' }}>
+                                            <Rating defaultRating={this.state.shopdata.averageRate} maxRating={5} disabled icon='star' /> ({this.state.shopdata.averageRate+0})
+                                            </p>
                                         </div>
                                         <div class="sub_box_item">
                                             <h2 style={{ color: '#cb2c6f' }}>Location</h2>

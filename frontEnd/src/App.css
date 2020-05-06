@@ -440,6 +440,15 @@ p.pattern {
   align-items: center;
   /* margin-right: 150px; */
 }
+.wrap_preview_barber {
+  width: 150px;
+  height: 150px;
+  border-radius: 500px;
+  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
+  /* margin-right: 150px; */
+}
 .image_preview {
   width: 100%;
   height: 100%;
@@ -1548,7 +1557,7 @@ button[type='signIn_2']:hover {
   justify-content: center;
   align-items: flex-start;
   position: relative;
-  padding-bottom: 1em;
+  padding: 1em;
   border-bottom: solid 1px rgba(210, 215, 217, 0.75);
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
