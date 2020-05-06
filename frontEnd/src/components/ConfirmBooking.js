@@ -4,6 +4,8 @@ import Navbar from './navbar'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment/moment'
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 class BookingInfo_Cus extends Component {
     constructor(props) {
@@ -30,16 +32,10 @@ class BookingInfo_Cus extends Component {
         const baberName = this.props.shopStore.barberName;
         axios.get(`https://us-central1-g10ahair.cloudfunctions.net/api/bookingforbarber/${baberName}`)
             .then(res => {
+                this.setState({bookingData: res.data})
                 this.eventEmpty();
-                this.setState({ bookingData: res.data, isLoading: false })
-                this.props.shopStore.hairStyles.forEach(data => {
-                    this.state.dataColor.push(data.color)
-                })
-
-            })
-        axios.get(`https://us-central1-g10ahair.cloudfunctions.net/api/user`, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } })
-            .then(res => {
-                this.setState({ userId: res.data.userId })
+                this.setState({ isLoading: false })
+                console.log(this.state.bookingData)
             })
 
     }
@@ -54,29 +50,26 @@ class BookingInfo_Cus extends Component {
         if (open.hour() >= 12 && close.hour() <= 12) {
             close.add(1, "days");       // handle spanning days
         }
-        console.log(open, close);
         const startisBetween = startTime.isBetween(open, close);
         const stopisBetween = stopTime.isBetween(open, close);
-        console.log(startisBetween, stopisBetween)
         if ((!startTime.isBefore(open) && !startTime.isAfter(open)) || (!stopTime.isBefore(close) && !stopTime.isAfter(close))) {
             this.setState({ isEqual: true });
         }
-        console.log(this.state.isEqual)
         if ((startisBetween && stopisBetween) || (startisBetween && this.state.isEqual) || (stopisBetween && this.state.isEqual) || (startTime != stopTime)) {
-
+            console.log(this.state.bookingData)
             this.state.bookingData.forEach(booking => {
-
+                console.log('sas')
                 if (booking.date === bookDate) {
+                    console.log('sasbook')
+                    console.log(startTime,moment(booking.startTime))
 
                     if (!startTime.isBefore(moment(booking.startTime)) && startTime.isBefore(moment(booking.stopTime))) {
                         this.setState({ isElapes: true })
                         return false
-                        console.log('time elape!!')
                     }
                     else if (!stopTime.isBefore(moment(booking.startTime)) && stopTime.isBefore(moment(booking.stopTime))) {
                         this.setState({ isElapes: true })
                         return false
-                        console.log('time elape!!')
                     }
                     else {
                         console.log('time not elape!!')
@@ -89,17 +82,66 @@ class BookingInfo_Cus extends Component {
             console.log('here')
         }
         if (this.state.isElapes) {
-            this.props.history.push('/filltimetable');
+            confirmAlert({
+                customUI: ({ onClose }) => {
+                    return (
+                        <div className='custom-ui'>
+                            <h1 style={{ color: 'white', textAlign: 'center' }}>Booking Time Is ELAPSE !</h1>
+                            <p>Please Select another Time</p>
+                            <button className='confirmBT' onClick={() => {this.props.history.push('/filltimetable'); onClose();}}>OK</button>
+                        </div>
+                    );
+                }
+            });
         }
 
     }
 
     onClickConfirm = () => {
+        if (this.state.isElapes) {
+            confirmAlert({
+                customUI: ({ onClose }) => {
+                    return (
+                        <div className='custom-ui'>
+                            <h1 style={{ color: 'white', textAlign: 'center' }}>Booking Time Is ELAPSE !</h1>
+                            <p>Please Select another Time</p>
+                            <button className='confirmBT' onClick={() => {this.props.history.push('/filltimetable'); onClose();}}>OK</button>
+                        </div>
+                    );
+                }
+            });
+        }
+        else {
+            confirmAlert({
+                customUI: ({ onClose }) => {
+                    return (
+                        <div className='custom-ui'>
+                            <h1 style={{ color: 'white', textAlign: 'center' }}>Are you sure to Booking?</h1>
+                            <button className='confirmBT' onClick={() => {this.KeepData(); onClose();}}>Yes</button>
+                            <button
+                                className='confirmBT'
+                                onClick={() => {
+                                    onClose();
+                                }}
+                            >
+                                No
+                  </button>
+                        </div>
+                    );
+                }
+            });
+        }
+
+    }
+
+    handleCancle = () => {
+        this.props.history.push('/home');
+    }
+
+    KeepData = () => {
         const bookData = {
-            username: localStorage.getItem('username'),
-            userId: this.state.userId,
             shopId: this.props.shopStore.shopId,
-            shopName: this.props.shopStore.ShopName,
+            shopName: this.props.shopStore.shopName,
             barberId: this.props.shopStore.barberId,
             barberName: this.props.shopStore.barberName,
             hairStyles: this.props.shopStore.hairStyles,
@@ -111,19 +153,14 @@ class BookingInfo_Cus extends Component {
         if (!this.state.isElapes) {
             axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/bookings', bookData, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } })
                 .then(res => {
+                    this.props.history.push('/noticeforcustomer')
                     console.log(res)
-                    this.props.push('/home')
                 })
                 .catch(err => {
                     console.log(err.response)
                 })
         }
-
-    }
-
-    handleCancle = () => {
-        this.props.history.push('/home');
-    }
+    };
 
     render() {
         return (
@@ -162,9 +199,9 @@ class BookingInfo_Cus extends Component {
                                         this.state.hairStyle.map(data => {
                                             return (
                                                 <div key={data.hairStyles}>
-                                                    {data.colors?
-                                                    <span className='subdetail'><i className='hand point right icon' style={{ color: '#cb2d6f' }}></i>color : {data.colors}</span>
-                                                    :null
+                                                    {data.color ?
+                                                        <span className='subdetail'><i className='hand point right icon' style={{ color: '#cb2d6f' }}></i>color : {data.color}</span>
+                                                        : null
                                                     }
                                                 </div>
                                             );
