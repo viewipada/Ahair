@@ -153,6 +153,16 @@ class BookingInfo_Cus extends Component {
                                             );
                                         })
                                     }
+                                     {
+                                        this.props.shopStore.hairStyles &&
+                                        this.props.shopStore.hairStyles.map(data => {
+                                            return (
+                                                <div key={data.hairName}>
+                                                    <span className='subdetail'><i className='hand point right icon' style={{ color: '#cb2d6f' }}></i>Color : {data.color}</span>
+                                                </div>
+                                            );
+                                        })
+                                    }
                                     <p>Barber         <span className="subdetail">{this.props.shopStore.barberName}</span></p>
                                     <p>Total Price    <span className="subdetail">{this.props.shopStore.total} Bath</span></p>
                                     <p>Date           <span className="subdetail">{this.props.shopStore.date}</span></p>
