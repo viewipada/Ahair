@@ -13,16 +13,13 @@ exports.addBooking = (req, res) => {
     date: req.body.date,
     startTime: req.body.startTime,
     stopTime: req.body.stopTime,
-    reviewedFromShop: req.body.reviewedFromShop,
-    reviewedFromUser: req.body.reviewedFromUser,
-    //imgUrl: req.body.imgUrl
     createAt: new Date().toISOString(),
   };
 
   db.collection("booking")
     .add(newBooking)
     .then((doc) => {
-      db.doc(`/booking/${doc.id}`).update({ bookingId: doc.id, done: false });
+      db.doc(`/booking/${doc.id}`).update({ bookingId: doc.id, done: false , reviewedFromShop : false ,reviewedFromUser: false  });
       return res.status(200).json({ message: `create ${doc.id} succesfully` });
     })
     .catch((err) => {

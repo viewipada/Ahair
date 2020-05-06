@@ -15,8 +15,7 @@ exports.signup = (req, res) => {
     handle: req.body.handle,
     name: req.body.name,
     phoneNum: req.body.phoneNum,
-    userGender: req.body.userGender,
-    imgUrl: req.body.imgUrl,
+    userGender: req.body.userGender
   };
   
   const noImg = 'no-Img.png';
@@ -392,7 +391,7 @@ exports.signupShop = (req, res) => {
     shopName: req.body.shopName,
     adminName: req.body.adminName,
     phoneNum: req.body.phoneNum,
-    imgUrl: req.body.imgUrl,
+    
   };
 
   const noImg = 'no-Img.png';
