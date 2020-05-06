@@ -24,9 +24,9 @@ class EditShopInformation extends React.Component {
             addressError: "",
             openhours:"09:00",
             closehours: "18:00",
-            imageFile: [],
-            imagePreview: [],
-            imageUrl:[],
+            imageFile: "",
+            imagePreview: "",
+            imageUrl:"",
             colors:[],
             isSignin:null,
             isEdit:false,
@@ -38,10 +38,10 @@ class EditShopInformation extends React.Component {
         let currentState=this
         axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/Ashop',{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
         .then(res => {
-            console.log(res.data.credentials)
+            console.log(res.data)
             let open = moment(res.data.credentials.openTime).format("kk:mm")
             let close = moment(res.data.credentials.closeTime).format("kk:mm")
-            console.log(open,close)
+            // console.log(open,close)
             this.setState({
                 posts: res.data.credentials,
                 isSignin : true, 
@@ -49,7 +49,7 @@ class EditShopInformation extends React.Component {
                 closehours: close,
                 address: res.data.credentials.address,
                 colors: res.data.credentials.colors,
-                imageUrl: res.data.credentials.imgUrl
+                imageUrl: res.data.credentials.imgUrlDetails
             })
             if(res.data.credentials.address) this.setState({hadData: true})
         })
@@ -97,7 +97,7 @@ class EditShopInformation extends React.Component {
                 address : this.state.address,
                 openTime : open,
                 closeTime : close,
-                // shopImg : this.props.shopInfoStore.imageUrl,
+                // imgUrl : this.props.shopInfoStore.imgUrl,
                 colors : this.state.colors
             }
 
@@ -194,16 +194,14 @@ class EditShopInformation extends React.Component {
                                     <div style={{width:"200px"}}>
                                         <p style={{color:"white", marginRight:"20px"}}>Images about shop</p>
                                     </div>
-                                    {/* <div>
+                                    <div>
+                                        <img alt="" src=
                                         {
-                                            this.state.posts.imgUrl.map(element => {
-                                                return (<div>
-                                                    
-                                                </div>    
-                                                )
-                                            })
+                                            this.state.posts.imgUrlDetails
                                         }
-                                    </div> */}
+                                        width="200px"
+                                        />
+                                    </div>
                                 </div>
                                 
                             </div>
