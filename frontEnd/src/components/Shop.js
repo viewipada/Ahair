@@ -84,7 +84,7 @@ class Shop extends Component {
                 })
             }
         })
-        console.log("test", this.state.hairstylesdata)
+        console.log("submitShop: ", this.state)
         this.props.shop(this.state)
         this.props.history.push('/selecthairstyle')
     }
@@ -100,7 +100,6 @@ class Shop extends Component {
     };
 
     submit = () => {
-        console.log("submitShop: ", this.state)
         this.props.shop(this.state)
         this.getHairStyle(this.props.shopStore.shopName)
     }

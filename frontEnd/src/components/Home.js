@@ -11,6 +11,10 @@ import content1 from './content1/1.jpg'
 import content2 from './content2/1.jpg'
 import content3 from './content3/1.jpg'
 import content4 from './content4/1.jpg'
+import CategoryOne from './CategoryOne';
+import CategoryTwo from './CategoryTwo';
+import CategoryThree from './CategoryThree'
+import CategoryFour from './CategoryFour'
 
 class Home extends Component {
 
@@ -22,7 +26,11 @@ class Home extends Component {
       checkLogin: '',
       shopinfo: '',
       isLoading: true,
-      shopId: ''
+      shopId: '',
+      isCategoryOne:false,
+      isCategoryTwo:false,
+      isCategoryThree:false,
+      isCategoryFour:false
     };
 
   }
@@ -42,6 +50,18 @@ class Home extends Component {
     this.props.shop(shopdata)
     this.props.history.push('/shop')
   }
+  chooseContentOne =()=> {
+    this.setState({isCategoryOne:!this.state.isCategoryOne,isCategoryTwo: false, isCategoryThree:false, isCategoryFour:false})
+  }
+  chooseContentTwo =()=> {
+    this.setState({isCategoryTwo:!this.state.isCategoryTwo, isCategoryOne:false, isCategoryThree:false,isCategoryFour:false})
+  }
+  chooseContentThree =()=> {
+    this.setState({isCategoryThree:!this.state.isCategoryThree, isCategoryFour:false,isCategoryOne:false,isCategoryTwo:false})
+  }
+  chooseContentFour =()=> {
+    this.setState({isCategoryFour:!this.state.isCategoryFour,isCategoryTwo:false,isCategoryThree:false,isCategoryOne:false})
+  }
   render() {
     return (
       <div className="wrap">
@@ -56,30 +76,32 @@ class Home extends Component {
                   <Sliderimg />
                 </div>
                 <div className="wrapcontainer">
-                  <h1 className="Topictext">Hot Content</h1>
+                  <h1 className="Topictext">Hot Contents</h1>
                   <div className="btcatContainer">
                     <div className="container">
-                    <div className="card">
-                      <img src={content1} alt="" />
-                      <div className="card__head">How to Figure Out Your Face Shape</div>
+                      <div className="card"onClick={this.chooseContentOne}>
+                        <img src={content1} alt="" />
+                        <div className="card__head">How to Figure Out Your Face Shape</div>
+                      </div>
+                      <div className="card"onClick={this.chooseContentTwo}>
+                        <img src={content2} alt="" />
+                        <div className="card__head">Trendy Summer Hair Color</div>
+                      </div>
+                      <div className="card" onClick={this.chooseContentThree}>
+                        <img src={content3} alt="" />
+                        <div class="card__head">Short Haircut Ideas</div>
+                      </div>
+                      <div className="card"onClick={this.chooseContentFour}>
+                        <img src={content4} alt="" />
+                        <div className="card__head">Best Hot Men's Haircuts</div>
+                      </div>
                     </div>
-                    <div className="card">
-                      <img src={content2} alt="" />
-                      <div className="card__head">Trendy Summer Hair Color</div>
+                    <div>
+                    <div  style={{display: this.state.isCategoryOne? "flex":"none"}}><CategoryOne/></div>
+                    <div style={{display: this.state.isCategoryTwo? "flex":"none"}}><CategoryTwo /></div>
+                    <div style={{display: this.state.isCategoryThree? "flex":"none"}}><CategoryThree /></div>
+                    <div style={{display: this.state.isCategoryFour? "flex":"none"}}><CategoryFour/></div>
                     </div>
-                    <div className="card">
-                      <img src={content3} alt="" />
-                      <div class="card__head">Short Haircut Ideas</div>
-                    </div>
-                    <div className="card">
-                      <img src={content4} alt="" />
-                      <div className="card__head">Best Hot Men's Haircuts</div>
-                    </div>
-                    {/* <div className="card">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Mimi%26Tigsi.jpg/1280px-Mimi%26Tigsi.jpg" alt="" />
-                      <div className="card__head">Sleepy Cat</div>
-                    </div> */}
-                  </div>
                   </div>
                   
                   <h1 className="Topictext">Reccomended</h1>

@@ -110,7 +110,7 @@ class Shop extends Component {
                                         </div>
                                         <div class="sub_box_item">
                                             <a href="/shopreview"><h2 style={{ color: '#cb2c6f' }}>Rate</h2></a>
-                                            <p style={{ color: 'goldenrod' }}>Something</p>
+                                            <p style={{ color: 'goldenrod' }}>{this.state.shopdata.review}</p>
                                         </div>
                                         <div class="sub_box_item">
                                             <h2 style={{ color: '#cb2c6f' }}>Location</h2>

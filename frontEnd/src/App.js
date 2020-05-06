@@ -48,7 +48,6 @@ import CategoryOne from './components/CategoryOne'
 import CategoryTwo from './components/CategoryTwo'
 import CategoryThree from './components/CategoryThree'
 import CategoryFour from './components/CategoryFour'
-import CategoryFive from './components/CategoryFive'
 import ConfirmBooking from './components/ConfirmBooking'
 
 class App extends React.Component {
@@ -73,7 +72,7 @@ class App extends React.Component {
               <Route path='/editprofileshop' component={EditProfileShop} />
               <Route path='/hairstyles' component={HairStyles} />
               <PrivateRoute path='/ReviewforCustomer/:bookingId' component={Review_Cus}/>
-              <PrivateRoute path='/ReviewforShop/:bookingId' component={Review_Shop}/>
+              <Route path='/ReviewforShop/:bookingId' component={Review_Shop}/>
               <Route path='/home' component={Home}/>
               <Route path='/pricelist' component={PriceList} />
               <Route path='/hairbarber' component={HairBarBer} />
@@ -99,11 +98,10 @@ class App extends React.Component {
               <Route path='/filltimetable' component={FillTimeTable} />
               <Route path='/editbarber' component={EditBarber} />
               <Route path='/selectcolor' component={SelectColor} />
-              <Route path='/contain-1' component={CategoryOne} />
-              <Route path='/contain-2' component={CategoryTwo} />
-              <Route path='/contain-3' component={CategoryThree} />
-              <Route path='/contain-4' component={CategoryFour} />
-              <Route path='/contain-5' component={CategoryFive} />
+              <Route path='/content-1' component={CategoryOne} />
+              <Route path='/content-2' component={CategoryTwo} />
+              <Route path='/content-3' component={CategoryThree} />
+              <Route path='/content-4' component={CategoryFour} />
               <PrivateRoute path='/comfirmbooking' component={ConfirmBooking}/>
             </Switch>
           </div>
