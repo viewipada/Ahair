@@ -10,7 +10,7 @@ import { Shop_5 } from '../redux/index'
 
 import Timetable from 'react-timetable-events'
 
-// import { Grid, Image } from 'semantic-ui-react'
+import { Grid, Image } from 'semantic-ui-react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import addDays from 'date-fns/addDays'

@@ -8,17 +8,9 @@ class HairStyleItem extends Component {
         super(props)
     }
 
-    getHairTime=()=>{
-        this.props.shopStore.barberdata.hairAble.forEach(hairable =>{
-            if(this.props.hairstyle_item.hairId===hairable.hairId){
-                return hairable.time
-            }
-        })
-    }
-
     render() {
 
-        const { hairId, hairName, price, img } = this.props.hairstyle_item
+        const { hairId, hairName, price, img ,time } = this.props.hairstyle_item
         return (
 
             // ShopItem
@@ -31,8 +23,8 @@ class HairStyleItem extends Component {
                 {/* เขียว color: '#cb2c6f' */}
                 <div class="sub_box_item" style={{ width: '50%', marginTop:'1em' }}>
                     <h3 style={{ color: '#cb2c6f', marginBottom:'1em'}}>{hairName}</h3>
-                    <p style={{ color: '#14a098' }}>{price} Bath.</p>
-                    <p style={{ color: '#14a098' }}>{this.getHairTime} Hr.</p>
+                    <p style={{ color: '#14a098' }}>{price} bath.</p>
+                    <p style={{ color: '#14a098' }}>{time} min.</p>
                 </div>
             </div>
         );
