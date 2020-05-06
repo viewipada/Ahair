@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import Navbar from './navbar'
 import { Link } from 'react-router-dom';
+import moment from 'moment/moment'
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 class BookingInfo_Cus extends Component {
     constructor(props) {
@@ -52,6 +55,27 @@ class BookingInfo_Cus extends Component {
     }
 
     handleCancle = () => {
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div className='custom-ui'>
+                        <h1 style={{ color: 'white', textAlign: 'center' }}>Are you sure to CANCEL this Booking?</h1>
+                        <button className='confirmBT' onClick={() => {this.delBook(); onClose();}}>Yes</button>
+                        <button
+                            className='confirmBT'
+                            onClick={() => {
+                                onClose();
+                            }}
+                        >
+                            No
+                      </button>
+                    </div>
+                );
+            }
+        });
+    }
+
+    dekBook=()=>{
         axios.delete(`https://us-central1-g10ahair.cloudfunctions.net/api/bookingfromuser/${this.state.bookingId}`, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } })
             .then(res => {
                 console.log(res.status)
@@ -110,7 +134,7 @@ class BookingInfo_Cus extends Component {
                                     <p>Barber         <span className="subdetail">{this.state.barber}</span></p>
                                     <p>Total Price    <span className="subdetail">{this.state.price} Bath</span></p>
                                     <p>Date           <span className="subdetail">{this.state.date}</span></p>
-                                    <p>Time           <span className="subdetail">{this.state.startTime} - {this.state.stopTime} </span></p>
+                                    <p>Time           <span className="subdetail">{moment(this.state.startTime).format('kk:mm')} - {moment(this.state.stopTime).format('kk:mm')} </span></p>
                                 </div>
                             )
                     }

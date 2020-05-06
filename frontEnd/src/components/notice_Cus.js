@@ -16,7 +16,7 @@ class notice_Cus extends Component {
             canReview: true,
             isLoading: true,
             done: '',
-            isEmpty:false
+            isEmpty: false
         };
     }
     componentDidMount() {
@@ -24,8 +24,8 @@ class notice_Cus extends Component {
             .then(res => {
                 this.setState({ noticecontent: res.data, isLoading: false })
                 console.log(res.data)
-                if(this.state.noticecontent.length===0){
-                    this.setState({isEmpty:true})
+                if (this.state.noticecontent.length === 0) {
+                    this.setState({ isEmpty: true })
                 }
                 console.log(this.state.isEmpty)
             })
@@ -59,11 +59,11 @@ class notice_Cus extends Component {
                     </h1>
                     </div>
                     {
-                        (this.state.isEmpty && !this.state.isLoading)?
-                        <div>
-                            <h1 style={{color:'white', fontSize:'250%',textAlign:'center'}}> No Notification Now </h1>
-                        </div>
-                        :null
+                        (this.state.isEmpty && !this.state.isLoading) ?
+                            <div>
+                                <h1 style={{ color: 'white', fontSize: '250%', textAlign: 'center' }}> No Notification Now </h1>
+                            </div>
+                            : null
                     }
                     <div>
                         {
@@ -79,6 +79,14 @@ class notice_Cus extends Component {
                                                         (
                                                             <button className='NoticeContent' onClick={() => this.onclickReview(data.bookingId, data.reviewedFromUser)}>
                                                                 <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}><i className='thumbs up icon'></i> Review your new Look!</p>
+                                                                <p
+                                                                    style={{
+                                                                        margin: '0px 0px 0px 50px',
+                                                                        fontSize: '15px',
+                                                                        color: 'white',
+                                                                    }}>
+                                                                    Shop Name : {data.shopName}
+                                                                </p>
                                                                 <p
                                                                     style={{
                                                                         margin: '0px 0px 20px 25px',
@@ -97,7 +105,15 @@ class notice_Cus extends Component {
                                                 }
                                                 < button className='NoticeContent' onClick={() => this.onclickBooking(data.bookingId)}>
                                                     <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}>
-                                                    <i className='thumbtack icon'></i>    {data.done?'Booking Information (Done!)':'Booking Information'}</p>
+                                                        <i className={data.done ? 'check icon' : 'thumbtack icon'}></i>    {data.done ? 'Booking Information (Done!)' : 'Booking Information'}</p>
+                                                    <p
+                                                        style={{
+                                                            margin: '0px 0px 0px 50px',
+                                                            fontSize: '15px',
+                                                            color: 'white',
+                                                        }}>
+                                                        Shop Name : {data.shopName}
+                                                    </p>
                                                     <p
                                                         style={{
                                                             margin: '0px 0px 20px 25px',
