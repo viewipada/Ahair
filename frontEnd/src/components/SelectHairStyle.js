@@ -27,7 +27,6 @@ class SelectHairStyle extends Component {
         this.state.hairstylesdata.forEach(hairstyle => {
             if (hairstyle.hairId === event.target.value) { //ถ้าใช่ตัวที่คลิก
                 hairstyle.isChecked = event.target.checked
-                console.log("Click: ", hairstyle.hairId, hairstyle.isChecked)
             }
             if (hairstyle.isChecked) {
                 if (document.getElementById("myBtn").disabled) {
@@ -39,9 +38,12 @@ class SelectHairStyle extends Component {
     }
 
     handleSubmit = () => {
+        var isColor = false
         this.state.hairstylesdata.forEach(hairstyle => {
-            console.log("0.5", hairstyle.hairId, hairstyle.isChecked)
             if (hairstyle.isChecked) { //ถ้าใช่ตัวที่คลิก
+                if(hairstyle.hairName==="Color"){
+                    isColor = true
+                }
                 this.state.hairStyles.push({
                     hairId: hairstyle.hairId,
                     hairName: hairstyle.hairName,
@@ -50,6 +52,7 @@ class SelectHairStyle extends Component {
                     time: hairstyle.time,
                     color: hairstyle.color
                 })
+                this.setState(this.state)
             }
         })
         this.state.hairStyles.forEach(hairstyle => {
@@ -60,7 +63,12 @@ class SelectHairStyle extends Component {
         })
         console.log("handleSubmitSelectHairStle :", this.state);
         this.props.shop(this.state)
-        this.props.history.push('/filltimetable')
+        if(isColor){
+            this.props.history.push('/selectcolor')
+        }
+        else{
+            this.props.history.push('/filltimetable')
+        }
     }
 
     render() {

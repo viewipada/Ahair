@@ -21,6 +21,7 @@ export { Shop_2 } from './action/ShopAction'
 export { Shop_3 } from './action/ShopAction'
 export { Shop_4 } from './action/ShopAction'
 export { Shop_5 } from './action/ShopAction'
+export { Shop_6 } from './action/ShopAction'
 export { HomeShop } from './action/ShopAction'
 
 // export { BarberDetail } from './action/ShopInformationAction'

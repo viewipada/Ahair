@@ -23,7 +23,7 @@ class BookingInfo_Cus extends Component {
             isElapes: '',
             userId: '',
             isEqual: false,
-
+            dataColor: []
         };
     }
     componentDidMount() {
@@ -32,13 +32,16 @@ class BookingInfo_Cus extends Component {
             .then(res => {
                 this.eventEmpty();
                 this.setState({ bookingData: res.data, isLoading: false })
+                this.props.shopStore.hairStyles.forEach(data => {
+                    this.state.dataColor.push(data.color)
+                })
 
             })
         axios.get(`https://us-central1-g10ahair.cloudfunctions.net/api/user`, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } })
             .then(res => {
                 this.setState({ userId: res.data.userId })
             })
-        
+
     }
 
     eventEmpty = () => {
@@ -51,15 +54,15 @@ class BookingInfo_Cus extends Component {
         if (open.hour() >= 12 && close.hour() <= 12) {
             close.add(1, "days");       // handle spanning days
         }
-        console.log(open,close);
-        const startisBetween = startTime.isBetween(open ,close);
+        console.log(open, close);
+        const startisBetween = startTime.isBetween(open, close);
         const stopisBetween = stopTime.isBetween(open, close);
-        console.log(startisBetween,stopisBetween)
+        console.log(startisBetween, stopisBetween)
         if ((!startTime.isBefore(open) && !startTime.isAfter(open)) || (!stopTime.isBefore(close) && !stopTime.isAfter(close))) {
             this.setState({ isEqual: true });
         }
         console.log(this.state.isEqual)
-        if ((startisBetween && stopisBetween) || (startisBetween && this.state.isEqual) || (stopisBetween && this.state.isEqual)) {
+        if ((startisBetween && stopisBetween) || (startisBetween && this.state.isEqual) || (stopisBetween && this.state.isEqual) || (startTime != stopTime)) {
 
             this.state.bookingData.forEach(booking => {
 
@@ -81,12 +84,12 @@ class BookingInfo_Cus extends Component {
                 }
             })
         }
-        else{
-            this.setState({isElapes:true})
+        else {
+            this.setState({ isElapes: true })
             console.log('here')
         }
         if (this.state.isElapes) {
-           this.props.history.push('/filltimetable');
+            this.props.history.push('/filltimetable');
         }
 
     }
@@ -153,6 +156,22 @@ class BookingInfo_Cus extends Component {
                                             );
                                         })
                                     }
+
+                                    {
+                                        this.state.hairStyle &&
+                                        this.state.hairStyle.map(data => {
+                                            return (
+                                                <div key={data.hairStyles}>
+                                                    {data.colors?
+                                                    <span className='subdetail'><i className='hand point right icon' style={{ color: '#cb2d6f' }}></i>color : {data.colors}</span>
+                                                    :null
+                                                    }
+                                                </div>
+                                            );
+                                        })
+                                    }
+
+
                                     <p>Barber         <span className="subdetail">{this.props.shopStore.barberName}</span></p>
                                     <p>Total Price    <span className="subdetail">{this.props.shopStore.total} Bath</span></p>
                                     <p>Date           <span className="subdetail">{this.props.shopStore.date}</span></p>
