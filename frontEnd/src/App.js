@@ -44,12 +44,13 @@ import EditHairstyles from './components/EditHairstyles'
 import EditColors from './components/EditColors'
 import EditBarber from './components/EditBarber'
 import SelectColor from './components/SelectColor';
+import CategoryOne from './components/CategoryOne'
+import CategoryTwo from './components/CategoryTwo'
+import CategoryThree from './components/CategoryThree'
+import CategoryFour from './components/CategoryFour'
+import CategoryFive from './components/CategoryFive'
 import ConfirmBooking from './components/ConfirmBooking'
-import CatagoryOne from './components/CatagoryOne'
-import CatagoryTwo from './components/CatagoryTwo'
-import CatagoryThree from './components/CatagoryThree'
-import CatagoryFour from './components/CatagoryFour'
-import CatagoryFive from './components/CatagoryFive'
+
 class App extends React.Component {
   render() {
     return (
@@ -98,6 +99,11 @@ class App extends React.Component {
               <Route path='/filltimetable' component={FillTimeTable} />
               <Route path='/editbarber' component={EditBarber} />
               <Route path='/selectcolor' component={SelectColor} />
+              <Route path='/contain-1' component={CategoryOne} />
+              <Route path='/contain-2' component={CategoryTwo} />
+              <Route path='/contain-3' component={CategoryThree} />
+              <Route path='/contain-4' component={CategoryFour} />
+              <Route path='/contain-5' component={CategoryFive} />
               <PrivateRoute path='/comfirmbooking' component={ConfirmBooking}/>
             </Switch>
           </div>
