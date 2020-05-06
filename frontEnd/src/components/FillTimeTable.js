@@ -84,6 +84,15 @@ class FillTimeTable extends Component {
                     endTime: moment(book.stopTime)
                 })
             }
+            if (book.date === this.state.tomorrow) {
+                this.state.timetableProps.events.Tomorrow.push({
+                    id: id,
+                    name: book.bookingId,
+                    type: 'Invalid',
+                    startTime: moment(book.startTime),
+                    endTime: moment(book.stopTime)
+                })
+            }
             id += 1
         })
 

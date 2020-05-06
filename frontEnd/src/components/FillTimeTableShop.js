@@ -74,8 +74,18 @@ class FillTimeTableShop extends Component {
         var id = 0
         console.log("booking: ",this.state.bookingdata)
         this.state.bookingdata.forEach(book => {
+            // console.log("test: ", book.date)
             if (book.date === this.state.today) {
                 this.state.timetableProps.events.Today.push({
+                    id: id,
+                    name: book.bookingId,
+                    type: 'Invalid',
+                    startTime: moment(book.startTime),
+                    endTime: moment(book.stopTime)
+                })
+            }
+            if (book.date === this.state.tomorrow) {
+                this.state.timetableProps.events.Tomorrow.push({
                     id: id,
                     name: book.bookingId,
                     type: 'Invalid',
@@ -90,7 +100,7 @@ class FillTimeTableShop extends Component {
 
     handleSubmit = () => {
         console.log("handleSubmitFillTimeTable :", this.state)
-        this.props.shop(this.state)
+        this.props.admin(this.state)
         this.props.history.push('/selecttimeshop')
     }
 

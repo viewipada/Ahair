@@ -32,7 +32,6 @@ class SelectTime extends Component {
 
     componentDidMount() {
         document.getElementById("myBtn").disabled = true
-        console.log("Test",setHours(setMinutes(new Date(), 0), 0))
     }
 
     handleChange = date => {
@@ -121,8 +120,8 @@ class SelectTime extends Component {
                                             <div class="sub_box_item2" style={{ paddingTop: '1.5em' }}>
                                                 <h3 style={{ color: '#cb2c6f' }}>{this.props.shopStore.barberName}</h3>
                                                 {/* <p style={{ color: '#cb2c6f' }}>HairStyle Name</p> */}
-                                                <p style={{ color: '#14a098' }}>{this.props.shopStore.totalTime} hr.</p>
-                                                <p style={{ color: '#14a098' }}>{this.props.shopStore.total} Bath</p>
+                                                <p style={{ color: '#14a098' }}>{this.props.shopStore.totalTime} min.</p>
+                                                <p style={{ color: '#14a098' }}>{this.props.shopStore.total} bath</p>
                                             </div>
                                         </div>
                                     </div>

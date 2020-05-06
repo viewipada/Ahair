@@ -12,8 +12,6 @@ import Timetable from 'react-timetable-events'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import addDays from 'date-fns/addDays'
-import setHours from 'date-fns/setHours'
-import setMinutes from 'date-fns/setMinutes'
 
 class SelectTimeShop extends Component {
 
@@ -25,43 +23,68 @@ class SelectTimeShop extends Component {
             startTime: new Date(),
             stopTime: new Date(),
             calstartTime: new Date(),
-            showstopTime: new Date(),
-            totalTime: this.props.adminStore.totalTime
+            calstopTime: new Date(),
+            start: false,
+            stop: false
         };
     }
 
     componentDidMount() {
         document.getElementById("myBtn").disabled = true
-        console.log("Test",setHours(setMinutes(new Date(), 0), 0))
     }
 
-    handleChange = date => {
+    handleChangeStartTime = date => {
+        this.checkBT("start")
         this.setState({
             calstartTime: date,
             startTime: moment(date).toISOString()
+        },()=>{
+            console.log("Cstart: ",this.state)
         });
     };
 
-    handleSelect = date => {
-        if (document.getElementById("myBtn").disabled) {
-            document.getElementById("myBtn").disabled = false
-        } 
+    handleSelectStartTime = date => {
+        this.checkBT("start")
         this.setState({
             calstartTime: date,
             startTime: moment(date).toISOString()
-        },
-            () => {
-                console.log("Select: ", this.state)
-                this.calculateStoptime()
-            });
+        },()=>{
+            console.log("Sstart: ",this.state)
+        });
     }
 
-    calculateStoptime = () => {
-        this.setState({ 
-            stopTime: moment(this.state.calstartTime).add(this.state.totalTime, 'minutes').toISOString(),
-            showstopTime: moment(this.state.calstartTime).add(this.state.totalTime, 'minutes')
-        })
+    handleChangeStopTime = date => {
+        this.checkBT("stop")
+        this.setState({
+            calstopTime: date,
+            stopTime: moment(date).toISOString()
+        },()=>{
+            console.log("Cstop: ",this.state)
+        });
+    };
+
+    handleSelectStopTime = date => {
+        this.checkBT("stop")
+        this.setState({
+            calstopTime: date,
+            stopTime: moment(date).toISOString()
+        },()=>{
+            console.log("Sstop: ",this.state)
+        });
     }
+
+    checkBT = (key) => {
+        if(key==="start"&&!this.state.start){
+            this.setState({ start: true})
+        }
+        if(key==="stop"&&!this.state.stop){
+            this.setState({ stop: true})
+        }
+        if(this.state.start&&this.state.stop){
+            document.getElementById("myBtn").disabled = false
+        }
+    }
+
 
     handleSubmit = () => {
         this.setState({
@@ -74,12 +97,11 @@ class SelectTimeShop extends Component {
 
     submit = () => {
         console.log("handleSubmitSelectTime :", this.state)
-        this.props.shop(this.state)
+        this.props.admin(this.state)
         this.props.history.push('/confirmbooking')
     }
 
     render() {
-
         return (
             <body class="is-preload">
 
@@ -101,7 +123,7 @@ class SelectTimeShop extends Component {
                                 {/* Topic */}
                                 <div class="topic" style={{ marginTop: '0.4em', marginLeft: '-1em' }}>
                                     <a href="/shop"><img class="shop_logo" src={shopIcon} /></a>
-                                    {this.props.adminStore.shopName}
+                                    {localStorage.getItem('shopname')}
                                 </div>
                                 <hr class="major" />
 
@@ -114,9 +136,6 @@ class SelectTimeShop extends Component {
                                             {/* เขียว color: '#cb2c6f' */}
                                             <div class="sub_box_item2" style={{ paddingTop: '1.5em' }}>
                                                 <h3 style={{ color: '#cb2c6f' }}>{this.props.adminStore.barberName}</h3>
-                                                {/* <p style={{ color: '#cb2c6f' }}>HairStyle Name</p> */}
-                                                <p style={{ color: '#14a098' }}>{this.props.adminStore.totalTime} hr.</p>
-                                                <p style={{ color: '#14a098' }}>{this.props.adminStore.total} Bath</p>
                                             </div>
                                         </div>
                                     </div>
@@ -129,8 +148,8 @@ class SelectTimeShop extends Component {
                                             <DatePicker
                                                 className="wrap_input_time"
                                                 selected={this.state.calstartTime}
-                                                onSelect={this.handleSelect} //when day is clicked
-                                                onChange={this.handleChange} //only when value has changed
+                                                onSelect={this.handleSelectStartTime} //when day is clicked
+                                                onChange={this.handleChangeStartTime} //only when value has changed
                                                 minDate={new Date()}
                                                 maxDate={addDays(new Date(), 1)}
                                                 placeholderText="Select Start Time"
@@ -141,9 +160,9 @@ class SelectTimeShop extends Component {
                                             <h3 style={{ color: '#cb2c6f', marginTop: '0.5em' }}>Stop time</h3>
                                             <DatePicker
                                                 className="wrap_input_time"
-                                                selected={this.state.calstartTime}
-                                                onSelect={this.handleSelect} //when day is clicked
-                                                onChange={this.handleChange} //only when value has changed
+                                                selected={this.state.calstopTime}
+                                                onSelect={this.handleSelectStopTime} //when day is clicked
+                                                onChange={this.handleChangeStopTime} //only when value has changed
                                                 minDate={new Date()}
                                                 maxDate={addDays(new Date(), 1)}
                                                 placeholderText="Select Start Time"
