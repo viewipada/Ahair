@@ -60,8 +60,8 @@ class HomeShop extends Component {
     };
 
     submit = () =>{
-        console.log("submitSstate: ",this.state)
-        this.props.shop(this.state)
+        console.log("submitHomeShop: ",this.state)
+        this.props.admin(this.state)
         this.props.history.push('/filltimetableshop')
     }
 
@@ -92,10 +92,6 @@ class HomeShop extends Component {
                                     </h1>
                                 </div>
 
-                                {/* Edit Button for admin */}
-                                {/* <Link className="link" to="/shop">
-                                    <button class="Back">Edit</button>
-                                </Link> */}
                                 <div style={{display : this.state.hadData ? "block":"none"}}>
                                     {/* image ร้าน*/}
                                     <div style={{display: this.state.shopdata.imgUrl === [] ? "flex":"none"}}>

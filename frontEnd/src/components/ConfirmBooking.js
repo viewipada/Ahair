@@ -37,7 +37,6 @@ class BookingInfo_Cus extends Component {
                 this.setState({ isLoading: false })
                 console.log(this.state.bookingData)
             })
-
     }
 
     eventEmpty = () => {
