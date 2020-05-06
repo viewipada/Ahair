@@ -11,15 +11,16 @@ class FillTimeTable extends Component {
 
         this.state = {
             today: moment(new Date()).format('L'),
-            // today: "22/05/2020",
             tomorrow: moment(new Date().setDate(new Date().getDate()+1)).format('L'),
+            // today: "22/05/2020",
+            // tomorrow: "27/05/2020",
             bookingdata: [],
             timetableProps: {
                 events: {
                     Today: [],
                     Tomorrow: []
                 },
-                hoursInterval: [this.props.shopStore.shopdata.openTime.substring(0, 2), this.props.shopStore.shopdata.closeTime.substring(0, 2)],
+                hoursInterval: [moment(this.props.shopStore.shopdata.openTime).hour(), moment(this.props.shopStore.shopdata.closeTime).hour()],
                 // hoursInterval: [8, 20],
                 timeLabel: "Time",
                 renderHour(hour, defaulAttributes, styles) {
@@ -47,6 +48,7 @@ class FillTimeTable extends Component {
     componentDidMount() {
         // this.getBooking(this.props.shopStore.barbarName)
         // console.log("TomorrowDate",moment(new Date().setDate(new Date().getDate()+1)).format('L'))
+        // console.log("test: ",moment(this.props.shopStore.shopdata.openTime).hour(),moment(this.props.shopStore.shopdata.closeTime).hour())
         this.getBooking('idea')
     }
 
@@ -84,6 +86,7 @@ class FillTimeTable extends Component {
             }
             id += 1
         })
+
         // this.state.timetableProps.events.Today.push({
         //     id: id,
         //     name: "this.state.bookingdata.bookingId",

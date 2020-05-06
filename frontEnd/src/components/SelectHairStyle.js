@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import Axios from 'axios'
 import shopIcon from './pic/1.jpg';
 import Sidebar from './Sidebar';
 import HairStyleItem from './HairStyleItem';
 import NavBar from './navbar'
 import { connect } from 'react-redux';
 import { Shop_3 } from '../redux/index'
-import moment from 'moment/moment'
 
 class SelectHairStyle extends Component {
     constructor(props) {
@@ -16,100 +14,50 @@ class SelectHairStyle extends Component {
             total: 0,
             totalTime: 0,
             hairStyles: [],
-            hairstylesdata: [],
+            hairstylesdata: this.props.shopStore.hairstylesdata
         }
     }
 
     componentDidMount() {
-        this.getHairStyle(this.props.shopStore.shopName)
         document.getElementById("myBtn").disabled = true
     }
 
-    getHairStyle = (keyword) => {
-        var dataArray = []
-        var url = "https://us-central1-g10ahair.cloudfunctions.net/api/hairStyle/" + keyword;
-        Axios.get(url).then(result => {
-            const dataCount = result.data.hairStyles.length
-            if (dataCount === undefined) {
-                this.setState({ hairstylesdata: result.data })
+    hairstyleChecked = event => {
+        document.getElementById("myBtn").disabled = true
+        this.state.hairstylesdata.forEach(hairstyle => {
+            if (hairstyle.hairId === event.target.value) { //ถ้าใช่ตัวที่คลิก
+                hairstyle.isChecked = event.target.checked
+                console.log("Click: ", hairstyle.hairId, hairstyle.isChecked)
             }
-            else {
-                result.data.hairStyles.forEach(item => {
-                    dataArray.push(item)
-                })
-                this.setState({ hairstylesdata: dataArray });
+            if (hairstyle.isChecked) {
+                if (document.getElementById("myBtn").disabled) {
+                    document.getElementById("myBtn").disabled = false
+                }
             }
         })
+
     }
 
-    hairstyleChecked = event => {
+    handleSubmit = () => {
         this.state.hairstylesdata.forEach(hairstyle => {
-            if (hairstyle.hairId === event.target.value) {
-                // const time = 0
-                // this.props.shopStore.barberdata.hairAble.forEach(hairable =>{
-                //     if(hairstyle.hairId===hairable.hairId){
-                //         time = hairable.time
-                //     }
-                // })
+            console.log("0.5", hairstyle.hairId, hairstyle.isChecked)
+            if (hairstyle.isChecked) { //ถ้าใช่ตัวที่คลิก
                 this.state.hairStyles.push({
                     hairId: hairstyle.hairId,
                     hairName: hairstyle.hairName,
                     price: hairstyle.price,
                     type: hairstyle.type,
-                    time: hairstyle.time
-                    // time: time
+                    time: hairstyle.time,
+                    color: hairstyle.color
                 })
-                this.setState({ 
-                    total: this.state.total + hairstyle.price,
-                    totalTime: this.state.totalTime + hairstyle.time
-                })
-                if (document.getElementById("myBtn").disabled) {
-                    document.getElementById("myBtn").disabled = false
-                }            
             }
         })
-    }
-
-
-    // hairstyleChecked = event => {
-    //     console.log("hairstyleChecked");
-    //     // document.getElementById("myBtn").disabled = true
-    //     this.state.hairstylesdata.forEach(hairstyle => {
-    //         if (hairstyle.hairId === event.target.value) {
-    //             hairstyle.isChecked =  event.target.checked            
-    //         }
-    //     })
-    //     this.state.hairstylesdata.forEach(hairstyle => {
-    //         if (hairstyle.isChecked){
-    //             if (document.getElementById("myBtn").disabled) {
-    //                 document.getElementById("myBtn").disabled = false
-    //             }
-    //             return false // break;
-    //         }
-    //     })
-    // }
-
-    // handleSubmit = event => {
-    //     event.preventDefault();
-    //     this.state.hairstylesdata.forEach(hairstyle => {
-    //         if (hairstyle.isChecked) {
-    //             this.state.hairStyles.push({
-    //                 hairId: hairstyle.hairId,
-    //                 hairName: hairstyle.hairName,
-    //                 price: hairstyle.price,
-    //                 type: hairstyle.type,
-    //                 time: hairstyle.time
-    //             })
-    //             this.setState({ 
-    //                 total: this.state.total + hairstyle.price,
-    //                 totalTime: this.state.totalTime + hairstyle.time
-    //             })
-    //         }
-    //     })
-    //     this.submit(event)
-    // }
-
-    handleSubmit = () => {
+        this.state.hairStyles.forEach(hairstyle => {
+            this.setState({
+                total: this.state.total += hairstyle.price,
+                totalTime: this.state.totalTime += hairstyle.time
+            })
+        })
         console.log("handleSubmitSelectHairStle :", this.state);
         this.props.shop(this.state)
         this.props.history.push('/filltimetable')
@@ -140,14 +88,14 @@ class SelectHairStyle extends Component {
                                     {this.props.shopStore.shopName}
                                 </div>
                                 <hr class="major" />
-
+                                <h1 style={{ color: '#cb2c6f' }}>Hair Style</h1>
                                 <div class="box_item2" style={{ border: '0', justifyContent: 'left' }}>
 
                                     {/* Hair cut */}
-                                    <div class="sub_box_item2" style={{ width: '100%' }}>
-                                        <h2 style={{ color: '#cb2c6f', padding: '1em 0 1em 0' }}>Hair Style</h2>
+                                    {/* <div class="sub_box_item2" style={{ width: '100%' }}> */}
+                                    <div className="sub_box_item3" style={{ width: '30%' }}>
                                         {this.state.hairstylesdata.map(item => (
-                                            <div key={item.hairId} style={{ display: "flex", flexWrap: "wrap", marginTop: "1em" }}>
+                                            <div key={item.hairId} style={{ marginBottom: '1em' }}>
                                                 <input
                                                     onClick={this.hairstyleChecked}
                                                     type="checkbox"
@@ -159,18 +107,6 @@ class SelectHairStyle extends Component {
                                             </div>
                                         ))}
                                     </div>
-
-                                    {/* Hair Style */}
-                                    {/* <div class="sub_box_item2">
-                                        <h2 style={{ color: '#cb2c6f', marginLeft: '0.8em' }}>Hair Style</h2>
-                                        <HairStyleItem />
-                                        <HairStyleItem />
-                                        <HairStyleItem />
-                                        <HairStyleItem />
-                                        <HairStyleItem />
-                                        <HairStyleItem />
-                                    </div> */}
-
                                 </div>
 
                                 <form className="container_next" onSubmit={this.handleSubmit} >
