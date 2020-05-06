@@ -16,8 +16,8 @@ class ShopReview extends Component {
     }
 
     componentDidMount() {
-        // this.review(this.props.shopStore.shopName)
-        this.review('newshop4')
+        this.review(this.props.shopStore.shopName)
+        // this.review('newshop4')
     }
 
     review = (keyword) => {
@@ -26,13 +26,13 @@ class ShopReview extends Component {
         Axios.get(reviewurl).then(result => {
             const dataCount = result.data.barber.length
             if (dataCount === undefined) {
-                this.setState({ barberdata: result.data })
+                this.setState({ rows: result.data })
             }
             else {
                 result.data.barber.forEach(item => {
                     dataArray.push(item)
                 })
-                this.setState({ barberdata: dataArray });
+                this.setState({ rows: dataArray });
             }
         })
     }

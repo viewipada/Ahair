@@ -31,9 +31,9 @@ export default class ShopReviewItem extends Component {
 
                 <section>
                     <div class="box_img_shopreview">
-                        <div class="row_box"><img className="image_shop" src={imgUrl[0]} alt="" /></div>
-                        <div class="row_box"><img className="image_shop" src={imgUrl[1]} alt="" /></div>
-                        <div class="row_box"><img className="image_shop" src={imgUrl[2]} alt="" /></div>
+                        <div class="row_box"><img className="image_shop" src={imgUrl} alt="" /></div>
+                        <div class="row_box"><img className="image_shop" src={imgUrl} alt="" /></div>
+                        <div class="row_box"><img className="image_shop" src={imgUrl} alt="" /></div>
                     </div>
                 </section>
             </div>
