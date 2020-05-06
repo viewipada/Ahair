@@ -17,9 +17,9 @@ class SearchPage extends Component {
             shopName: "",
             shopId: "",
             shoprows: [],
-            barberrows: []
+            barberrows: [],
+            addressrows: []
         }
-        // this.keySearch = this.keySearch.bind(this)
     }
 
     handleInputChange = (event) => {
@@ -49,9 +49,9 @@ class SearchPage extends Component {
     search = (keyword) => {
         console.log("Search: " + keyword)
         var dataArray = []
-        // test api: http://api.themoviedb.org/3/search/movie?api_key=0696a5d8f4f751e4493e133825a494f4&query=
-        var shopurl = "https://us-central1-g10ahair.cloudfunctions.net/api/shop" + keyword;
+        var shopurl = "https://us-central1-g10ahair.cloudfunctions.net/api/searchShop?key=" + keyword;
         Axios.get(shopurl).then(result => {
+            console.log("Shop: ",result.data)
             const dataCount = result.data.length
             if(dataCount===undefined){
                 this.setState({ shoprows : result.data })
@@ -63,8 +63,25 @@ class SearchPage extends Component {
                 this.setState({ shoprows : dataArray });
             }
         })
+
+        var addressurl = "https://us-central1-g10ahair.cloudfunctions.net/api/searchAddress?key=" + keyword;
+        Axios.get(addressurl).then(result => {
+            console.log("Address: ",result.data)
+            const dataCount = result.data.length
+            if(dataCount===undefined){
+                this.setState({ addressrows : result.data })
+            }
+            else{
+                result.data.forEach(item => {
+                    dataArray.push(item)
+                })
+                this.setState({ addressrows : dataArray });
+            }
+        })
+
         // var barberurl = "https://us-central1-g10ahair.cloudfunctions.net/api/searchBarber?key=" + keyword;
         // Axios.get(barberurl).then(result => {
+        //     console.log("Barber: ",result.data)
         //     const dataCount = result.data.length
         //     if(dataCount===undefined){
         //         this.setState({ barberrows:result.data })
@@ -87,7 +104,6 @@ class SearchPage extends Component {
         }
         );
     }
-
 
     submit = () =>{
         console.log("submitSearch: ",this.state)
@@ -144,6 +160,12 @@ class SearchPage extends Component {
                                         <ShopItem_S shop_item={item} />
                                     </div>
                                 ))}
+
+                                {/* {this.state.barberrows.map(item => (
+                                    <div key={item.shopId} onClick={() => this.handleOnClick(item)}>
+                                        <ShopItem_S shop_item={item} />
+                                    </div>
+                                ))}  */}
 
                                 {/* </div> */}
                             </section>

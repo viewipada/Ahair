@@ -6,7 +6,7 @@ import { Rating } from 'semantic-ui-react'
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import moment from 'moment/moment'
-import StarRatings from 'react-star-ratings';
+// import StarRatings from 'react-star-ratings';
 
 
 class BookingInfo_Cus extends Component {

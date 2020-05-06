@@ -46,25 +46,24 @@ class FillTimeTable extends Component {
     }
 
     componentDidMount() {
-        this.getBooking('idea')
-        // console.log("TomorrowDate",moment(new Date().setDate(new Date().getDate()+1)).format('L'))
-        // console.log("test: ",moment(this.props.shopStore.shopdata.openTime).hour(),moment(this.props.shopStore.shopdata.closeTime).hour())
-        // this.getBooking('idea')
+        this.getBooking(this.props.shopStore.barberName)
     }
 
     getBooking = (keyword) => {
+        console.log("getBooking: ",keyword)
         var dataArray = []
         var url = "https://us-central1-g10ahair.cloudfunctions.net/api/bookingforbarber/" + keyword;
         Axios.get(url).then(result => {
+            console.log("AxiosGat: ",result.data)
             const dataCount = result.data.length
             if (dataCount === undefined) {
-                this.setState({ bookingdata: result.data })
+                this.setState({ bookingdata: result.data },()=>{console.log("1: ",this.state.bookingdata)});
             }
             else {
                 result.data.forEach(item => {
                     dataArray.push(item)
                 })
-                this.setState({ bookingdata: dataArray });
+                this.setState({ bookingdata: dataArray },()=>{console.log("Array: ",this.state.bookingdata)});
             }
             this.fillEvent()
         })
@@ -95,28 +94,6 @@ class FillTimeTable extends Component {
             }
             id += 1
         })
-
-        // this.state.timetableProps.events.Today.push({
-        //     id: id,
-        //     name: "this.state.bookingdata.bookingId",
-        //     type: 'Invalid',
-        //     startTime: moment('2018-02-22T12:30:00'),
-        //     endTime: moment('2018-02-22T14:30:00')
-        // })
-        // this.state.timetableProps.events.Today.push({
-        //     id: id,
-        //     name: "this.state.bookingdata.bookingId",
-        //     type: 'Invalid',
-        //     startTime: moment('2018-02-22T16:30:00'),
-        //     endTime: moment('2018-02-22T18:45:00')
-        // })
-        // this.state.timetableProps.events.Tomorrow.push({
-        //     id: id,
-        //     name: "this.state.bookingdata.bookingId",
-        //     type: 'Invalid',
-        //     startTime: moment('2018-02-23T11:30:00'),
-        //     endTime: moment('2018-02-23T13:30:00')
-        // })
         this.handleSubmit()
     }
 
