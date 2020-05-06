@@ -52,7 +52,7 @@ class BookingInfo_Cus extends Component {
     }
 
     handleCancle = () => {
-        axios.delete(`https://us-central1-g10ahair.cloudfunctions.net/api/booking/${this.state.bookingId}`, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } })
+        axios.delete(`https://us-central1-g10ahair.cloudfunctions.net/api/bookingfromuser/${this.state.bookingId}`, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } })
             .then(res => {
                 console.log(res.status)
                 this.props.history.push('/noticeforcustomer');

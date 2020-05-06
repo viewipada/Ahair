@@ -72,7 +72,7 @@ class NavBar extends Component {
                             <button className="iconBt"><FaSistrix color='white' size='2em' /></button>
                         </Link>
                     </div>
-                            )
+                            
                         {
                         this.state.isSignin ?
                             (

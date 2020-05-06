@@ -4,6 +4,7 @@ import {Colorstock} from '../redux/index'
 import { Link, Redirect } from 'react-router-dom';
 import NavBarShop from "./NavBarShop";
 import axios from 'axios'
+import moment from 'moment/moment'
 
 export const AddColorCheckBox = props => {
     return (
@@ -92,11 +93,14 @@ class Colors extends React.Component {
         
         console.log(this.state.shopColorstock)
         this.props.stock(this.state.color)
-        
+        let dateObj = new Date();
+        let dateStr = dateObj.toISOString().split('T').shift();
+        let open = moment(dateStr + ' ' + this.props.shopInfoStore.openhours).toISOString();
+        let close = moment(dateStr + ' ' + this.props.shopInfoStore.closehours).toISOString();
         const shopInformation = {
             address : this.props.shopInfoStore.address,
-            openTime : this.props.shopInfoStore.openhours,
-            closeTime : this.props.shopInfoStore.closehours,
+            openTime : open,
+            closeTime : close,
             // shopImg : this.props.shopInfoStore.imageUrl,
             colors : this.state.shopColorstock
         }

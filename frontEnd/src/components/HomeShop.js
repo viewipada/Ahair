@@ -20,7 +20,7 @@ class Shop extends Component {
             barberId: "",
             shopdata: [],
             barberdata: [],
-            hadData :null
+            hadData :false
         }
     }
 
@@ -37,7 +37,8 @@ class Shop extends Component {
             result.data.barber.forEach(item => {
                 dataArray.push(item)
             })
-            this.setState({ barberdata: dataArray , hadData: true});
+            this.setState({ barberdata: dataArray});
+            if(result.data.barberArray) this.setState({hadData: true})
         })
         .catch(function(error) {
             console.log(error)

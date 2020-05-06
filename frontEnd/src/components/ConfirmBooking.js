@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import Navbar from './navbar'
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import moment from 'moment/moment'
 
 class BookingInfo_Cus extends Component {
     constructor(props) {
@@ -17,50 +19,107 @@ class BookingInfo_Cus extends Component {
             barber: '',
             isLoading: true,
             shopId: '',
-            bookingId: ''
+            bookingData: [],
+            isElapes: '',
+            userId: '',
+            isEqual: false,
+
         };
     }
     componentDidMount() {
-        const { bookingId } = this.props.match.params;
-        const dataArray = [];
-        axios.get(`https://us-central1-g10ahair.cloudfunctions.net/api/booking/${bookingId}`)
-            .then((res) => {
-                res.data.hairStyles.forEach(element => {
-                    dataArray.push(element);
-                });
-                dataArray.map(data => {
-                    this.state.hairStyle.push(data.hairName)
-                })
-                this.setState({
-                    date: res.data.date,
-                    startTime: res.data.startTime,
-                    stopTime: res.data.stopTime,
-                    price: res.data.total,
-                    name: res.data.username,
-                    shopname: res.data.shopName,
-                    barber: res.data.barberName,
-                    shopId: res.data.shopId,
-                    isLoading: false,
-                    bookingId: bookingId,
-                    done: res.data.done
-                })
-
+        const baberName = this.props.shopStore.barberName;
+        axios.get(`https://us-central1-g10ahair.cloudfunctions.net/api/bookingforbarber/${baberName}`)
+            .then(res => {
+                this.eventEmpty();
+                this.setState({ bookingData: res.data, isLoading: false })
 
             })
-            .catch((err) => {
-                console.log(err.response);
+        axios.get(`https://us-central1-g10ahair.cloudfunctions.net/api/user`, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } })
+            .then(res => {
+                this.setState({ userId: res.data.userId })
             })
+        
+    }
+
+    eventEmpty = () => {
+        const bookDate = this.props.shopStore.date
+        const startTime = moment(this.props.shopStore.startTime)
+        const stopTime = moment(this.props.shopStore.stopTime)
+        const open = moment(this.props.shopStore.shopdata.openTime)
+        const close = moment(this.props.shopStore.shopdata.closeTime)
+
+        if (open.hour() >= 12 && close.hour() <= 12) {
+            close.add(1, "days");       // handle spanning days
+        }
+        console.log(open,close);
+        const startisBetween = startTime.isBetween(open ,close);
+        const stopisBetween = stopTime.isBetween(open, close);
+        console.log(startisBetween,stopisBetween)
+        if ((!startTime.isBefore(open) && !startTime.isAfter(open)) || (!stopTime.isBefore(close) && !stopTime.isAfter(close))) {
+            this.setState({ isEqual: true });
+        }
+        console.log(this.state.isEqual)
+        if ((startisBetween && stopisBetween) || (startisBetween && this.state.isEqual) || (stopisBetween && this.state.isEqual)) {
+
+            this.state.bookingData.forEach(booking => {
+
+                if (booking.date === bookDate) {
+
+                    if (!startTime.isBefore(moment(booking.startTime)) && startTime.isBefore(moment(booking.stopTime))) {
+                        this.setState({ isElapes: true })
+                        return false
+                        console.log('time elape!!')
+                    }
+                    else if (!stopTime.isBefore(moment(booking.startTime)) && stopTime.isBefore(moment(booking.stopTime))) {
+                        this.setState({ isElapes: true })
+                        return false
+                        console.log('time elape!!')
+                    }
+                    else {
+                        console.log('time not elape!!')
+                    }
+                }
+            })
+        }
+        else{
+            this.setState({isElapes:true})
+            console.log('here')
+        }
+        if (this.state.isElapes) {
+           this.props.history.push('/filltimetable');
+        }
+
+    }
+
+    onClickConfirm = () => {
+        const bookData = {
+            username: localStorage.getItem('username'),
+            userId: this.state.userId,
+            shopId: this.props.shopStore.shopId,
+            shopName: this.props.shopStore.ShopName,
+            barberId: this.props.shopStore.barberId,
+            barberName: this.props.shopStore.barberName,
+            hairStyles: this.props.shopStore.hairStyles,
+            total: this.props.shopStore.total,
+            date: this.props.shopStore.date,
+            startTime: this.props.shopStore.startTime,
+            stopTime: this.props.shopStore.stopTime,
+        }
+        if (!this.state.isElapes) {
+            axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/bookings', bookData, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } })
+                .then(res => {
+                    console.log(res)
+                    this.props.push('/home')
+                })
+                .catch(err => {
+                    console.log(err.response)
+                })
+        }
+
     }
 
     handleCancle = () => {
-        axios.delete(`https://us-central1-g10ahair.cloudfunctions.net/api/booking/${this.state.bookingId}`, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } })
-            .then(res => {
-                console.log(res.status)
-                this.props.history.push('/noticeforcustomer');
-            })
-            .catch(err => {
-                console.log(err.response)
-            })
+        this.props.history.push('/home');
     }
 
     render() {
@@ -73,7 +132,7 @@ class BookingInfo_Cus extends Component {
                             color: "#cb2c6f",
                             fontSize: "30px",
                             fontFamily: "cloud",
-                        }}>Booking Infomation</h1>
+                        }}>Confirm Booking</h1>
                     </div>
                     {
                         this.state.isLoading ? (
@@ -82,25 +141,36 @@ class BookingInfo_Cus extends Component {
                             :
                             (
                                 <div className='BookInfo' >
-                                    <p>Name           <span className="subdetail">{this.state.name}</span></p>
-                                    <p>Hair Styles    <span className="subdetail">{this.state.hairStyle.join(' , ')}</span></p>
-                                    <p>Barber         <span className="subdetail">{this.state.barber}</span></p>
-                                    <p>Total Price    <span className="subdetail">{this.state.price} Bath</span></p>
-                                    <p>Date           <span className="subdetail">{this.state.date}</span></p>
-                                    <p>Time           <span className="subdetail">{this.state.startTime} - {this.state.stopTime} </span></p>
+                                    <p>Name           <span className="subdetail">{localStorage.getItem('username')}</span></p>
+                                    <p>Hair Styles    </p>
+                                    {
+                                        this.props.shopStore.hairStyles &&
+                                        this.props.shopStore.hairStyles.map(data => {
+                                            return (
+                                                <div key={data.hairName}>
+                                                    <span className='subdetail'><i className='hand point right icon' style={{ color: '#cb2d6f' }}></i>HairStyle : {data.hairName}</span>
+                                                </div>
+                                            );
+                                        })
+                                    }
+                                    <p>Barber         <span className="subdetail">{this.props.shopStore.barberName}</span></p>
+                                    <p>Total Price    <span className="subdetail">{this.props.shopStore.total} Bath</span></p>
+                                    <p>Date           <span className="subdetail">{this.props.shopStore.date}</span></p>
+                                    <p>Time           <span className="subdetail">{moment(this.props.shopStore.startTime).format("kk:mm")} - {moment(this.props.shopStore.stopTime).format("kk:mm")} </span></p>
                                 </div>
                             )
                     }
 
                     <div className="container_right_bt" >
-                        <Link className='link' to='/noticeforcustomer'>
-                            <button
-                                type="submit"
-                                className="submit_button"
-                            >
-                                OK
+
+                        <button
+                            type="submit"
+                            className="submit_button"
+                            onClick={() => this.onClickConfirm()}
+                        >
+                            OK
                     </button>
-                        </Link>
+
                         {
                             this.state.done ?
                                 (
@@ -123,5 +193,9 @@ class BookingInfo_Cus extends Component {
         );
     }
 }
-
-export default BookingInfo_Cus;
+const mapStateToProps = (state) => { //subscribe
+    return {
+        shopStore: state.ShopReducer.shop
+    }
+}
+export default connect(mapStateToProps)(BookingInfo_Cus);
