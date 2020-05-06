@@ -72,7 +72,7 @@ class App extends React.Component {
               <Route path='/editprofileshop' component={EditProfileShop} />
               <Route path='/hairstyles' component={HairStyles} />
               <PrivateRoute path='/ReviewforCustomer/:bookingId' component={Review_Cus}/>
-              <PrivateRoute path='/ReviewforShop/:bookingId' component={Review_Shop}/>
+              <Route path='/ReviewforShop/:bookingId' component={Review_Shop}/>
               <Route path='/home' component={Home}/>
               <Route path='/pricelist' component={PriceList} />
               <Route path='/hairbarber' component={HairBarBer} />

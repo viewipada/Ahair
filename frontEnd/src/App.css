@@ -1854,6 +1854,36 @@ button[type='signIn_2']:hover {
 .container .card:not(:nth-child(5)) {
   margin-right: 1em;
 }
+
+/**ConfirmBox**/
+.custom-ui{
+  background-color: #14a098;
+  display: inline-flexbox;
+  justify-content: center;
+  padding: 10%;
+  width: 130%;
+  box-shadow: #0f292f;
+  border-radius: 10px;
+}
+.confirmBT{
+  width: 30%;
+  height: 30px;
+  justify-content: center;
+  position: relative;
+  display: inline-flex;
+  background-color: #cb2c6f;
+  border-radius: 5px;
+  color: #ffffff;
+  margin-top: 10%;
+  margin-left: 15%;
+  box-shadow: #0f292f;
+}
+.confirmBT:hover{
+  background: -webkit-linear-gradient( #cb2c6f, #0F292F);
+  background: -o-linear-gradient( #cb2c6f, #0F292F);
+  background: -moz-linear-gradient( #cb2c6f, #0F292F);
+  background: linear-gradient( #cb2c6f, #0F292F);
+}
 .container1 {
   display: flex;
   width: 100%;

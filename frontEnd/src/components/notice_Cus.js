@@ -74,26 +74,11 @@ class notice_Cus extends Component {
                                         return (
 
                                             <div key={data.bookingId}>
-                                                < button className='NoticeContent' onClick={() => this.onclickBooking(data.bookingId)}>
-                                                    <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}>
-                                                        Booking Information</p>
-                                                    <p
-                                                        style={{
-                                                            margin: '0px 0px 20px 25px',
-                                                            fontSize: '10px',
-                                                            color: '#8DE8E3',
-                                                        }}>
-                                                        order number #{data.bookingId}
-                                                    </p>
-                                                    <a style={{ marginLeft: '20px', color: "white", fontSize: '10px', marginBottom: '20px' }}>
-                                                        <i className="hand point right outline icon" style={{ color: 'white' }}></i>
-                                                    click for more information</a>
-                                                </button>
                                                 {
                                                     (data.done && !data.reviewedFromUser) ?
                                                         (
                                                             <button className='NoticeContent' onClick={() => this.onclickReview(data.bookingId, data.reviewedFromUser)}>
-                                                                <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}>Review your new Look!</p>
+                                                                <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}><i className='thumbs up icon'></i> Review your new Look!</p>
                                                                 <p
                                                                     style={{
                                                                         margin: '0px 0px 20px 25px',
@@ -110,7 +95,21 @@ class notice_Cus extends Component {
                                                         :
                                                         (null)
                                                 }
-                                                
+                                                < button className='NoticeContent' onClick={() => this.onclickBooking(data.bookingId)}>
+                                                    <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}>
+                                                    <i className='thumbtack icon'></i>    {data.done?'Booking Information (Done!)':'Booking Information'}</p>
+                                                    <p
+                                                        style={{
+                                                            margin: '0px 0px 20px 25px',
+                                                            fontSize: '10px',
+                                                            color: '#8DE8E3',
+                                                        }}>
+                                                        order number #{data.bookingId}
+                                                    </p>
+                                                    <p style={{ marginLeft: '20px', color: "white", fontSize: '10px', marginBottom: '20px' }}>
+                                                        <i className="hand point right outline icon" style={{ color: 'white' }}></i>
+                                                    click for more information</p>
+                                                </button>
 
                                             </div>
                                         );
