@@ -1020,6 +1020,7 @@ ul a:hover {
     /* margin-top: 3%; */
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 .catbt{
     position: relative;
@@ -1843,4 +1844,46 @@ button[type='signIn_2']:hover {
 }
 .container .card:not(:nth-child(5)) {
   margin-right: 1em;
+}
+.container1 {
+  display: flex;
+  width: 100%;
+  padding: 10px 0 10px 0;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  /* flex-direction: column ; */
+}
+.boxpreview {
+  display: flex;
+  width: 100%;
+  padding: 10px 0 10px;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+}
+.box {
+  margin: 2px;
+  filter: grayscale(100%);
+}
+.box:hover{
+  cursor: pointer;
+  filter: grayscale(0);
+  /* width: 105%; */
+}
+.card:hover{
+  cursor: pointer;
+}
+.wrap_content {
+  width: 100%;
+  /* position: relative; */
+  /* border-radius: 25px; */
+  /* margin-right: 80px; */
+  background-color: rgba(18, 94, 90, 0.3);
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* height: 80vmin; */
 }
