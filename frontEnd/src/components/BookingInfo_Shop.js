@@ -6,6 +6,7 @@ import { Rating } from 'semantic-ui-react'
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import moment from 'moment/moment'
+import StarRatings from 'react-star-ratings';
 
 
 class BookingInfo_Cus extends Component {
@@ -26,7 +27,7 @@ class BookingInfo_Cus extends Component {
             done: '',
             averageRate: '0',
             color: '',
-            startTime:''
+            startTime: ''
         };
     }
     componentDidMount() {
@@ -54,7 +55,8 @@ class BookingInfo_Cus extends Component {
                 })
                 axios.get(`https://us-central1-g10ahair.cloudfunctions.net/api/reviewfromShop/${this.state.name}`)
                     .then(res => {
-                        this.setState({ averageRate: res.data.averageRate })
+                        this.setState({ averageRate: parseInt(res.data.averageRate) })
+                        
                     })
                     .catch((err) => {
                         console.log(err.response);
@@ -70,8 +72,8 @@ class BookingInfo_Cus extends Component {
             customUI: ({ onClose }) => {
                 return (
                     <div className='custom-ui'>
-                        <h1 style={{ color: 'white', textAlign: 'center' }}>Are you sure to Booking?</h1>
-                        <button className='confirmBT' onClick={() => this.delBook()}>Yes</button>
+                        <h1 style={{ color: 'white', textAlign: 'center' }}>Are you sure to CANCEL this Booking?</h1>
+                        <button className='confirmBT' onClick={() => { this.delBook(); onClose(); }}>Yes</button>
                         <button
                             className='confirmBT'
                             onClick={() => {
@@ -96,36 +98,36 @@ class BookingInfo_Cus extends Component {
             })
     }
     onClickStart = () => {
-        if(moment().isAfter(moment(this.state.startTime))||(!moment().isBefore(moment(this.state.startTime))&&!moment().isAfter(moment(this.state.startTime)))){
+        if (moment().isAfter(moment(this.state.startTime)) || (!moment().isBefore(moment(this.state.startTime)) && !moment().isAfter(moment(this.state.startTime)))) {
             axios.get(`https://us-central1-g10ahair.cloudfunctions.net/api/done/${this.state.bookingId}`, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } })
-            .then(res => {
-                this.props.history.push('/dontforgettoreview');
-            })
-            .catch(err => {
-                console.log(err.response);
-            })
+                .then(res => {
+                    this.props.history.push('/dontforgettoreview');
+                })
+                .catch(err => {
+                    console.log(err.response);
+                })
         }
-        else{
+        else {
             console.log(moment().isAfter(moment(this.state.startTime)))
             confirmAlert({
                 customUI: ({ onClose }) => {
-                  return (
-                    <div className='custom-ui'>
-                      <h1 style={{color:'white',textAlign:'center'}}>It not a Booking Time!</h1>
-                      <button
-                        className='confirmBT'
-                        onClick={() => {
-                          onClose();
-                        }}
-                      >
-                        OK
+                    return (
+                        <div className='custom-ui'>
+                            <h1 style={{ color: 'white', textAlign: 'center' }}>It not a Booking Time!</h1>
+                            <button
+                                className='confirmBT'
+                                onClick={() => {
+                                    onClose();
+                                }}
+                            >
+                                OK
                       </button>
-                    </div>
-                  );
+                        </div>
+                    );
                 }
-              });
+            });
         }
-        
+
     }
     render() {
         return (
@@ -146,7 +148,8 @@ class BookingInfo_Cus extends Component {
                             :
                             (
                                 <div className='BookInfo' >
-                                    <p>Name           <span className="subdetail">{this.state.name} (rate : {this.state.averageRate})</span> </p>
+                                    <p>Name           <span className="subdetail">{this.state.name}
+                                        (rate : {parseFloat(this.state.averageRate).toFixed(2)})</span> </p>
                                     <p>Hair Styles    </p>
                                     {
                                         this.state.hairStyle &&
@@ -174,7 +177,7 @@ class BookingInfo_Cus extends Component {
                                     <p>Barber         <span className="subdetail">{this.state.barber}</span></p>
                                     <p>Total Price    <span className="subdetail">{this.state.price} Bath</span></p>
                                     <p>Date           <span className="subdetail">{this.state.date}</span></p>
-                                    <p>Time           <span className="subdetail">{this.state.startTime} - {this.state.stopTime} </span></p>
+                                    <p>Time           <span className="subdetail">{moment(this.state.startTime).format('kk:mm')} - {moment(this.state.stopTime).format('kk:mm')} </span></p>
                                 </div>
                             )
                     }

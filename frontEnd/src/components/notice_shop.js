@@ -70,13 +70,21 @@ class notice_Cus extends Component {
                                 this.state.noticecontent &&
                                 this.state.noticecontent.map((data) => {
                                     return (
-                                        
+
                                         <div key={data.bookingId}>
                                             {
                                                 (data.done && !data.reviewedFromShop) ?
                                                     (
                                                         <button className='NoticeContent' onClick={() => this.onclickReview(data.bookingId, data.reviewedFromShop)}>
                                                             <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}><i className='thumbs up icon'></i> Review your Customer Here!</p>
+                                                            <p
+                                                                style={{
+                                                                    margin: '0px 0px 0px 50px',
+                                                                    fontSize: '15px',
+                                                                    color: 'white',
+                                                                }}>
+                                                                username : {data.username}
+                                                            </p>
                                                             <p
                                                                 style={{
                                                                     margin: '0px 0px 20px 25px',
@@ -95,7 +103,15 @@ class notice_Cus extends Component {
                                             }
                                             < button className='NoticeContent' onClick={() => this.onclickBooking(data.bookingId)}>
                                                 <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}>
-                                                    <i className='bookmark icon'></i>{data.done ? 'Booking Done!' : 'New Booking'}</p>
+                                                    <i className={data.done ? 'check icon' : 'bookmark icon'}></i>{data.done ? 'Booking Done!' : 'New Booking'}</p>
+                                                <p
+                                                    style={{
+                                                        margin: '0px 0px 0px 50px',
+                                                        fontSize: '15px',
+                                                        color: 'white',
+                                                    }}>
+                                                    username : {data.username}
+                                                </p>
                                                 <p
                                                     style={{
                                                         margin: '0px 0px 20px 25px',
