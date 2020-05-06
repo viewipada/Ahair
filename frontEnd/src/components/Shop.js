@@ -105,6 +105,11 @@ class Shop extends Component {
         this.getHairStyle(this.props.shopStore.shopName)
     }
 
+    toReview= ()=>{
+        this.props.shop(this.state)
+        this.props.history.push('/shopreview')
+    }
+
     render() {
         return (
             <body class="is-preload">
@@ -144,12 +149,12 @@ class Shop extends Component {
                                         <p style={{ color: '#14a098' }}>Tel. {this.state.shopdata.phoneNum}</p>
                                         <p style={{ color: '#14a098' }}>Email.{this.state.shopdata.email}</p>
                                     </div>
-                                    <Link to="/shopreview" class="sub_box_item">
+                                    <div onClick={()=>{this.toReview()}} class="sub_box_item">
                                         <h2 style={{ color: '#cb2c6f' }}>Review</h2>
                                         <div className="description" style={{ color: 'goldenrod' }}>
                                             Rate <Rating defaultRating={this.state.shopdata.averageRate} maxRating={5} disabled icon='star' /> ({this.state.shopdata.averageRate + 0})
                                         </div>
-                                    </Link>
+                                    </div>
                                     <div class="sub_box_item">
                                         <h2 style={{ color: '#cb2c6f' }}>Location</h2>
                                         <p style={{ color: '#14a098' }}>{this.state.shopdata.address}</p>

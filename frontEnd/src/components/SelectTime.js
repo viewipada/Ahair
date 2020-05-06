@@ -121,7 +121,7 @@ class SelectTime extends Component {
                                                 <h3 style={{ color: '#cb2c6f' }}>{this.props.shopStore.barberName}</h3>
                                                 {/* <p style={{ color: '#cb2c6f' }}>HairStyle Name</p> */}
                                                 <p style={{ color: '#14a098' }}>{this.props.shopStore.totalTime} min.</p>
-                                                <p style={{ color: '#14a098' }}>{this.props.shopStore.total} bath</p>
+                                                <p style={{ color: '#14a098' }}>{this.props.shopStore.total} baht</p>
                                             </div>
                                         </div>
                                     </div>

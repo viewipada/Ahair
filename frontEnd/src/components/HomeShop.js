@@ -26,7 +26,7 @@ class HomeShop extends Component {
     }
 
     componentDidMount() {
-        this.getShopData(this.props.adminStore.shopName)
+        // this.getShopData(this.props.adminStore.shopName)
     }
 
     getShopData = (keyword) => {
@@ -34,13 +34,15 @@ class HomeShop extends Component {
         var dataArray = []
         var barberurl = "https://us-central1-g10ahair.cloudfunctions.net/api/barber/" + localStorage.getItem('shopname');
         Axios.get(barberurl).then(result => {
-            console.log(result.data)
+            console.log("local: ",localStorage.data)
+            console.log("GetAxios: ",result.data)
             this.setState({ shopdata: result.data });
             result.data.barber.forEach(item => {
                 dataArray.push(item)
             })
             this.setState({ barberdata: dataArray});
             if(result.data.barber) this.setState({hadData: true})
+            console.log("push: ", this.state.shopdata, this.state.barberdata)
         })
         .catch(function(error) {
             console.log(error)
@@ -101,7 +103,7 @@ class HomeShop extends Component {
                                     {/* information */}
                                     <div class="box_item2" style={{ border: '0' }}>
                                         <div class="sub_box_item">
-                                            <h2 style={{ color: '#cb2c6f' }}>Description</h2>
+                                            <h2 style={{ color: '#cb2c6f' }}>Contact</h2>
                                             <p style={{ color: '#14a098' }}>Tel. {this.state.shopdata.phoneNum}</p>
                                             <p style={{ color: '#14a098' }}>Email.{this.state.shopdata.email}</p>
                                         </div>

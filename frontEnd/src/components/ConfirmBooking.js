@@ -54,7 +54,7 @@ class BookingInfo_Cus extends Component {
         if ((!startTime.isBefore(open) && !startTime.isAfter(open)) || (!stopTime.isBefore(close) && !stopTime.isAfter(close))) {
             this.setState({ isEqual: true });
         }
-        if ((startisBetween && stopisBetween) || (startisBetween && this.state.isEqual) || (stopisBetween && this.state.isEqual) || (startTime != stopTime)) {
+        if ((startisBetween && stopisBetween) || (startisBetween && this.state.isEqual) || (stopisBetween && this.state.isEqual)) {
             console.log(this.state.bookingData)
             this.state.bookingData.forEach(booking => {
                 console.log('sas')

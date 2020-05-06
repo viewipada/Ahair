@@ -36,6 +36,12 @@ export const Shop_6 = (data) => {
         payload: data //object
     }
 }
+export const Shop_7 = (data) => {
+    return {
+        type: SHOP,
+        payload: data //object
+    }
+}
 export const HomeShop = (data) => {
     return{
         type: SHOP,

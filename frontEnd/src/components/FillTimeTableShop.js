@@ -10,18 +10,18 @@ class FillTimeTableShop extends Component {
         super(props)
 
         this.state = {
-            // today: moment(new Date()).format('L'),
-            // tomorrow: moment(new Date().setDate(new Date().getDate()+1)).format('L'),
-            today: "22/05/2020",
-            tomorrow: "27/05/2020",
+            today: moment(new Date()).format('L'),
+            tomorrow: moment(new Date().setDate(new Date().getDate()+1)).format('L'),
+            // today: "22/05/2020",
+            // tomorrow: "27/05/2020",
             bookingdata: [],
             timetableProps: {
                 events: {
                     Today: [],
                     Tomorrow: []
                 },
-                // hoursInterval: [moment(this.props.adminStore.shopdata.openTime).hour(), moment(this.props.adminStore.shopdata.closeTime).hour()],
-                hoursInterval: [8, 20],
+                hoursInterval: [moment(this.props.adminStore.shopdata.openTime).hour(), moment(this.props.adminStore.shopdata.closeTime).hour()],
+                // hoursInterval: [8, 20],
                 timeLabel: "Time",
                 renderHour(hour, defaulAttributes, styles) {
                     return (
@@ -46,10 +46,10 @@ class FillTimeTableShop extends Component {
     }
 
     componentDidMount() {
-        // this.getBooking(this.props.shopStore.barbarName)
+        this.getBooking(this.props.adminStore.barberName)
         // console.log("TomorrowDate",moment(new Date().setDate(new Date().getDate()+1)).format('L'))
         // console.log("test: ",moment(this.props.shopStore.shopdata.openTime).hour(),moment(this.props.shopStore.shopdata.closeTime).hour())
-        this.getBooking('idea')
+        // this.getBooking('idea')
     }
 
     getBooking = (keyword) => {

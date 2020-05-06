@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { FaSistrix } from "react-icons/fa"
 import Axios from 'axios'
 import ShopItem_S from './ShopItem_S'
-import Sidebar from './Sidebar'
 import NavBar from './navbar'
 import { connect } from 'react-redux';
 import { Shop_1 } from '../redux/index'
@@ -18,7 +17,8 @@ class SearchPage extends Component {
             shopId: "",
             shoprows: [],
             barberrows: [],
-            addressrows: []
+            addressrows: [],
+            isLoading: true,
         }
     }
 

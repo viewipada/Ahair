@@ -8,3 +8,4 @@ import { Route, Redirect } from 'react-router-dom';
             : <Redirect to={{ pathname: '/home', state: { from: props.location } }} />
     )} />
 )
+
