@@ -1592,6 +1592,15 @@ button[type='signIn_2']:hover {
   width: 100%;
 }
 
+.sub_box_item4 {
+  position: relative;
+  width: 30%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  /* margin-top: 1em; */
+}
+
 .sub_box_item a{
   text-decoration: none;
 }

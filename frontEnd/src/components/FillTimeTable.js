@@ -111,7 +111,7 @@ class FillTimeTable extends Component {
     handleSubmit = () => {
         console.log("handleSubmitFillTimeTable :", this.state)
         this.props.shop(this.state)
-        this.props.history.push('/selecttime')
+        // this.props.history.push('/selecttime')
     }
 
     render() {

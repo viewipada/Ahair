@@ -29,27 +29,20 @@ class SelectTime extends Component {
             stopTime: new Date(),
             calstartTime: new Date(),
             showstopTime: new Date(),
-            totalTime: 90
-            // moment().toISOString()
+            totalTime: this.props.shopStore.totalTime
         };
     }
 
     componentDidMount() {
-        // console.log("Timetable: ", this.state.timetableProps)
-        // console.log("shopStore: ", this.props.shopStore)
-        // console.log("Datepicker", setHours(setMinutes(new Date(), 0), 7))
-        // console.log(moment('2018-02-23T11:30:00').format('LLL'))
         document.getElementById("myBtn").disabled = true
+        console.log("Test",setHours(setMinutes(new Date(), 0), 0))
     }
 
     handleChange = date => {
         this.setState({
             calstartTime: date,
             startTime: moment(date).toISOString()
-        },
-            () => {
-                console.log("Change: ", this.state)
-            });
+        });
     };
 
     handleSelect = date => {
@@ -70,11 +63,7 @@ class SelectTime extends Component {
         this.setState({ 
             stopTime: moment(this.state.calstartTime).add(this.state.totalTime, 'minutes').toISOString(),
             showstopTime: moment(this.state.calstartTime).add(this.state.totalTime, 'minutes')
-        },
-            () => {
-                console.log("StopTime: ",this.state)
-                console.log("datewithmomentandISOSrting: ",moment(this.state.date).toISOString())
-            })
+        })
     }
 
     handleSubmit = () => {
@@ -159,12 +148,6 @@ class SelectTime extends Component {
                                                 placeholderText="Select Start Time"
                                                 showTimeInput
                                                 timeInputLabel="Time:"
-                                                excludeTimes={[
-                                                    setHours(setMinutes(new Date(), 0), 7),
-                                                    setHours(setMinutes(new Date(), 30), 18),
-                                                    setHours(setMinutes(new Date(), 0), 9),
-                                                    setHours(setMinutes(new Date(), 30), 17)
-                                                ]}
                                                 minTime={setHours(setMinutes(new Date(), 0), 0)}
                                                 maxTime={setHours(setMinutes(new Date(), 30), 20)}
                                                 dateFormat="MM/dd/yyyy h:mm aa"
