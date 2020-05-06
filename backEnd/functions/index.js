@@ -32,6 +32,7 @@ const {
 
 const {
   addBooking,
+  addBookingByShop,
   getBooking,
   getBookingForOneUser,
   getBookingForOneShop,
@@ -121,6 +122,7 @@ app.get("/searchBarber", searchBarber); //searchBarber
 
 //bookings routes
 app.post("/bookings", FBAuth, addBooking);
+app.post("/bookingsByShop", FBAuthforShop, addBookingByShop);//addBookingByShop
 app.get("/booking/:bookingId", getBooking);
 app.get("/booking", FBAuth, getBookingForOneUser); //getBookingForOneUser
 app.get("/bookingforshop", FBAuthforShop, getBookingForOneShop); //getBookingForOneShop
