@@ -97,7 +97,7 @@ class SelectTimeShop extends Component {
     submit = () => {
         console.log("handleSubmitSelectTime :", this.state)
         this.props.admin(this.state)
-        this.props.history.push('/confirmbooking')
+        this.props.history.push('/confirmbookingshop')
     }
 
     render() {
@@ -184,7 +184,7 @@ class SelectTimeShop extends Component {
                         </div>
                     </div>
                 </div>
-            </body >
+            </body>
         );
     }
 }
