@@ -50,7 +50,7 @@ class review_Cus extends React.Component {
                             Review Customer
                     </h1>
                     </div>
-                    <div className="starRate" style={{ margin: "13%" }}>
+                    <div className="starRate" style={{ margin: "10%" }}>
                         <StarRate getStar={this.getStar} />
                     </div>
                     <div className="container_right_bt" >
