@@ -89,7 +89,7 @@ class SelectTime extends Component {
                             <section>
 
                                 <div class="topic" style={{ marginTop: '0.4em', marginLeft: '-1em' }}>
-                                    <a href="/shop"><img class="shop_logo" src={this.props.shopStore.shopdata.imgUrl} /></a>
+                                    <img class="shop_logo" src={this.props.shopStore.shopdata.imgUrl} />
                                     {this.props.shopStore.shopName}
                                 </div>
                                 <hr class="major" />
@@ -98,13 +98,13 @@ class SelectTime extends Component {
                                     <div class="sub_box_item2" style={{ padding: '0' }}>
                                         <div class="box_item2" style={{ textAlign: 'left', marginLeft: '-4em' }}>
                                             {/* image */}
-                                            <div class="row_box"><img className="image_shop" src={img1} alt="" /></div>
+                                            {/* <div class="row_box"><img className="image_shop" src={img1} alt="" /></div> */}
                                             {/* เขียว color: '#cb2c6f' */}
                                             <div class="sub_box_item2" style={{ paddingTop: '1.5em' }}>
-                                                <h3 style={{ color: '#cb2c6f' }}>{this.props.shopStore.barberName}</h3>
+                                                <h1 style={{ color: '#cb2c6f' }}>{this.props.shopStore.barberName}</h1>
                                                 {/* <p style={{ color: '#cb2c6f' }}>HairStyle Name</p> */}
-                                                <p style={{ color: '#14a098' }}>{this.props.shopStore.totalTime} min.</p>
-                                                <p style={{ color: '#14a098' }}>{this.props.shopStore.total} baht</p>
+                                                <h3 style={{ color: '#14a098' }}>{this.props.shopStore.totalTime} min.</h3>
+                                                <h3 style={{ color: '#14a098' }}>{this.props.shopStore.total} baht</h3>
                                             </div>
                                         </div>
                                     </div>
