@@ -120,7 +120,7 @@ class SelectTimeShop extends Component {
 
                                 {/* Topic */}
                                 <div class="topic" style={{ marginTop: '0.4em', marginLeft: '-1em' }}>
-                                    <a href="/shop"><img class="shop_logo" src={shopIcon} /></a>
+                                    <img class="shop_logo" src={this.props.adminStore.shopdata.imgUrl} />
                                     {localStorage.getItem('shopname')}
                                 </div>
                                 <hr class="major" />
@@ -130,7 +130,7 @@ class SelectTimeShop extends Component {
                                     <div class="sub_box_item2" style={{ padding: '0' }}>
                                         <div class="box_item2" style={{ textAlign: 'left', marginLeft: '-4em' }}>
                                             {/* image */}
-                                            <div class="row_box"><img className="image_shop" src={img1} alt="" /></div>
+                                            {/* <div class="row_box"><img className="image_shop" src={img1} alt="" /></div> */}
                                             {/* เขียว color: '#cb2c6f' */}
                                             <div class="sub_box_item2" style={{ paddingTop: '1.5em' }}>
                                                 <h2 style={{ color: '#cb2c6f' }}>{this.props.adminStore.barberName}</h2>
