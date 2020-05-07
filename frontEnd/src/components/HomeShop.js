@@ -110,9 +110,9 @@ class HomeShop extends Component {
                                             <p style={{ color: '#14a098' }}>Email.{this.state.shopdata.email}</p>
                                         </div>
                                         <div class="sub_box_item">
-                                            <a href="/shopreview"><h2 style={{ color: '#cb2c6f' }}>Rate</h2></a>
+                                            <a href="/shopreview"><h2 style={{ color: '#cb2c6f' }}>Review</h2></a>
                                             <p style={{ color: 'goldenrod' }}>
-                                            <Rating defaultRating={this.state.shopdata.averageRate} maxRating={5} disabled icon='star' /> ({this.state.shopdata.averageRate+0})
+                                            {/* <Rating defaultRating={this.state.shopdata.averageRate} maxRating={5} disabled icon='star' /> ({this.state.shopdata.averageRate+0}) */}
                                             </p>
                                         </div>
                                         <div class="sub_box_item">
