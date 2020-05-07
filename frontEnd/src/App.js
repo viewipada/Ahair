@@ -39,6 +39,7 @@ import SelectTimeShop from './components/SelectTimeShop';
 import FillTimeTable from './components/FillTimeTable';
 import FillTimeTableShop from './components/FillTimeTableShop';
 import {PrivateRoute} from './components/PrivateRoute'
+import {PrivateRouteShop} from './components/PrivateRouteShop'
 import HomeShop from './components/HomeShop';
 import dontforgettoreview from './components/dontforget2Review'
 import confirmBooking from './components/ConfirmBooking'
@@ -50,7 +51,7 @@ import CategoryOne from './components/CategoryOne'
 import CategoryTwo from './components/CategoryTwo'
 import CategoryThree from './components/CategoryThree'
 import CategoryFour from './components/CategoryFour'
-import ConfirmBooking from './components/ConfirmBooking'
+import ConfirmBookingShop from './components/ConfirmBookingShop'
 
 class App extends React.Component {
   render() {
@@ -106,6 +107,7 @@ class App extends React.Component {
               <Route path='/content-2' component={CategoryTwo} />
               <Route path='/content-3' component={CategoryThree} />
               <Route path='/content-4' component={CategoryFour} />
+              <Route path='/confirmBookingShop' component={ConfirmBookingShop}/>
             </Switch>
           </div>
         </Router>

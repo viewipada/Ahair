@@ -100,7 +100,7 @@ class SelectHairStyle extends Component {
 
                                 {/* Topic */}
                                 <div class="topic" style={{ marginTop: '0.4em', marginLeft: '-1em' }}>
-                                    <a href="/shop"><img class="shop_logo" src={shopIcon} /></a>
+                                    <a href="/shop"><img class="shop_logo" src={this.props.shopStore.shopdata.imgUrl} /></a>
                                     {this.props.shopStore.shopName}
                                 </div>
                                 <hr class="major" />
