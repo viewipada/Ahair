@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import moment from 'moment/moment'
-import shopIcon from './pic/1.jpg'
-import Sidebar from './Sidebar'
 import NavBar from './navbar'
 import img1 from './pic/1.jpg'
 import { connect } from 'react-redux';
@@ -12,8 +10,7 @@ import Timetable from 'react-timetable-events'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import addDays from 'date-fns/addDays'
-import setHours from 'date-fns/setHours'
-import setMinutes from 'date-fns/setMinutes'
+
 
 class SelectTime extends Component {
 
@@ -67,6 +64,7 @@ class SelectTime extends Component {
             date:moment(this.state.calstartTime).format('L'),   
         },
         ()=>{
+            console.log("Check: ",moment(this.state.calstartTime).format('L'),moment(this.state.calstopTime).format('L'))
             this.submit()
         })
     }
@@ -84,32 +82,17 @@ class SelectTime extends Component {
 
                 <NavBar />
 
-                {/* <!-- Wrapper --> */}
                 <div id="wrapper">
-
-                    {/* Sidebar */}
-                    {/* <Sidebar /> */}
-
-                    {/* <!-- Main --> */}
                     <div id="main">
 
-                        {/* <!-- Content --> */}
                         <div class="inner">
                             <section>
 
-                                {/* Topic */}
                                 <div class="topic" style={{ marginTop: '0.4em', marginLeft: '-1em' }}>
-                                    <a href="/shop"><img class="shop_logo" src={shopIcon} /></a>
+                                    <a href="/shop"><img class="shop_logo" src={this.props.shopStore.shopdata.imgUrl} /></a>
                                     {this.props.shopStore.shopName}
                                 </div>
                                 <hr class="major" />
-
-                                {/* Edit Button for admin */}
-                                {/* <Link className="link" to="/shop">
-                                    <button type="back" name="Signin">Edit</button>
-                                </Link> */}
-
-
                                 <div class="box_item2" style={{ padding: '0' }}>
                                     {/* Hair Style Info */}
                                     <div class="sub_box_item2" style={{ padding: '0' }}>
@@ -121,7 +104,7 @@ class SelectTime extends Component {
                                                 <h3 style={{ color: '#cb2c6f' }}>{this.props.shopStore.barberName}</h3>
                                                 {/* <p style={{ color: '#cb2c6f' }}>HairStyle Name</p> */}
                                                 <p style={{ color: '#14a098' }}>{this.props.shopStore.totalTime} min.</p>
-                                                <p style={{ color: '#14a098' }}>{this.props.shopStore.total} bath</p>
+                                                <p style={{ color: '#14a098' }}>{this.props.shopStore.total} baht</p>
                                             </div>
                                         </div>
                                     </div>

@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 class MultipleImageUpload extends React.Component {
 
@@ -29,9 +30,20 @@ class MultipleImageUpload extends React.Component {
     handleSubmit = event => {
         event.preventDefault()
         // console.log(this.state.imageFile)
+        let formData = new FormData()
+
         if(!this.state.isSaved){
             this.props.getFile(this.state.imageFile, this.state.imagePreview, this.state.imageUrl )
         }
+
+        formData.append('imgUrl',this.state.imageFile)
+        axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/user/shopDetails/image',formData,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        });
     }
 
     handleChange = event => {
@@ -76,7 +88,7 @@ class MultipleImageUpload extends React.Component {
                         type = "file"
                         id = "image_file"
                         onChange = {this.handleChange}
-                        style={{display: this.state.imageFile.length == 5? "none": "flex"}}
+                        style={{display: this.state.imageFile.length == 1? "none": "flex"}}
                     />
                     <div className="wrap_button">
                         <button className={this.state.isSaved? "showsave_button": "hidsave_button"} type="submit" onClick={this.hideSaved}>

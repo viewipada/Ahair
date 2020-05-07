@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { FaSistrix } from "react-icons/fa"
 import Axios from 'axios'
 import ShopItem_S from './ShopItem_S'
-import Sidebar from './Sidebar'
 import NavBar from './navbar'
 import { connect } from 'react-redux';
 import { Shop_1 } from '../redux/index'
@@ -18,7 +17,7 @@ class SearchPage extends Component {
             shopId: "",
             shoprows: [],
             barberrows: [],
-            addressrows: []
+            addressrows: [],
         }
     }
 
@@ -121,15 +120,10 @@ class SearchPage extends Component {
 
                 <div id="wrapper">
 
-                    {/* Sidebar */}
-                    {/* <Sidebar keySearch={this.keySearch}/> */}
-
-                    {/* <!-- Main --> */}
                     <div id="main">
 
                         <div class="inner">
 
-                            {/* <!-- Content --> */}
                             <section>
                                 <div class="searchBox" style={{ marginTop: '1em' }}>
                                     <input
@@ -149,12 +143,9 @@ class SearchPage extends Component {
                                     </button>
                                 </div>
 
-                                {/* Topic */}
                                 <div class="topic" style={{ marginTop: '1.7em' }} >Search Result</div>
                                 <hr class="major" />
 
-                                {/* Body */}
-                                {/* <div style={{marginLeft:'2.5em'}}> */}
                                 {this.state.shoprows.map(item => (
                                     <div key={item.shopId} onClick={() => this.handleOnClick(item)}>
                                         <ShopItem_S shop_item={item} />
@@ -166,8 +157,6 @@ class SearchPage extends Component {
                                         <ShopItem_S shop_item={item} />
                                     </div>
                                 ))}  */}
-
-                                {/* </div> */}
                             </section>
                         </div>
                     </div>

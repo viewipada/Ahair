@@ -18,25 +18,28 @@ export default class ShopReviewItem extends Component {
 
     render() {
 
-        const { userId, userHandle, message, rate, shopId, createAt, imgUrl} = this.props.review
+        const { userId, userHandle, message, rate, shopId, createAt, imgUrl } = this.props.review
         return (
 
             // ShopReviewItem
-            <div style={{ textAlign: 'left', paddingLeft: '0', paddingTop: '1em' }}>
-                <h2 style={{ color: '#14a098' }}>{userHandle}</h2>
-                <p style={{ color: '#14a098'}}>{moment(createAt).format('LLL')}</p>
-                {/* <StarRate getStar={this.getStar} /> */}
-                <Rating icon='star' defaultRating={parseInt(rate, 10)} maxRating={5} disabled style={{ paddingLeft: '1.5em' }}/>
-                <p style={{ color: '#cb2c6f', padding: '1em 0 0 4em' }}>{message}</p>
+            <div className="sub_box_item5">
+                <div className="sub_box_item5" style={{ textAlign: 'left', paddingLeft: '0', paddingTop: '1em' }}>
+                    <h2 style={{ color: '#14a098' }}>{userHandle}</h2>
+                    <p style={{ color: '#14a098' }}>{moment(createAt).format('LLL')}</p>
+                    {/* <StarRate getStar={this.getStar} /> */}
+                    <div className="sub_box_item2" style={{ paddingLeft: '-2em' }}>
+                        <Rating icon='star' defaultRating={parseInt(rate, 10)} maxRating={5} disabled style={{ paddingLeft: '1.5em' }} />
+                    </div>
+                    <div className="breaking" style={{ marginRight: '2em', padding: '1em 2em 0 4em', width: '100%' }}>
 
-                <section>
+                        <p style={{ color: '#cb2c6f' }}>{message}</p>
+
+                    </div>
                     <div class="box_img_shopreview">
                         <div class="row_box"><img className="image_shop" src={imgUrl} alt="" /></div>
-                        <div class="row_box"><img className="image_shop" src={imgUrl} alt="" /></div>
-                        <div class="row_box"><img className="image_shop" src={imgUrl} alt="" /></div>
                     </div>
-                </section>
-            </div>
+                </div>
+            </div >
 
             // Lightbox
         );

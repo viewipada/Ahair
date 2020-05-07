@@ -120,7 +120,7 @@ class SignUpForShopTwo extends React.Component {
                                     
                                     <div className="wrap_profile_signup">
                                         <div className="image_upload">
-                                            <ImageUpload getFile={this.getFile} imagePreview={userImage} />
+                                            <img className="image_preview" alt="" src={userImage} />
                                         </div>
                                     </div>    
 

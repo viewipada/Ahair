@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import shopIcon from './pic/1.jpg';
+import {Link} from 'react-router-dom'
 import Sidebar from './Sidebar';
 import HairStyleItem from './HairStyleItem';
 import NavBar from './navbar'
@@ -14,12 +15,16 @@ class SelectHairStyle extends Component {
             total: 0,
             totalTime: 0,
             hairStyles: [],
-            hairstylesdata: this.props.shopStore.hairstylesdata
+            hairstylesdata: this.props.shopStore.hairstylesdata,
+            isSignin:false
         }
     }
 
     componentDidMount() {
         document.getElementById("myBtn").disabled = true
+        if(localStorage.getItem('username')){
+            this.setState({isSignin:true})
+        }
     }
 
     hairstyleChecked = event => {
@@ -70,6 +75,9 @@ class SelectHairStyle extends Component {
             this.props.history.push('/filltimetable')
         }
     }
+    createBooking = () => {
+        this.props.history.push('/signin')
+    }
 
     render() {
         return (
@@ -92,12 +100,12 @@ class SelectHairStyle extends Component {
 
                                 {/* Topic */}
                                 <div class="topic" style={{ marginTop: '0.4em', marginLeft: '-1em' }}>
-                                    <a href="/shop"><img class="shop_logo" src={shopIcon} /></a>
+                                    <a href="/shop"><img class="shop_logo" src={this.props.shopStore.shopdata.imgUrl} /></a>
                                     {this.props.shopStore.shopName}
                                 </div>
                                 <hr class="major" />
                                 <h1 style={{ color: '#cb2c6f' }}>Hair Style</h1>
-                                <div class="box_item2" style={{ border: '0', justifyContent: 'left' }}>
+                                <div class="box_item2" style={{ border: '0', justifyContent: 'left' ,pointerEvents: this.state.isSignin ? "visible":"none"}}>
 
                                     {/* Hair cut */}
                                     {/* <div class="sub_box_item2" style={{ width: '100%' }}> */}
@@ -117,9 +125,21 @@ class SelectHairStyle extends Component {
                                     </div>
                                 </div>
 
+                                <Link className="link" to="/shop">
+                                    <div>
+                                        <button className="login_button" type="reset">
+                                            Back
+                                        </button>
+                                    </div>
+                                </Link>
                                 <form className="container_next" onSubmit={this.handleSubmit} >
-                                    <button id="myBtn" className="login_button" type="submit" onClick={this.handleSubmit}>
+                                    <button id="myBtn" className="login_button" type="submit" onClick={this.handleSubmit}
+                                    style={{display: this.state.isSignin? "flex":"none"}}>
                                         Next
+                                    </button>
+                                    <button  className="login_button" type="submit" onClick={this.createBooking}
+                                    style={{display: this.state.isSignin? "none":"flex"}}>
+                                        Create Booking
                                     </button>
                                 </form>
 

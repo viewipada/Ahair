@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment/moment'
 import shopIcon from './pic/1.jpg'
-import Sidebar from './Sidebar'
 import NavBar from './navbar'
 import img1 from './pic/1.jpg'
 import { connect } from 'react-redux';
@@ -97,7 +96,7 @@ class SelectTimeShop extends Component {
     submit = () => {
         console.log("handleSubmitSelectTime :", this.state)
         this.props.admin(this.state)
-        this.props.history.push('/confirmbooking')
+        this.props.history.push('/confirmbookingshop')
     }
 
     render() {
@@ -134,7 +133,7 @@ class SelectTimeShop extends Component {
                                             <div class="row_box"><img className="image_shop" src={img1} alt="" /></div>
                                             {/* เขียว color: '#cb2c6f' */}
                                             <div class="sub_box_item2" style={{ paddingTop: '1.5em' }}>
-                                                <h3 style={{ color: '#cb2c6f' }}>{this.props.adminStore.barberName}</h3>
+                                                <h2 style={{ color: '#cb2c6f' }}>{this.props.adminStore.barberName}</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -184,7 +183,7 @@ class SelectTimeShop extends Component {
                         </div>
                     </div>
                 </div>
-            </body >
+            </body>
         );
     }
 }
