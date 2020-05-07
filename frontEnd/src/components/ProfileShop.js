@@ -24,6 +24,7 @@ class ProfileShop extends React.Component {
     componentDidMount(){
         axios.get('https://us-central1-g10ahair.cloudfunctions.net/api/Ashop',{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
         .then(res => {
+            console.log(res.data.credentials)
             this.setState({
                 posts: res.data.credentials,
                 isSignin : true

@@ -6,9 +6,9 @@ class MultipleImageUpload extends React.Component {
     constructor(){
         super();
         this.state = {
-            imageFile: [],
-            imagePreview: [],
-            imageUrl: [],
+            imageFile: "",
+            imagePreview: "",
+            imageUrl: "",
             isSaved: false
         }
         // this.deleteImage = this.deleteImage.bind(this)
@@ -36,7 +36,7 @@ class MultipleImageUpload extends React.Component {
             this.props.getFile(this.state.imageFile, this.state.imagePreview, this.state.imageUrl )
         }
 
-        formData.append('imgUrl',this.state.imageFile)
+        formData.append('imgUrlDetails',this.state.imageFile)
         axios.post('https://us-central1-g10ahair.cloudfunctions.net/api/user/shopDetails/image',formData,{headers: {'Authorization':'Bearer ' + localStorage.getItem('token')}})
         .then(res => {
             console.log(res)
@@ -52,12 +52,12 @@ class MultipleImageUpload extends React.Component {
         let reader = new FileReader();
         let file = event.target.files[0];
         
+
         reader.onloadend = () => {
-            this.setState((prevState) => ({ 
-                imageFile: prevState.imageFile.concat(file), 
-                imagePreview: prevState.imagePreview.concat(reader.result),
-                imageUrl: prevState.imageUrl.concat(URL.createObjectURL(file))
-            }));
+            this.setState({
+                imageFile: file, imagePreview: reader.result, imageUrl: URL.createObjectURL(file)
+            });
+            
         }
         this.setState({ isSaved: true })
         if (file && file.type.match('image.*')) {
@@ -71,7 +71,12 @@ class MultipleImageUpload extends React.Component {
             <div className = "container_mutiplefile">
                 
                 <div className = "wrap_multipreview">
-                    {(this.state.imagePreview || []).map(file => (
+                    <img 
+                        className = "multiple_image_preview"
+                        alt = ""
+                        src = {this.state.imagePreview? this.state.imagePreview : this.props.imagePreview }
+                    />
+                    {/* {(this.state.imagePreview || []).map(file => (
                         <img 
                             className = "multiple_image_preview"
                             src = {file} 
@@ -79,7 +84,7 @@ class MultipleImageUpload extends React.Component {
                             key = {file.toString()}
                             // onClick = {this.deleteImage}
                         />
-                    ))}
+                    ))} */}
                 </div>
 
                 <form className="input_image_box" onSubmit={this.handleSubmit}>
