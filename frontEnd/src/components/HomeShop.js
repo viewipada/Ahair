@@ -98,8 +98,8 @@ class HomeShop extends Component {
 
                                 <div style={{display : this.state.hadData ? "block":"none"}}>
                                     {/* image ร้าน*/}
-                                    <div style={{display: this.state.shopdata.imgUrl === [] ? "flex":"none"}}>
-                                        <ShopImgItem item={this.state.shopdata} /> 
+                                    <div style={{display: this.state.shopdata.imgUrlDetails === "" ? "flex":"none"}}>
+                                        <ShopImgItem item={this.state.shopdata.imgUrlDetails} /> 
                                     </div>
 
                                     {/* information */}
