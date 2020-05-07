@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import Axios from 'axios'
 import ShopReviewItem from './ShopReviewItem'
-import Sidebar from './Sidebar'
-import shopIcon from './pic/1.jpg'
-import NavBar from './NavBarShop'
+import NavBar from './navbar'
+import { Link } from 'react-router-dom'
 import { Shop_7 } from '../redux/index'
 import { connect } from 'react-redux';
 
@@ -11,13 +10,9 @@ class ShopReview extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { 
-            reviewrows: [] 
+        this.state = {
+            reviewrows: []
         }
-    }
-
-    toShop=()=>{
-        this.props.history.push('/shop')
     }
 
     componentDidMount() {
@@ -39,7 +34,7 @@ class ShopReview extends Component {
                 })
                 this.setState({ reviewrows: dataArray });
             }
-            console.log("state: ",this.state)
+            console.log("state: ", this.state)
         })
     }
 
@@ -48,15 +43,11 @@ class ShopReview extends Component {
         return (
             <body class="is-preload">
                 {/* <!-- Wrapper --> */}
-                
-                <NavBar/>
-                
+
+                <NavBar />
+
                 <div id="wrapper">
 
-                    {/* Sidebar */}
-                    {/* <Sidebar /> */}
-
-                    {/* <!-- Main --> */}
                     <div id="main">
 
                         {/* <!-- Content --> */}
@@ -64,16 +55,29 @@ class ShopReview extends Component {
                             <section>
 
                                 {/* Topic */}
-                                <div class="topic" style={{ marginTop: '0.4em', marginLeft: '-1em' }}>
-                                    <img onClick={()=>{this.toShop()}}class="shop_logo" src={this.props.shopStore.shopdata.imgUrl}/>
-                                    Review
-                                </div>
-                                <hr class="major" />
 
+                                <div className="title">
+                                    <h1 style={{ color: "#CB2D6F", fontSize: "30px" }}>
+                                        <img class="shop_logo" src={this.props.shopStore.shopdata.imgUrl} />
+                                        Review
+                                    </h1>
+                                </div>
+                                
                                 {/* Body */}
                                 {this.state.reviewrows.map(item => (
                                     <ShopReviewItem key={item.userId} review={item} />
                                 ))}
+
+                                <div className="review_box" style={{margin: '1em 0 0 0'}}>
+
+                                    <Link className="link" to="/shop" style={{ textAlign: 'center' }}>
+                                        <div>
+                                            <button className="login_button" type="reset">
+                                                Back
+                                        </button>
+                                        </div>
+                                    </Link>
+                                </div>
 
                             </section>
                         </div>

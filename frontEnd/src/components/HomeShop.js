@@ -17,6 +17,7 @@ class HomeShop extends Component {
         super(props)
 
         this.state = {
+            shopId:"",
             barberName: "",
             barberId: "",
             shopdata: [],
@@ -26,7 +27,8 @@ class HomeShop extends Component {
     }
 
     componentDidMount() {
-        // this.getShopData(this.props.adminStore.shopName)
+        // this.getShopData("ไทน์ คนชิคชิค")
+        this.getShopData()
     }
 
     getShopData = (keyword) => {
@@ -34,7 +36,6 @@ class HomeShop extends Component {
         var dataArray = []
         var barberurl = "https://us-central1-g10ahair.cloudfunctions.net/api/barber/" + localStorage.getItem('shopname');
         Axios.get(barberurl).then(result => {
-            console.log("local: ",localStorage.data)
             console.log("GetAxios: ",result.data)
             this.setState({ shopdata: result.data });
             result.data.barber.forEach(item => {
@@ -54,7 +55,8 @@ class HomeShop extends Component {
         console.log("barber: ", this.state.barberdata)
         this.setState({
             barberName: item.barberName,
-            barberId: item.barberId
+            barberId: item.barberId,
+            shopId: this.state.shopdata.shopId
         }, () => {
             this.submit()
         }

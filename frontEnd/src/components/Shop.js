@@ -20,7 +20,7 @@ class Shop extends Component {
             shopdata: [],
             barberdata: [],
             hairstylesdata: [],
-            hairstylesstore: []
+            hairstylesstore: [],
         }
     }
 
@@ -44,6 +44,7 @@ class Shop extends Component {
                 })
                 this.setState({ barberdata: dataArray });
             }
+            console.log(this.data)
         })
     }
 
@@ -105,7 +106,7 @@ class Shop extends Component {
         this.getHairStyle(this.props.shopStore.shopName)
     }
 
-    toReview= ()=>{
+    toReview = () => {
         this.props.shop(this.state)
         this.props.history.push('/shopreview')
     }
@@ -116,20 +117,10 @@ class Shop extends Component {
 
                 <NavBar />
 
-                {/* <!-- Wrapper --> */}
                 <div id="wrapper">
-
-                    {/* Sidebar */}
-                    {/* <Sidebar /> */}
-
-                    {/* <!-- Main --> */}
                     <div id="main">
-
-                        {/* <!-- Content --> */}
                         <div class="inner">
                             <section>
-
-                                {/* Topic */}
                                 <div className="title">
                                     <h1 style={{ color: "#CB2D6F", fontSize: "30px" }}>
                                         <img class="shop_logo" src={this.state.shopdata.imgUrl} />
@@ -137,22 +128,22 @@ class Shop extends Component {
                                     </h1>
                                 </div>
 
-                                {/* image */}
-                                <div style={{ display: this.state.shopdata.imgUrl === [] ? "flex" : "none" }}>
+                                <div style={{ display: this.state.shopdata.imgUrlDetails === true ? "flex" : "none" }}>
                                     <ShopImgItem item={this.state.shopdata.imgUrl} />
                                 </div>
 
-                                {/* information */}
                                 <div class="box_item2" style={{ border: '0' }}>
                                     <div class="sub_box_item">
                                         <h2 style={{ color: '#cb2c6f' }}>Contact</h2>
                                         <p style={{ color: '#14a098' }}>Tel. {this.state.shopdata.phoneNum}</p>
                                         <p style={{ color: '#14a098' }}>Email.{this.state.shopdata.email}</p>
                                     </div>
-                                    <div onClick={()=>{this.toReview()}} class="sub_box_item">
+                                    <div onClick={() => { this.toReview() }} class="sub_box_item">
                                         <h2 style={{ color: '#cb2c6f' }}>Review</h2>
-                                        <div className="description" style={{ color: 'goldenrod' }}>
-                                            Rate <Rating defaultRating={this.state.shopdata.averageRate} maxRating={5} disabled icon='star' /> ({this.state.shopdata.averageRate + 0})
+                                        <div className="sub_box_item5">
+                                            <div className="description" style={{ color: 'goldenrod' }}>
+                                                Rate <Rating defaultRating={parseInt(this.state.shopdata.averageRate,10)} maxRating={5} disabled icon='star' /> ({this.state.shopdata.averageRate + 0})
+                                        </div>
                                         </div>
                                     </div>
                                     <div class="sub_box_item">
@@ -168,6 +159,7 @@ class Shop extends Component {
                                         <HairdresserItem barber_item={item} />
                                     </a>
                                 ))}
+
                                 {/* {this.state.hairstylesdata.map(item => (
                                     <div key={item.hairId} className="checkbox_info" style={{ display: "inline-flex", flexWrap: "wrap" }}>
                                         <input

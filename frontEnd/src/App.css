@@ -1519,6 +1519,7 @@ button[type='signIn_2']:hover {
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
+  border: 0;
   width: 60px;
   height: 60px;
 }
@@ -1552,11 +1553,29 @@ button[type='signIn_2']:hover {
   border-radius: 20px;
 }
 
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 15px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.breaking{    
+  width:500px;
+  word-wrap: break-word;
+}
+
 .review_box {
   display:flex; 
   width:100%;
   flex-wrap:wrap;
-
+  justify-content: center;
 }
 
 .box_item {

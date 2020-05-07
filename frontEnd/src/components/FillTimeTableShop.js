@@ -12,8 +12,6 @@ class FillTimeTableShop extends Component {
         this.state = {
             today: moment(new Date()).format('L'),
             tomorrow: moment(new Date().setDate(new Date().getDate()+1)).format('L'),
-            // today: "22/05/2020",
-            // tomorrow: "27/05/2020",
             bookingdata: [],
             timetableProps: {
                 events: {
@@ -49,7 +47,6 @@ class FillTimeTableShop extends Component {
         this.getBooking(this.props.adminStore.barberName)
         // console.log("TomorrowDate",moment(new Date().setDate(new Date().getDate()+1)).format('L'))
         // console.log("test: ",moment(this.props.shopStore.shopdata.openTime).hour(),moment(this.props.shopStore.shopdata.closeTime).hour())
-        // this.getBooking('idea')
     }
 
     getBooking = (keyword) => {
