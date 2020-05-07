@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import Navbar from './NavBarShop'
 import axios from 'axios'
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class notice_Cus extends Component {
     constructor(props) {
@@ -43,6 +47,38 @@ class notice_Cus extends Component {
         }
     }
 
+    handleCancle (bookid) {
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div className='custom-ui'>
+                        <h1 style={{ color: 'white', textAlign: 'center' }}>Are you sure to CANCEL this Booking?</h1>
+                        <button className='confirmBT' onClick={() => { this.delBook(bookid); onClose(); }}>Yes</button>
+                        <button
+                            className='confirmBT'
+                            onClick={() => {
+                                onClose();
+                            }}
+                        >
+                            No
+                      </button>
+                    </div>
+                );
+            }
+        });
+    }
+    delBook = (bookid) => {
+        axios.delete(`https://us-central1-g10ahair.cloudfunctions.net/api/bookingfromshop/${bookid}`, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } })
+            .then(res => {
+                console.log(res.status)
+                this.props.push.history('/noticeforshop')
+            })
+            .catch(err => {
+                console.log(err.response)
+            })
+    }
+    
+
     render() {
         return (
             <div>
@@ -70,7 +106,6 @@ class notice_Cus extends Component {
                                 this.state.noticecontent &&
                                 this.state.noticecontent.map((data) => {
                                     return (
-
                                         <div key={data.bookingId}>
                                             {
                                                 (data.done && !data.reviewedFromShop) ?
@@ -101,7 +136,7 @@ class notice_Cus extends Component {
                                                     :
                                                     (null)
                                             }
-                                            < button className='NoticeContent' onClick={() => this.onclickBooking(data.bookingId)}>
+                                            < button className='NoticeContent' onClick={() => data.username?this.onclickBooking(data.bookingId):this.handleCancle(data.bookingId)}>
                                                 <p style={{ margin: '10px 0px 0px 20px', fontSize: '20px' }}>
                                                     <i className={data.done ? 'check icon' : 'bookmark icon'}></i>{data.done ? 'Booking Done!' : 'New Booking'}</p>
                                                 <p
@@ -110,7 +145,7 @@ class notice_Cus extends Component {
                                                         fontSize: '15px',
                                                         color: 'white',
                                                     }}>
-                                                    username : {data.username}
+                                                    {data.username?('username : '+ data.username):'Booking by ADMIN'}
                                                 </p>
                                                 <p
                                                     style={{
@@ -122,9 +157,9 @@ class notice_Cus extends Component {
                                                 </p>
                                                 <p style={{ marginLeft: '20px', color: "white", fontSize: '10px', marginBottom: '20px' }}>
                                                     <i className="hand point right outline icon" style={{ color: 'white' }}></i>
-                                                    click for more information</p>
+                                                    {data.username?'click for more information':'click for CANCLE this Booking'}</p>
                                             </button>
-
+                    
                                         </div>
                                     );
                                 })

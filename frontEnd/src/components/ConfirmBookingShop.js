@@ -21,6 +21,7 @@ class ConfirmBookingShop extends Component {
             bookingData: [],
             isElapes: '',
             isEqual: false,
+            isSame:false,
         };
     }
     componentDidMount() {
@@ -38,18 +39,35 @@ class ConfirmBookingShop extends Component {
         const bookDate = this.props.adminStore.date
         const startTime = moment(this.props.adminStore.startTime)
         const stopTime = moment(this.props.adminStore.stopTime)
-        const open = moment(this.props.adminStore.shopdata.openTime)
-        const close = moment(this.props.adminStore.shopdata.closeTime)
-        // if()
-        if (open.hour() >= 12 && close.hour() <= 12) {
-            close.add(1, "days");       // handle spanning days
+        const open = moment(this.props.shopStore.shopdata.openTime).format('kk:mm').split(':')
+        const close = moment(this.props.shopStore.shopdata.closeTime).format('kk:mm').split(':')
+        const startTimeT = moment(this.props.shopStore.startTime).format('kk:mm').split(':')
+        const stopTimeT = moment(this.props.shopStore.stopTime).format('kk:mm').split(':')
+        const startTimes=[]
+        const stopTimes=[]
+        const opens=[]
+        const closes=[]
+        open.forEach(data=>{
+            opens.push(parseInt(data))
+        })
+        close.forEach(data=>{
+            closes.push(parseInt(data))
+        })
+        stopTimeT.forEach(data=>{
+            stopTimes.push(parseInt(data))
+        })
+        startTimeT.forEach(data=>{
+            startTimes.push(parseInt(data))
+        })
+
+        if((startTimes[0]>=opens[0]&&startTimes[0]<=closes[0]&&stopTimes[0]<=closes[0]&&stopTimes[0]<=closes[0])){
+            if((startTimes[1]<=opens[1]||stopTimes[1]<=opens[1])&&(startTimes[1]<=closes[1]||stopTimes[1]<=closes[1])){
+            console.log('hereeeeeeeee')
+
+                this.setState({isSame:true})
+            }
         }
-        const startisBetween = startTime.isBetween(open, close);
-        const stopisBetween = stopTime.isBetween(open, close);
-        if ((!startTime.isBefore(open) && !startTime.isAfter(open)) || (!stopTime.isBefore(close) && !stopTime.isAfter(close))) {
-            this.setState({ isEqual: true });
-        }
-        if ((startisBetween && stopisBetween) || (startisBetween && this.state.isEqual) || (stopisBetween && this.state.isEqual) || (startTime != stopTime)) {
+        if (this.state.isSame) {
             console.log(this.state.bookingData)
             this.state.bookingData.forEach(booking => {
                 console.log('sas')
