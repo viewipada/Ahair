@@ -77,7 +77,8 @@ class BookingInfo_Cus extends Component {
         }
         
         console.log('isSame',this.state.isSame)
-        if (this.state.isSame) {
+        //if((moment().isBetween(startTime)&&moment().isAfter(startTime))||())
+        if (this.state.isSame ) {
             this.state.bookingData.forEach(booking => {
                 console.log('sas')
                 if (booking.date === bookDate) {
