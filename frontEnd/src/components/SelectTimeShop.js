@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment/moment'
 import shopIcon from './pic/1.jpg'
-import NavBar from './navbar'
+import NavBar from './NavBarShop'
 import img1 from './pic/1.jpg'
 import { connect } from 'react-redux';
 import { Admin_3 } from '../redux/index'

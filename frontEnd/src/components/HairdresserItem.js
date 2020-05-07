@@ -10,7 +10,7 @@ export default class HairdresserItem extends Component {
 
     render() {
 
-        const { barberId, barberName, phoneNum } = this.props.barber_item
+        const { barberId, barberName, phoneNum,imgUrl } = this.props.barber_item
         return (
 
             // ShopItem
@@ -23,7 +23,7 @@ export default class HairdresserItem extends Component {
                             className = "image_preview"
                             alt = ""
                             id = "profile"
-                            src = {userIcon }           
+                            src = {imgUrl}           
                         />
                     </div>
                 {/* </div> */}

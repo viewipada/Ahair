@@ -140,11 +140,12 @@ class Shop extends Component {
                                     </div>
                                     <div onClick={() => { this.toReview() }} class="sub_box_item">
                                         <h2 style={{ color: '#cb2c6f' }}>Review</h2>
-                                        <div className="sub_box_item5">
+                                        <p style={{ color: '#14a098' }}>Average Rate : {this.state.shopdata.averageRate}</p>
+                                        {/* <div className="sub_box_item5">
                                             <div className="description" style={{ color: 'goldenrod' }}>
                                                 Rate <Rating defaultRating={parseInt(this.state.shopdata.averageRate,10)} maxRating={5} disabled icon='star' /> ({this.state.shopdata.averageRate + 0})
                                         </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                     <div class="sub_box_item">
                                         <h2 style={{ color: '#cb2c6f' }}>Location</h2>
